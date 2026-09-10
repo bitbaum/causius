@@ -1,0 +1,84 @@
+name: CI
+
+# WHY THIS FILE EXISTS, AND WHY IT IS NOT OPTIONAL
+#
+# fleetcrown's ci-gate.sh treats "CI green" and "no CI at all" identically —
+# both exit 0 and let the deploy proceed. That is a sane default for a repo
+# that has not set CI up yet, and it means a site WITHOUT this file deploys
+# every push completely unverified while looking exactly like one that passed.
+#
+# Substrata shipped to production that way. So the scaffold emits this file with
+# every new site: the gate has something real to wait for from the first commit.
+#
+# Runs the same bundle as `pnpm run verify` locally — one definition of verified.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+# A newer push supersedes an older run. ci-gate.sh understands cancelled-and-
+# superseded as a clean skip rather than a failure.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      # pnpm BEFORE setup-node: `cache: pnpm` needs the binary to resolve the
+      # store path, and setup-node fails outright if pnpm is not on PATH yet.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: pnpm
+
+      # pnpm, not npm: the box deploys with `pnpm run build`, and this template
+      # previously scaffolded an npm CI over a repo that had no package-lock.json
+      # — so `npm ci` could never succeed and a new site's CI was red or absent
+      # from its first commit. .nvmrc is pinned to 22 for the same reason: pnpm 11
+      # imports node:sqlite, which does not exist before Node 22.13.
+      - run: pnpm install --frozen-lockfile
+
+      # Next keeps its compiler output in .next/cache, and this job BUILDS. With
+      # nothing restoring it, every run of every scaffolded site recompiles from
+      # scratch — and the deploy then compiles a second time.
+      #
+      # This file is the third copy of the golden CI floor. The other two live in
+      # fleet/templates/ci/, and they gained this step on 2026-09-07 when a fleet
+      # sweep found 14 of 32 repos building cold. This one is the copy the
+      # scaffold ACTUALLY uses, so it was the one that mattered and the one that
+      # was missed — every site created between then and now started cold by
+      # construction. Held fleet-wide by fleet's cicd-hygiene-audit.sh, but that
+      # ratchet can only flag a repo after it exists; a template fixes it before.
+      #
+      # Keyed on the lockfile so a dependency change invalidates it. The bare
+      # restore-key is last on purpose: a stale cache still beats no cache, and
+      # Next validates its own entries rather than trusting them.
+      - name: Cache Next.js build
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+            nextjs-${{ runner.os }}-
+
+      - name: Type check
+        run: pnpm run type-check
+
+      - name: Lint
+        run: pnpm run lint
+
+      # The build is the real test for a content site: a broken import or a bad
+      # config surfaces here and nowhere earlier.
+      - name: Build
+        run: pnpm run build
