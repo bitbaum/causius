@@ -2,7 +2,7 @@ name: CI
 
 # WHY THIS FILE EXISTS, AND WHY IT IS NOT OPTIONAL
 #
-# fleetcrown's ci-gate.sh treats "CI green" and "no CI at all" identically —
+# loki's ci-gate.sh treats "CI green" and "no CI at all" identically —
 # both exit 0 and let the deploy proceed. That is a sane default for a repo
 # that has not set CI up yet, and it means a site WITHOUT this file deploys
 # every push completely unverified while looking exactly like one that passed.
