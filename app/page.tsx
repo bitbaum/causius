@@ -50,7 +50,7 @@ const hasWidget = Boolean(process.env.NEXT_PUBLIC_FC_WIDGET_TOKEN);
 const RECEIPTS = [
   ["Host", "causius.orangecat.ch"],
   ["Repository", "github.com/bitbaum/causius"],
-  ["Pipeline", "tested on every change, deployed on merge"],
+  ["Pipeline", "type-checked, linted and built on every change, deployed on merge"],
   ["Certificate", "issued and renewed automatically"],
 ];
 
