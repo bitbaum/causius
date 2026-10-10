@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { btnPrimary, card, eyebrow, link, shell } from "@/components/ui";
+import { EXTERNAL, ROUTES } from "@/lib/routes";
 
 export const metadata: Metadata = {
   title: "Helpers",
@@ -8,22 +9,21 @@ export const metadata: Metadata = {
     "The Causius marketplace: legal assistants who help with paperwork, and licensed lawyers who can advise and represent you.",
 };
 
-const REPO = "https://github.com/bitbaum/causius";
-const applyHref = (role: string) =>
-  `${REPO}/issues/new?title=${encodeURIComponent(`Helper application: ${role}`)}&body=${encodeURIComponent(
-    "Role: " +
-      role +
-      "\nJurisdictions:\nAreas of law:\nLanguages:\nHow you want to be listed (name or pseudonym):\n\nDo not post identity documents here. Verification happens privately.",
-  )}`;
-
 /**
  * NOBODY IS LISTED HERE YET, AND THE PAGE SAYS SO.
  *
  * The earlier Lex demo in Botsmann filled this space with invented lawyers,
  * ratings and response times. For a demo that reads as "illustrative"; on a
  * live legal site it reads as real people who can be hired, and a person with a
- * deadline will try. So: the rules, the roles and an application link — and
+ * deadline will try. So: the rules, the roles and where to list yourself — and
  * profiles only when there are real ones.
+ *
+ * WHERE A HELPER LIVES. Fleet STACK.md, "Identity": if an app needs profiles,
+ * payments or a public presence, those live at OrangeCat, and rebuilding them
+ * here is the same mistake in a different repo. A helper is an OrangeCat actor
+ * offering a service; they are paid there, in Bitcoin, by the person they
+ * helped. What Causius adds on top — the label, and checking a lawyer's
+ * admission — is not built yet, and the page says that too.
  */
 const ROLES = [
   {
@@ -37,7 +37,7 @@ const ROLES = [
     ],
     doesNot: "Does not give legal advice, take a position on your case, or represent you.",
     checks:
-      "Reputation is earned on the platform: completed cases and the client's own confirmation that the work was done. A pseudonym keeps the same history, so it cannot be shed.",
+      "Planned: reputation earned on completed cases, confirmed by the person who was helped. A pseudonym keeps its history, so it cannot be shed.",
   },
   {
     key: "lawyer",
@@ -50,7 +50,7 @@ const ROLES = [
     ],
     doesNot: "Only for the jurisdictions they are admitted in, shown on their profile.",
     checks:
-      "Admission is checked against the public bar register of each jurisdiction before the profile is listed, and re-checked.",
+      "Planned: admission checked against the public bar register of each jurisdiction before a profile carries this label, and re-checked.",
   },
 ];
 
@@ -88,15 +88,14 @@ export default function HelpersPage() {
       <div className="mt-8 rounded-card border border-accent-fg px-5 py-4">
         <p className="font-medium">No helpers are listed yet.</p>
         <p className="mt-1 max-w-prose text-sm leading-relaxed text-fg-secondary">
-          The marketplace is open for applications and has not started matching. Until it has, use
-          the case file with a lawyer or advice centre you find yourself: it is made to be handed
-          over.
+          Causius does not match or verify anyone yet. Until it does, use the case file with a
+          lawyer or advice centre you find yourself: it is made to be handed over.
         </p>
       </div>
 
       <div className="mt-10 grid gap-5 lg:grid-cols-2">
         {ROLES.map((r) => (
-          <article key={r.key} className={`${card} flex flex-col sm:p-8`}>
+          <article key={r.key} className={`${card} sm:p-8`}>
             <h2 className="font-heading text-2xl font-semibold">{r.name}</h2>
             <p className="mt-1 font-mono text-xs uppercase tracking-caps text-fg-muted">
               Listed under: {r.identity}
@@ -110,14 +109,27 @@ export default function HelpersPage() {
             <p className="mt-4 border-t border-border-subtle pt-4 text-sm leading-relaxed text-fg-secondary">
               {r.checks}
             </p>
-            <p className="mt-6 flex-1 content-end">
-              <a href={applyHref(r.name)} className={link}>
-                Apply as a {r.name.toLowerCase()}
-              </a>
-            </p>
           </article>
         ))}
       </div>
+
+      <section className={`${card} mt-5 sm:p-8`}>
+        <h2 className="font-heading text-2xl font-semibold">Want to help?</h2>
+        <p className="mt-3 max-w-prose text-sm leading-relaxed text-fg-secondary">
+          Helpers are not Causius accounts. You offer your help as a service on OrangeCat, under
+          your name or a pseudonym, and are paid there directly by the person you helped. You can
+          list a service today. Causius does not yet pull those listings in, label them or check a
+          lawyer&rsquo;s admission; that is the next thing on the roadmap.
+        </p>
+        <p className="mt-5 flex flex-wrap gap-x-8 gap-y-2">
+          <a href={EXTERNAL.orangecatOfferService} className={`${link} inline-flex min-h-11 items-center`}>
+            Offer a service on OrangeCat
+          </a>
+          <Link href={ROUTES.roadmap} className={`${link} inline-flex min-h-11 items-center`}>
+            See the roadmap
+          </Link>
+        </p>
+      </section>
 
       <section className="mt-16">
         <h2 className="font-heading text-3xl font-semibold tracking-display">The rules</h2>
@@ -132,7 +144,7 @@ export default function HelpersPage() {
       </section>
 
       <p className="mt-14">
-        <Link href="/cases/new" className={btnPrimary}>
+        <Link href={ROUTES.newCase} className={btnPrimary}>
           Start a case <span aria-hidden="true">&rarr;</span>
         </Link>
       </p>

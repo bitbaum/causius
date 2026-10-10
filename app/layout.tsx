@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import { SiteNav } from "@/components/SiteNav";
 import { shell } from "@/components/ui";
+import { loadFleetPresence } from "@/lib/fleet";
+import { EXTERNAL, ROUTES } from "@/lib/routes";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -12,53 +15,66 @@ export const metadata: Metadata = {
   openGraph: { siteName: "Causius", type: "website" },
 };
 
-const NAV = [
-  { href: "/cases", label: "My cases" },
-  { href: "/helpers", label: "Helpers" },
-];
+const footerLink =
+  "inline-flex min-h-11 items-center text-fg-secondary underline decoration-border-subtle underline-offset-4 hover:text-fg-primary";
 
 /**
  * Deliberately bare: no analytics, no third-party script, no structured data
  * belonging to anyone else. Everything that renders here belongs to this site.
  */
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Which planes this product is actually on. A link is rendered only when the
+  // fleet map reports the profile exists — see lib/fleet.ts.
+  const { orangecatUrl, solonUrl } = await loadFleetPresence();
+
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col">
         <header className="border-b border-border-subtle">
-          <div className={`${shell} flex flex-wrap items-center justify-between gap-x-6 gap-y-2 py-4`}>
-            <Link href="/" className="font-heading text-xl font-semibold tracking-display">
+          <div className={`${shell} flex flex-wrap items-center justify-between gap-x-6 py-2`}>
+            <Link
+              href={ROUTES.home}
+              className="inline-flex min-h-11 items-center gap-2.5 font-heading text-xl font-semibold tracking-display"
+            >
               Causius
+              {/* Fleet AGENTS.md: nothing is "Live". Served and unfinished says so. */}
+              <span className="rounded-card border border-border-subtle px-1.5 py-0.5 font-mono text-[0.625rem] font-normal uppercase tracking-caps text-fg-secondary">
+                Beta
+              </span>
             </Link>
-            <nav aria-label="Main" className="flex items-center gap-5 text-sm">
-              {NAV.map((n) => (
-                <Link key={n.href} href={n.href} className="text-fg-secondary hover:text-fg-primary">
-                  {n.label}
-                </Link>
-              ))}
-              <Link
-                href="/cases/new"
-                className="rounded-card bg-accent px-3.5 py-2 font-medium text-accent-contrast hover:opacity-85"
-              >
-                New case
-              </Link>
-            </nav>
+            <SiteNav />
           </div>
         </header>
 
         <div className="flex-1">{children}</div>
 
         <footer className="mt-20 border-t border-border-subtle">
-          <div className={`${shell} grid gap-4 py-8 text-sm text-fg-secondary sm:grid-cols-[1fr_auto]`}>
+          <div className={`${shell} grid gap-6 py-8 text-sm text-fg-secondary`}>
             <p className="max-w-prose">
-              Causius AI gives legal information, not legal advice. Only a lawyer licensed where your
-              case is may advise you on it or represent you.
+              Beta: running, not released. Causius AI gives legal information, not legal advice. Only
+              a lawyer licensed where your case is may advise you on it or represent you.
             </p>
-            <p className="font-mono text-xs text-fg-muted">
-              <a href="https://github.com/bitbaum/causius" className="hover:text-fg-primary">
-                github.com/bitbaum/causius
+            <nav aria-label="About Causius" className="flex flex-wrap gap-x-6">
+              <Link href={ROUTES.roadmap} className={footerLink}>
+                Roadmap
+              </Link>
+              <Link href={ROUTES.changelog} className={footerLink}>
+                Changelog
+              </Link>
+              {orangecatUrl && (
+                <a href={orangecatUrl} className={footerLink}>
+                  Fund it on OrangeCat
+                </a>
+              )}
+              {solonUrl && (
+                <a href={solonUrl} className={footerLink}>
+                  How it is governed, on Solon
+                </a>
+              )}
+              <a href={EXTERNAL.repo} className={footerLink}>
+                Source
               </a>
-            </p>
+            </nav>
           </div>
         </footer>
 

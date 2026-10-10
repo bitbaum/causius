@@ -1,5 +1,6 @@
 "use client";
 
+import { ROUTES } from "@/lib/routes";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -21,7 +22,7 @@ export default function CasesPage() {
       const parsed = parseCase(JSON.parse(await file.text()));
       if (!parsed) throw new Error("not a case");
       saveCase(parsed);
-      router.push(`/cases/${parsed.id}`);
+      router.push(ROUTES.caseById(parsed.id));
     } catch {
       setError("That file is not a Causius case file.");
     }
@@ -47,7 +48,7 @@ export default function CasesPage() {
               }}
             />
           </label>
-          <Link href="/cases/new" className={btnPrimary}>
+          <Link href={ROUTES.newCase} className={btnPrimary}>
             New case
           </Link>
         </div>
@@ -66,7 +67,7 @@ export default function CasesPage() {
             Start with a letter you need to answer, or look at a worked example first.
           </p>
           <p className="mt-5">
-            <Link href="/cases/sample" className={link}>
+            <Link href={ROUTES.sampleCase} className={link}>
               See the worked example
             </Link>
           </p>
@@ -80,7 +81,7 @@ export default function CasesPage() {
           return (
             <li key={c.id}>
               <Link
-                href={`/cases/${c.id}`}
+                href={ROUTES.caseById(c.id)}
                 className={`${card} grid gap-2 transition-colors hover:border-fg-muted sm:grid-cols-[1fr_auto] sm:items-center`}
               >
                 <span>

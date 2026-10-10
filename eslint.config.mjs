@@ -9,6 +9,13 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    // ESLint 10 removed the legacy `context.getFilename()` that
+    // eslint-plugin-react's version-`detect` codepath still calls. Pin an
+    // explicit React version so `detect` never runs. Same fix as Solon and
+    // Loki; keep the number in step with `react` in package.json.
+    settings: { react: { version: "19.2.4" } },
+  },
   globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
 ]);
 

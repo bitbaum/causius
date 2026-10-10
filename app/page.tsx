@@ -1,5 +1,7 @@
+import { ROUTES } from "@/lib/routes";
 import Link from "next/link";
 import { btnPrimary, card, eyebrow, link, shell } from "@/components/ui";
+import { loadFleetPresence } from "@/lib/fleet";
 
 /**
  * The front page. It replaces the day-zero placeholder.
@@ -45,7 +47,20 @@ const TIERS = [
   },
 ];
 
-export default function Home() {
+/** The order a reader is owed it in: what hurts, what we built, why, where it goes. */
+const IDENTITY = [
+  ["problem", "The problem"],
+  ["solution", "What Causius does about it"],
+  ["mission", "Mission"],
+  ["vision", "Vision"],
+] as const;
+
+export default async function Home() {
+  // Rendered from the Loki project profile, never authored here (fleet
+  // AGENTS.md, "The identity contract"). An empty field renders nothing.
+  const { identity } = await loadFleetPresence();
+  const stated = IDENTITY.filter(([key]) => identity[key]);
+
   return (
     <main>
       <section className={`${shell} py-16 sm:py-24`}>
@@ -59,10 +74,10 @@ export default function Home() {
           person to help when a person is what you need.
         </p>
         <div className="mt-9 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8">
-          <Link href="/cases/new" className={btnPrimary}>
+          <Link href={ROUTES.newCase} className={btnPrimary}>
             Start a case <span aria-hidden="true">&rarr;</span>
           </Link>
-          <Link href="/cases/sample" className={link}>
+          <Link href={ROUTES.sampleCase} className={link}>
             See a worked example
           </Link>
         </div>
@@ -100,19 +115,33 @@ export default function Home() {
           ))}
         </div>
         <p className="mt-8">
-          <Link href="/helpers" className={link}>
+          <Link href={ROUTES.helpers} className={link}>
             How the marketplace works, and how to join it
           </Link>
         </p>
       </section>
+
+      {stated.length > 0 && (
+        <section className="border-t border-border-subtle">
+          <dl className={`${shell} grid gap-x-12 gap-y-10 py-16 sm:grid-cols-2`}>
+            {stated.map(([key, label]) => (
+              <div key={key}>
+                <dt className={eyebrow}>{label}</dt>
+                <dd className="mt-3 max-w-prose leading-relaxed">{identity[key]}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
 
       <section className={`${shell} pb-4`}>
         <div className={`${card} sm:p-8`}>
           <h2 className="font-heading text-2xl font-semibold">Your case stays with you</h2>
           <p className="mt-3 max-w-prose text-sm leading-relaxed text-fg-secondary">
             This version has no accounts. A case is kept in your browser, on your device, and nowhere
-            else. A letter you submit for analysis is sent to the AI provider (Anthropic) to be read and is not
-            stored by Causius. You can export a case as a file, hand it to a helper, and delete it.
+            else. A letter you submit for analysis is sent to an AI model provider to be read and
+            is not stored by Causius. You can export a case as a file, hand it to a helper, and
+            delete it.
           </p>
         </div>
       </section>

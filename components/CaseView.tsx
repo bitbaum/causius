@@ -1,5 +1,6 @@
 "use client";
 
+import { ROUTES } from "@/lib/routes";
 import Link from "next/link";
 import { useState } from "react";
 import { daysUntil, formatDate, TIER_LABEL, type CaseFile } from "@/lib/case";
@@ -229,7 +230,7 @@ export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
           <p className="mt-2 max-w-prose leading-relaxed text-fg-secondary">{data.tierReason}</p>
         )}
         <p className="mt-4">
-          <Link href="/helpers" className={link}>
+          <Link href={ROUTES.helpers} className={link}>
             Find a helper
           </Link>
         </p>

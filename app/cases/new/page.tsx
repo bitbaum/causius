@@ -1,24 +1,81 @@
 "use client";
 
+import { byokLabel } from "@bitbaum/ai-kit/byok";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { btnPrimary, btnQuiet, card, field, link, shell } from "@/components/ui";
 import { newId, type CaseFile } from "@/lib/case";
-import { saveCase } from "@/lib/store";
+import { API, ROUTES } from "@/lib/routes";
+import { saveCase, useHydrated, useOwnModel } from "@/lib/store";
 
-const LANGUAGES = ["English", "German", "French", "Italian", "Turkish", "Albanian", "Portuguese", "Spanish"];
+const LANGUAGES = [
+  "English",
+  "German",
+  "French",
+  "Italian",
+  "Turkish",
+  "Albanian",
+  "Portuguese",
+  "Spanish",
+];
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 
-/** What each failure means to the person, in their words rather than ours. */
-const ERRORS: Record<string, string> = {
-  not_configured:
-    "AI analysis is not switched on for this site yet. You can still file the letter by hand below and keep track of its deadline.",
-  access_code: "This site asks for an access code before it runs an analysis, and that one did not match.",
-  bad_image: "That image could not be used. Send a JPEG, PNG or WebP under 5 MB.",
-  empty: "Paste the letter's text or add a photo of it.",
-  unreadable_analysis: "The analysis came back in a form Causius could not read. Try again.",
+/**
+ * What each failure means to the person, and the way past it. Fleet rule "no
+ * dead ends": anything that stops someone shows the way forward on the same
+ * screen, so every entry names a next step and says whether one's own model
+ * or filing by hand is that step.
+ */
+interface Failure {
+  message: string;
+  ownModel?: boolean;
+  byHand?: boolean;
+}
+
+const FAILURES: Record<string, Failure> = {
+  not_configured: {
+    message:
+      "The free shared models are not switched on for this site right now. You can connect your own model, or file the letter by hand and keep track of its deadline.",
+    ownModel: true,
+    byHand: true,
+  },
+  busy: {
+    message:
+      "No model answered. The free shared budget for today may be used up, or a provider is down. Your own model is not affected by the shared budget.",
+    ownModel: true,
+    byHand: true,
+  },
+  busy_own: {
+    message:
+      "Your model did not answer. The key may have run out of credit or been revoked. Check it in the settings, or remove it to use the free shared models.",
+    ownModel: true,
+  },
+  no_vision: {
+    message:
+      "None of the models available right now can read a photo. Paste the letter's text instead, or connect your own model that can read images.",
+    ownModel: true,
+  },
+  rate_limited: {
+    message:
+      "That is a lot of letters in a short time. The free shared models allow a few per hour; your own model allows many more.",
+    ownModel: true,
+    byHand: true,
+  },
+  bad_own_model: {
+    message: "Your saved model settings could not be used. Set them up again.",
+    ownModel: true,
+  },
+  unreadable_analysis: {
+    message:
+      "The model answered, but not in a form Causius could turn into a case. Try again; a stronger model does this more reliably.",
+    ownModel: true,
+  },
+  empty: { message: "Paste the letter's text or add a photo of it." },
+  bad_image: { message: "That image could not be used. Send a JPEG, PNG or WebP under 5 MB." },
+  offline: { message: "Causius could not be reached. Check your connection and try again." },
 };
+const UNKNOWN: Failure = { message: "The analysis did not go through. Try again in a minute." };
 
 function toBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -31,44 +88,49 @@ function toBase64(file: File): Promise<string> {
 
 export default function NewCasePage() {
   const router = useRouter();
+  const ownModel = useOwnModel();
+  const hydrated = useHydrated();
   const [text, setText] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [languages, setLanguages] = useState<string[]>(["English"]);
-  const [accessCode, setAccessCode] = useState("");
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
+  const [failure, setFailure] = useState<Failure | null>(null);
   const [manual, setManual] = useState(false);
   const [title, setTitle] = useState("");
   const [authority, setAuthority] = useState("");
   const [deadline, setDeadline] = useState("");
 
+  function fail(code: string) {
+    const f = FAILURES[code] ?? UNKNOWN;
+    setFailure(f);
+    if (f.byHand) setManual(true);
+  }
+
   async function analyse(e: React.FormEvent) {
     e.preventDefault();
-    setError("");
-    if (!text.trim() && !image) return setError(ERRORS.empty);
-    if (image && image.size > MAX_IMAGE_BYTES) return setError(ERRORS.bad_image);
+    setFailure(null);
+    if (!text.trim() && !image) return fail("empty");
+    if (image && image.size > MAX_IMAGE_BYTES) return fail("bad_image");
     setBusy(true);
     try {
-      const res = await fetch("/api/analyze", {
+      const res = await fetch(API.analyze, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           text,
           languages,
-          accessCode: accessCode || undefined,
+          byok: ownModel ?? undefined,
           image: image ? { mediaType: image.type, data: await toBase64(image) } : undefined,
         }),
       });
       const body = (await res.json().catch(() => ({}))) as { case?: CaseFile; error?: string };
       if (!res.ok || !body.case) {
-        if (body.error === "not_configured") setManual(true);
-        setError(ERRORS[body.error ?? ""] ?? "The analysis did not go through. Try again in a minute.");
-        return;
+        return fail(body.error === "busy" && ownModel ? "busy_own" : (body.error ?? ""));
       }
       saveCase(body.case);
-      router.push(`/cases/${body.case.id}`);
+      router.push(ROUTES.caseById(body.case.id));
     } catch {
-      setError("Causius could not be reached. Check your connection and try again.");
+      fail("offline");
     } finally {
       setBusy(false);
     }
@@ -84,6 +146,11 @@ export default function NewCasePage() {
       jurisdiction: "Not stated",
       area: "Not stated",
       authority: authority.trim() || "Not stated",
+      received: undefined,
+      reference: undefined,
+      consequence: undefined,
+      tierReason: undefined,
+      draftReply: undefined,
       deadline: deadline || undefined,
       summary: "",
       asks: [],
@@ -93,15 +160,29 @@ export default function NewCasePage() {
       createdAt: new Date().toISOString(),
     };
     saveCase(c);
-    router.push(`/cases/${c.id}`);
+    router.push(ROUTES.caseById(c.id));
   }
 
   return (
     <main className={`${shell} py-10 sm:py-14`}>
       <h1 className="font-heading text-4xl font-semibold tracking-display">New case</h1>
       <p className="mt-3 max-w-prose leading-relaxed text-fg-secondary">
-        Give Causius the letter. It is sent to the AI provider (Anthropic) to be read and is not
-        stored by Causius; the result is kept in this browser only.
+        Give Causius the letter. It is sent to an AI model provider to be read and is not stored by
+        Causius; the result is kept in this browser only.
+      </p>
+
+      <p className="mt-5 max-w-prose rounded-card border border-border-subtle px-4 py-3 text-sm text-fg-secondary">
+        {hydrated && ownModel ? (
+          <>
+            Read by your own model, <strong className="text-fg-primary">{byokLabel(ownModel)}</strong>
+            .{" "}
+          </>
+        ) : (
+          <>Read by free shared models, which vary and have a small daily budget. </>
+        )}
+        <Link href={ROUTES.ownModel} className={link}>
+          {hydrated && ownModel ? "Change" : "Use your own model"}
+        </Link>
       </p>
 
       <form onSubmit={analyse} className="mt-8 grid max-w-3xl gap-6">
@@ -130,7 +211,9 @@ export default function NewCasePage() {
             onChange={(e) => setImage(e.target.files?.[0] ?? null)}
             className="mt-2 block w-full text-sm text-fg-secondary file:mr-4 file:min-h-11 file:rounded-card file:border file:border-solid file:border-border-subtle file:bg-surface-raised file:px-4 file:text-sm file:font-medium file:text-fg-primary"
           />
-          <p className="mt-1.5 text-xs text-fg-muted">One page, JPEG, PNG or WebP, up to 5 MB.</p>
+          <p className="mt-1.5 text-xs text-fg-secondary">
+            One page, JPEG, PNG or WebP, up to 5 MB.
+          </p>
         </div>
 
         <fieldset>
@@ -161,22 +244,17 @@ export default function NewCasePage() {
           </div>
         </fieldset>
 
-        <details className="text-sm">
-          <summary className="cursor-pointer text-fg-secondary">I have an access code</summary>
-          <input
-            type="password"
-            autoComplete="off"
-            aria-label="Access code"
-            value={accessCode}
-            onChange={(e) => setAccessCode(e.target.value)}
-            className={`${field} mt-2 max-w-xs`}
-          />
-        </details>
-
-        {error && (
-          <p role="alert" className="rounded-card border border-accent-fg px-4 py-3 text-sm">
-            {error}
-          </p>
+        {failure && (
+          <div role="alert" className="rounded-card border border-accent-fg px-4 py-3 text-sm">
+            <p>{failure.message}</p>
+            {failure.ownModel && (
+              <p className="mt-2">
+                <Link href={ROUTES.ownModel} className={link}>
+                  Open model settings
+                </Link>
+              </p>
+            )}
+          </div>
         )}
 
         <div className="flex flex-wrap items-center gap-5">
@@ -184,7 +262,7 @@ export default function NewCasePage() {
             {busy ? "Reading the letter…" : "Analyse the letter"}
           </button>
           {!manual && (
-            <button type="button" className={link} onClick={() => setManual(true)}>
+            <button type="button" className={`${link} min-h-11`} onClick={() => setManual(true)}>
               File it by hand instead
             </button>
           )}
@@ -197,7 +275,7 @@ export default function NewCasePage() {
           <p className="text-sm text-fg-secondary">
             No analysis, but the letter and its deadline are kept together, and the case file can be
             handed to a helper. Already have a case file?{" "}
-            <Link href="/cases" className={link}>
+            <Link href={ROUTES.cases} className={link}>
               Import it
             </Link>
             .

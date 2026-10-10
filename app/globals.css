@@ -95,3 +95,31 @@ body {
   outline: 2px solid var(--color-accent-fg);
   outline-offset: 3px;
 }
+
+/* bip-kit renders the roadmap and changelog. Its neutral theme is retuned to
+   this site's tokens here, so those pages change with the theme above and not
+   separately. The semantic tokens already switch for dark mode. */
+.bp-development {
+  --bp-bg: var(--color-surface-page);
+  --bp-surface: var(--color-surface-raised);
+  --bp-fg: var(--color-fg-primary);
+  --bp-fg-muted: var(--color-fg-secondary);
+  --bp-fg-faint: var(--color-fg-muted);
+  --bp-border: var(--color-border-subtle);
+  --bp-accent: var(--color-accent-fg);
+  --bp-accent-contrast: var(--color-surface-page);
+  --bp-font-sans: var(--font-sans);
+  --bp-font-mono: var(--font-mono);
+  --bp-radius: var(--radius-card);
+  --bp-radius-sm: var(--radius-card);
+  --bp-development-padding: 0;
+}
+
+/* bip-kit's "Back to the product" link is 20px tall, under the nav contract's
+   44px floor (rule 3), on every site that renders these pages. Raised here
+   until it is fixed in bip-kit itself. */
+.bp-development > header > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}

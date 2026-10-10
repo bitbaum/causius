@@ -1,5 +1,6 @@
 "use client";
 
+import { ROUTES } from "@/lib/routes";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { use } from "react";
@@ -26,7 +27,7 @@ export default function CasePage({ params }: { params: Promise<{ id: string }> }
           onSaveCopy={() => {
             const copy = { ...SAMPLE_CASE, id: newId(), createdAt: new Date().toISOString() };
             saveCase(copy);
-            router.push(`/cases/${copy.id}`);
+            router.push(ROUTES.caseById(copy.id));
           }}
         />
       </main>
@@ -42,7 +43,7 @@ export default function CasePage({ params }: { params: Promise<{ id: string }> }
           onChange={saveCase}
           onDelete={() => {
             deleteCase(data.id);
-            router.push("/cases");
+            router.push(ROUTES.cases);
           }}
         />
       ) : hydrated ? (
@@ -53,7 +54,7 @@ export default function CasePage({ params }: { params: Promise<{ id: string }> }
             can import it.
           </p>
           <p className="mt-6">
-            <Link href="/cases" className={link}>
+            <Link href={ROUTES.cases} className={link}>
               Go to my cases
             </Link>
           </p>

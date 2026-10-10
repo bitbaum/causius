@@ -3,9 +3,9 @@
 Understand an official or legal letter and answer it in time: what it says, what it asks
 for, by when. When a person is needed, hand the case to one.
 
-Live at [causius.orangecat.ch](https://causius.orangecat.ch). The idea descends from the
-Lex legal assistant sketched in Botsmann: AI for the routine work, and a marketplace of
-humans for the rest, for any legal issue in any jurisdiction.
+Served at [causius.orangecat.ch](https://causius.orangecat.ch). Beta: running, not released. The idea descends from the Lex legal assistant sketched in
+Botsmann: AI for the routine work, and a marketplace of humans for the rest, for any legal
+issue in any jurisdiction.
 
 ## Three kinds of help
 
@@ -18,6 +18,43 @@ humans for the rest, for any legal issue in any jurisdiction.
 The line between the last two is set by law in almost every country. It is the one
 rule of the product that is not ours to relax.
 
+## Where it sits
+
+Causius is one product on three planes, like everything else in the fleet
+(`bitbaum/fleet` `AGENTS.md` is the authority; this is only how it shows up here):
+
+- **Loki** builds and ships it, and holds its identity. Problem, solution,
+  mission and vision live in the Loki project profile; the site renders them
+  from the fleet map (`lib/fleet.ts`) and does not author them. `ROADMAP.md` and
+  `CHANGELOG.md` in this repository are the public record: Loki ingests them and
+  `/roadmap` and `/changelog` read the map back through `bip-kit`.
+- **OrangeCat** is its economy. Helpers are not Causius accounts: they offer
+  their help as services on OrangeCat and are paid there. Sign-in, when it
+  comes, federates to OrangeCat; Causius keeps no users table.
+- **Solon** is its governance. Who is admitted as a helper and how a dispute is
+  settled are decisions to be taken there.
+
+The footer links to the OrangeCat profile and the Solon organisation only when
+the fleet map reports that they exist. Today neither does.
+
+## Stack
+
+The blessed column of fleet `STACK.md`, nothing else:
+
+| Job | Here |
+| --- | --- |
+| AI | `@bitbaum/ai-kit` `complete()` over the shared free chain; no vendor SDK, no pinned model id |
+| A reader's own model | `ai-kit/byok` + `ai-kit/byok-probe`, key kept in the browser only |
+| Validation | `zod` (the case file, every request body, the fleet map entry) |
+| Rate limiting | `limitkit` |
+| Roadmap and changelog | `bip-kit`, from the fleet map |
+| Tests | Vitest, hermetic (`lib/*.test.ts`) |
+| Deploy | PR, CI, auto-merge sweep, deploy to the box |
+
+Not adopted yet, and on the roadmap rather than half-built: `next-intl` (the
+interface is English only), OrangeCat sign-in, Drizzle/Postgres (there is no
+server-side storage).
+
 ## What exists today
 
 - `/` what Causius is
@@ -26,33 +63,43 @@ rule of the product that is not ours to relax.
   language, a draft reply, who should look at it, export
 - `/cases` cases in this browser, and import of an exported case file
 - `/cases/sample` a worked example with invented personal details
-- `/helpers` the marketplace rules and how to apply
+- `/settings` your own model
+- `/helpers` the marketplace rules and where a helper lists themselves
+- `/roadmap`, `/changelog` the public record
 - `POST /api/analyze` letter in, case file out
+- `POST /api/model/check` does this key work, and which models can it use
 
 ## What does not exist yet
 
-Said plainly, because the pages say it too:
+Said plainly, because the pages say it too. `ROADMAP.md` has the order.
 
-- **No helpers are listed.** Applications arrive as GitHub issues; there is no
-  verification flow, matching or payment yet.
+- **No helpers are listed.** Nothing pulls in OrangeCat services, labels them or
+  checks a lawyer's admission.
 - **No accounts and no server-side storage.** A case lives in the browser's
   `localStorage`. Moving it means exporting the file.
-- **No data room.** Sharing with a helper is handing over the exported file.
+- **No shared case room.** Sharing with a helper is handing over the exported file.
 
 ## Configuration
 
+The free analysis runs on whichever of the fleet's shared vendor keys this
+deployment has. With none of them, `/api/analyze` answers `503 not_configured`
+and the intake page offers your own model or filing by hand.
+
 | Variable | Effect |
 | --- | --- |
-| `ANTHROPIC_API_KEY` | Switches AI analysis on. Without it `/api/analyze` answers `503 not_configured` and the intake page offers filing by hand. |
-| `CAUSIUS_MODEL` | Model id. Defaults to `claude-sonnet-5-5`. |
-| `CAUSIUS_ACCESS_CODE` | When set, analysis requires this code. Set it: an open endpoint spends the key for anyone who finds it. There is no rate limit yet. |
+| `GROQ_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY` | The shared free chain. Any one switches free analysis on. A photo needs Gemini or OpenRouter: Groq's free models cannot read images. |
+| `CAUSIUS_MODEL` | Optional. Start the chain at this model instead of the front. |
+| `CAUSIUS_GROQ_MODELS` and the like | Optional per-vendor overrides, read by ai-kit's `freeChain("CAUSIUS")`. |
+
+Limits (per visitor, per hour, in memory): 8 free analyses, 60 on your own key.
 
 ## Privacy
 
-A submitted letter is sent to Anthropic to be read and is not stored by Causius. The
-resulting case is stored only in the visitor's browser. This repository is public:
-**no real person's letter, name or reference number belongs in it**, including in
-tests and the sample.
+A submitted letter is sent to an AI model provider to be read and is not stored
+or logged by Causius; only which model served it is logged. The resulting case
+is stored only in the visitor's browser, and so is a reader's own API key. This
+repository is public: **no real person's letter, name or reference number
+belongs in it**, including in tests and the sample.
 
 ## The case file
 
@@ -79,7 +126,7 @@ on 2026-10-10. Nothing enforces these, so recompute when a value changes.
 ```sh
 pnpm install
 pnpm dev
-pnpm run verify   # type-check and lint; CI also builds
+pnpm run verify   # type-check, lint and tests; CI also builds
 ```
 
-Merging to `main` deploys.
+A green pull request is merged by the fleet's auto-merge sweep, and merging to `main` deploys.
