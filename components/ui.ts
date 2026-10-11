@@ -1,18 +1,19 @@
-/** Shared class strings, so a button is one decision rather than nine copies. */
-export const btnPrimary =
-  "inline-flex min-h-12 items-center justify-center gap-2 rounded-card bg-accent px-6 text-base font-medium text-accent-contrast transition-opacity hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-50";
+/**
+ * Shared class strings for the app screens. Each one names a shape defined in
+ * app/globals.css on the fleet tokens, so a button is one decision rather than
+ * nine copies, and it is the same decision Solon made.
+ */
+export const btnPrimary = "btn-primary";
 
-export const btnQuiet =
-  "inline-flex min-h-11 items-center justify-center gap-2 rounded-card border border-border-subtle px-4 text-sm font-medium text-fg-primary transition-colors hover:bg-surface-raised disabled:cursor-not-allowed disabled:opacity-50";
+export const btnQuiet = "btn-secondary";
 
-export const link =
-  "text-fg-primary underline decoration-border-subtle underline-offset-4 transition-colors hover:decoration-fg-muted";
+export const link = "text-link";
 
-export const eyebrow = "font-mono text-xs uppercase tracking-caps text-accent-fg";
+export const eyebrow = "kicker";
 
-export const field =
-  "w-full rounded-card border border-border-subtle bg-surface-page px-3.5 py-2.5 text-base text-fg-primary placeholder:text-fg-muted";
+export const field = "field";
 
-export const card = "rounded-card border border-border-subtle bg-surface-raised p-5 sm:p-6";
+/** A box, used sparingly: space separates first, a frame is the last resort. */
+export const card = "border border-border p-5 sm:p-6";
 
-export const shell = "mx-auto w-full max-w-shell px-5 sm:px-10";
+export const shell = "section-shell";

@@ -15,12 +15,49 @@ function leaves(tree: Tree, prefix = ""): Map<string, string> {
   return out;
 }
 
-/** `{name}` and `{count, plural, …}` arguments a message takes. */
+/**
+ * The arguments a message takes: `{name}`, and the selector of every
+ * `{count, plural, …}` / `{layer, select, …}`, at any depth. A branch body
+ * (`one {# page}`, `economic {Wirtschaft}`) is text, which is translated and
+ * may itself hold arguments, so it is read as text again — never as an
+ * argument name. A small ICU walk rather than a regex: the regex this replaced
+ * read a translated select branch as a missing argument.
+ */
 function args(message: string): string[] {
-  // A plural branch body (`one {# page}`, `=0 {Done}`) is text, not an argument.
-  return [...message.matchAll(/(?<!(?:=\d+|zero|one|two|few|many|other)\s*)\{\s*(\w+)\s*[,}]/g)]
-    .map((m) => m[1])
-    .toSorted();
+  const found = new Set<string>();
+  let i = 0;
+  function text(): void {
+    while (i < message.length && message[i] !== "}") {
+      // ICU quoting: an apostrophe quotes only before a syntax character, so
+      // the French "l'ordre" is plain text.
+      if (message[i] === "'" && /[{}#']/.test(message[i + 1] ?? "")) {
+        const end = message.indexOf("'", i + 1);
+        i = end < 0 ? message.length : end + 1;
+      } else if (message[i] === "{") {
+        i++;
+        argument();
+      } else i++;
+    }
+  }
+  function argument(): void {
+    const head = /^\s*(\w+)\s*(?:,\s*(\w+)\s*)?/.exec(message.slice(i))!;
+    found.add(head[1]);
+    i += head[0].length;
+    if (message[i] === ",") {
+      i++;
+      // Branches: `key {body}` pairs (with an optional `offset:n`) until `}`.
+      while (i < message.length && message[i] !== "}") {
+        if (message[i] === "{") {
+          i++;
+          text();
+        }
+        i++;
+      }
+    }
+    i++; // the closing brace
+  }
+  text();
+  return [...found].toSorted();
 }
 
 const source = leaves(en);

@@ -226,10 +226,10 @@ export default function NewCasePage() {
           }}
         />
       )}
-      <h1 className="font-heading text-4xl font-semibold tracking-display">{t("title")}</h1>
+      <h1 className="headline text-4xl sm:text-5xl">{t("title")}</h1>
       <p className="mt-3 max-w-prose leading-relaxed text-fg-secondary">{t("lead")}</p>
 
-      <div className="mt-5 max-w-prose rounded-card border border-border-subtle px-4 pt-3 text-sm text-fg-secondary">
+      <div className="mt-5 max-w-prose rounded-control border border-border-subtle px-4 pt-3 text-sm text-fg-secondary">
         <p>{modelLine}</p>
         <Link href={ROUTES.ownModel} className={`${link} inline-flex min-h-11 items-center`}>
           {usingOwn ? t("change") : t("useOwn")}
@@ -265,7 +265,7 @@ export default function NewCasePage() {
               void addPages(e.target.files);
               e.target.value = "";
             }}
-            className="mt-2 block w-full text-sm text-fg-secondary file:mr-4 file:min-h-11 file:rounded-card file:border file:border-solid file:border-border-subtle file:bg-surface-raised file:px-4 file:text-sm file:font-medium file:text-fg-primary"
+            className="mt-2 block w-full text-sm text-fg-secondary file:mr-4 file:min-h-11 file:rounded-control file:border file:border-solid file:border-border-subtle file:bg-surface-raised file:px-4 file:text-sm file:font-medium file:text-fg-primary"
           />
           <p className="mt-1.5 text-xs text-fg-secondary">{t("photoHint", { max: MAX_PAGES })}</p>
           {pages.length > 0 && (
@@ -277,7 +277,7 @@ export default function NewCasePage() {
                 {pages.map((page, i) => (
                   <li
                     key={page.id}
-                    className="flex items-center gap-2 rounded-card border border-border-subtle bg-surface-raised pl-3 text-sm"
+                    className="flex items-center gap-2 rounded-control border border-border-subtle bg-surface-raised pl-3 text-sm"
                   >
                     <span>
                       {t("page", { n: i + 1 })}
@@ -310,7 +310,7 @@ export default function NewCasePage() {
         <section aria-labelledby="privacy-title" className={`${card} grid gap-4`}>
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="max-w-prose">
-              <h2 id="privacy-title" className="font-heading text-lg font-semibold">
+              <h2 id="privacy-title" className="text-lg font-semibold tracking-tight">
                 {r("title")}
               </h2>
               <p className="mt-1 text-sm leading-relaxed text-fg-secondary">{r("lead")}</p>
@@ -368,13 +368,13 @@ export default function NewCasePage() {
                                 else next.delete(f.value);
                                 setKeep(next);
                               }}
-                              className={`inline-flex min-h-11 items-center gap-2 rounded-card border px-3 text-sm ${
+                              className={`inline-flex min-h-11 items-center gap-2 rounded-control border px-3 text-sm ${
                                 hidden
                                   ? "border-fg-primary bg-surface-page"
                                   : "border-border-subtle text-fg-secondary line-through"
                               }`}
                             >
-                              <span className="font-mono text-[0.625rem] uppercase tracking-caps text-accent-fg">
+                              <span className="font-mono text-[0.625rem] uppercase tracking-caps text-accent">
                                 {r(`kind.${f.kind}`)}
                               </span>
                               {f.value}
@@ -388,7 +388,7 @@ export default function NewCasePage() {
                     <summary className="inline-flex min-h-11 cursor-pointer items-center text-fg-secondary">
                       {r("preview")}
                     </summary>
-                    <pre className="mt-2 max-h-72 overflow-auto whitespace-pre-wrap rounded-card border border-border-subtle bg-surface-page p-3 font-mono text-xs leading-relaxed">
+                    <pre className="mt-2 max-h-72 overflow-auto whitespace-pre-wrap rounded-control border border-border-subtle bg-surface-page p-3 font-mono text-xs leading-relaxed">
                       {sentText}
                     </pre>
                   </details>
@@ -396,11 +396,11 @@ export default function NewCasePage() {
               )}
 
               {pages.some((p) => p.covered === 0) && (
-                <p className="rounded-card border border-accent-fg px-3 py-2 text-sm">{r("photosWarning")}</p>
+                <p className="rounded-control border border-accent px-3 py-2 text-sm">{r("photosWarning")}</p>
               )}
             </>
           ) : (
-            <p className="rounded-card border border-accent-fg px-3 py-2 text-sm">{r("offWarning")}</p>
+            <p className="rounded-control border border-accent px-3 py-2 text-sm">{r("offWarning")}</p>
           )}
         </section>
 
@@ -412,7 +412,7 @@ export default function NewCasePage() {
               return (
                 <label
                   key={l}
-                  className={`flex min-h-11 cursor-pointer items-center gap-2 rounded-card border px-3.5 text-sm ${
+                  className={`flex min-h-11 cursor-pointer items-center gap-2 rounded-control border px-3.5 text-sm ${
                     on ? "border-fg-primary bg-surface-raised" : "border-border-subtle"
                   }`}
                 >
@@ -432,7 +432,7 @@ export default function NewCasePage() {
         </fieldset>
 
         {failure && (
-          <div role="alert" className="rounded-card border border-accent-fg px-4 py-3 text-sm">
+          <div role="alert" className="rounded-control border border-accent px-4 py-3 text-sm">
             <p>{t(`errors.${failure}`, { max: MAX_PAGES })}</p>
             {WAYS_OUT[failure].ownModel && (
               <p className="mt-1">
@@ -458,7 +458,7 @@ export default function NewCasePage() {
 
       {manual && (
         <form onSubmit={fileByHand} className={`${card} mt-10 grid max-w-3xl gap-5`}>
-          <h2 className="font-heading text-2xl font-semibold">{t("byHand.title")}</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">{t("byHand.title")}</h2>
           <p className="text-sm text-fg-secondary">
             {t("byHand.body")}{" "}
             <Link href={ROUTES.cases} className={link}>

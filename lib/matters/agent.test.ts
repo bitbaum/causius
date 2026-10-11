@@ -113,6 +113,30 @@ describe("a turn", () => {
     expect(last).toMatchObject({ kind: "message", sources: [{ id: "1", url: "https://www.zh.ch/stg" }] });
   });
 
+  it("checks domain names with the registries and reports what they said", async () => {
+    const id = await matter();
+    const model = scriptedModel([
+      { tools: [["check_domain", { names: ["causius.com", "causius.ch"] }]] },
+      { text: "causius.ch is not registered." },
+    ]);
+    const asked: string[][] = [];
+    await runTurn({
+      db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl, text: "Is the name free?",
+      domains: async (names) => {
+        asked.push(names);
+        return [
+          { name: "causius.com", status: "registered", registry: "rdap.verisign.com" },
+          { name: "causius.ch", status: "not_registered", registry: "rdap.nic.ch" },
+        ];
+      },
+    });
+    expect(asked).toEqual([["causius.com", "causius.ch"]]);
+    expect(model.seen[1]).toContain("causius.com: registered (per rdap.verisign.com)");
+    expect(model.seen[1]).toContain("causius.ch: not registered");
+    const steps = (await loadMatter(db, MASTER, id, OWNER))!.events.filter((e) => e.kind === "step");
+    expect(steps.map((e) => e.kind === "step" && e.tool)).toContain("check_domain");
+  });
+
   it("refuses strangers and says when no model is configured", async () => {
     const id = await matter();
     const model = scriptedModel([{ text: "x" }]);

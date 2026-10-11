@@ -1,7 +1,9 @@
 # Causius
 
-Understand an official or legal letter and answer it in time: what it says, what it asks
-for, by when. When a person is needed, hand the case to one.
+The legal layer of the fleet: an agent that does legal work on a sealed case file,
+a person who decides what leaves it, and licensed lawyers where the law reserves the
+work for them. Read a letter without an account, or open a matter and let the agent
+research, keep the deadlines and draft.
 
 Served at [causius.orangecat.ch](https://causius.orangecat.ch). Beta: running, not released. The idea descends from the Lex legal assistant sketched in
 Botsmann: AI for the routine work, and a marketplace of humans for the rest, for any legal
@@ -28,9 +30,11 @@ Causius is one product on three planes, like everything else in the fleet
   from the fleet map (`lib/fleet.ts`) and does not author them. `ROADMAP.md` and
   `CHANGELOG.md` in this repository are the public record: Loki ingests them and
   `/roadmap` and `/changelog` read the map back through `bip-kit`.
-- **OrangeCat** is its economy. Helpers are not Causius accounts: they offer
-  their help as services on OrangeCat and are paid there. Sign-in, when it
-  comes, federates to OrangeCat; Causius keeps no users table.
+- **OrangeCat** is its economy and its identity. Sign-in is OrangeCat over
+  OpenID Connect (`@bitbaum/accountkit`); Causius keeps no users table, only
+  the actor id. `/sign-up` opens OrangeCat's screen on "Create an account", and
+  that one account opens OrangeCat, Solon and Loki too. Helpers will offer
+  their work as OrangeCat services and be paid there.
 - **Solon** is its governance. Who is admitted as a helper and how a dispute is
   settled are decisions to be taken there.
 
@@ -49,15 +53,24 @@ The blessed column of fleet `STACK.md`, nothing else:
 | Rate limiting | `limitkit` |
 | Roadmap and changelog | `bip-kit`, from the fleet map |
 | i18n | `next-intl`: English (`/en`), German (`/de`), French (`/fr`) |
-| Tests | Vitest, hermetic (`lib/*.test.ts`, `i18n/parity.test.ts`) |
-| Deploy | PR, CI, auto-merge sweep, deploy to the box |
+| Sign-in | `@bitbaum/accountkit` + `next-auth`, OrangeCat OIDC with PKCE |
+| Conversation | `@bitbaum/chatkit` |
+| Design | `@bitbaum/design-tokens` (tokens.css + the Tailwind preset via `@config`) |
+| Data | Postgres on the host, Drizzle (`lib/db/schema.ts`, `drizzle/`), envelope encryption in `lib/crypto.ts` |
+| Tests | Vitest, hermetic; the store and the agent run against PGlite, a real Postgres in process |
+| Deploy | PR, CI, merge, deploy to the box, Live check |
 
-Not adopted yet, and on the roadmap rather than half-built: OrangeCat sign-in,
-Drizzle/Postgres (there is no server-side storage).
+`@bitbaum/sitekit` is deliberately not used: it renders generated client sites,
+and its contract is that they do not wear the fleet's tokens. A fleet product
+does, in the grammar Solon uses (`kicker`, `headline-caps`, `btn-frame`).
 
 ## What exists today
 
-- `/` what Causius is
+- `/` what Causius is; `/platform` how it is built and why; `/security` what
+  protects a matter; `/ecosystem` the fleet, read from the fleet map
+- `/matters` a signed-in person's matters; `/matters/[id]` the workspace: the
+  conversation with the agent, deadlines, decisions waiting, documents, privacy
+- `/sign-in`, `/sign-up` straight to OrangeCat's one sign-in screen
 - `/cases/new` intake: paste a letter or photograph up to four pages, pick translation languages
 - `/cases/[id]` the case: deadline, checklist of what is asked, the letter in each
   language, a draft reply, who should look at it, export
@@ -69,6 +82,9 @@ Drizzle/Postgres (there is no server-side storage).
 - `POST /api/analyze` letter in, case file out
 - `POST /api/model/check` does this key work, and which models can it use
 - `GET /api/health` is the site up, and can it analyse text and photos without a reader's key
+- `/api/matters/…` create, read, work (`messages`, one agent turn), documents,
+  items and approvals; every route answers 401 signed out and 404 to anyone
+  who is not in the matter
 
 Every page exists in English (`/en/…`), German (`/de/…`) and French (`/fr/…`);
 `/` opens in the browser's language. An analysis is written in the reader's
@@ -80,9 +96,11 @@ Said plainly, because the pages say it too. `ROADMAP.md` has the order.
 
 - **No helpers are listed.** Nothing pulls in OrangeCat services, labels them or
   checks a lawyer's admission.
-- **No accounts and no server-side storage.** A case lives in the browser's
-  `localStorage`. Moving it means exporting the file.
-- **No shared case room.** Sharing with a helper is handing over the exported file.
+- **A quick-check case stays in the browser.** It is not moved into a matter yet.
+- **No shared matter.** A matter has one participant, its owner.
+- **Approving does not act.** It records the decision; sending or filing is still
+  done by the person.
+- **The operator holds the master key.** Keys only the owner holds are on the roadmap.
 
 ## Configuration
 
@@ -96,7 +114,17 @@ and the intake page offers your own model or filing by hand.
 | `CAUSIUS_MODEL` | Optional. Start the chain at this model instead of the front. |
 | `CAUSIUS_GROQ_MODELS` and the like | Optional per-vendor overrides, read by ai-kit's `freeChain("CAUSIUS")`. |
 
-Limits (per visitor, per hour, in memory): 8 free analyses, 60 on your own key.
+Limits (per hour, in memory): 8 free analyses per visitor, 60 on your own key;
+30 agent turns per account on the free chain, 200 on your own key.
+
+Matters need all of these; without them `/api/matters` answers `503`:
+
+| Variable | Effect |
+| --- | --- |
+| `DATABASE_URL` | Postgres. `DATABASE_POOL_MAX` (default 10) caps the pool; a single-connection test Postgres needs 1. |
+| `CAUSIUS_MASTER_KEY` | 32 random bytes, base64. Seals every matter's data key. Losing it loses every matter; never rotate it by replacing it. |
+| `ORANGECAT_OAUTH_CLIENT_ID`, `ORANGECAT_OAUTH_CLIENT_SECRET`, `ORANGECAT_OAUTH_ISSUER` | Sign-in (accountkit). |
+| `AUTH_SECRET`, `AUTH_URL` | Auth.js session encryption and the public origin. |
 
 After setting a key on the host, check it end to end:
 
@@ -120,9 +148,18 @@ in rather than added:
   text sent. The model answers with the placeholders and the browser restores
   the real values. Photos are covered by hand in `components/PhotoRedactor.tsx`;
   the boxes are burnt into the pixels before upload.
-- **Nothing stored on the server.** A letter goes to the model provider and the
-  answer comes back; only which model served it is logged. Cases, the
-  placeholder table and a reader's own API key live in the reader's browser.
+- **Quick check: nothing stored on the server.** A letter goes to the model
+  provider and the answer comes back; only which model served it is logged.
+  Cases, the placeholder table and a reader's own API key live in the browser.
+- **Matters: sealed.** Each matter has a data key (AES-256-GCM) sealed by
+  `CAUSIUS_MASTER_KEY`; every value is sealed with associated data naming its
+  matter and purpose, so it cannot be moved. In the clear: ids, the owner's
+  actor id, dates, statuses, the jurisdiction code, sizes. The participant row
+  holds a role ("Client"), never a name.
+- **Matters: the agent never sees who.** Each turn builds one redaction table
+  over everything the model will read, with the owner's hidden words and their
+  account name; tool arguments and the answer are restored on the server, and
+  only for placeholders the model was actually shown (`lib/matters/agent.ts`).
 - **Anonymised hand-over.** "Export for a helper" writes the case with every
   personal detail replaced and without the placeholder table.
 - **Pseudonymous on every side.** People seeking help, legal assistants and
@@ -150,19 +187,19 @@ belongs in it**, including in tests and the sample.
 stores and Export writes. `parseCase` validates anything claiming to be one; both the
 model's output and an imported file go through it.
 
-## Design tokens
+## Design
 
-`app/globals.css` is the only place a colour, font or radius is defined: paper, ink
-and one seal red. Contrast against WCAG AA (4.5:1), computed from the OKLCH values
-on 2026-10-10. Nothing enforces these, so recompute when a value changes.
+Every colour, face, radius and measure comes from `@bitbaum/design-tokens`,
+imported in the layout before `app/globals.css`, with its Tailwind preset loaded
+through `tailwind.config.js`. The page is pinned dark, like Solon's public
+surface. `globals.css` defines no token: only the few shapes Causius repeats,
+under the same names Solon uses (`kicker`, `headline`, `headline-caps`,
+`btn-primary`, `btn-frame`, `field`), and the mapping of accountkit's,
+chatkit's and bip-kit's variables onto the tokens. A colour that is missing
+belongs in the token package, so all products get it.
 
-| Pair | Light | Dark |
-| --- | --- | --- |
-| primary text on page / raised | 16.85 / 15.42 | 16.53 / 15.15 |
-| secondary text on page / raised | 8.57 / 7.85 | 10.24 / 9.38 |
-| muted text on page / raised | 5.58 / 5.11 | 6.64 / 6.08 |
-| accent text on page / raised | 6.10 / 5.58 | 8.48 / 7.77 |
-| label on primary button | 14.10 | 14.74 |
+What a capability page says is real is decided in one file,
+`lib/capabilities.ts`; pages name capabilities and never state a status.
 
 ## Development
 

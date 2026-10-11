@@ -7,29 +7,28 @@ import { ROUTES } from "@/lib/routes";
 
 /**
  * The fleet's one account menu (@bitbaum/accountkit), with Causius's places.
- * Sign-in and sign-out are server actions passed in, so this file holds no
- * auth logic of its own.
+ * Sign-in is a link to OrangeCat's one screen; sign-out a server action passed
+ * in, so this file holds no auth logic of its own.
  */
 export function AccountControl({
   user,
-  signInAction,
+  signInHref,
   signOutAction,
+  fleet,
 }: {
   user: { name?: string | null; image?: string | null } | null;
-  signInAction: () => Promise<void>;
+  /** /<locale>/sign-in?from=… — a plain link, see lib/auth/entry.ts. */
+  signInHref: string;
   signOutAction: () => Promise<void>;
+  /** The other fleet products this one account opens, from the fleet map. */
+  fleet: { slug: string; name: string; url: string }[];
 }) {
   const t = useTranslations("Account");
   if (!user) {
     return (
-      <form action={signInAction}>
-        <button
-          type="submit"
-          className="inline-flex min-h-11 items-center rounded-card border border-border-subtle px-3.5 text-sm font-medium hover:bg-surface-raised"
-        >
-          {t("signIn")}
-        </button>
-      </form>
+      <a href={signInHref} className="btn-secondary">
+        {t("signIn")}
+      </a>
     );
   }
   return (
@@ -43,13 +42,24 @@ export function AccountControl({
             { id: "settings", label: t("settings"), href: ROUTES.settings },
           ],
         },
+        // The same account opens the rest of the fleet; say so where the
+        // person looks for their account.
+        ...(fleet.length
+          ? [{ id: "fleet", items: fleet.map((p) => ({ id: p.slug, label: t("openIn", { name: p.name }), href: p.url })) }]
+          : []),
       ]}
       onSignOut={() => signOutAction()}
-      renderLink={({ href, children, ...rest }) => (
-        <Link href={href} {...rest}>
-          {children}
-        </Link>
-      )}
+      renderLink={({ href, children, ...rest }) =>
+        href.startsWith("https://") ? (
+          <a href={href} {...rest}>
+            {children}
+          </a>
+        ) : (
+          <Link href={href} {...rest}>
+            {children}
+          </Link>
+        )
+      }
       labels={{
         trigger: t("trigger"),
         menu: t("menu"),

@@ -42,12 +42,12 @@ export default async function HelpersPage({ params }: Params) {
   return (
     <main className={`${shell} py-10 sm:py-14`}>
       <p className={eyebrow}>{t("eyebrow")}</p>
-      <h1 className="mt-4 max-w-[22ch] font-heading text-4xl font-semibold leading-tight tracking-display sm:text-5xl">
+      <h1 className="mt-4 max-w-[22ch] headline text-4xl sm:text-5xl">
         {t("title")}
       </h1>
       <p className="mt-5 max-w-prose text-lg leading-relaxed text-fg-secondary">{t("lead")}</p>
 
-      <div className="mt-8 rounded-card border border-accent-fg px-5 py-4">
+      <div className="mt-8 rounded-control border border-accent px-5 py-4">
         <p className="font-medium">{t("noneTitle")}</p>
         <p className="mt-1 max-w-prose text-sm leading-relaxed text-fg-secondary">{t("noneBody")}</p>
       </div>
@@ -55,7 +55,7 @@ export default async function HelpersPage({ params }: Params) {
       <div className="mt-10 grid gap-5 lg:grid-cols-2">
         {ROLES.map((role) => (
           <article key={role} className={`${card} sm:p-8`}>
-            <h2 className="font-heading text-2xl font-semibold">{t(`${role}.name`)}</h2>
+            <h2 className="text-2xl font-semibold tracking-tight">{t(`${role}.name`)}</h2>
             <p className="mt-1 font-mono text-xs uppercase tracking-caps text-fg-secondary">
               {t("listedUnder", { identity: t(`${role}.identity`) })}
             </p>
@@ -73,7 +73,7 @@ export default async function HelpersPage({ params }: Params) {
       </div>
 
       <section className={`${card} mt-5 sm:p-8`}>
-        <h2 className="font-heading text-2xl font-semibold">{t("wantTitle")}</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">{t("wantTitle")}</h2>
         <p className="mt-3 max-w-prose text-sm leading-relaxed text-fg-secondary">{t("wantBody")}</p>
         <p className="mt-3 flex flex-wrap gap-x-8">
           <a href={EXTERNAL.orangecatOfferService} className={inlineLink}>
@@ -86,11 +86,11 @@ export default async function HelpersPage({ params }: Params) {
       </section>
 
       <section className="mt-16">
-        <h2 className="font-heading text-3xl font-semibold tracking-display">{t("rulesTitle")}</h2>
+        <h2 className="headline text-3xl">{t("rulesTitle")}</h2>
         <dl className="mt-6 grid gap-x-10 gap-y-8 sm:grid-cols-2">
           {RULES.map((rule) => (
             <div key={rule}>
-              <dt className="font-heading text-lg font-semibold">{t(`rules.${rule}.title`)}</dt>
+              <dt className="text-lg font-semibold tracking-tight">{t(`rules.${rule}.title`)}</dt>
               <dd className="mt-1.5 text-sm leading-relaxed text-fg-secondary">
                 {t(`rules.${rule}.body`)}
               </dd>

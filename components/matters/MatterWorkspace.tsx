@@ -135,7 +135,7 @@ export function MatterWorkspace({ id }: { id: string }) {
   if (load.state === "failed") {
     return (
       <div className="py-12">
-        <h1 className="font-heading text-3xl font-semibold">{t(`load.${load.error === "not_found" ? "not_found" : "failed"}`)}</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">{t(`load.${load.error === "not_found" ? "not_found" : "failed"}`)}</h1>
         <p className="mt-4">
           <Link href={ROUTES.matters} className={`${link} inline-flex min-h-11 items-center`}>
             {t("backToMatters")}
@@ -158,7 +158,7 @@ export function MatterWorkspace({ id }: { id: string }) {
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
       <section aria-labelledby="matter-title" className="min-w-0">
         <p className={eyebrow}>{[m.core.area, jurisdictionLabel(m.jurisdiction, locale)].filter(Boolean).join(" · ") || t("newMatter")}</p>
-        <h1 id="matter-title" className="mt-2 font-heading text-3xl font-semibold leading-tight tracking-display sm:text-4xl">
+        <h1 id="matter-title" className="mt-2 headline text-3xl sm:text-4xl">
           {m.core.title}
         </h1>
         {m.core.summary && <p className="mt-3 max-w-prose leading-relaxed text-fg-secondary">{m.core.summary}</p>}
@@ -188,7 +188,7 @@ export function MatterWorkspace({ id }: { id: string }) {
             labels={{}}
           />
           {turnError && (
-            <p role="alert" className="mt-3 rounded-card border border-accent-fg px-4 py-3 text-sm">
+            <p role="alert" className="mt-3 rounded-control border border-accent px-4 py-3 text-sm">
               {t(`errors.${TURN_ERRORS.has(turnError) ? turnError : "unknown"}`)}{" "}
               {(turnError === "not_configured" || turnError === "busy" || turnError === "busy_own") && (
                 <Link href={ROUTES.ownModel} className={link}>
@@ -241,7 +241,7 @@ export function MatterWorkspace({ id }: { id: string }) {
                     />
                     <span className={`text-sm ${i.status === "done" ? "text-fg-secondary line-through" : ""}`}>
                       {i.due && (
-                        <span className={`block font-medium ${days !== null && days <= 7 && i.status === "open" ? "text-accent-fg" : ""}`}>
+                        <span className={`block font-medium ${days !== null && days <= 7 && i.status === "open" ? "text-accent" : ""}`}>
                           {formatDate(i.due, locale)}
                           {days !== null && i.status === "open" && ` · ${relative(days, t)}`}
                         </span>
@@ -262,7 +262,7 @@ export function MatterWorkspace({ id }: { id: string }) {
             {pending.map((a) => {
               const doc = m.documents.find((d) => d.id === a.documentId);
               return (
-                <li key={a.id} className="grid gap-2 rounded-card border border-accent-fg p-3 text-sm">
+                <li key={a.id} className="grid gap-2 rounded-control border border-accent p-3 text-sm">
                   <span className={eyebrow}>{t(`action.${ACTIONS.has(a.action) ? a.action : "other"}`)}</span>
                   <span>{a.summary}</span>
                   {doc && (
@@ -376,7 +376,7 @@ function stepsByMessage(events: MatterEvent[]): Map<string, { tool: string; summ
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className={`${card} grid gap-3`}>
-      <h2 className="font-heading text-lg font-semibold">{title}</h2>
+      <h2 className="text-lg font-semibold tracking-tight">{title}</h2>
       {children}
     </section>
   );
@@ -397,7 +397,7 @@ function DecideButton(props: {
       disabled={busy}
       className={
         props.primary
-          ? "inline-flex min-h-11 items-center rounded-card bg-accent px-4 text-sm font-medium text-accent-contrast hover:opacity-85 disabled:opacity-50"
+          ? "inline-flex min-h-11 items-center rounded-control bg-accent px-4 text-sm font-medium text-on-accent hover:opacity-85 disabled:opacity-50"
           : btnQuiet
       }
       onClick={async () => {
@@ -449,7 +449,7 @@ function Upload({ id, onDone }: { id: string; onDone: () => Promise<void> }) {
       </label>
       <p className="text-xs text-fg-secondary">{t("uploadHint")}</p>
       {error && (
-        <p role="alert" className="text-xs text-accent-fg">
+        <p role="alert" className="text-xs text-accent">
           {t(`uploadErrors.${UPLOAD_ERRORS.has(error) ? error : "unknown"}`)}
         </p>
       )}
@@ -464,7 +464,7 @@ function PrivacyPanel({ id, hide, onDone }: { id: string; hide: string[]; onDone
   const [saved, setSaved] = useState(false);
   return (
     <section className={`${card} grid gap-3`}>
-      <h2 className="font-heading text-lg font-semibold">{t("privacy")}</h2>
+      <h2 className="text-lg font-semibold tracking-tight">{t("privacy")}</h2>
       <p className="text-sm leading-relaxed text-fg-secondary">{t("privacyLead")}</p>
       <form
         className="grid gap-2"

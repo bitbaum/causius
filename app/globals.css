@@ -1,156 +1,181 @@
 @import "tailwindcss";
+@config "../tailwind.config.js";
 
 /**
- * Causius — design tokens. The only place a colour, font or radius is defined.
+ * Causius owns almost no design of its own, and that is the point.
  *
- * This site used to wear Loki's monochrome, as every scaffold does until its
- * owner builds it. It is Causius's own now: paper, ink and a seal.
+ * Every colour, typeface, radius and measure lives in @bitbaum/design-tokens
+ * (imported in the layout before this file), the SSOT for OrangeCat, Loki and
+ * Solon. Causius used to carry its own paper-and-ink palette; it made a fleet
+ * product look like a different company. Do not redefine a token here.
  *
- *   paper  a warm ground, because this is where people read letters
- *   ink    a blue-black for text and for the primary action
- *   seal   one red, used for the accent and for deadlines, and nothing else
- *
- * Headings are a serif from the system stack (no webfont fetch: next/font
- * fetches at BUILD time, so a webfont makes a deploy depend on a third party).
- *
- * Structure:
- *   Tier 1  primitives — raw values, never used by a component
- *   Tier 2  semantics  — what components use, always
- *
- * Contrast (WCAG, computed 2026-10-10 by converting OKLCH to sRGB; recompute
- * when you touch a value — nothing enforces these):
- *   see the table in README.md, "Design tokens".
+ * What is below is how the shared tokens compose into the few shapes Causius
+ * repeats. They are the same shapes Solon uses, under the same names, so a
+ * reader moving between the two never changes product.
  */
-@theme {
-  --font-heading: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --tracking-display: -0.02em;
-  --tracking-caps: 0.14em;
-  --spacing-shell: 68rem;
-  --radius-card: 0.375rem;
-
-  /* Tier 1 — primitives. */
-  --primitive-paper-050: oklch(0.975 0.008 85);
-  --primitive-paper-100: oklch(0.945 0.01 85);
-  --primitive-paper-300: oklch(0.86 0.012 85);
-  --primitive-ink-900: oklch(0.2 0.02 265);
-  --primitive-ink-800: oklch(0.27 0.06 265);
-  --primitive-ink-600: oklch(0.4 0.02 265);
-  --primitive-ink-500: oklch(0.5 0.015 265);
-  --primitive-seal-500: oklch(0.5 0.17 25);
-  --primitive-seal-300: oklch(0.76 0.12 25);
-  --primitive-green-500: oklch(0.5 0.13 150);
-  --primitive-green-300: oklch(0.78 0.14 150);
-
-  /* Tier 2 — semantics. Components only ever use these. */
-  --color-surface-page: var(--primitive-paper-050);
-  --color-surface-raised: var(--primitive-paper-100);
-  --color-fg-primary: var(--primitive-ink-900);
-  --color-fg-secondary: var(--primitive-ink-600);
-  --color-fg-muted: var(--primitive-ink-500);
-  --color-border-subtle: var(--primitive-paper-300);
-
-  /* An accent is THREE tokens: the action as a surface, the label on it, and
-     the accent as text on the page. No single value serves all three. */
-  --color-accent: var(--primitive-ink-800);
-  --color-accent-contrast: var(--primitive-paper-050);
-  --color-accent-fg: var(--primitive-seal-500);
-
-  /* Status only, never decoration. */
-  --color-signal-live: var(--primitive-green-500);
+html,
+body {
+  height: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --color-surface-page: oklch(0.17 0.02 265);
-    --color-surface-raised: oklch(0.215 0.022 265);
-    --color-fg-primary: oklch(0.95 0.008 85);
-    --color-fg-secondary: oklch(0.8 0.01 85);
-    --color-fg-muted: oklch(0.68 0.012 265);
-    --color-border-subtle: oklch(0.32 0.02 265);
+/* Native checkboxes and radios in the one accent. */
+html {
+  accent-color: var(--public-accent);
+}
 
-    /* The primary action inverts, so both halves move together. */
-    --color-accent: oklch(0.93 0.01 85);
-    --color-accent-contrast: oklch(0.2 0.02 265);
-    --color-accent-fg: var(--primitive-seal-300);
-    --color-signal-live: var(--primitive-green-300);
+@layer components {
+  /* Headlines are the sans, heavy and tight. `.headline` is sentence case for
+     app screens; `.headline-caps` is the short statement a section makes.
+     Both may break inside a word: «Verfahrensbeistand» is wider than a phone. */
+  .headline,
+  .bp-development h1 {
+    @apply font-sans font-bold tracking-tight text-fg-primary;
+    line-height: 1.05;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  .headline-caps {
+    @apply font-sans font-bold uppercase text-fg-primary;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  /* The small uppercase label above a headline. */
+  .kicker,
+  .bp-development .bp-development-name {
+    @apply text-xs font-semibold uppercase tracking-caps text-fg-secondary;
+  }
+
+  .btn-primary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-control bg-accent px-5 text-sm font-semibold text-on-accent transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-control border border-border bg-surface-base px-4 text-sm font-semibold text-fg-primary transition-colors hover:bg-surface-raised disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  /* The call to action of a full-width section: square, framed, uppercase. */
+  .btn-frame {
+    @apply inline-flex min-h-12 items-center justify-center gap-3 px-7 text-xs font-bold uppercase tracking-caps transition-colors;
+    color: hsl(var(--text-primary));
+    border: 2px solid hsl(var(--text-primary));
+  }
+  .btn-frame:hover {
+    color: hsl(var(--text-inverted));
+    background-color: hsl(var(--text-primary));
+  }
+  .btn-frame-accent {
+    @apply inline-flex min-h-12 items-center justify-center gap-3 bg-accent px-7 text-xs font-bold uppercase tracking-caps text-on-accent transition-colors hover:bg-accent-hover;
+    border: 2px solid transparent;
+  }
+
+  /* One text field, so every form looks the same. */
+  .field {
+    @apply block w-full min-h-12 rounded-control border border-border bg-surface-raised px-4 py-3 text-base text-fg-primary placeholder:text-fg-tertiary focus:border-accent focus:outline-none;
+  }
+
+  /* A plain inline link. */
+  .text-link {
+    @apply text-fg-primary underline decoration-border-strong underline-offset-4 transition-colors hover:decoration-fg-primary;
+  }
+
+  /* The header, translucent over whatever scrolls under it. */
+  .header-solid {
+    background-color: hsl(var(--surface-page) / 0.92);
+    backdrop-filter: blur(12px);
+  }
+
+  /* bip-kit renders the roadmap and changelog; its neutral theme reads every
+     colour and face from a --bp-* variable, pointed at the shared tokens here
+     exactly as Solon does, so those pages wear the same clothes. */
+  html.dark .bp-development {
+    --bp-font-sans: var(--font-sans);
+    --bp-font-mono: var(--font-mono);
+    --bp-radius: var(--radius-surface);
+    --bp-radius-sm: var(--radius-control);
+    --bp-development-padding: 0px;
+    --bp-development-title: var(--text-display-2);
+    --bp-bg: transparent;
+    --bp-surface: hsl(var(--surface-raised));
+    --bp-fg: hsl(var(--text-primary));
+    --bp-fg-muted: hsl(var(--text-secondary));
+    --bp-fg-faint: hsl(var(--text-tertiary));
+    --bp-border: hsl(var(--border-subtle));
+    --bp-accent: hsl(var(--text-primary));
+    --bp-accent-contrast: hsl(var(--text-inverted));
+    --bp-note: hsl(var(--text-primary));
+    --bp-note-bg: hsl(var(--surface-raised));
+    --bp-tip: hsl(var(--status-positive));
+    --bp-tip-bg: hsl(var(--surface-raised));
+    --bp-warn: hsl(var(--status-warning));
+    --bp-warn-bg: hsl(var(--surface-raised));
+    --bp-danger: hsl(var(--status-negative));
+    --bp-danger-bg: hsl(var(--surface-raised));
+    margin-inline: 0;
+  }
+  .bp-development-check {
+    color: hsl(var(--status-positive));
   }
 }
 
-html {
-  color-scheme: light dark;
-}
-
-body {
-  background-color: var(--color-surface-page);
-  color: var(--color-fg-primary);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-}
-
-/* One focus treatment for every interactive element. */
-:where(a, button, input, textarea, select, summary):focus-visible {
-  outline: 2px solid var(--color-accent-fg);
-  outline-offset: 3px;
-}
-
-/* bip-kit renders the roadmap and changelog. Its neutral theme is retuned to
-   this site's tokens here, so those pages change with the theme above and not
-   separately. The semantic tokens already switch for dark mode. */
-.bp-development {
-  --bp-bg: var(--color-surface-page);
-  --bp-surface: var(--color-surface-raised);
-  --bp-fg: var(--color-fg-primary);
-  --bp-fg-muted: var(--color-fg-secondary);
-  --bp-fg-faint: var(--color-fg-muted);
-  --bp-border: var(--color-border-subtle);
-  --bp-accent: var(--color-accent-fg);
-  --bp-accent-contrast: var(--color-surface-page);
-  --bp-font-sans: var(--font-sans);
-  --bp-font-mono: var(--font-mono);
-  --bp-radius: var(--radius-card);
-  --bp-radius-sm: var(--radius-card);
-  --bp-development-padding: 0;
-}
-
-/* bip-kit's "Back to the product" link is 20px tall, under the nav contract's
-   44px floor (rule 3), on every site that renders these pages. Raised here
-   until it is fixed in bip-kit itself. */
+/* bip-kit's "Back to the product" link is 20px tall, under the 44px target
+   floor. Raised here until it is fixed in bip-kit itself. Unlayered, because
+   bip-kit's stylesheet is unlayered. */
 .bp-development > header > a {
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
 }
 
-/* The shared account menu and chat (@bitbaum/accountkit, @bitbaum/chatkit)
-   read their colours from --acct-* and --ck-*. Mapped here onto this site's
-   tokens, once; dark mode follows because the tokens already switch. */
+/* One focus treatment for every interactive element. */
+:where(a, button, input, textarea, select, summary):focus-visible {
+  outline: 2px solid var(--public-accent);
+  outline-offset: 3px;
+}
+
+/* The shared account menu and chat read their colours from --acct-* and
+   --ck-*; mapped once onto the tokens. */
 :root {
-  --acct-panel: var(--color-surface-page);
-  --acct-hover: var(--color-surface-raised);
-  --acct-trigger-bg: var(--color-surface-raised);
-  --acct-fg: var(--color-fg-primary);
-  --acct-muted: var(--color-fg-secondary);
-  --acct-line: var(--color-border-subtle);
-  --acct-focus: var(--color-accent-fg);
-  --acct-action: var(--color-accent);
-  --acct-on-action: var(--color-accent-contrast);
-  --acct-radius: var(--radius-card);
-  --acct-radius-sm: var(--radius-card);
+  --acct-panel: hsl(var(--surface-overlay));
+  --acct-hover: hsl(var(--surface-hover));
+  --acct-trigger-bg: hsl(var(--surface-raised));
+  --acct-fg: hsl(var(--text-primary));
+  --acct-muted: hsl(var(--text-secondary));
+  --acct-line: hsl(var(--border-default));
+  --acct-focus: var(--public-accent);
+  --acct-action: var(--public-accent);
+  --acct-on-action: hsl(var(--on-accent));
+  --acct-radius: var(--radius-surface);
+  --acct-radius-sm: var(--radius-control);
   --acct-font: var(--font-sans);
 
-  --ck-bg: var(--color-surface-page);
-  --ck-raised: var(--color-surface-raised);
-  --ck-overlay: var(--color-surface-page);
-  --ck-fg: var(--color-fg-primary);
-  --ck-muted: var(--color-fg-secondary);
-  --ck-line: var(--color-border-subtle);
-  --ck-accent: var(--color-accent);
-  --ck-on-accent: var(--color-accent-contrast);
-  --ck-radius: var(--radius-card);
-  --ck-radius-sm: var(--radius-card);
+  --ck-bg: hsl(var(--surface-page));
+  --ck-raised: hsl(var(--surface-raised));
+  --ck-overlay: hsl(var(--surface-overlay));
+  --ck-fg: hsl(var(--text-primary));
+  --ck-muted: hsl(var(--text-secondary));
+  --ck-line: hsl(var(--border-default));
+  --ck-accent: var(--public-accent);
+  --ck-on-accent: hsl(var(--on-accent));
+  --ck-radius: var(--radius-surface);
+  --ck-radius-sm: var(--radius-control);
   --ck-font: var(--font-sans);
   --ck-mono: var(--font-mono);
+}
+
+/* Sections rise into place as they arrive, unless the reader asked for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }

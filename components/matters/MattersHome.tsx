@@ -72,7 +72,7 @@ export function MattersHome() {
     <div className="grid gap-12">
       <form onSubmit={start} className={`${card} grid gap-5 sm:p-8`}>
         <div>
-          <h2 className="font-heading text-2xl font-semibold">{t("newTitle")}</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">{t("newTitle")}</h2>
           <p className="mt-1 max-w-prose text-sm leading-relaxed text-fg-secondary">{t("newLead")}</p>
         </div>
         <label className="grid gap-2">
@@ -108,7 +108,7 @@ export function MattersHome() {
           </select>
         </label>
         {failed && (
-          <p role="alert" className="text-sm text-accent-fg">
+          <p role="alert" className="text-sm text-accent">
             {t(`errors.${failed in ERRORS ? failed : "unknown"}`)}
           </p>
         )}
@@ -123,7 +123,7 @@ export function MattersHome() {
       </form>
 
       <section aria-labelledby="mine">
-        <h2 id="mine" className="font-heading text-2xl font-semibold">
+        <h2 id="mine" className="text-2xl font-semibold tracking-tight">
           {t("mine")}
         </h2>
         {list === null && !failed && <p className="mt-4 text-sm text-fg-secondary">{t("loading")}</p>}
@@ -136,14 +136,14 @@ export function MattersHome() {
                 className={`${card} grid gap-2 transition-colors hover:border-fg-muted sm:grid-cols-[1fr_auto] sm:items-center`}
               >
                 <span>
-                  <span className="block font-heading text-xl font-semibold">{m.title}</span>
+                  <span className="block text-xl font-semibold tracking-tight">{m.title}</span>
                   <span className="mt-1 block text-sm text-fg-secondary">
                     {[m.area, jurisdictionLabel(m.jurisdiction, locale)].filter(Boolean).join(" · ")}
                   </span>
                 </span>
                 <span className="grid gap-0.5 text-sm sm:text-right">
                   {m.nextDue && (
-                    <span className="text-accent-fg">
+                    <span className="text-accent">
                       {t("nextDue", { date: formatDate(m.nextDue.date, locale), label: m.nextDue.label })}
                     </span>
                   )}

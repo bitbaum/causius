@@ -13,6 +13,12 @@ export const ROUTES = {
   helpers: "/helpers",
   settings: "/settings",
   ownModel: "/settings#ai",
+  platform: "/platform",
+  security: "/security",
+  ecosystem: "/ecosystem",
+  signIn: "/sign-in",
+  signUp: "/sign-up",
+  authError: "/auth/error",
   roadmap: "/roadmap",
   changelog: "/changelog",
 } as const;
@@ -36,4 +42,6 @@ export const EXTERNAL = {
   orangecat: "https://orangecat.ch",
   orangecatOfferService: "https://orangecat.ch/dashboard/services/create",
   loki: "https://loki.orangecat.ch",
+  solon: "https://solon.orangecat.ch",
+  license: "https://github.com/bitbaum/causius/blob/main/LICENSE",
 } as const;

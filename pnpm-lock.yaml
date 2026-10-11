@@ -17,6 +17,9 @@ importers:
       '@bitbaum/chatkit':
         specifier: git+https://github.com/bitbaum/chatkit.git#b8b613d0c8984d7fdf902f3a8791fc9d84122b7f
         version: git+https://github.com/bitbaum/chatkit.git#b8b613d0c8984d7fdf902f3a8791fc9d84122b7f(react@19.2.4)
+      '@bitbaum/design-tokens':
+        specifier: 1.1.0
+        version: 1.1.0
       bip-kit:
         specifier: ^0.6.0
         version: 0.6.0(react@19.2.4)
@@ -198,6 +201,10 @@ packages:
     hasBin: true
     peerDependencies:
       react: '>=18'
+
+  '@bitbaum/design-tokens@1.1.0':
+    resolution: {integrity: sha512-sDVplKP4jKe0WHCOnW7xk75RC46JsAYqUngcVlctyAs9f1TQqZqbYTfbmyYipYCOaCIHMflnzAneQTbqrQbtBw==}
+    engines: {node: '>=20'}
 
   '@cacheable/memory@2.2.0':
     resolution: {integrity: sha512-CTLKqLItRCEixEAewD3/j9DB3/o96gpTPD4eJ1v+DGOlxZRZncRQkGYqqnAGCscYd6RNeXfGeiuCphsPtqyIfQ==}
@@ -3517,6 +3524,8 @@ snapshots:
   '@bitbaum/chatkit@git+https://github.com/bitbaum/chatkit.git#b8b613d0c8984d7fdf902f3a8791fc9d84122b7f(react@19.2.4)':
     dependencies:
       react: 19.2.4
+
+  '@bitbaum/design-tokens@1.1.0': {}
 
   '@cacheable/memory@2.2.0':
     dependencies:

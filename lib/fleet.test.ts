@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { presenceFromMap } from "./fleet";
+import { pillarsFromMap, presenceFromMap } from "./fleet";
 
 const entry = (over: Record<string, unknown> = {}) => ({
   slug: "causius",
@@ -56,5 +56,30 @@ describe("presenceFromMap", () => {
       projects: [entry({ urls: { orangecat: "javascript:alert(1)", solon: "http://plain.example" } })],
     });
     expect([hostile.orangecatUrl, hostile.solonUrl]).toEqual([null, null]);
+  });
+});
+
+describe("pillarsFromMap", () => {
+  it("joins each pillar to its project, and drops what it cannot vouch for", () => {
+    const pillars = pillarsFromMap({
+      pillars: [
+        { slug: "orangecat", layer: "economic", role: "Move value." },
+        { slug: "loki", layer: "execution", role: "Get the work done." },
+        { slug: "ghost", layer: "governance", role: "Not on the map." },
+        { slug: "solon", layer: "governance", role: "" },
+      ],
+      projects: [
+        entry({ slug: "orangecat", name: "OrangeCat", urls: { live: "https://orangecat.ch" } }),
+        entry({ slug: "loki", name: "Loki", what: null, urls: { live: "javascript:alert(1)" } }),
+        entry({ slug: "solon", name: "Solon" }),
+      ],
+    });
+    expect(pillars.map((p) => p.slug)).toEqual(["orangecat", "loki"]);
+    expect(pillars[0]).toMatchObject({ name: "OrangeCat", role: "Move value.", url: "https://orangecat.ch" });
+    expect(pillars[1].url).toBeNull();
+  });
+
+  it("is empty when the map is unreadable", () => {
+    for (const map of [null, "down", {}, { pillars: "x" }]) expect(pillarsFromMap(map)).toEqual([]);
   });
 });

@@ -11,6 +11,7 @@ import { webSearch, readPage, describeEmptySearch } from "@bitbaum/ai-kit/web";
 import { z } from "zod";
 import { freeLinks } from "../analyze";
 import type { Db } from "../db";
+import { checkDomains, describeDomain } from "../domains";
 import { applyRedactions, assignTokens, findPersonalData, mapStrings, restore, type Redaction } from "../redact";
 import {
   addDocument,
@@ -60,6 +61,7 @@ How you work:
 - Write documents (letters, submissions, contracts, objections) with draft_document, complete and ready to use, with [square-bracket placeholders] only for facts you do not have.
 - Anything that leaves the matter — sending, filing, signing, sharing, paying — you may only propose with request_approval. Never claim something was sent or filed.
 - Where the law of this jurisdiction reserves a step to a licensed professional (for example representation before a court), say so plainly and suggest bringing one in. Otherwise, do the work.
+- When a name is chosen for something being founded or launched (a company, an association, a project, a brand), check its domains with check_domain before recommending it, and report exactly what the registry said. Registering is a step for the person: propose it with request_approval.
 - Placeholders in square brackets such as [NAME-1] or [ADDRESS-2] stand for personal details hidden from you. Copy them exactly where those details belong; never guess what they hide.
 - Answer in the language the person writes in.`;
 
@@ -82,6 +84,18 @@ const TOOLS = [
       name: "read_page",
       description: "Read a web page found by web_search, to quote it accurately.",
       parameters: { type: "object", properties: { url: { type: "string" } }, required: ["url"] },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "check_domain",
+      description: "Ask the registries (RDAP) whether domain names are registered. Up to 10 names, e.g. example.com, example.ch.",
+      parameters: {
+        type: "object",
+        properties: { names: { type: "array", items: { type: "string" }, description: "Full domain names" } },
+        required: ["names"],
+      },
     },
   },
   {
@@ -182,6 +196,7 @@ const ISO_DATE = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine((s) => !Number.i
 const ARGS = {
   web_search: z.object({ query: z.string().trim().min(2).max(300) }),
   read_page: z.object({ url: z.url({ protocol: /^https?$/ }) }),
+  check_domain: z.object({ names: z.array(z.string().trim().min(1).max(253)).min(1).max(10) }),
   read_document: z.object({ document_id: z.string() }),
   record_deadline: z.object({ date: ISO_DATE, label: z.string().trim().min(1).max(300), quote: z.string().trim().max(1000).optional() }),
   add_task: z.object({ label: z.string().trim().min(1).max(300), date: ISO_DATE.optional() }),
@@ -268,6 +283,7 @@ export async function runTurn(input: {
   /** Injected in tests. */
   search?: typeof webSearch;
   read?: typeof readPage;
+  domains?: typeof checkDomains;
 }): Promise<TurnOutcome> {
   const { db, master, matterId, sub } = input;
   const opened = await openMatter(db, master, matterId, sub);
@@ -369,6 +385,12 @@ export async function runTurn(input: {
     }
     const parsed = ARGS[name as ToolName].safeParse(mapStrings(json, unhide));
     if (!parsed.success) return `invalid arguments: ${parsed.error.issues.map((i) => i.message).join("; ")}`;
+    if (name === "check_domain") {
+      const names = (parsed.data as { names: string[] }).names;
+      const results = await (input.domains ?? checkDomains)(names, input.fetchImpl ?? fetch);
+      await appendStep(db, m, { tool: "check_domain", summary: names.join(", ") });
+      return results.map(describeDomain).join("\n");
+    }
     const args = parsed.data as Record<string, string | undefined>;
     try {
       switch (name as ToolName) {

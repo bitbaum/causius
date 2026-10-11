@@ -36,9 +36,9 @@ function Deadline({ deadline, quote }: { deadline: string; quote?: string }) {
     else left = t("passed", { days: -days });
   }
   return (
-    <div className="rounded-card border border-accent-fg px-5 py-4">
+    <div className="rounded-control border border-accent px-5 py-4">
       <p className={eyebrow}>{t("replyBy")}</p>
-      <p className="mt-1.5 font-heading text-2xl font-semibold">{formatDate(deadline, locale)}</p>
+      <p className="mt-1.5 text-2xl font-semibold tracking-tight">{formatDate(deadline, locale)}</p>
       {left && <p className="mt-1 text-sm text-fg-secondary">{left}</p>}
       {quote && (
         <figure className="mt-3 border-t border-border-subtle pt-3 text-sm">
@@ -109,7 +109,7 @@ export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
     <article className="grid gap-10">
       <header className="grid gap-6 lg:grid-cols-[1fr_19rem] lg:items-start">
         <div>
-          <h1 className="font-heading text-3xl font-semibold leading-tight tracking-display sm:text-4xl">
+          <h1 className="headline text-3xl sm:text-4xl">
             {data.title}
           </h1>
           {data.summary && (
@@ -126,7 +126,7 @@ export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
             </dl>
           )}
           {analysed && (
-            <p className="mt-6 max-w-prose rounded-card border border-border-subtle px-4 py-3 text-sm text-fg-secondary">
+            <p className="mt-6 max-w-prose rounded-control border border-border-subtle px-4 py-3 text-sm text-fg-secondary">
               {t("aiNotice")}
             </p>
           )}
@@ -136,7 +136,7 @@ export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
             <Deadline deadline={data.deadline} quote={data.deadlineQuote} />
           ) : (
             analysed && (
-              <p className="rounded-card border border-accent-fg px-5 py-4 text-sm leading-relaxed">
+              <p className="rounded-control border border-accent px-5 py-4 text-sm leading-relaxed">
                 {t("noDeadline")}
               </p>
             )
@@ -153,7 +153,7 @@ export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
       {data.asks.length > 0 && (
         <section aria-labelledby="asks">
           <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <h2 id="asks" className="font-heading text-2xl font-semibold">
+            <h2 id="asks" className="text-2xl font-semibold tracking-tight">
               {t("asksTitle")}
             </h2>
             {onChange && (
@@ -187,7 +187,7 @@ export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
                     {ask.evidence.map((e) => (
                       <li
                         key={e}
-                        className="rounded-card border border-border-subtle bg-surface-page px-2.5 py-1 text-xs text-fg-secondary"
+                        className="rounded-control border border-border-subtle bg-surface-page px-2.5 py-1 text-xs text-fg-secondary"
                       >
                         {e}
                       </li>
@@ -202,7 +202,7 @@ export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
 
       {shown && (
         <section aria-labelledby="doc">
-          <h2 id="doc" className="font-heading text-2xl font-semibold">
+          <h2 id="doc" className="text-2xl font-semibold tracking-tight">
             {t("letterTitle")}
           </h2>
           {data.texts.length > 1 && (
@@ -215,7 +215,7 @@ export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
                   onClick={() => setLang(i)}
                   className={
                     shown === text
-                      ? "min-h-11 rounded-card bg-accent px-4 text-sm font-medium text-accent-contrast"
+                      ? "min-h-11 rounded-control bg-accent px-4 text-sm font-medium text-on-accent"
                       : btnQuiet
                   }
                 >
@@ -233,7 +233,7 @@ export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
       {data.draftReply && (
         <section aria-labelledby="reply">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 id="reply" className="font-heading text-2xl font-semibold">
+            <h2 id="reply" className="text-2xl font-semibold tracking-tight">
               {t("draftTitle")}
             </h2>
             <CopyButton text={data.draftReply.text} />
@@ -250,7 +250,7 @@ export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
 
       {data.notes.length > 0 && (
         <section aria-labelledby="notes">
-          <h2 id="notes" className="font-heading text-2xl font-semibold">
+          <h2 id="notes" className="text-2xl font-semibold tracking-tight">
             {t("notesTitle")}
           </h2>
           <ul className="mt-4 grid max-w-prose list-disc gap-2.5 pl-5 leading-relaxed text-fg-secondary">
@@ -264,7 +264,7 @@ export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
       {analysed && (
         <section aria-labelledby="help" className={`${card} sm:p-8`}>
           <p className={eyebrow}>{t("whoEyebrow")}</p>
-          <h2 id="help" className="mt-2 font-heading text-2xl font-semibold">
+          <h2 id="help" className="mt-2 text-2xl font-semibold tracking-tight">
             {t(`tier.${data.recommendedTier}`)}
           </h2>
           {data.tierReason && (
