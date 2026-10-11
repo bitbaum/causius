@@ -1,0 +1,143 @@
+name: Provision matters
+
+# By hand, idempotent: everything the host needs before matters can run.
+#
+#   1. A Postgres role and database "causius", password in ~/.db-credentials
+#      (the format gen-env.sh and deploy read), and the first migration applied
+#      as that role. Later migrations are applied by the shared deploy
+#      (apply-schema.sh) once apps.conf names the database.
+#   2. Causius registered as an OrangeCat OIDC client (orangecat's
+#      scripts/oauth/register-client.ts, run from a clean worktree of its main).
+#   3. The runtime env: DATABASE_URL, CAUSIUS_MASTER_KEY, AUTH_SECRET, AUTH_URL,
+#      the OrangeCat client, and the fleet's search endpoint if the box has one.
+#
+# SECURITY. Every secret is generated ON THE BOX and written only to the env
+# files (mode 600) and ~/.db-credentials. Nothing secret crosses the runner or
+# reaches the log: output is names and yes/no only, and the OAuth script's own
+# output is dropped (it prints a new secret once by design). A value already
+# set is never replaced — above all CAUSIUS_MASTER_KEY, whose loss would make
+# every sealed matter unreadable.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  provision:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Provision on the box
+        env:
+          SSH_KEY: ${{ secrets.HETZNER_SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          IP=167.233.22.31
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id && chmod 600 ~/.ssh/id
+          ssh-keyscan -H "$IP" >> ~/.ssh/known_hosts 2>/dev/null
+          scp -i ~/.ssh/id -q drizzle/0000_init.sql "ubuntu@$IP:/tmp/causius-0000_init.sql"
+          ssh -i ~/.ssh/id -o BatchMode=yes "ubuntu@$IP" 'bash -s' > out.txt 2>&1 <<'REMOTE' || status=$?
+          set -euo pipefail
+          note() { echo "$*"; }
+
+          # ── 1. Database ────────────────────────────────────────────────
+          CREDS=~/.db-credentials
+          touch "$CREDS"; chmod 600 "$CREDS"
+          role_exists=$(sudo -n -u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='causius'" || true)
+          if ! grep -q '^causius|' "$CREDS"; then
+            [ "$role_exists" = "1" ] && { note "ERROR role causius exists without a credentials line; not touching it"; exit 1; }
+            pass=$(openssl rand -hex 32)
+            sudo -n -u postgres psql -v ON_ERROR_STOP=1 -qc "CREATE ROLE causius LOGIN PASSWORD '$pass'"
+            printf 'causius|%s\n' "$pass" >> "$CREDS"
+            note "db: role created"
+          else
+            note "db: role present"
+          fi
+          pass=$(grep '^causius|' "$CREDS" | head -1 | cut -d'|' -f2)
+          if [ "$(sudo -n -u postgres psql -tAc "SELECT 1 FROM pg_database WHERE datname='causius'")" != "1" ]; then
+            sudo -n -u postgres psql -v ON_ERROR_STOP=1 -qc "CREATE DATABASE causius OWNER causius"
+            sudo -n -u postgres psql -v ON_ERROR_STOP=1 -qc "REVOKE ALL ON DATABASE causius FROM PUBLIC"
+            note "db: database created"
+          else
+            note "db: database present"
+          fi
+          DBURL="postgresql://causius:$pass@localhost:5432/causius"
+          if [ "$(PGPASSWORD="$pass" psql -h localhost -U causius -d causius -tAc "SELECT to_regclass('public.matters') IS NOT NULL")" != "t" ]; then
+            sed 's/--> statement-breakpoint//' /tmp/causius-0000_init.sql \
+              | PGPASSWORD="$pass" psql -h localhost -U causius -d causius -v ON_ERROR_STOP=1 -q -1
+            note "db: schema 0000_init applied"
+          else
+            note "db: schema present"
+          fi
+          rm -f /tmp/causius-0000_init.sql
+          note "db: tables $(PGPASSWORD="$pass" psql -h localhost -U causius -d causius -tAc "SELECT string_agg(tablename, ' ' ORDER BY tablename) FROM pg_tables WHERE schemaname='public'")"
+
+          # ── Env files ─────────────────────────────────────────────────
+          ENVS=""
+          for f in /opt/causius/shared/.env /opt/causius/app/.env; do [ -f "$f" ] && ENVS="$ENVS $f"; done
+          [ -n "$ENVS" ] || { note "ERROR no causius env file"; exit 1; }
+          primary=$(echo $ENVS | cut -d' ' -f1)
+          has() { grep -q "^$1=" "$primary"; }
+          get() { grep -m1 "^$1=" "$primary" | cut -d= -f2- | sed -e 's/^"//' -e 's/"$//'; }
+          # set NAME VALUE: add to every env file where it is missing; never overwrite.
+          set_env() {
+            for f in $ENVS; do
+              grep -q "^$1=" "$f" || printf '%s=%s\n' "$1" "$2" >> "$f"
+            done
+            chmod 600 $ENVS
+            note "env: $1 set"
+          }
+          has DATABASE_URL || set_env DATABASE_URL "$DBURL"
+          has CAUSIUS_MASTER_KEY || set_env CAUSIUS_MASTER_KEY "$(openssl rand -base64 32)"
+          has AUTH_SECRET || set_env AUTH_SECRET "$(openssl rand -base64 33)"
+          has AUTH_URL || set_env AUTH_URL "https://causius.orangecat.ch"
+          has AUTH_TRUST_HOST || set_env AUTH_TRUST_HOST "true"
+          has ORANGECAT_OAUTH_ISSUER || set_env ORANGECAT_OAUTH_ISSUER "https://orangecat.ch"
+          has ORANGECAT_OAUTH_CLIENT_ID || set_env ORANGECAT_OAUTH_CLIENT_ID "causius"
+
+          # The fleet's web search, copied from another app's env if one has it.
+          for name in SEARXNG_URL SEARXNG_TOKEN BRAVE_SEARCH_API_KEY TAVILY_API_KEY; do
+            has "$name" && continue
+            line=$(grep -hm1 "^$name=" /opt/*/shared/.env /opt/*/app/.env 2>/dev/null | head -1 || true)
+            [ -n "$line" ] && set_env "$name" "${line#*=}"
+          done
+
+          # ── 2. OrangeCat client ──────────────────────────────────────
+          if ! has ORANGECAT_OAUTH_CLIENT_SECRET; then
+            secret=$(openssl rand -base64 32 | tr '+/' '-_' | tr -d '=')
+            OC=/home/ubuntu/dev/orangecat
+            WT=$(mktemp -d /tmp/oc-register.XXXXXX)
+            git -C "$OC" fetch -q origin main
+            git -C "$OC" worktree add -q --detach "$WT" origin/main
+            ln -s "$OC/node_modules" "$WT/node_modules"
+            ocenv=""
+            for c in /opt/orangecat/app/.env /opt/orangecat/shared/.env; do [ -f "$c" ] && { ocenv=$c; break; }; done
+            grep -E '^(NEXT_PUBLIC_SUPABASE_URL|SUPABASE_SERVICE_ROLE_KEY)=' "$ocenv" > "$WT/.env.local"
+            chmod 600 "$WT/.env.local"
+            grep -q "causius:" "$WT/scripts/oauth/register-client.ts" || { note "ERROR orangecat main has no causius client spec yet"; git -C "$OC" worktree remove --force "$WT"; exit 1; }
+            # A row may exist already (registered by hand): rotate, since nobody holds its secret.
+            rc=0
+            (cd "$WT" && ORANGECAT_OWNER_SEED=1 CAUSIUS_OAUTH_SECRET="$secret" npx --no-install tsx scripts/oauth/register-client.ts --client causius --rotate >/dev/null 2>&1) || rc=$?
+            git -C "$OC" worktree remove --force "$WT"
+            [ "$rc" = 0 ] || { note "ERROR register-client exited $rc"; exit 1; }
+            set_env ORANGECAT_OAUTH_CLIENT_SECRET "$secret"
+            note "oauth: causius registered"
+          else
+            note "oauth: secret present, client left as it is"
+          fi
+
+          note "env keys: $(cut -d= -f1 "$primary" | grep -v '^#' | tr '\n' ' ')"
+          REMOTE
+          rm -f ~/.ssh/id
+          while IFS= read -r line; do echo "::notice::$line"; done < out.txt
+          exit "${status:-0}"
+
+      - name: Redeploy so the app reads the new env
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml --ref main --repo "$GITHUB_REPOSITORY"
