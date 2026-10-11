@@ -146,9 +146,17 @@ jobs:
             grep -q "causius:" "$WT/scripts/oauth/register-client.ts" || { note "ERROR orangecat main has no causius client spec yet"; git -C "$OC" worktree remove --force "$WT"; exit 1; }
             # A row may exist already (registered by hand): rotate, since nobody holds its secret.
             rc=0
-            (cd "$WT" && ORANGECAT_OWNER_SEED=1 CAUSIUS_OAUTH_SECRET="$secret" npx --no-install tsx scripts/oauth/register-client.ts --client causius --rotate >/dev/null 2>&1) || rc=$?
+            log=$(mktemp); chmod 600 "$log"
+            (cd "$WT" && ORANGECAT_OWNER_SEED=1 CAUSIUS_OAUTH_SECRET="$secret" npx --no-install tsx scripts/oauth/register-client.ts --client causius --rotate >"$log" 2>&1) || rc=$?
             git -C "$OC" worktree remove --force "$WT"
-            [ "$rc" = 0 ] || { note "ERROR register-client exited $rc"; exit 1; }
+            if [ "$rc" != 0 ]; then
+              # The script prints a new secret on success only; on failure, show
+              # its last lines with the secret and any long token blanked anyway.
+              note "ERROR register-client exited $rc:"
+              tail -n 15 "$log" | sed -e "s|$secret|[secret]|g" -E -e 's/[A-Za-z0-9_+/=-]{32,}/[redacted]/g' | while IFS= read -r l; do note "  $l"; done
+              rm -f "$log"; exit 1
+            fi
+            rm -f "$log"
             set_env ORANGECAT_OAUTH_CLIENT_SECRET "$secret"
             note "oauth: causius registered"
           else
