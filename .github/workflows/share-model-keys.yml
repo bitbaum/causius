@@ -1,0 +1,55 @@
+name: Share model keys
+
+# One-off, by hand: give Causius the fleet's shared free-tier model keys, which
+# already live on the box in Heidi's runtime env (the fleet uses one shared
+# free-tier account per vendor). Then redeploy so the app reads them.
+#
+# Security: the keys are copied box-to-box over the deploy SSH session and are
+# NEVER printed, echoed or written anywhere but Causius's .env (mode 600).
+# The log says only which variable names were added. Existing values in
+# Causius's .env are never overwritten.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  share:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Copy the shared keys on the box
+        env:
+          SSH_KEY: ${{ secrets.HETZNER_SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          IP=167.233.22.31
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id && chmod 600 ~/.ssh/id
+          ssh-keyscan -H "$IP" >> ~/.ssh/known_hosts 2>/dev/null
+          ssh -i ~/.ssh/id -o BatchMode=yes "ubuntu@$IP" 'bash -s' <<'REMOTE'
+          set -euo pipefail
+          src=""; dst=""
+          for c in /opt/heidi/shared/.env /opt/heidi/app/.env; do [ -f "$c" ] && { src=$c; break; }; done
+          for c in /opt/causius/shared/.env /opt/causius/app/.env; do [ -f "$c" ] && { dst=$c; break; }; done
+          [ -n "$src" ] || { echo "::error::no Heidi runtime env found"; exit 1; }
+          [ -n "$dst" ] || { echo "::error::no Causius runtime env found"; exit 1; }
+          added=""
+          for name in GROQ_API_KEY GEMINI_API_KEY OPENROUTER_API_KEY; do
+            if grep -q "^${name}=" "$dst"; then echo "$name already set for Causius; left as it is"; continue; fi
+            line=$(grep -m1 "^${name}=" "$src" || true)
+            [ -n "$line" ] || { echo "$name not present in Heidi's env"; continue; }
+            printf '%s\n' "$line" >> "$dst"
+            added="$added $name"
+          done
+          chmod 600 "$dst"
+          echo "added:${added:- none}"
+          REMOTE
+          rm -f ~/.ssh/id
+
+      - name: Redeploy so the app reads them
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml --ref main --repo "$GITHUB_REPOSITORY"
