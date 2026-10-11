@@ -71,6 +71,15 @@ jobs:
             https://orangecat.ch/*client_id=causius*prompt=create*|https://orangecat.ch/*prompt=create*client_id=causius*) ;;
             *) echo "::error::sign-up does not reach OrangeCat as the causius client"; fail=1;;
           esac
+          # And OrangeCat accepts it: a registered client and redirect URI get
+          # the sign-in screen (or a redirect to it), never invalid_client.
+          if [ -n "$loc" ]; then
+            res=$(curl -s -L --max-redirs 3 -o page.html -w '%{http_code} %{url_effective}' --max-time 20 "$loc")
+            echo "::notice::authorize → ${res%%\?*}"
+            if [ "${res%% *}" -ge 400 ] || grep -qiE 'invalid_client|unknown client|invalid redirect' page.html; then
+              echo "::error::OrangeCat refused the causius client"; fail=1
+            fi
+          fi
           exit $fail
 
       # Only when run by hand: it spends a free-tier completion. The letter is
