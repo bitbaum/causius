@@ -73,7 +73,7 @@ export function MatterWorkspace({ id }: { id: string }) {
         const r = await fetch(API.matterMessages(id), {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ text, byok: ownModel ?? undefined }),
+          body: JSON.stringify({ text, byok: ownModel ?? undefined, locale }),
         });
         const body = (await r.json().catch(() => ({}))) as { matter?: MatterView; error?: string };
         if (r.ok && body.matter) {
@@ -90,7 +90,7 @@ export function MatterWorkspace({ id }: { id: string }) {
         setSending(false);
       }
     },
-    [id, ownModel, refresh],
+    [id, locale, ownModel, refresh],
   );
 
   // Open the matter; then send the first message, if one was typed on the

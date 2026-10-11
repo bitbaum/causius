@@ -51,7 +51,7 @@ describe.skipIf(!available)("a real model works a matter", () => {
       core: { title: "New matter", summary: "", area: "", facts: [], hide: ["Erika Muster"] },
     });
     const outcome = await runTurn({
-      db, master: MASTER, matterId: id, sub: "actor-live", env: process.env, fetchImpl: tap,
+      db, master: MASTER, matterId: id, sub: "actor-live", env: process.env, fetchImpl: tap, locale: "en",
       text: `I received this letter and want to object. What is my deadline? Please record it.\n\n${LETTER}`,
     });
     const view = (await loadMatter(db, MASTER, id, "actor-live"))!;

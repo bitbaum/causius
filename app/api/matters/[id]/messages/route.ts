@@ -13,6 +13,8 @@ const Message = z.object({
   text: z.string().trim().min(1).max(20_000),
   /** The reader's own model, from their browser. Validated against ai-kit's closed list. */
   byok: z.unknown().optional(),
+  /** The language of the reader's interface: the agent answers in it. */
+  locale: z.enum(["en", "de", "fr"]).optional(),
 });
 
 const STATUS: Record<TurnError, number> = {
@@ -41,6 +43,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     sub: ctx.sub,
     text: parsed.data.text,
     byok: parsed.data.byok,
+    locale: parsed.data.locale,
     env: process.env,
     signal: request.signal,
   });
