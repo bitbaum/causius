@@ -101,6 +101,17 @@ describe("buildMessages", () => {
     ]);
   });
 
+  it("tells the model a migration or court letter always needs a lawyer", () => {
+    const [system] = buildMessages(request());
+    expect(system.content).toContain("migration office");
+    expect(system.content).toContain('recommend "lawyer" for those');
+  });
+
+  it("tells the model to keep anonymisation placeholders intact", () => {
+    const [system] = buildMessages(request());
+    expect(system.content).toContain("Copy each placeholder exactly");
+  });
+
   it("tells the model never to compute a deadline the letter does not state", () => {
     const [system] = buildMessages(request());
     expect(system.content).toContain("Never compute or guess a deadline");

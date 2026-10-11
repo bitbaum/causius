@@ -76,5 +76,6 @@ jobs:
             echo "::notice::[$locale] deadline=$(echo "$res" | jq -r '.case.deadline // .error') title=$(echo "$res" | jq -r '.case.title // "-"') asks=$(echo "$res" | jq -r '.case.asks | length? // 0') tier=$(echo "$res" | jq -r '.case.recommendedTier // "-"') keeps-placeholder=$(echo "$res" | jq -r '[.. | strings | select(contains("[NAME-1]"))] | length > 0')"
             echo "::notice::[$locale] quote=$(echo "$res" | jq -r '.case.deadlineQuote // "-"') summary=$(echo "$res" | jq -r '.case.summary // "-"' | head -c 300)"
             [ "$(echo "$res" | jq -r '.case.deadline // empty')" = "2026-03-23" ] || { echo "::error::[$locale] wrong or missing deadline"; fail=1; }
+            [ "$(echo "$res" | jq -r '.case.recommendedTier // empty')" = "lawyer" ] || { echo "::error::[$locale] a migration letter was not sent to a lawyer"; fail=1; }
           done
           exit ${fail:-0}

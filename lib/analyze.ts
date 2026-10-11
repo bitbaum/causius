@@ -109,7 +109,8 @@ Reply with ONE JSON object and nothing else. "The reader's language" is named in
 Do not add a translation into the language the document is already written in; the transcription is that text.
 Placeholders in square brackets such as [NAME-1], [ADDRESS-1] or [REF-2] stand for personal details the reader chose not to send. Copy each placeholder exactly as written wherever that detail belongs, in every field and every language; never translate, merge, number differently or guess what one stands for. The reader's browser puts the real values back.
 Never invent facts about the person. Never compute or guess a deadline the document does not state as a date; omit "deadline" and say so in "notes" instead. Omit a field rather than guess it.
-Recommend "lawyer" whenever status, liberty, custody, a permit, or a significant sum is at stake; "assistant" for help gathering and filing paperwork; "ai" only for purely informational letters.`;
+Recommend "lawyer" whenever status, liberty, custody, a permit, or a significant sum is at stake. A letter from a migration office about a person's stay, permit or time abroad always puts a permit at stake, and so does any letter from a court, a prosecutor or the police; recommend "lawyer" for those even when the request itself looks like paperwork.
+Otherwise recommend "assistant" for help gathering and filing paperwork; "ai" only for purely informational letters.`;
 
 export function buildMessages(request: AnalyzeRequest): ChatMessage[] {
   const reader = READER_LANGUAGES[request.locale];
