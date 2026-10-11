@@ -1,0 +1,42 @@
+name: Box discover
+
+# Read-only: reports the host layout Causius's provisioning needs. Prints
+# names, paths and yes/no only; never a value from an env file.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Look
+        env:
+          SSH_KEY: ${{ secrets.HETZNER_SSH_PRIVATE_KEY }}
+        run: |
+          set -uo pipefail
+          IP=167.233.22.31
+          mkdir -p ~/.ssh && printf '%s\n' "$SSH_KEY" > ~/.ssh/id && chmod 600 ~/.ssh/id
+          ssh-keyscan -H "$IP" >> ~/.ssh/known_hosts 2>/dev/null
+          ssh -i ~/.ssh/id -o BatchMode=yes "ubuntu@$IP" 'bash -s' > out.txt 2>&1 <<'REMOTE'
+          echo "dev: $(ls /home/ubuntu/dev 2>/dev/null | tr '\n' ' ')"
+          echo "opt: $(ls /opt 2>/dev/null | tr '\n' ' ')"
+          for d in /home/ubuntu/dev/orangecat /home/g/dev/orangecat /opt/orangecat/app /opt/orangecat/current; do [ -e "$d" ] && echo "exists $d head=$(git -C $d rev-parse --short HEAD 2>/dev/null) envlocal=$([ -f $d/.env.local ] && echo y || echo n) script=$([ -f $d/scripts/oauth/register-client.ts ] && echo y || echo n) nodemods=$([ -d $d/node_modules ] && echo y || echo n)"; done
+          ls -d /opt/orangecat/* 2>/dev/null | tr '\n' ' '; echo
+          echo "sudo: $(sudo -n true 2>/dev/null && echo yes || echo no)"
+          echo "psql: $(command -v psql || echo none)"
+          echo "node: $(node -v 2>/dev/null) npx: $(command -v npx || echo none) pnpm: $(command -v pnpm || echo none)"
+          echo "dbs: $(sudo -n -u postgres psql -Atqc 'select datname from pg_database' 2>/dev/null | tr '\n' ' ')"
+          echo "dbcreds: $([ -f ~/.db-credentials ] && cut -d'|' -f1 ~/.db-credentials | tr '\n' ' ' || echo none)"
+          echo "dbcreds-format-fields: $([ -f ~/.db-credentials ] && head -1 ~/.db-credentials | awk -F'|' '{print NF}')"
+          echo "docker: $(sudo -n docker ps --format '{{.Names}}' 2>/dev/null | tr '\n' ' ')"
+          for f in /opt/causius/shared/.env /opt/causius/app/.env; do [ -f "$f" ] && echo "$f keys: $(cut -d= -f1 "$f" | grep -v '^#' | tr '\n' ' ')"; done
+          echo "orangecat env keys: $(for f in /opt/orangecat/shared/.env /opt/orangecat/app/.env /home/ubuntu/dev/orangecat/.env.local; do [ -f $f ] && echo "[$f] $(cut -d= -f1 $f | grep -E 'SUPABASE|OWNER' | tr '\n' ' ')"; done)"
+          echo "unit: $(systemctl cat causius 2>/dev/null | grep -E 'EnvironmentFile|ExecStart|WorkingDirectory' | tr '\n' ' ')"
+          echo "units: $(systemctl list-units --type=service --no-legend 2>/dev/null | awk '{print $1}' | grep -E 'orangecat|causius|supabase' | tr '\n' ' ')"
+          REMOTE
+          rm -f ~/.ssh/id
+          while IFS= read -r line; do echo "::notice::$line"; done < out.txt
