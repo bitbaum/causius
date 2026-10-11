@@ -23,7 +23,7 @@ export default function CasePage({ params }: { params: Promise<{ id: string }> }
     const sample = sampleCase(locale);
     return (
       <main className={`${shell} py-10 sm:py-14`}>
-        <p className="mb-8 rounded-card border border-border-subtle px-4 py-3 text-sm text-fg-secondary">
+        <p className="mb-8 rounded-control border border-border-subtle px-4 py-3 text-sm text-fg-secondary">
           {t("sampleBanner")}
         </p>
         <CaseView
@@ -52,7 +52,7 @@ export default function CasePage({ params }: { params: Promise<{ id: string }> }
         />
       ) : hydrated ? (
         <div className="py-16">
-          <h1 className="font-heading text-3xl font-semibold">{t("notHereTitle")}</h1>
+          <h1 className="text-3xl font-semibold tracking-tight">{t("notHereTitle")}</h1>
           <p className="mt-3 max-w-prose text-fg-secondary">{t("notHereBody")}</p>
           <p className="mt-4">
             <Link href={ROUTES.cases} className={`${link} inline-flex min-h-11 items-center`}>

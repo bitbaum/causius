@@ -39,6 +39,12 @@ Repo-only notes live below this line.
 - **This repository is public and the product handles legal letters.** No real
   person's letter, name, address or reference number goes into the code, the
   tests, the sample case or a commit message. `lib/sample.ts` is invented.
+- Design is `@bitbaum/design-tokens`; `app/globals.css` defines no token (see
+  README "Design"). Whether a capability works today is decided only in
+  `lib/capabilities.ts`.
+- Matters (`lib/matters/`) are sealed per matter (`lib/crypto.ts`). Nothing
+  readable about a person goes into a clear column: the participant alias is a
+  role, never a name. Store and agent tests run on PGlite (`lib/test/db.ts`).
 - The case file (`lib/case.ts`) is the one shape the analysis produces, the
   browser stores and Export writes. Change the zod schema, not a copy of it.
 - The model call is `@bitbaum/ai-kit`'s `complete()` in `lib/analyze.ts`. Do not

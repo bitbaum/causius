@@ -131,7 +131,7 @@ export function OwnModelSettings() {
               onClick={() => reset(v.id)}
               className={
                 v.id === vendor
-                  ? "min-h-11 rounded-card bg-accent px-4 text-sm font-medium text-accent-contrast"
+                  ? "min-h-11 rounded-control bg-accent px-4 text-sm font-medium text-on-accent"
                   : btnQuiet
               }
             >
@@ -170,7 +170,7 @@ export function OwnModelSettings() {
           <p className="text-fg-secondary">{t("checking")}</p>
         )}
         {done && probe && (
-          <p className={probe.ok ? "text-fg-primary" : "text-accent-fg"}>
+          <p className={probe.ok ? "text-fg-primary" : "text-accent"}>
             {/* The vendor's own words are left as the vendor wrote them. */}
             {done.local ? t(done.local) : <span lang="en">{probe.message}</span>}
             {!probe.ok && !probe.reachable && ` ${t("notWrong")}`}

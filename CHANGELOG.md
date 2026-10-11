@@ -8,6 +8,25 @@ brackets, it is the pull request to read for the detail.
 
 ### Added
 
+- **Matters, worked by an agent.** Sign in with your OrangeCat account and open
+  a matter: Causius researches what applies and cites it, records deadlines
+  and tasks, drafts documents, and proposes anything that would leave the
+  matter (sending, filing, signing, paying) for you to approve. {#matters}
+- **Sealed on our host.** Each matter is encrypted with its own key; the
+  database alone holds no name, message, deadline or document. Your account
+  name is always among the words hidden from the model. {#sealed-matters}
+- **Documents in a matter.** Add a PDF or a text file; only its text is kept,
+  encrypted. {#documents}
+- **Domain names checked with the registries.** Before recommending a name for
+  something you are founding, the agent asks the registries whether its
+  domains are registered. {#domains}
+- **One account across the fleet.** "Create an account" opens OrangeCat's
+  screen; the same account opens OrangeCat, Solon and Loki, and the account
+  menu links to them. {#sign-in}
+- **The fleet's look, and the story behind it.** Causius now wears the shared
+  design of OrangeCat, Loki and Solon, with new pages on how it is built, how
+  it keeps matters private, and where it sits in the fleet. {#narrative}
+
 - **Your details never reach the model.** Before a letter is sent, your
   browser replaces names, addresses, AHV and IBAN numbers, phone numbers,
   e-mail addresses, dates of birth and reference numbers with placeholders.

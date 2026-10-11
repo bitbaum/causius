@@ -19,10 +19,10 @@ export default async function SettingsPage({ params }: Params) {
 
   return (
     <main className={`${shell} py-10 sm:py-14`}>
-      <h1 className="font-heading text-4xl font-semibold tracking-display">{t("title")}</h1>
+      <h1 className="headline text-4xl sm:text-5xl">{t("title")}</h1>
 
       <section id="ai" aria-labelledby="ai-title" className="mt-10 scroll-mt-8">
-        <h2 id="ai-title" className="font-heading text-2xl font-semibold">
+        <h2 id="ai-title" className="text-2xl font-semibold tracking-tight">
           {t("ownTitle")}
         </h2>
         <div className="mt-3 grid max-w-prose gap-3 leading-relaxed text-fg-secondary">

@@ -98,7 +98,7 @@ export function PhotoRedactor({
     >
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-subtle px-4 py-2 sm:px-8">
         <div>
-          <p className="font-heading text-lg font-semibold">{t("photoTitle", { label })}</p>
+          <p className="text-lg font-semibold tracking-tight">{t("photoTitle", { label })}</p>
           <p className="text-sm text-fg-secondary">{t("photoHint")}</p>
         </div>
         <div className="flex flex-wrap gap-2">

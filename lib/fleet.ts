@@ -46,12 +46,37 @@ const EntrySchema = z.object({
 
 export type FleetIdentity = z.output<typeof EntrySchema>["identity"];
 
+/**
+ * The layers Causius stands on — OrangeCat, Loki, Solon — as the map states
+ * them. Fleet AGENTS.md: "A page that types the portfolio is a copy. Generate
+ * it, or do not ship it." So the ecosystem section renders these, and renders
+ * nothing when the map cannot be read.
+ */
+const PillarSchema = z.object({ slug: z.string(), layer: z.string(), role: z.string().trim().min(1) });
+const ProjectSchema = z.object({
+  slug: z.string(),
+  name: z.string().trim().min(1),
+  what: nullableText,
+  urls: z.object({ live: nullableUrl }).catch({ live: null }),
+});
+
+export interface FleetPillar {
+  slug: string;
+  layer: string;
+  name: string;
+  role: string;
+  what: string | null;
+  url: string | null;
+}
+
 export interface FleetPresence {
   /** Null when the map could not be read: unavailable says unavailable. */
   development: DevelopmentProfile | null;
   identity: FleetIdentity;
   orangecatUrl: string | null;
   solonUrl: string | null;
+  /** The fleet's pillars, in the map's order; empty when it could not be read. */
+  pillars: FleetPillar[];
 }
 
 const ABSENT: FleetPresence = {
@@ -59,7 +84,26 @@ const ABSENT: FleetPresence = {
   identity: { problem: null, solution: null, mission: null, vision: null },
   orangecatUrl: null,
   solonUrl: null,
+  pillars: [],
 };
+
+export function pillarsFromMap(map: unknown): FleetPillar[] {
+  const parsed = z
+    .object({ pillars: z.array(z.unknown()).catch([]), projects: z.array(z.unknown()).catch([]) })
+    .safeParse(map);
+  if (!parsed.success) return [];
+  const projects = parsed.data.projects.flatMap((p) => {
+    const r = ProjectSchema.safeParse(p);
+    return r.success ? [r.data] : [];
+  });
+  return parsed.data.pillars.flatMap((raw) => {
+    const pillar = PillarSchema.safeParse(raw);
+    if (!pillar.success) return [];
+    const project = projects.find((p) => p.slug === pillar.data.slug);
+    if (!project) return [];
+    return [{ ...pillar.data, name: project.name, what: project.what, url: project.urls.live }];
+  });
+}
 
 /** Pure, so it is testable against a fixture without the network. */
 export function presenceFromMap(map: unknown, slug = FLEET_SLUG): FleetPresence {
@@ -68,8 +112,9 @@ export function presenceFromMap(map: unknown, slug = FLEET_SLUG): FleetPresence 
   const entry = projects.data.projects
     .map((p) => EntrySchema.safeParse(p))
     .find((p) => p.success && p.data.slug === slug);
-  if (!entry?.success) return ABSENT;
+  if (!entry?.success) return { ...ABSENT, pillars: pillarsFromMap(map) };
   return {
+    pillars: pillarsFromMap(map),
     development: developmentProfileFromMap(map, slug),
     identity: entry.data.identity,
     orangecatUrl: entry.data.urls.orangecat,

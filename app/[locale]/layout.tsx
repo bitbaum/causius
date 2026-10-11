@@ -1,24 +1,30 @@
+// The design SSOT for OrangeCat, Loki and Solon: tokens and the self-hosted
+// faces they name. It loads before globals.css so the app's few shapes build on it.
+import "@bitbaum/design-tokens/tokens.css";
+// The account menu and the sign-in error screen are drawn by this sheet.
+import "@bitbaum/accountkit/styles.css";
+import "../globals.css";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { AccountControl } from "@/components/AccountControl";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { Logo } from "@/components/site/Logo";
 import { SiteNav } from "@/components/SiteNav";
-import { shell } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { routing, toLocale } from "@/i18n/routing";
-import { loadFleetPresence } from "@/lib/fleet";
-import { EXTERNAL, ROUTES } from "@/lib/routes";
-import "../globals.css";
+import { auth, authEnabled } from "@/lib/auth";
+import { signOutOfCausius } from "@/lib/auth/actions";
+import { entryHref } from "@/lib/auth/entry";
+import { FLEET_SLUG, loadFleetPresence } from "@/lib/fleet";
+import { ROUTES } from "@/lib/routes";
 
 const SITE_URL = "https://causius.orangecat.ch";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale: toLocale(locale), namespace: "Meta" });
   return {
@@ -26,20 +32,16 @@ export async function generateMetadata({
     title: { default: t("title"), template: "%s · Causius" },
     description: t("description"),
     openGraph: { siteName: "Causius", type: "website", description: t("description") },
-    alternates: {
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `/${l}`]),
-      ),
-    },
+    alternates: { languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}`])) },
   };
 }
 
-const footerLink =
-  "inline-flex min-h-11 items-center text-fg-secondary underline decoration-border-subtle underline-offset-4 hover:text-fg-primary";
-
 /**
- * Deliberately bare: no analytics, no third-party script, no structured data
- * belonging to anyone else. Everything that renders here belongs to this site.
+ * The frame every page shares: the fleet's tokens, pinned dark like Solon's
+ * public surface, a header with the product's places and the one account,
+ * and a footer that holds the rest of the site.
+ *
+ * Deliberately bare otherwise: no analytics, no third-party script.
  */
 export default async function LocaleLayout({
   children,
@@ -55,65 +57,56 @@ export default async function LocaleLayout({
   // what a nonce needs: a nonce baked into a static page is no nonce at all.
   const nonce = (await headers()).get("x-nonce") ?? undefined;
   const nav = await getTranslations("Nav");
-  const t = await getTranslations("Footer");
-
-  // Which planes this product is actually on. A link is rendered only when the
-  // fleet map reports the profile exists — see lib/fleet.ts.
-  const { orangecatUrl, solonUrl } = await loadFleetPresence();
+  const [{ pillars }, session] = await Promise.all([loadFleetPresence(), auth()]);
+  const fleet = pillars
+    .filter((p) => p.slug !== FLEET_SLUG && p.url)
+    .map((p) => ({ slug: p.slug, name: p.name, url: p.url! }));
 
   return (
-    <html lang={locale}>
-      <body className="flex min-h-screen flex-col">
+    <html lang={locale} className="dark">
+      <body className="flex min-h-screen flex-col antialiased">
         <NextIntlClientProvider>
-          <header className="border-b border-border-subtle">
-            <div className={`${shell} flex flex-wrap items-center justify-between gap-x-6 py-2`}>
-              <Link
-                href={ROUTES.home}
-                className="inline-flex min-h-11 items-center gap-2.5 font-heading text-xl font-semibold tracking-display"
-              >
-                Causius
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-surface-overlay focus:px-4 focus:py-2"
+          >
+            {nav("skip")}
+          </a>
+          <header className="header-solid sticky top-0 z-40 border-b border-border-subtle">
+            <div className="section-shell flex min-h-16 items-center justify-between gap-4">
+              <div className="flex min-w-0 items-center gap-3">
+                <Link href={ROUTES.home} className="inline-flex min-h-11 items-center" aria-label="Causius">
+                  <Logo />
+                </Link>
                 {/* Fleet AGENTS.md: nothing is "Live". Served and unfinished says so. */}
-                <span className="rounded-card border border-border-subtle px-1.5 py-0.5 font-mono text-[0.625rem] font-normal uppercase tracking-caps text-fg-secondary">
+                <span className="hidden border border-border px-1.5 sm:inline py-0.5 font-mono text-[0.625rem] uppercase tracking-caps text-fg-secondary">
                   {nav("beta")}
                 </span>
-              </Link>
-              <SiteNav />
+              </div>
+              <div className="flex items-center gap-2">
+                <SiteNav />
+                {authEnabled && (
+                  <AccountControl
+                    user={session?.actorId ? { name: session.user?.name } : null}
+                    signInHref={entryHref("sign-in", locale, ROUTES.matters)}
+                    signOutAction={signOutOfCausius.bind(null, locale)}
+                    fleet={fleet}
+                  />
+                )}
+              </div>
             </div>
           </header>
 
-          <div className="flex-1">{children}</div>
+          <div id="main" className="flex-1">
+            {children}
+          </div>
 
-          <footer className="mt-20 border-t border-border-subtle">
-            <div className={`${shell} grid gap-6 py-8 text-sm text-fg-secondary`}>
-              <p className="max-w-prose">{t("disclaimer")}</p>
-              <nav aria-label={t("about")} className="flex flex-wrap gap-x-6">
-                <Link href={ROUTES.roadmap} className={footerLink}>
-                  {t("roadmap")}
-                </Link>
-                <Link href={ROUTES.changelog} className={footerLink}>
-                  {t("changelog")}
-                </Link>
-                {orangecatUrl && (
-                  <a href={orangecatUrl} className={footerLink}>
-                    {t("orangecat")}
-                  </a>
-                )}
-                {solonUrl && (
-                  <a href={solonUrl} className={footerLink}>
-                    {t("solon")}
-                  </a>
-                )}
-                <a href={EXTERNAL.repo} className={footerLink}>
-                  {t("source")}
-                </a>
-              </nav>
-            </div>
-          </footer>
+          <SiteFooter />
         </NextIntlClientProvider>
 
         {/* The Loki feedback widget: the owner points at what they do not like
-            and an agent changes it. Env-gated, so a local dev run and a fork
-            carry no widget at all. */}
+            and an agent changes it. Env-gated, so a local run and a fork carry
+            no widget at all. */}
         {process.env.NEXT_PUBLIC_FC_WIDGET_TOKEN && (
           <Script
             src="https://loki.orangecat.ch/widget.js"

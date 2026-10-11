@@ -34,7 +34,7 @@ export default function CasesPage() {
     <main className={`${shell} py-10 sm:py-14`}>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-heading text-4xl font-semibold tracking-display">{t("title")}</h1>
+          <h1 className="headline text-4xl sm:text-5xl">{t("title")}</h1>
           <p className="mt-2 text-sm text-fg-secondary">{t("subtitle")}</p>
         </div>
         <div className="flex flex-wrap gap-3">
@@ -57,14 +57,14 @@ export default function CasesPage() {
       </div>
 
       {error && (
-        <p role="alert" className="mt-6 text-sm text-accent-fg">
+        <p role="alert" className="mt-6 text-sm text-accent">
           {t("importError")}
         </p>
       )}
 
       {hydrated && cases.length === 0 && (
         <div className={`${card} mt-10 sm:p-8`}>
-          <h2 className="font-heading text-2xl font-semibold">{t("emptyTitle")}</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">{t("emptyTitle")}</h2>
           <p className="mt-2 max-w-prose text-fg-secondary">{t("emptyBody")}</p>
           <p className="mt-3">
             <Link href={ROUTES.sampleCase} className={`${link} inline-flex min-h-11 items-center`}>
@@ -86,12 +86,12 @@ export default function CasesPage() {
                 className={`${card} grid gap-2 transition-colors hover:border-fg-muted sm:grid-cols-[1fr_auto] sm:items-center`}
               >
                 <span>
-                  <span className="block font-heading text-xl font-semibold">{c.title}</span>
+                  <span className="block text-xl font-semibold tracking-tight">{c.title}</span>
                   {origin && <span className="mt-1 block text-sm text-fg-secondary">{origin}</span>}
                 </span>
                 <span className="text-sm sm:text-right">
                   {c.deadline && (
-                    <span className={`block ${days !== null && days <= 7 ? "text-accent-fg" : ""}`}>
+                    <span className={`block ${days !== null && days <= 7 ? "text-accent" : ""}`}>
                       {t("replyBy", { date: formatDate(c.deadline, locale) })}
                     </span>
                   )}

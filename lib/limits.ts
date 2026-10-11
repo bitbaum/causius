@@ -13,6 +13,11 @@ export const limits = {
   analyzeFree: slidingWindow({ limit: 8, windowMs: 60 * 60_000 }),
   analyzeOwn: slidingWindow({ limit: 60, windowMs: 60 * 60_000 }),
   modelCheck: slidingWindow({ limit: 30, windowMs: 10 * 60_000 }),
+  // Keyed by actor, not IP: a signed-in person's budget follows them.
+  turnFree: slidingWindow({ limit: 30, windowMs: 60 * 60_000 }),
+  turnOwn: slidingWindow({ limit: 200, windowMs: 60 * 60_000 }),
+  matterCreate: slidingWindow({ limit: 20, windowMs: 60 * 60_000 }),
+  upload: slidingWindow({ limit: 60, windowMs: 60 * 60_000 }),
 };
 
 export function callerKey(request: Request, scope: string): string {
