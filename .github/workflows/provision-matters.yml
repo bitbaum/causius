@@ -147,7 +147,7 @@ jobs:
             # A row may exist already (registered by hand): rotate, since nobody holds its secret.
             rc=0
             log=$(mktemp); chmod 600 "$log"
-            (cd "$WT" && ORANGECAT_OWNER_SEED=1 CAUSIUS_OAUTH_SECRET="$secret" npx --no-install tsx scripts/oauth/register-client.ts --client causius --rotate >"$log" 2>&1) || rc=$?
+            (cd "$WT" && ORANGECAT_OWNER_SEED=1 CAUSIUS_OAUTH_SECRET="$secret" npx --yes tsx scripts/oauth/register-client.ts --client causius --rotate >"$log" 2>&1) || rc=$?
             git -C "$OC" worktree remove --force "$WT"
             if [ "$rc" != 0 ]; then
               # The script prints a new secret on success only; on failure, show
