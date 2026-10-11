@@ -27,7 +27,7 @@ jobs:
         run: |
           set -uo pipefail
           fail=0
-          for path in /en /de /fr /en/cases/new /de/cases/sample /fr/helpers /en/settings; do
+          for path in /en /de /fr /en/platform /de/security /fr/ecosystem /en/matters /en/cases/new /de/cases/sample /fr/helpers /en/settings /en/roadmap; do
             code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "https://causius.orangecat.ch$path")
             echo "::notice::$path → $code"
             [ "$code" = "200" ] || fail=1
@@ -55,6 +55,23 @@ jobs:
           echo "::notice::health $body"
           echo "$body" | grep -q '"text":true' || { echo "::error::free analysis is OFF: no shared model key reaches the app"; exit 1; }
           echo "$body" | grep -q '"photo":true' || echo "::warning::photos cannot be read by the free models (needs GEMINI_API_KEY or OPENROUTER_API_KEY)"
+
+      - name: Matters and sign-in are switched on
+        run: |
+          set -uo pipefail
+          fail=0
+          # 401 = configured and asking for sign-in; 503 = no database or no master key.
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 https://causius.orangecat.ch/api/matters)
+          echo "::notice::/api/matters signed out → $code"
+          [ "$code" = "401" ] || { echo "::error::matters are not configured (expected 401, got $code)"; fail=1; }
+          # Sign-up hands straight to OrangeCat's authorize endpoint for this client.
+          loc=$(curl -s -o /dev/null -w '%{redirect_url}' --max-time 20 "https://causius.orangecat.ch/en/sign-up?from=/matters")
+          echo "::notice::/en/sign-up → ${loc%%\?*}"
+          case "$loc" in
+            https://orangecat.ch/*client_id=causius*prompt=create*|https://orangecat.ch/*prompt=create*client_id=causius*) ;;
+            *) echo "::error::sign-up does not reach OrangeCat as the causius client"; fail=1;;
+          esac
+          exit $fail
 
       # Only when run by hand: it spends a free-tier completion. The letter is
       # the invented sample (lib/sample.ts); its stated deadline is 2026-03-23.
