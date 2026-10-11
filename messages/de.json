@@ -28,21 +28,47 @@
     "start": "Fall eröffnen",
     "example": "Ein Beispiel ansehen",
     "steps": {
-      "one": { "title": "Den Brief zeigen", "body": "Fügen Sie den Text ein oder fotografieren Sie die Seiten. Wählen Sie die Sprachen, die Sie am besten lesen." },
-      "two": { "title": "Sehen, was verlangt wird", "body": "Eine einfache Zusammenfassung, die Frist, jede Forderung als Checkliste, eine vollständige Übersetzung und ein Antwortentwurf." },
-      "three": { "title": "Einen Menschen beiziehen", "body": "Exportieren Sie die Falldatei und geben Sie sie einer Rechtshelferin, einem Rechtshelfer oder einer Anwältin, einem Anwalt. Sie beginnen bei den Fakten statt bei null." }
+      "one": {
+        "title": "Den Brief zeigen",
+        "body": "Fügen Sie den Text ein oder fotografieren Sie die Seiten. Wählen Sie die Sprachen, die Sie am besten lesen."
+      },
+      "two": {
+        "title": "Sehen, was verlangt wird",
+        "body": "Eine einfache Zusammenfassung, die Frist, jede Forderung als Checkliste, eine vollständige Übersetzung und ein Antwortentwurf."
+      },
+      "three": {
+        "title": "Einen Menschen beiziehen",
+        "body": "Exportieren Sie die Falldatei und geben Sie sie einer Rechtshelferin, einem Rechtshelfer oder einer Anwältin, einem Anwalt. Sie beginnen bei den Fakten statt bei null."
+      }
     },
     "tiersTitle": "Drei Arten von Hilfe und eine ehrliche Grenze dazwischen",
     "tiersLead": "Die meisten Rechtsprobleme beginnen als Papierkram, und für den meisten Papierkram braucht es keine Anwältin und keinen Anwalt. Für manchen schon. Causius hält den Unterschied sichtbar.",
     "tiers": {
-      "ai": { "name": "Causius KI", "can": "Liest, übersetzt, listet auf, was verlangt wird, und entwirft eine Antwort.", "limit": "Nur Rechtsinformation. Sie berät und vertritt Sie nicht." },
-      "assistant": { "name": "Rechtshelferinnen und Rechtshelfer", "can": "Menschen, die den Papierkram kennen: Belege sammeln, Formulare, Einreichen, Übersetzen. Sie dürfen unter einem Pseudonym arbeiten.", "limit": "Keine Anwältinnen und Anwälte. Sie helfen Ihnen bei der Erledigung; Rechtsberatung geben sie nicht." },
-      "lawyer": { "name": "Zugelassene Anwältinnen und Anwälte", "can": "Am Ort Ihres Falls zugelassen, mit richtigem Namen und Registereintrag. Sie beraten und können Sie vertreten.", "limit": "Die Zulassung gilt pro Rechtsordnung: Wer in einem Land zugelassen ist, darf nicht zum Recht eines anderen beraten." }
+      "ai": {
+        "name": "Causius KI",
+        "can": "Liest, übersetzt, listet auf, was verlangt wird, und entwirft eine Antwort.",
+        "limit": "Nur Rechtsinformation. Sie berät und vertritt Sie nicht."
+      },
+      "assistant": {
+        "name": "Rechtshelferinnen und Rechtshelfer",
+        "can": "Menschen, die den Papierkram kennen: Belege sammeln, Formulare, Einreichen, Übersetzen. Sie dürfen unter einem Pseudonym arbeiten.",
+        "limit": "Keine Anwältinnen und Anwälte. Sie helfen Ihnen bei der Erledigung; Rechtsberatung geben sie nicht."
+      },
+      "lawyer": {
+        "name": "Zugelassene Anwältinnen und Anwälte",
+        "can": "Am Ort Ihres Falls zugelassen; die Zulassung wird geprüft. Sie beraten und können Sie vertreten, und sie können unter einem Pseudonym auftreten, bis Sie sie beauftragen.",
+        "limit": "Die Zulassung gilt pro Rechtsordnung: Wer in einem Land zugelassen ist, darf nicht zum Recht eines anderen beraten."
+      }
     },
     "marketplaceLink": "Wie der Marktplatz funktioniert und wie man mitmacht",
-    "identity": { "problem": "Das Problem", "solution": "Was Causius dagegen tut", "mission": "Auftrag", "vision": "Vision" },
+    "identity": {
+      "problem": "Das Problem",
+      "solution": "Was Causius dagegen tut",
+      "mission": "Auftrag",
+      "vision": "Vision"
+    },
     "privacyTitle": "Ihr Fall bleibt bei Ihnen",
-    "privacyBody": "Diese Version hat keine Konten. Ein Fall wird in Ihrem Browser auf Ihrem Gerät gespeichert und sonst nirgends. Ein Brief, den Sie zur Analyse einreichen, geht zum Lesen an einen Anbieter von KI-Modellen und wird von Causius nicht gespeichert. Sie können einen Fall als Datei exportieren, ihn einer helfenden Person übergeben und ihn löschen."
+    "privacyBody": "Diese Version hat keine Konten. Ein Fall wird in Ihrem Browser auf Ihrem Gerät gespeichert und sonst nirgends. Bevor ein Brief zur Analyse gesendet wird, ersetzt Ihr Browser Ihren Namen, Ihre Adresse und Ihre Nummern; der Anbieter des Modells sieht sie nie, und Causius speichert nichts. Sie können einen Fall anonymisiert für eine helfende Person exportieren und ihn löschen."
   },
   "Cases": {
     "title": "Meine Fälle",
@@ -73,7 +99,11 @@
     "page": "Seite {n}",
     "removePage": "Seite {n} entfernen",
     "languagesLegend": "Übersetzen in",
-    "lang": { "English": "Englisch", "German": "Deutsch", "French": "Französisch" },
+    "lang": {
+      "English": "Englisch",
+      "German": "Deutsch",
+      "French": "Französisch"
+    },
     "submit": "Brief analysieren",
     "busy": "Der Brief wird gelesen…",
     "byHandLink": "Stattdessen von Hand erfassen",
@@ -113,7 +143,13 @@
     "checkDeadline": "Vergleichen Sie dieses Datum mit Ihrem Brief, bevor Sie sich darauf verlassen.",
     "noDeadline": "Im Brief wurde kein Antwortdatum gefunden. Suchen Sie selbst nach einer Frist.",
     "ifNothing": "Wenn Sie nichts tun:",
-    "facts": { "from": "Von", "where": "Wo", "area": "Rechtsgebiet", "reference": "Referenz", "dated": "Datum" },
+    "facts": {
+      "from": "Von",
+      "where": "Wo",
+      "area": "Rechtsgebiet",
+      "reference": "Referenz",
+      "dated": "Datum"
+    },
     "asksTitle": "Was von Ihnen verlangt wird",
     "ready": "{done} von {total} bereit",
     "letterTitle": "Der Brief",
@@ -124,24 +160,29 @@
     "copied": "Kopiert",
     "notesTitle": "Gut zu wissen",
     "whoEyebrow": "Wer sich das ansehen sollte",
-    "tier": { "ai": "Causius KI", "assistant": "Rechtshelferin oder Rechtshelfer", "lawyer": "Zugelassene Anwältin oder zugelassener Anwalt" },
+    "tier": {
+      "ai": "Causius KI",
+      "assistant": "Rechtshelferin oder Rechtshelfer",
+      "lawyer": "Zugelassene Anwältin oder zugelassener Anwalt"
+    },
     "findHelper": "Hilfe finden",
     "aiNotice": "Von einem KI-Modell geschrieben. Es kann sich irren: Massgebend ist der Brief selbst.",
-    "export": "Falldatei exportieren",
+    "export": "Vollständige Falldatei exportieren",
     "saveCopy": "Kopie in meinen Fällen speichern",
     "delete": "Fall löschen",
     "deleteConfirm": "Diesen Fall aus diesem Browser löschen? Das lässt sich nicht rückgängig machen.",
     "sampleBanner": "Beispiel. Person, Daten und Referenznummer sind erfunden.",
     "notHereTitle": "Dieser Fall ist nicht auf diesem Gerät",
     "notHereBody": "Fälle bleiben in dem Browser, in dem sie erstellt wurden. Haben Sie die exportierte Datei, können Sie sie importieren.",
-    "goCases": "Zu meinen Fällen"
+    "goCases": "Zu meinen Fällen",
+    "exportAnon": "Für Helfende exportieren (anonymisiert)"
   },
   "Helpers": {
     "metaTitle": "Helfende",
     "metaDescription": "Der Marktplatz von Causius: Rechtshelferinnen und Rechtshelfer für den Papierkram, zugelassene Anwältinnen und Anwälte für Beratung und Vertretung.",
     "eyebrow": "Marktplatz",
     "title": "Menschen, die helfen, wenn die KI nicht reicht",
-    "lead": "Zwei Arten von Menschen arbeiten an Causius-Fällen. Was sie unterscheidet, ist nicht Preis oder Rang, sondern das, was das Gesetz ihnen jeweils erlaubt.",
+    "lead": "Zwei Arten von Menschen arbeiten an Causius-Fällen. Was sie unterscheidet, ist nicht Preis oder Rang, sondern das, was das Gesetz ihnen jeweils erlaubt. Keine von ihnen muss wissen, wer Sie sind, und Sie müssen nicht wissen, wer sie sind, bis Sie jemanden beauftragen.",
     "noneTitle": "Es ist noch niemand aufgeführt.",
     "noneBody": "Causius vermittelt und prüft noch niemanden. Bis dahin nutzen Sie die Falldatei bei einer Anwältin, einem Anwalt oder einer Beratungsstelle, die Sie selbst finden: Sie ist zum Weitergeben gemacht.",
     "listedUnder": "Aufgeführt unter: {identity}",
@@ -156,12 +197,12 @@
     },
     "lawyer": {
       "name": "Zugelassene Anwältin oder zugelassener Anwalt",
-      "identity": "Richtiger Name und Registereintrag",
+      "identity": "Name oder Pseudonym; Zulassung vertraulich geprüft",
       "does1": "Berät Sie zu Ihren Rechten und Möglichkeiten",
       "does2": "Prüft oder schreibt, was Sie einreichen",
       "does3": "Vertritt Sie vor der Behörde oder dem Gericht",
       "doesNot": "Nur für die Rechtsordnungen, in denen sie zugelassen sind; diese stehen im Profil.",
-      "checks": "Geplant: Die Zulassung wird im öffentlichen Anwaltsregister der jeweiligen Rechtsordnung geprüft, bevor ein Profil diese Bezeichnung trägt, und danach erneut."
+      "checks": "Geplant: Die Zulassung wird vertraulich im öffentlichen Anwaltsregister der jeweiligen Rechtsordnung geprüft, bevor ein Profil diese Bezeichnung trägt, und danach erneut. Eine Anwältin oder ein Anwalt kann unter einem Pseudonym auftreten; den Namen erfahren Sie, wenn Sie den Auftrag erteilen, weil das Gesetz die Berufspflichten an den Namen knüpft."
     },
     "wantTitle": "Möchten Sie helfen?",
     "wantBody": "Helfende sind keine Causius-Konten. Sie bieten Ihre Hilfe als Dienstleistung auf OrangeCat an, unter Ihrem Namen oder einem Pseudonym, und werden dort direkt von der Person bezahlt, der Sie geholfen haben. Eine Dienstleistung können Sie schon heute eintragen. Causius übernimmt diese Einträge noch nicht, kennzeichnet sie nicht und prüft keine Anwaltszulassung; das ist der nächste Schritt auf der Roadmap.",
@@ -169,10 +210,22 @@
     "seeRoadmap": "Roadmap ansehen",
     "rulesTitle": "Die Regeln",
     "rules": {
-      "label": { "title": "Die Bezeichnung ist das Gesetz", "body": "Wer Rechtsberatung geben darf, legt jedes Land selbst fest, und fast überall ist sie zugelassenen Anwältinnen und Anwälten vorbehalten. Die Bezeichnung einer helfenden Person sagt, auf welcher Seite dieser Grenze sie steht, und darüber hinaus darf sie nicht arbeiten." },
-      "pseudonym": { "title": "Pseudonym, nicht anonym", "body": "Viele, die ein System am besten kennen, haben es selbst durchlaufen und möchten dafür nicht mit ihrem Namen einstehen. Sie können unter einem Pseudonym helfen. Zugelassene Anwältinnen und Anwälte können das nicht: Ihre Zulassung ist ihr Name." },
-      "share": { "title": "Sie bestimmen, was eine helfende Person sieht", "body": "Eine helfende Person bekommt die Falldatei, die Sie ihr geben, und sonst nichts. Es ist eine Datei, die Sie exportieren; Sie können also vorher genau lesen, was Sie weitergeben." },
-      "place": { "title": "Jede Rechtsordnung, eine nach der anderen", "body": "Ein Fall nennt seinen Ort. Helfende werden nach diesem Ort, dem Rechtsgebiet und einer gemeinsamen Sprache zugeordnet." }
+      "label": {
+        "title": "Die Bezeichnung ist das Gesetz",
+        "body": "Wer Rechtsberatung geben darf, legt jedes Land selbst fest, und fast überall ist sie zugelassenen Anwältinnen und Anwälten vorbehalten. Die Bezeichnung einer helfenden Person sagt, auf welcher Seite dieser Grenze sie steht, und darüber hinaus darf sie nicht arbeiten."
+      },
+      "pseudonym": {
+        "title": "Pseudonym auf allen Seiten",
+        "body": "Hilfesuchende, Rechtshelfende sowie Anwältinnen und Anwälte können alle unter einem Pseudonym auftreten. Causius prüft vertraulich, was stimmen muss – dass eine Anwältin oder ein Anwalt zugelassen ist –, und zeigt nur, was nötig ist. Viele, die ein System am besten kennen, haben es selbst durchlaufen und möchten dafür nicht mit ihrem Namen einstehen."
+      },
+      "share": {
+        "title": "Sie bestimmen, was eine helfende Person sieht",
+        "body": "Eine helfende Person bekommt die Falldatei, die Sie ihr geben, und sonst nichts – und diese Datei ist standardmässig anonymisiert: der Fall, die Frist und der Brief, mit ersetztem Namen, ersetzter Adresse und ersetzten Nummern. Ob und wann Sie mehr sagen, entscheiden Sie."
+      },
+      "place": {
+        "title": "Jede Rechtsordnung, eine nach der anderen",
+        "body": "Ein Fall nennt seinen Ort. Helfende werden nach diesem Ort, dem Rechtsgebiet und einer gemeinsamen Sprache zugeordnet."
+      }
     },
     "start": "Fall eröffnen"
   },
@@ -212,5 +265,40 @@
     "progress": "erfasster Fortschritt",
     "target": "Ziel",
     "englishOnly": "Diese Einträge werden auf Englisch geführt."
+  },
+  "Redact": {
+    "title": "Vor dem Senden anonymisieren",
+    "lead": "Namen, Adressen und Nummern, die Sie erkennbar machen, werden in Ihrem Browser durch Platzhalter ersetzt, bevor der Brief gesendet wird. Das Modell sieht sie nie; Ihr Browser setzt sie im Ergebnis wieder ein.",
+    "toggle": "Anonymisieren",
+    "ownWords": "Auch diese Wörter verbergen",
+    "ownWordsPlaceholder": "Ihr Name, Ihr Arbeitgeber, ein Familienmitglied…",
+    "ownWordsHint": "Mit Kommas trennen. Bleibt für Ihre nächsten Briefe in diesem Browser gespeichert.",
+    "found": "{count, plural, =0 {Es wird nichts verborgen} one {# Angabe wird verborgen} other {# Angaben werden verborgen}}. Tippen Sie auf eine, um sie doch zu senden.",
+    "foundNone": "Im Text wurden keine persönlichen Angaben gefunden. Tragen Sie oben Ihren Namen ein, falls er vorkommt.",
+    "sendThis": "Doch senden",
+    "hideThis": "Verbergen",
+    "preview": "Genau zeigen, was das Modell erhält",
+    "photosWarning": "Fotos werden so gesendet, wie sie sind. Decken Sie auf jeder Seite Ihren Namen, Ihre Adresse und Ihre Nummern ab, bevor Sie senden.",
+    "offWarning": "Anonymisieren ist ausgeschaltet: Der Brief wird mit allen persönlichen Angaben gesendet.",
+    "cover": "Angaben abdecken",
+    "coveredCount": "{count, plural, one {# Bereich abgedeckt} other {# Bereiche abgedeckt}}",
+    "notCovered": "noch nichts abgedeckt",
+    "photoTitle": "Angaben abdecken auf {label}",
+    "photoHint": "Ziehen Sie ein Rechteck über Ihren Namen, Ihre Adresse und jede Nummer, die Sie erkennbar macht. Was darunter liegt, wird aus dem Foto entfernt.",
+    "undo": "Rückgängig",
+    "cancel": "Abbrechen",
+    "done": "{count, plural, =0 {Fertig} one {# Bereich abdecken} other {# Bereiche abdecken}}",
+    "canvas": "Die Seite. Ziehen, um einen Bereich abzudecken.",
+    "kind": {
+      "NAME": "Name",
+      "ADDRESS": "Adresse",
+      "POSTCODE": "Ort",
+      "EMAIL": "E-Mail",
+      "PHONE": "Telefon",
+      "IBAN": "IBAN",
+      "AHV": "AHV-Nr.",
+      "REF": "Referenz",
+      "BIRTHDATE": "Geboren"
+    }
   }
 }

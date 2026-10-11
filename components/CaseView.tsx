@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { daysUntil, formatDate, type CaseFile } from "@/lib/case";
+import { anonymisedCase } from "@/lib/case-export";
 import { ROUTES } from "@/lib/routes";
 import { useToday } from "@/lib/store";
 import { btnQuiet, card, eyebrow, link } from "./ui";
@@ -72,16 +73,18 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
-function exportCase(data: CaseFile) {
+function download(data: unknown, name: string) {
   const url = URL.createObjectURL(
     new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }),
   );
   const a = document.createElement("a");
   a.href = url;
-  a.download = `causius-${data.id}.json`;
+  a.download = name;
   a.click();
   URL.revokeObjectURL(url);
 }
+
+
 
 export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
   const t = useTranslations("Case");
@@ -276,7 +279,18 @@ export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
       )}
 
       <footer className="flex flex-wrap gap-3 border-t border-border-subtle pt-6">
-        <button type="button" className={btnQuiet} onClick={() => exportCase(data)}>
+        <button
+          type="button"
+          className={btnQuiet}
+          onClick={() => download(anonymisedCase(data), `causius-${data.id}-anonymised.json`)}
+        >
+          {t("exportAnon")}
+        </button>
+        <button
+          type="button"
+          className={btnQuiet}
+          onClick={() => download(data, `causius-${data.id}.json`)}
+        >
           {t("export")}
         </button>
         {onSaveCopy && (

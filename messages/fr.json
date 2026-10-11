@@ -28,21 +28,47 @@
     "start": "Ouvrir un dossier",
     "example": "Voir un exemple",
     "steps": {
-      "one": { "title": "Montrez-lui le courrier", "body": "Collez le texte ou photographiez les pages. Choisissez les langues que vous lisez le mieux." },
-      "two": { "title": "Voyez ce qu'il demande", "body": "Un résumé simple, le délai, chaque demande sous forme de liste à cocher, une traduction complète et un projet de réponse." },
-      "three": { "title": "Faites appel à une personne", "body": "Exportez le dossier et remettez-le à une assistante ou un assistant juridique, ou à une avocate ou un avocat, qui part des faits et non de zéro." }
+      "one": {
+        "title": "Montrez-lui le courrier",
+        "body": "Collez le texte ou photographiez les pages. Choisissez les langues que vous lisez le mieux."
+      },
+      "two": {
+        "title": "Voyez ce qu'il demande",
+        "body": "Un résumé simple, le délai, chaque demande sous forme de liste à cocher, une traduction complète et un projet de réponse."
+      },
+      "three": {
+        "title": "Faites appel à une personne",
+        "body": "Exportez le dossier et remettez-le à une assistante ou un assistant juridique, ou à une avocate ou un avocat, qui part des faits et non de zéro."
+      }
     },
     "tiersTitle": "Trois formes d'aide, et une frontière honnête entre elles",
     "tiersLead": "La plupart des ennuis juridiques commencent par de la paperasse, et la plupart de la paperasse ne demande pas d'avocat. Une partie, si. Causius garde la différence visible.",
     "tiers": {
-      "ai": { "name": "L'IA de Causius", "can": "Lit, traduit, énumère ce qui est demandé et rédige un projet de réponse.", "limit": "Information juridique uniquement. Elle ne vous conseille pas et ne vous représente pas." },
-      "assistant": { "name": "Assistantes et assistants juridiques", "can": "Des personnes qui connaissent la paperasse : réunir les preuves, les formulaires, le dépôt, la traduction. Elles peuvent travailler sous pseudonyme.", "limit": "Ce ne sont pas des avocats. Elles vous aident à faire les démarches ; elles ne donnent pas de conseil juridique." },
-      "lawyer": { "name": "Avocates et avocats inscrits au barreau", "can": "Autorisés à pratiquer là où se trouve votre dossier, sous leur vrai nom et leur inscription au registre. Ils conseillent et peuvent vous représenter.", "limit": "L'autorisation vaut par ordre juridique : un avocat d'un pays ne peut pas conseiller sur le droit d'un autre." }
+      "ai": {
+        "name": "L'IA de Causius",
+        "can": "Lit, traduit, énumère ce qui est demandé et rédige un projet de réponse.",
+        "limit": "Information juridique uniquement. Elle ne vous conseille pas et ne vous représente pas."
+      },
+      "assistant": {
+        "name": "Assistantes et assistants juridiques",
+        "can": "Des personnes qui connaissent la paperasse : réunir les preuves, les formulaires, le dépôt, la traduction. Elles peuvent travailler sous pseudonyme.",
+        "limit": "Ce ne sont pas des avocats. Elles vous aident à faire les démarches ; elles ne donnent pas de conseil juridique."
+      },
+      "lawyer": {
+        "name": "Avocates et avocats inscrits au barreau",
+        "can": "Autorisés à pratiquer là où se trouve votre dossier ; leur inscription est vérifiée. Ils conseillent et peuvent vous représenter, et peuvent apparaître sous pseudonyme jusqu'à ce que vous leur confiiez le mandat.",
+        "limit": "L'autorisation vaut par ordre juridique : un avocat d'un pays ne peut pas conseiller sur le droit d'un autre."
+      }
     },
     "marketplaceLink": "Comment fonctionne la place de marché, et comment la rejoindre",
-    "identity": { "problem": "Le problème", "solution": "Ce que Causius y fait", "mission": "Mission", "vision": "Vision" },
+    "identity": {
+      "problem": "Le problème",
+      "solution": "Ce que Causius y fait",
+      "mission": "Mission",
+      "vision": "Vision"
+    },
     "privacyTitle": "Votre dossier reste chez vous",
-    "privacyBody": "Cette version n'a pas de comptes. Un dossier est conservé dans votre navigateur, sur votre appareil, et nulle part ailleurs. Un courrier que vous soumettez à l'analyse est envoyé à un fournisseur de modèles d'IA pour être lu et n'est pas conservé par Causius. Vous pouvez exporter un dossier sous forme de fichier, le remettre à une personne qui vous aide, et le supprimer."
+    "privacyBody": "Cette version n'a pas de comptes. Un dossier est conservé dans votre navigateur, sur votre appareil, et nulle part ailleurs. Avant l'envoi d'un courrier à l'analyse, votre navigateur remplace votre nom, votre adresse et vos numéros : le fournisseur du modèle ne les voit jamais, et Causius ne conserve rien. Vous pouvez exporter un dossier anonymisé pour un aidant, et le supprimer."
   },
   "Cases": {
     "title": "Mes dossiers",
@@ -73,7 +99,11 @@
     "page": "Page {n}",
     "removePage": "Retirer la page {n}",
     "languagesLegend": "Traduire en",
-    "lang": { "English": "anglais", "German": "allemand", "French": "français" },
+    "lang": {
+      "English": "anglais",
+      "German": "allemand",
+      "French": "français"
+    },
     "submit": "Analyser le courrier",
     "busy": "Lecture du courrier…",
     "byHandLink": "Le saisir à la main",
@@ -113,7 +143,13 @@
     "checkDeadline": "Comparez cette date avec votre courrier avant de vous y fier.",
     "noDeadline": "Aucune date de réponse n'a été trouvée dans le courrier. Cherchez vous-même un délai.",
     "ifNothing": "Si vous ne faites rien :",
-    "facts": { "from": "De", "where": "Lieu", "area": "Domaine", "reference": "Référence", "dated": "Date" },
+    "facts": {
+      "from": "De",
+      "where": "Lieu",
+      "area": "Domaine",
+      "reference": "Référence",
+      "dated": "Date"
+    },
     "asksTitle": "Ce qui vous est demandé",
     "ready": "{done} sur {total} prêts",
     "letterTitle": "Le courrier",
@@ -124,24 +160,29 @@
     "copied": "Copié",
     "notesTitle": "Bon à savoir",
     "whoEyebrow": "Qui devrait y jeter un œil",
-    "tier": { "ai": "L'IA de Causius", "assistant": "Assistante ou assistant juridique", "lawyer": "Avocate ou avocat inscrit au barreau" },
+    "tier": {
+      "ai": "L'IA de Causius",
+      "assistant": "Assistante ou assistant juridique",
+      "lawyer": "Avocate ou avocat inscrit au barreau"
+    },
     "findHelper": "Trouver de l'aide",
     "aiNotice": "Rédigé par un modèle d'IA. Il peut se tromper : c'est le courrier lui-même qui fait foi.",
-    "export": "Exporter le dossier",
+    "export": "Exporter le dossier complet",
     "saveCopy": "Enregistrer une copie dans mes dossiers",
     "delete": "Supprimer le dossier",
     "deleteConfirm": "Supprimer ce dossier de ce navigateur ? Cette action est irréversible.",
     "sampleBanner": "Exemple. La personne, les dates et le numéro de référence sont inventés.",
     "notHereTitle": "Ce dossier n'est pas sur cet appareil",
     "notHereBody": "Les dossiers restent dans le navigateur où ils ont été créés. Si vous avez le fichier exporté, vous pouvez l'importer.",
-    "goCases": "Aller à mes dossiers"
+    "goCases": "Aller à mes dossiers",
+    "exportAnon": "Exporter pour un aidant (anonymisé)"
   },
   "Helpers": {
     "metaTitle": "Aidants",
     "metaDescription": "La place de marché de Causius : des assistantes et assistants juridiques pour la paperasse, des avocates et avocats inscrits au barreau pour le conseil et la représentation.",
     "eyebrow": "Place de marché",
     "title": "Des personnes qui aident quand l'IA ne suffit pas",
-    "lead": "Deux sortes de personnes travaillent sur les dossiers Causius. Ce qui les distingue n'est ni le prix ni le rang, mais ce que la loi permet à chacune.",
+    "lead": "Deux sortes de personnes travaillent sur les dossiers Causius. Ce qui les distingue n'est ni le prix ni le rang, mais ce que la loi permet à chacune. Aucune n'a besoin de savoir qui vous êtes, et vous n'avez pas besoin de savoir qui elles sont avant de confier un mandat.",
     "noneTitle": "Personne n'est encore répertorié.",
     "noneBody": "Causius ne met encore personne en relation et ne vérifie personne. D'ici là, utilisez le dossier auprès d'une avocate, d'un avocat ou d'un service de consultation que vous trouvez vous-même : il est fait pour être remis.",
     "listedUnder": "Répertorié sous : {identity}",
@@ -156,12 +197,12 @@
     },
     "lawyer": {
       "name": "Avocate ou avocat inscrit au barreau",
-      "identity": "Vrai nom et inscription au registre",
+      "identity": "Nom ou pseudonyme ; inscription vérifiée en toute confidentialité",
       "does1": "Vous conseille sur vos droits et vos options",
       "does2": "Relit ou rédige ce que vous envoyez",
       "does3": "Vous représente devant l'autorité ou le tribunal",
       "doesNot": "Uniquement pour les ordres juridiques où ils sont autorisés à pratiquer, indiqués sur leur profil.",
-      "checks": "Prévu : l'inscription est vérifiée dans le registre public des avocats de chaque ordre juridique avant qu'un profil porte cette mention, puis revérifiée."
+      "checks": "Prévu : l'inscription est vérifiée en toute confidentialité dans le registre public des avocats de chaque ordre juridique avant qu'un profil porte cette mention, puis revérifiée. Une avocate ou un avocat peut apparaître sous pseudonyme ; vous apprenez son nom au moment de lui confier le mandat, car la loi lie ses devoirs professionnels à son nom."
     },
     "wantTitle": "Vous voulez aider ?",
     "wantBody": "Les aidants ne sont pas des comptes Causius. Vous proposez votre aide comme service sur OrangeCat, sous votre nom ou un pseudonyme, et vous y êtes payé directement par la personne que vous avez aidée. Vous pouvez inscrire un service dès aujourd'hui. Causius ne reprend pas encore ces annonces, ne les qualifie pas et ne vérifie pas l'inscription d'un avocat ; c'est la prochaine étape de la feuille de route.",
@@ -169,10 +210,22 @@
     "seeRoadmap": "Voir la feuille de route",
     "rulesTitle": "Les règles",
     "rules": {
-      "label": { "title": "La mention, c'est la loi", "body": "Chaque pays fixe qui peut donner un conseil juridique, et presque partout c'est réservé aux avocats inscrits. La mention d'un aidant dit de quel côté de cette frontière il se trouve, et il ne peut pas travailler au-delà." },
-      "pseudonym": { "title": "Sous pseudonyme, pas anonyme", "body": "Beaucoup de ceux qui connaissent le mieux un système l'ont appris en le traversant, et préfèrent ne pas y associer leur nom. Ils peuvent aider sous pseudonyme. Les avocats inscrits ne le peuvent pas : leur autorisation, c'est leur nom." },
-      "share": { "title": "Vous choisissez ce qu'un aidant voit", "body": "Un aidant reçoit le dossier que vous lui remettez, et rien d'autre. C'est un fichier que vous exportez : vous pouvez donc lire exactement ce que vous partagez avant de le faire." },
-      "place": { "title": "Tous les ordres juridiques, un à la fois", "body": "Un dossier indique où il se situe. Les aidants sont proposés selon ce lieu, le domaine du droit et une langue commune." }
+      "label": {
+        "title": "La mention, c'est la loi",
+        "body": "Chaque pays fixe qui peut donner un conseil juridique, et presque partout c'est réservé aux avocats inscrits. La mention d'un aidant dit de quel côté de cette frontière il se trouve, et il ne peut pas travailler au-delà."
+      },
+      "pseudonym": {
+        "title": "Pseudonyme de tous les côtés",
+        "body": "Les personnes qui cherchent de l'aide, les assistants juridiques et les avocats peuvent tous apparaître sous pseudonyme. Causius vérifie en toute confidentialité ce qui doit être vrai — qu'un avocat est inscrit — et ne montre que le nécessaire. Beaucoup de ceux qui connaissent le mieux un système l'ont appris en le traversant, et préfèrent ne pas y associer leur nom."
+      },
+      "share": {
+        "title": "Vous choisissez ce qu'un aidant voit",
+        "body": "Un aidant reçoit le dossier que vous lui remettez, et rien d'autre — et ce fichier est anonymisé par défaut : le dossier, le délai et le courrier, avec votre nom, votre adresse et vos numéros remplacés. Vous décidez si et quand en dire plus."
+      },
+      "place": {
+        "title": "Tous les ordres juridiques, un à la fois",
+        "body": "Un dossier indique où il se situe. Les aidants sont proposés selon ce lieu, le domaine du droit et une langue commune."
+      }
     },
     "start": "Ouvrir un dossier"
   },
@@ -212,5 +265,40 @@
     "progress": "progression enregistrée",
     "target": "Échéance",
     "englishOnly": "Ces entrées sont tenues en anglais."
+  },
+  "Redact": {
+    "title": "Anonymiser avant l'envoi",
+    "lead": "Les noms, adresses et numéros qui permettent de vous identifier sont remplacés par des repères dans votre navigateur avant l'envoi du courrier. Le modèle ne les voit jamais ; votre navigateur les remet dans le résultat.",
+    "toggle": "Anonymiser",
+    "ownWords": "Masquer aussi ces mots",
+    "ownWordsPlaceholder": "Votre nom, votre employeur, un membre de votre famille…",
+    "ownWordsHint": "Séparez par des virgules. Conservé dans ce navigateur pour vos prochains courriers.",
+    "found": "{count, plural, =0 {Rien ne sera masqué} one {# donnée sera masquée} other {# données seront masquées}}. Touchez-en une pour l'envoyer quand même.",
+    "foundNone": "Aucune donnée personnelle trouvée dans le texte. Ajoutez votre nom ci-dessus s'il y figure.",
+    "sendThis": "L'envoyer quand même",
+    "hideThis": "La masquer",
+    "preview": "Voir exactement ce que reçoit le modèle",
+    "photosWarning": "Les photos sont envoyées telles quelles. Masquez votre nom, votre adresse et vos numéros sur chaque page avant l'envoi.",
+    "offWarning": "L'anonymisation est désactivée : le courrier est envoyé avec toutes les données personnelles.",
+    "cover": "Masquer des données",
+    "coveredCount": "{count, plural, one {# zone masquée} other {# zones masquées}}",
+    "notCovered": "rien de masqué pour l'instant",
+    "photoTitle": "Masquer des données sur la {label}",
+    "photoHint": "Tracez un rectangle sur votre nom, votre adresse et tout numéro qui vous identifie. Ce qui se trouve dessous est retiré de la photo.",
+    "undo": "Annuler la dernière",
+    "cancel": "Fermer",
+    "done": "{count, plural, =0 {Terminé} one {Masquer # zone} other {Masquer # zones}}",
+    "canvas": "La page. Faites glisser pour masquer une zone.",
+    "kind": {
+      "NAME": "Nom",
+      "ADDRESS": "Adresse",
+      "POSTCODE": "Localité",
+      "EMAIL": "E-mail",
+      "PHONE": "Téléphone",
+      "IBAN": "IBAN",
+      "AHV": "N° AVS",
+      "REF": "Référence",
+      "BIRTHDATE": "Né(e)"
+    }
   }
 }

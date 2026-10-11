@@ -290,5 +290,6 @@ export function sampleCase(locale: Locale): CaseFile {
     recommendedTier: "lawyer",
     tierReason: told.tierReason,
     createdAt: "2026-03-02T09:00:00.000Z",
+    redactions: [],
   };
 }

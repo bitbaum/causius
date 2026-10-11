@@ -101,6 +101,20 @@ export const useOwnModel = ownModel.use;
 export const saveOwnModel = (config: ByokConfig) => ownModel.write(config);
 export const clearOwnModel = () => ownModel.write(null);
 
+/**
+ * Words the reader always wants hidden from the model — their own name, their
+ * employer. Kept in this browser so they need typing once, not per letter.
+ */
+const NO_WORDS: string[] = [];
+const ownWords = createBrowserStore<string[]>("causius.hide.v1", NO_WORDS, (raw) =>
+  Array.isArray(raw)
+    ? raw.filter((w): w is string => typeof w === "string" && w.trim() !== "").slice(0, 50)
+    : NO_WORDS,
+);
+
+export const useOwnWords = ownWords.use;
+export const saveOwnWords = (words: string[]) => ownWords.write(words.length ? words : NO_WORDS);
+
 /** Today as YYYY-MM-DD on the client, null while server-rendering. */
 export function useToday(): string | null {
   return useSyncExternalStore(

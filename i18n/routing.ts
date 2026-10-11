@@ -3,10 +3,10 @@ import { defineRouting } from "next-intl/routing";
 /**
  * The languages Causius speaks — the one list every other file reads.
  *
- * English is the source every translation is made from, and the default: it
- * serves unprefixed (`/cases`), the others under their code (`/de/cases`).
+ * English is the source every translation is made from. Every page lives
+ * under its language (`/en/cases`, `/de/cases`, `/fr/cases`), and `/` redirects.
  * German follows Swiss spelling (ss, never ß) — the first readers are in
- * Switzerland. Same convention as Solon's `i18n/routing.ts`.
+ * Switzerland.
  */
 export const locales = ["en", "de", "fr"] as const;
 export type Locale = (typeof locales)[number];
@@ -35,9 +35,15 @@ export const localeEnglishNames = {
 export const routing = defineRouting({
   locales,
   defaultLocale,
-  localePrefix: "as-needed",
-  // The URL decides, never the browser's Accept-Language: a reader who opened
-  // an English link keeps reading English until they choose otherwise. The
-  // switcher is in the header on every page for exactly that choice.
-  localeDetection: false,
+  // "always", not "as-needed". With an unprefixed default language, next-intl
+  // serves `/cases` by REWRITING it to `/en/cases`, and a standalone Next
+  // server behind the box's HTTPS proxy performs that rewrite as a request to
+  // https://localhost:<port> — plain HTTP on that port, so every English page
+  // answered 500 in production while /de and /fr worked (2026-10-11). A prefix
+  // on every language means no rewrite exists to go wrong; `/` is a redirect.
+  localePrefix: "always",
+  // Only `/` has no language in it. There, the browser's language picks one
+  // (German browser → /de) and the choice is remembered; any URL that already
+  // names a language is served in that language, so a shared link stays as sent.
+  localeDetection: true,
 });

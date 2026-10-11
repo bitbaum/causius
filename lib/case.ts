@@ -93,6 +93,20 @@ export const CaseFileSchema = z
     recommendedTier: z.enum(HELPER_TIERS).catch("assistant"),
     tierReason: optionalText(600),
     createdAt: optionalText(40),
+    /**
+     * What each placeholder sent to the model stood for (`[NAME-1]` → the
+     * name). Written by the browser after the analysis returns, read only by
+     * the browser: it is how an anonymised export can be made again later.
+     * Never sent to the server.
+     */
+    redactions: listOf(
+      z.object({
+        token: z.string().regex(/^\[[A-Z]+-\d+\]$/),
+        value: text(500),
+        kind: z.enum(["NAME", "ADDRESS", "POSTCODE", "EMAIL", "PHONE", "IBAN", "AHV", "REF", "BIRTHDATE"]),
+      }),
+      200,
+    ),
   })
   .transform((c) => ({
     ...c,

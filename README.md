@@ -48,7 +48,7 @@ The blessed column of fleet `STACK.md`, nothing else:
 | Validation | `zod` (the case file, every request body, the fleet map entry) |
 | Rate limiting | `limitkit` |
 | Roadmap and changelog | `bip-kit`, from the fleet map |
-| i18n | `next-intl`: English (default, unprefixed), German (`/de`), French (`/fr`) |
+| i18n | `next-intl`: English (`/en`), German (`/de`), French (`/fr`) |
 | Tests | Vitest, hermetic (`lib/*.test.ts`, `i18n/parity.test.ts`) |
 | Deploy | PR, CI, auto-merge sweep, deploy to the box |
 
@@ -70,8 +70,9 @@ Drizzle/Postgres (there is no server-side storage).
 - `POST /api/model/check` does this key work, and which models can it use
 - `GET /api/health` is the site up, and can it analyse text and photos without a reader's key
 
-Every page exists in English, German (`/de/…`) and French (`/fr/…`), and an
-analysis is written in the reader's language.
+Every page exists in English (`/en/…`), German (`/de/…`) and French (`/fr/…`);
+`/` opens in the browser's language. An analysis is written in the reader's
+language.
 
 ## What does not exist yet
 
@@ -107,12 +108,40 @@ pnpm run check:analyze                            # the sample letter through a 
 `check:analyze` asserts the deadline and its source sentence and prints the rest
 to read. It is not part of CI: it needs a key and the network.
 
-## Privacy
+## Privacy and security
 
-A submitted letter is sent to an AI model provider to be read and is not stored
-or logged by Causius; only which model served it is logged. The resulting case
-is stored only in the visitor's browser, and so is a reader's own API key. This
-repository is public: **no real person's letter, name or reference number
+Causius handles the most private paperwork people have, so both are designed
+in rather than added:
+
+- **Anonymised before it leaves the browser.** `lib/redact.ts` replaces names,
+  addresses, AHV and IBAN numbers, phone numbers, e-mail addresses, dates of
+  birth and labelled reference numbers with placeholders (`[NAME-1]`). The
+  reader sees each replacement, can add their own words and preview the exact
+  text sent. The model answers with the placeholders and the browser restores
+  the real values. Photos are covered by hand in `components/PhotoRedactor.tsx`;
+  the boxes are burnt into the pixels before upload.
+- **Nothing stored on the server.** A letter goes to the model provider and the
+  answer comes back; only which model served it is logged. Cases, the
+  placeholder table and a reader's own API key live in the reader's browser.
+- **Anonymised hand-over.** "Export for a helper" writes the case with every
+  personal detail replaced and without the placeholder table.
+- **Pseudonymous on every side.** People seeking help, legal assistants and
+  lawyers may all appear under a pseudonym; a lawyer's admission is verified
+  privately and their name is given to a client on engagement (planned, with
+  the marketplace).
+- **Headers** (`lib/security.ts`, `proxy.ts`): a per-request nonce CSP with
+  `strict-dynamic`, `connect-src 'self'` and `frame-ancestors 'none'`; HSTS for
+  two years; `nosniff`; `Referrer-Policy: no-referrer`; a Permissions-Policy
+  that turns off camera, microphone, location and payment; same-origin
+  opener and resource policies; `no-store` on every API response.
+- **Abuse limits** per visitor (`lib/limits.ts`), and strict validation of every
+  request body and imported file (zod).
+
+What is not covered yet, and on the roadmap: photos are not anonymised
+automatically (the reader covers them), the free model providers' own data
+terms vary, and there has been no independent security review.
+
+This repository is public: **no real person's letter, name or reference number
 belongs in it**, including in tests and the sample.
 
 ## The case file
@@ -144,4 +173,4 @@ pnpm run verify          # type-check, lint and tests; CI also builds
 pnpm run check:analyze   # needs a vendor key: the sample letter through a real model
 ```
 
-A green pull request is merged by the fleet's auto-merge sweep, and merging to `main` deploys.
+Merging to `main` deploys: CI must pass, then the shared deploy workflow builds on the box, health-checks and rolls back on failure.

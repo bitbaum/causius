@@ -8,6 +8,26 @@ one to read for the detail.
 
 ### Added
 
+- **Your details never reach the model.** Before a letter is sent, your
+  browser replaces names, addresses, AHV and IBAN numbers, phone numbers,
+  e-mail addresses, dates of birth and reference numbers with placeholders.
+  You see every replacement, can add words of your own, and can preview
+  exactly what is sent. The real values go back into the result on your
+  device. [#10] {#anonymise}
+- **Cover details on a photo.** Black out your name and address on each page
+  before it is sent; what is under the box is removed from the image. [#10]
+  {#anonymise-photos}
+- **An anonymised case file for helpers.** Export a case with your details
+  replaced, to hand to a legal assistant or a lawyer. [#10] {#anonymise-export}
+- **A strict security policy.** The browser runs only scripts the page vouches
+  for, sends data only to Causius, and refuses framing. [#10] {#security}
+
+### Fixed
+
+- **English pages answered with an error.** Every page now lives under its
+  language (`/en`, `/de`, `/fr`), and `/` opens in your browser's language.
+  [#10]
+
 - **Causius speaks English, German and French.** The whole interface, and what
   an analysis says about your letter, in the language you choose in the header.
   German follows Swiss spelling. [#7] {#languages}

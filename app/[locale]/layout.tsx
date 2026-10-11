@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -12,10 +13,6 @@ import { EXTERNAL, ROUTES } from "@/lib/routes";
 import "../globals.css";
 
 const SITE_URL = "https://causius.orangecat.ch";
-
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
 
 export async function generateMetadata({
   params,
@@ -31,7 +28,7 @@ export async function generateMetadata({
     openGraph: { siteName: "Causius", type: "website", description: t("description") },
     alternates: {
       languages: Object.fromEntries(
-        routing.locales.map((l) => [l, l === routing.defaultLocale ? "/" : `/${l}`]),
+        routing.locales.map((l) => [l, `/${l}`]),
       ),
     },
   };
@@ -54,6 +51,9 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
+  // Set by proxy.ts. Reading it makes every page render per request, which is
+  // what a nonce needs: a nonce baked into a static page is no nonce at all.
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   const nav = await getTranslations("Nav");
   const t = await getTranslations("Footer");
 
@@ -118,6 +118,7 @@ export default async function LocaleLayout({
           <Script
             src="https://loki.orangecat.ch/widget.js"
             strategy="afterInteractive"
+            nonce={nonce}
             data-fc-project={process.env.NEXT_PUBLIC_FC_WIDGET_TOKEN}
           />
         )}

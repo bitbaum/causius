@@ -24,6 +24,20 @@ translation and a draft reply.
 - [ ] A set of real letters with known answers, to measure how often the deadline is right
 - [ ] Letters that arrive as a PDF
 
+### Private by construction {#privacy}
+
+The model reads what a letter asks for; it does not need to know who it is
+about. Nobody — the model provider, a helper, Causius — sees more than they
+need.
+
+- [x] Personal details replaced in the browser before a letter is sent {#anonymise}
+- [x] Details covered on page photos before they are sent {#anonymise-photos}
+- [x] An anonymised case file to hand to a helper {#anonymise-export}
+- [x] A strict content security policy and security headers {#security}
+- [ ] Read the text of a photographed page in the browser, so photos are anonymised automatically too
+- [ ] Model providers that contractually do not train on or retain what they are sent
+- [ ] An independent security review before the first real users
+
 ### Say what Causius is, in one place {#identity}
 
 Problem, solution, mission and vision live in the Loki project profile and are
@@ -43,7 +57,8 @@ and are paid there. Causius adds the label and the check.
 
 - [x] The rules: who may give legal advice, and who may be pseudonymous {#helper-rules}
 - [ ] Sign in with OrangeCat
-- [ ] Helpers listed from their OrangeCat services, by jurisdiction, area and language
+- [ ] Helpers listed from their OrangeCat services, by jurisdiction, area and language, under a name or a pseudonym
+- [ ] A lawyer's identity held privately and shown to a client when they engage them
 - [ ] A lawyer's admission checked against the public bar register before the label
 - [ ] Hand a case to a helper from the case page, sharing only what you choose
 

@@ -17,9 +17,9 @@ function leaves(tree: Tree, prefix = ""): Map<string, string> {
 
 /** `{name}` and `{count, plural, …}` arguments a message takes. */
 function args(message: string): string[] {
-  return [...message.matchAll(/\{\s*(\w+)\s*[,}]/g)]
+  // A plural branch body (`one {# page}`, `=0 {Done}`) is text, not an argument.
+  return [...message.matchAll(/(?<!(?:=\d+|zero|one|two|few|many|other)\s*)\{\s*(\w+)\s*[,}]/g)]
     .map((m) => m[1])
-    .filter((name) => !["one", "other", "zero", "two", "few", "many"].includes(name))
     .toSorted();
 }
 

@@ -28,21 +28,47 @@
     "start": "Start a case",
     "example": "See a worked example",
     "steps": {
-      "one": { "title": "Show it the letter", "body": "Paste the text or photograph the pages. Choose the languages you read best." },
-      "two": { "title": "See what it wants", "body": "A plain summary, the deadline, each thing asked of you as a checklist, a full translation and a draft reply." },
-      "three": { "title": "Bring in a person", "body": "Export the case file and hand it to a legal assistant or a licensed lawyer, who starts from the facts instead of from zero." }
+      "one": {
+        "title": "Show it the letter",
+        "body": "Paste the text or photograph the pages. Choose the languages you read best."
+      },
+      "two": {
+        "title": "See what it wants",
+        "body": "A plain summary, the deadline, each thing asked of you as a checklist, a full translation and a draft reply."
+      },
+      "three": {
+        "title": "Bring in a person",
+        "body": "Export the case file and hand it to a legal assistant or a licensed lawyer, who starts from the facts instead of from zero."
+      }
     },
     "tiersTitle": "Three kinds of help, and an honest line between them",
     "tiersLead": "Most legal trouble starts as paperwork, and most paperwork does not need a lawyer. Some of it does. Causius keeps the difference visible.",
     "tiers": {
-      "ai": { "name": "Causius AI", "can": "Reads, translates, lists what is asked and drafts a reply.", "limit": "Legal information only. It does not advise or represent you." },
-      "assistant": { "name": "Legal assistants", "can": "People who know the paperwork: gathering evidence, forms, filing, translation. They may work under a pseudonym.", "limit": "Not lawyers. They help you do it; they do not give legal advice." },
-      "lawyer": { "name": "Licensed lawyers", "can": "Admitted to practise where your case is, under their real name and bar registration. They advise and can represent you.", "limit": "Licensed per jurisdiction: a lawyer in one country cannot advise on another's law." }
+      "ai": {
+        "name": "Causius AI",
+        "can": "Reads, translates, lists what is asked and drafts a reply.",
+        "limit": "Legal information only. It does not advise or represent you."
+      },
+      "assistant": {
+        "name": "Legal assistants",
+        "can": "People who know the paperwork: gathering evidence, forms, filing, translation. They may work under a pseudonym.",
+        "limit": "Not lawyers. They help you do it; they do not give legal advice."
+      },
+      "lawyer": {
+        "name": "Licensed lawyers",
+        "can": "Admitted to practise where your case is; their admission is verified. They advise and can represent you, and may appear under a pseudonym until you engage them.",
+        "limit": "Licensed per jurisdiction: a lawyer in one country cannot advise on another's law."
+      }
     },
     "marketplaceLink": "How the marketplace works, and how to join it",
-    "identity": { "problem": "The problem", "solution": "What Causius does about it", "mission": "Mission", "vision": "Vision" },
+    "identity": {
+      "problem": "The problem",
+      "solution": "What Causius does about it",
+      "mission": "Mission",
+      "vision": "Vision"
+    },
     "privacyTitle": "Your case stays with you",
-    "privacyBody": "This version has no accounts. A case is kept in your browser, on your device, and nowhere else. A letter you submit for analysis is sent to an AI model provider to be read and is not stored by Causius. You can export a case as a file, hand it to a helper, and delete it."
+    "privacyBody": "This version has no accounts. A case is kept in your browser, on your device, and nowhere else. Before a letter is sent for analysis, your name, address and numbers are replaced in your browser, so the model provider never sees them; Causius stores nothing. You can export a case anonymised for a helper, and delete it."
   },
   "Cases": {
     "title": "My cases",
@@ -73,7 +99,11 @@
     "page": "Page {n}",
     "removePage": "Remove page {n}",
     "languagesLegend": "Translate it into",
-    "lang": { "English": "English", "German": "German", "French": "French" },
+    "lang": {
+      "English": "English",
+      "German": "German",
+      "French": "French"
+    },
     "submit": "Analyse the letter",
     "busy": "Reading the letter…",
     "byHandLink": "File it by hand instead",
@@ -113,7 +143,13 @@
     "checkDeadline": "Check this date against your letter before you rely on it.",
     "noDeadline": "No reply date was found in the letter. Read it for a deadline yourself.",
     "ifNothing": "If you do nothing:",
-    "facts": { "from": "From", "where": "Where", "area": "Area", "reference": "Reference", "dated": "Dated" },
+    "facts": {
+      "from": "From",
+      "where": "Where",
+      "area": "Area",
+      "reference": "Reference",
+      "dated": "Dated"
+    },
     "asksTitle": "What you are asked for",
     "ready": "{done} of {total} ready",
     "letterTitle": "The letter",
@@ -124,24 +160,29 @@
     "copied": "Copied",
     "notesTitle": "Worth knowing",
     "whoEyebrow": "Who should look at this",
-    "tier": { "ai": "Causius AI", "assistant": "Legal assistant", "lawyer": "Licensed lawyer" },
+    "tier": {
+      "ai": "Causius AI",
+      "assistant": "Legal assistant",
+      "lawyer": "Licensed lawyer"
+    },
     "findHelper": "Find a helper",
     "aiNotice": "Written by an AI model. It can be wrong: the letter itself is what counts.",
-    "export": "Export case file",
+    "export": "Export full case file",
     "saveCopy": "Save a copy to my cases",
     "delete": "Delete case",
     "deleteConfirm": "Delete this case from this browser? This cannot be undone.",
     "sampleBanner": "Worked example. The person, dates and reference number are invented.",
     "notHereTitle": "This case is not on this device",
     "notHereBody": "Cases are kept in the browser they were created in. If you have the exported file, you can import it.",
-    "goCases": "Go to my cases"
+    "goCases": "Go to my cases",
+    "exportAnon": "Export for a helper (anonymised)"
   },
   "Helpers": {
     "metaTitle": "Helpers",
     "metaDescription": "The Causius marketplace: legal assistants who help with paperwork, and licensed lawyers who can advise and represent you.",
     "eyebrow": "Marketplace",
     "title": "People who help when the AI is not enough",
-    "lead": "Two kinds of people work on Causius cases. What separates them is not price or rank but what the law lets each of them do.",
+    "lead": "Two kinds of people work on Causius cases. What separates them is not price or rank but what the law lets each of them do. Neither needs to know who you are, and you need not know who they are until you engage one.",
     "noneTitle": "No helpers are listed yet.",
     "noneBody": "Causius does not match or verify anyone yet. Until it does, use the case file with a lawyer or advice centre you find yourself: it is made to be handed over.",
     "listedUnder": "Listed under: {identity}",
@@ -156,12 +197,12 @@
     },
     "lawyer": {
       "name": "Licensed lawyer",
-      "identity": "Real name and bar registration",
+      "identity": "Name or pseudonym; admission verified privately",
       "does1": "Advises you on your rights and your options",
       "does2": "Reviews or writes what you send",
       "does3": "Represents you before the authority or the court",
       "doesNot": "Only for the jurisdictions they are admitted in, shown on their profile.",
-      "checks": "Planned: admission checked against the public bar register of each jurisdiction before a profile carries this label, and re-checked."
+      "checks": "Planned: admission checked privately against the public bar register of each jurisdiction before a profile carries this label, and re-checked. A lawyer may appear under a pseudonym; you learn their name when you engage them, because the law ties a lawyer's duties to their name."
     },
     "wantTitle": "Want to help?",
     "wantBody": "Helpers are not Causius accounts. You offer your help as a service on OrangeCat, under your name or a pseudonym, and are paid there directly by the person you helped. You can list a service today. Causius does not yet pull those listings in, label them or check a lawyer's admission; that is the next thing on the roadmap.",
@@ -169,10 +210,22 @@
     "seeRoadmap": "See the roadmap",
     "rulesTitle": "The rules",
     "rules": {
-      "label": { "title": "The label is the law", "body": "Who may give legal advice is set by each country, and almost everywhere it is reserved to admitted lawyers. A helper's label says which side of that line they are on, and they may not work past it." },
-      "pseudonym": { "title": "Pseudonymous, not anonymous", "body": "Many people who know a system best learned it by going through it, and would rather not put their name to that. They can help under a pseudonym. Licensed lawyers cannot: their licence is their name." },
-      "share": { "title": "You choose what a helper sees", "body": "A helper gets the case file you hand them and nothing else. It is a file you export, so you can read exactly what you are sharing first." },
-      "place": { "title": "Any jurisdiction, one at a time", "body": "A case names where it is. Helpers are matched on that place, the area of law and a language you share." }
+      "label": {
+        "title": "The label is the law",
+        "body": "Who may give legal advice is set by each country, and almost everywhere it is reserved to admitted lawyers. A helper's label says which side of that line they are on, and they may not work past it."
+      },
+      "pseudonym": {
+        "title": "Pseudonymous on every side",
+        "body": "People seeking help, legal assistants and lawyers can all appear under a pseudonym. Causius checks privately what has to be true — that a lawyer is admitted — and shows only what is needed. Many people who know a system best learned it by going through it, and would rather not put their name to that."
+      },
+      "share": {
+        "title": "You choose what a helper sees",
+        "body": "A helper gets the case file you hand them and nothing else, and by default that file is anonymised: the case, the deadline and the letter, with your name, address and numbers replaced. You decide if and when to tell them more."
+      },
+      "place": {
+        "title": "Any jurisdiction, one at a time",
+        "body": "A case names where it is. Helpers are matched on that place, the area of law and a language you share."
+      }
     },
     "start": "Start a case"
   },
@@ -212,5 +265,40 @@
     "progress": "recorded progress",
     "target": "Target",
     "englishOnly": ""
+  },
+  "Redact": {
+    "title": "Anonymise before sending",
+    "lead": "Names, addresses and numbers that identify you are replaced with placeholders in your browser before the letter is sent. The model never sees them; your browser puts them back into the result.",
+    "toggle": "Anonymise",
+    "ownWords": "Also hide these words",
+    "ownWordsPlaceholder": "Your name, your employer, a family member…",
+    "ownWordsHint": "Separate with commas. Kept in this browser for your next letters.",
+    "found": "{count, plural, =0 {Nothing will be hidden} one {# detail will be hidden} other {# details will be hidden}}. Tap one to send it after all.",
+    "foundNone": "No personal details found in the text. Add your name above if it appears.",
+    "sendThis": "Send this after all",
+    "hideThis": "Hide this",
+    "preview": "Show exactly what the model receives",
+    "photosWarning": "Photos are sent as they are. Cover your name, address and numbers on each page before sending.",
+    "offWarning": "Anonymising is off: the letter is sent with every personal detail in it.",
+    "cover": "Cover details",
+    "coveredCount": "{count, plural, one {# area covered} other {# areas covered}}",
+    "notCovered": "nothing covered yet",
+    "photoTitle": "Cover details on {label}",
+    "photoHint": "Drag a box over your name, address, and any number that identifies you. What is under a box is removed from the photo.",
+    "undo": "Undo",
+    "cancel": "Cancel",
+    "done": "{count, plural, =0 {Done} one {Cover # area} other {Cover # areas}}",
+    "canvas": "The page. Drag to cover an area.",
+    "kind": {
+      "NAME": "Name",
+      "ADDRESS": "Address",
+      "POSTCODE": "Town",
+      "EMAIL": "E-mail",
+      "PHONE": "Phone",
+      "IBAN": "IBAN",
+      "AHV": "AHV no.",
+      "REF": "Reference",
+      "BIRTHDATE": "Born"
+    }
   }
 }

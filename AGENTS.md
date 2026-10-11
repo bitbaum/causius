@@ -21,7 +21,18 @@ Repo-only notes live below this line.
 - Every string a reader sees lives in `messages/en.json`, `de.json` and
   `fr.json`; the parity test fails on a missing key. English is the source.
   German uses Swiss spelling (ss, never ß). Link with `@/i18n/navigation`,
-  never `next/link`, so a reader on `/de` stays on `/de`.
+  never `next/link`, so a reader on `/de` stays on `/de`. Every page is under
+  its language prefix (`localePrefix: "always"`); see `i18n/routing.ts` for
+  why the unprefixed default broke production.
+- **Security and privacy are not negotiable, whatever else is.** The owner
+  wants speed without approvals; that never extends to weakening them. A
+  letter leaves the browser only after `lib/redact.ts` has anonymised it;
+  nothing about a letter is stored or logged on the server; the CSP in
+  `lib/security.ts` stays nonce-based with `connect-src 'self'`. A change that
+  loosens any of these needs a reason written next to it.
+- Anyone on the platform may be pseudonymous: people seeking help, legal
+  assistants and lawyers. A lawyer's admission is verified privately and their
+  name is disclosed to a client on engagement.
 - **This repository is public and the product handles legal letters.** No real
   person's letter, name, address or reference number goes into the code, the
   tests, the sample case or a commit message. `lib/sample.ts` is invented.

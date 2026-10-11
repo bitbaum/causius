@@ -2,7 +2,8 @@
 
 import { byokLabel } from "@bitbaum/ai-kit/byok";
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { PhotoRedactor } from "@/components/PhotoRedactor";
 import { btnPrimary, btnQuiet, card, field, link, shell } from "@/components/ui";
 import { Link, useRouter } from "@/i18n/navigation";
 import { localeEnglishNames, toLocale } from "@/i18n/routing";
@@ -10,7 +11,14 @@ import { MAX_PAGES } from "@/lib/analyze-limits";
 import { newId, type CaseFile } from "@/lib/case";
 import { API, ROUTES } from "@/lib/routes";
 import { shrinkImage, type ShrunkImage } from "@/lib/shrink-image";
-import { saveCase, useHydrated, useOwnModel } from "@/lib/store";
+import {
+  applyRedactions,
+  assignTokens,
+  findPersonalData,
+  mapStrings,
+  restore,
+} from "@/lib/redact";
+import { saveCase, saveOwnWords, useHydrated, useOwnModel, useOwnWords } from "@/lib/store";
 
 /** Sent to the model by English name; shown to the reader in their language. */
 const LANGUAGES = ["English", "German", "French"] as const;
@@ -40,6 +48,8 @@ type ErrorCode = keyof typeof WAYS_OUT;
 interface Page extends ShrunkImage {
   id: string;
   name: string;
+  /** How many areas the reader has blacked out on it. */
+  covered: number;
 }
 
 interface Availability {
@@ -49,6 +59,7 @@ interface Availability {
 
 export default function NewCasePage() {
   const t = useTranslations("NewCase");
+  const r = useTranslations("Redact");
   const locale = toLocale(useLocale());
   const router = useRouter();
   const ownModel = useOwnModel();
@@ -64,6 +75,27 @@ export default function NewCasePage() {
   const [authority, setAuthority] = useState("");
   const [deadline, setDeadline] = useState("");
   const [free, setFree] = useState<Availability | null>(null);
+  const [editing, setEditing] = useState<string | null>(null);
+  // Anonymisation is on unless the reader turns it off for this letter.
+  const [anonymise, setAnonymise] = useState(true);
+  const savedWords = useOwnWords();
+  const [wordsDraft, setWordsDraft] = useState<string | null>(null);
+  const wordsText = wordsDraft ?? savedWords.join(", ");
+  const ownWordList = useMemo(
+    () => wordsText.split(/[,;\n]/).map((w) => w.trim()).filter((w) => w.length >= 2),
+    [wordsText],
+  );
+  // Values the reader has chosen to send after all (a false find).
+  const [keep, setKeep] = useState<Set<string>>(new Set());
+  const found = useMemo(
+    () => (anonymise ? findPersonalData(text, ownWordList) : []),
+    [anonymise, text, ownWordList],
+  );
+  const redactions = useMemo(
+    () => assignTokens(found.filter((f) => !keep.has(f.value))),
+    [found, keep],
+  );
+  const sentText = useMemo(() => applyRedactions(text, redactions), [text, redactions]);
 
   // What the free models can do right now, asked once, so the page can say it
   // BEFORE someone types a letter in. Unknown (offline) says nothing.
@@ -94,7 +126,7 @@ export default function NewCasePage() {
     const added: Page[] = [];
     for (const file of Array.from(files).slice(0, Math.max(0, room))) {
       try {
-        added.push({ ...(await shrinkImage(file)), id: newId(), name: file.name });
+        added.push({ ...(await shrinkImage(file)), id: newId(), name: file.name, covered: 0 });
       } catch {
         fail("bad_image");
       }
@@ -112,7 +144,8 @@ export default function NewCasePage() {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          text,
+          // Only the anonymised text leaves the browser.
+          text: sentText,
           languages,
           locale,
           byok: ownModel ?? undefined,
@@ -123,8 +156,11 @@ export default function NewCasePage() {
       if (!res.ok || !body.case) {
         return fail(body.error === "busy" && ownModel ? "busy_own" : (body.error ?? "unknown"));
       }
-      saveCase(body.case);
-      router.push(ROUTES.caseById(body.case.id));
+      // The real values go back in here, on the device, and the table of what
+      // each placeholder stood for is kept with the case for later exports.
+      const restored = { ...mapStrings(body.case, (s) => restore(s, redactions)), redactions };
+      saveCase(restored);
+      router.push(ROUTES.caseById(restored.id));
     } catch {
       fail("offline");
     } finally {
@@ -155,6 +191,7 @@ export default function NewCasePage() {
         ? [{ lang: "und", label: t("byHand.original"), text: text.trim() }]
         : [],
       notes: [],
+      redactions: [],
       recommendedTier: "assistant",
       createdAt: new Date().toISOString(),
     };
@@ -169,8 +206,26 @@ export default function NewCasePage() {
   else if (free && !free.photo) modelLine = t("modelFreeNoPhoto");
   else modelLine = t("modelFree");
 
+  const editingPage = pages.find((p) => p.id === editing);
+  const editingIndex = pages.findIndex((p) => p.id === editing);
+
   return (
     <main className={`${shell} py-10 sm:py-14`}>
+      {editingPage && (
+        <PhotoRedactor
+          image={editingPage}
+          label={t("page", { n: editingIndex + 1 })}
+          onCancel={() => setEditing(null)}
+          onDone={(next, covered) => {
+            setPages(
+              pages.map((p) =>
+                p.id === editingPage.id ? { ...p, ...next, covered: p.covered + covered } : p,
+              ),
+            );
+            setEditing(null);
+          }}
+        />
+      )}
       <h1 className="font-heading text-4xl font-semibold tracking-display">{t("title")}</h1>
       <p className="mt-3 max-w-prose leading-relaxed text-fg-secondary">{t("lead")}</p>
 
@@ -226,8 +281,17 @@ export default function NewCasePage() {
                   >
                     <span>
                       {t("page", { n: i + 1 })}
-                      <span className="ml-2 text-xs text-fg-secondary">{page.name}</span>
+                      <span className="ml-2 text-xs text-fg-secondary">
+                        {page.covered ? r("coveredCount", { count: page.covered }) : r("notCovered")}
+                      </span>
                     </span>
+                    <button
+                      type="button"
+                      onClick={() => setEditing(page.id)}
+                      className="inline-flex min-h-11 items-center px-2 text-sm font-medium underline decoration-border-subtle underline-offset-4 hover:decoration-fg-muted"
+                    >
+                      {r("cover")}
+                    </button>
                     <button
                       type="button"
                       aria-label={t("removePage", { n: i + 1 })}
@@ -242,6 +306,103 @@ export default function NewCasePage() {
             </>
           )}
         </div>
+
+        <section aria-labelledby="privacy-title" className={`${card} grid gap-4`}>
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="max-w-prose">
+              <h2 id="privacy-title" className="font-heading text-lg font-semibold">
+                {r("title")}
+              </h2>
+              <p className="mt-1 text-sm leading-relaxed text-fg-secondary">{r("lead")}</p>
+            </div>
+            <label className="flex min-h-11 cursor-pointer items-center gap-2 text-sm font-medium">
+              <input
+                type="checkbox"
+                checked={anonymise}
+                onChange={(e) => setAnonymise(e.target.checked)}
+                className="h-5 w-5 accent-[var(--color-accent)]"
+              />
+              {r("toggle")}
+            </label>
+          </div>
+
+          {anonymise ? (
+            <>
+              <div>
+                <label htmlFor="own-words" className="block text-sm font-medium">
+                  {r("ownWords")}
+                </label>
+                <input
+                  id="own-words"
+                  value={wordsText}
+                  onChange={(e) => setWordsDraft(e.target.value)}
+                  onBlur={() => {
+                    saveOwnWords(ownWordList);
+                    setWordsDraft(null);
+                  }}
+                  placeholder={r("ownWordsPlaceholder")}
+                  autoComplete="off"
+                  className={`${field} mt-2`}
+                />
+                <p className="mt-1.5 text-xs text-fg-secondary">{r("ownWordsHint")}</p>
+              </div>
+
+              {text.trim() !== "" && (
+                <div>
+                  <p className="text-sm font-medium" aria-live="polite">
+                    {found.length ? r("found", { count: redactions.length }) : r("foundNone")}
+                  </p>
+                  {found.length > 0 && (
+                    <ul className="mt-2 flex flex-wrap gap-2">
+                      {found.map((f) => {
+                        const hidden = !keep.has(f.value);
+                        return (
+                          <li key={f.value}>
+                            <button
+                              type="button"
+                              aria-pressed={hidden}
+                              title={hidden ? r("sendThis") : r("hideThis")}
+                              onClick={() => {
+                                const next = new Set(keep);
+                                if (hidden) next.add(f.value);
+                                else next.delete(f.value);
+                                setKeep(next);
+                              }}
+                              className={`inline-flex min-h-11 items-center gap-2 rounded-card border px-3 text-sm ${
+                                hidden
+                                  ? "border-fg-primary bg-surface-page"
+                                  : "border-border-subtle text-fg-secondary line-through"
+                              }`}
+                            >
+                              <span className="font-mono text-[0.625rem] uppercase tracking-caps text-accent-fg">
+                                {r(`kind.${f.kind}`)}
+                              </span>
+                              {f.value}
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                  <details className="mt-3 text-sm">
+                    <summary className="inline-flex min-h-11 cursor-pointer items-center text-fg-secondary">
+                      {r("preview")}
+                    </summary>
+                    <pre className="mt-2 max-h-72 overflow-auto whitespace-pre-wrap rounded-card border border-border-subtle bg-surface-page p-3 font-mono text-xs leading-relaxed">
+                      {sentText}
+                    </pre>
+                  </details>
+                </div>
+              )}
+
+              {pages.some((p) => p.covered === 0) && (
+                <p className="rounded-card border border-accent-fg px-3 py-2 text-sm">{r("photosWarning")}</p>
+              )}
+            </>
+          ) : (
+            <p className="rounded-card border border-accent-fg px-3 py-2 text-sm">{r("offWarning")}</p>
+          )}
+        </section>
 
         <fieldset>
           <legend className="text-sm font-medium">{t("languagesLegend")}</legend>
