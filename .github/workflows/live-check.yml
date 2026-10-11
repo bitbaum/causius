@@ -55,3 +55,26 @@ jobs:
           echo "::notice::health $body"
           echo "$body" | grep -q '"text":true' || { echo "::error::free analysis is OFF: no shared model key reaches the app"; exit 1; }
           echo "$body" | grep -q '"photo":true' || echo "::warning::photos cannot be read by the free models (needs GEMINI_API_KEY or OPENROUTER_API_KEY)"
+
+      # Only when run by hand: it spends a free-tier completion. The letter is
+      # the invented sample (lib/sample.ts); its stated deadline is 2026-03-23.
+      - name: A real model reads the sample letter
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          set -uo pipefail
+          letter=$(printf '%s\n' \
+            "Anfrage Auslandaufenthalt" "" "2. März 2026" "" "Sehr geehrte Frau [NAME-1]" "" \
+            "Wir beziehen uns auf Ihr Gesuch. Zur Behandlung benötigen wir noch folgende Unterlagen:" \
+            "1. Wie oft und wie lange halten Sie sich jeweils im Ausland auf? Bitte belegen Sie Ihre Angaben." \
+            "2. Bankkontoauszüge, aus denen Ihre Kontobewegungen hervorgehen." \
+            "3. Vollständige Passkopie (alle Seiten)." "" \
+            "Bitte beantworten Sie unser Schreiben bis am 23. März 2026. Gemäss Art. 90 AIG sind Sie verpflichtet, uns alle relevanten Informationen zu liefern. Ohne Ihre Rückmeldung entscheiden wir aufgrund der vorhandenen Akten." \
+            "" "Freundliche Grüsse" "Kantonales Migrationsamt")
+          for locale in en de fr; do
+            body=$(jq -n --arg t "$letter" --arg l "$locale" '{text:$t, locale:$l, languages:["English"]}')
+            res=$(curl -s --max-time 150 -H 'content-type: application/json' -d "$body" https://causius.orangecat.ch/api/analyze)
+            echo "::notice::[$locale] deadline=$(echo "$res" | jq -r '.case.deadline // .error') title=$(echo "$res" | jq -r '.case.title // "-"') asks=$(echo "$res" | jq -r '.case.asks | length? // 0') tier=$(echo "$res" | jq -r '.case.recommendedTier // "-"') keeps-placeholder=$(echo "$res" | jq -r '[.. | strings | select(contains("[NAME-1]"))] | length > 0')"
+            echo "::notice::[$locale] quote=$(echo "$res" | jq -r '.case.deadlineQuote // "-"') summary=$(echo "$res" | jq -r '.case.summary // "-"' | head -c 300)"
+            [ "$(echo "$res" | jq -r '.case.deadline // empty')" = "2026-03-23" ] || { echo "::error::[$locale] wrong or missing deadline"; fail=1; }
+          done
+          exit ${fail:-0}
