@@ -16,3 +16,10 @@
 allowBuilds:
   sharp: true
   unrs-resolver: true
+  # Arrived with next-intl. Both ship prebuilt binaries, so their install
+  # scripts are not needed — but pnpm 11 exits non-zero on a build script that
+  # is neither approved nor refused, and the deploy dies. Refused explicitly,
+  # as Solon does. esbuild came with Vitest and does need its script.
+  "@parcel/watcher": false
+  "@swc/core": false
+  esbuild: true

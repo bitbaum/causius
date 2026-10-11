@@ -4,6 +4,23 @@ What changed for the people who use Causius, newest first. Every entry comes
 from a merged pull request in this repository; the number in brackets is the
 one to read for the detail.
 
+## 2026-10-11
+
+### Added
+
+- **Causius speaks English, German and French.** The whole interface, and what
+  an analysis says about your letter, in the language you choose in the header.
+  German follows Swiss spelling. [#7] {#languages}
+- **Letters of several pages.** Photograph up to four pages in order. Photos are
+  made smaller in your browser before they are sent, so a phone picture is no
+  longer too large. [#7] {#pages}
+- **The deadline shows its source.** Under the reply date is the sentence of the
+  letter it was read from, to compare with your own copy. A date the letter does
+  not state is never worked out for you. [#7] {#deadline-source}
+- **You are told before you start.** The intake page says whether the free
+  models are on, and whether they can read photos, before you add a
+  letter. [#7] {#shared-models}
+
 ## 2026-10-10
 
 ### Added

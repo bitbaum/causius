@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
     "verify": "pnpm run type-check && pnpm run lint && pnpm run test",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check:analyze": "vitest run --config vitest.live.config.mts"
   },
   "packageManager": "pnpm@11.25.0",
   "dependencies": {
@@ -17,6 +18,7 @@
     "bip-kit": "^0.6.0",
     "limitkit": "^0.2.0",
     "next": "16.3.8",
+    "next-intl": "^4.14.9",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "zod": "^4.6.5"

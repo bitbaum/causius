@@ -48,17 +48,17 @@ The blessed column of fleet `STACK.md`, nothing else:
 | Validation | `zod` (the case file, every request body, the fleet map entry) |
 | Rate limiting | `limitkit` |
 | Roadmap and changelog | `bip-kit`, from the fleet map |
-| Tests | Vitest, hermetic (`lib/*.test.ts`) |
+| i18n | `next-intl`: English (default, unprefixed), German (`/de`), French (`/fr`) |
+| Tests | Vitest, hermetic (`lib/*.test.ts`, `i18n/parity.test.ts`) |
 | Deploy | PR, CI, auto-merge sweep, deploy to the box |
 
-Not adopted yet, and on the roadmap rather than half-built: `next-intl` (the
-interface is English only), OrangeCat sign-in, Drizzle/Postgres (there is no
-server-side storage).
+Not adopted yet, and on the roadmap rather than half-built: OrangeCat sign-in,
+Drizzle/Postgres (there is no server-side storage).
 
 ## What exists today
 
 - `/` what Causius is
-- `/cases/new` intake: paste a letter or add a photo, pick translation languages
+- `/cases/new` intake: paste a letter or photograph up to four pages, pick translation languages
 - `/cases/[id]` the case: deadline, checklist of what is asked, the letter in each
   language, a draft reply, who should look at it, export
 - `/cases` cases in this browser, and import of an exported case file
@@ -68,6 +68,10 @@ server-side storage).
 - `/roadmap`, `/changelog` the public record
 - `POST /api/analyze` letter in, case file out
 - `POST /api/model/check` does this key work, and which models can it use
+- `GET /api/health` is the site up, and can it analyse text and photos without a reader's key
+
+Every page exists in English, German (`/de/…`) and French (`/fr/…`), and an
+analysis is written in the reader's language.
 
 ## What does not exist yet
 
@@ -92,6 +96,16 @@ and the intake page offers your own model or filing by hand.
 | `CAUSIUS_GROQ_MODELS` and the like | Optional per-vendor overrides, read by ai-kit's `freeChain("CAUSIUS")`. |
 
 Limits (per visitor, per hour, in memory): 8 free analyses, 60 on your own key.
+
+After setting a key on the host, check it end to end:
+
+```sh
+curl -s https://causius.orangecat.ch/api/health   # {"ok":true,"analysis":{"text":true,"photo":…}}
+pnpm run check:analyze                            # the sample letter through a real model, in all three languages
+```
+
+`check:analyze` asserts the deadline and its source sentence and prints the rest
+to read. It is not part of CI: it needs a key and the network.
 
 ## Privacy
 
@@ -126,7 +140,8 @@ on 2026-10-10. Nothing enforces these, so recompute when a value changes.
 ```sh
 pnpm install
 pnpm dev
-pnpm run verify   # type-check, lint and tests; CI also builds
+pnpm run verify          # type-check, lint and tests; CI also builds
+pnpm run check:analyze   # needs a vendor key: the sample letter through a real model
 ```
 
 A green pull request is merged by the fleet's auto-merge sweep, and merging to `main` deploys.

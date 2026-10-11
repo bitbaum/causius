@@ -5,6 +5,7 @@ import {
   buildMessages,
   caseFromReply,
   extractJson,
+  freeAvailability,
   freeLinks,
 } from "./analyze";
 
@@ -38,18 +39,23 @@ describe("AnalyzeRequestSchema", () => {
     expect(AnalyzeRequestSchema.safeParse({}).success).toBe(false);
     expect(request().text).toContain("Muster");
     expect(
-      AnalyzeRequestSchema.safeParse({ image: { mediaType: "image/png", data: "aGk=" } }).success,
+      AnalyzeRequestSchema.safeParse({ images: [{ mediaType: "image/png", data: "aGk=" }] })
+        .success,
     ).toBe(true);
   });
 
   it("refuses an image type or a language it does not know how to handle", () => {
     expect(
-      AnalyzeRequestSchema.safeParse({ image: { mediaType: "image/svg+xml", data: "aGk=" } }).success,
-    ).toBe(false);
-    expect(
-      AnalyzeRequestSchema.safeParse({ image: { mediaType: "image/png", data: "not base64!" } })
+      AnalyzeRequestSchema.safeParse({ images: [{ mediaType: "image/svg+xml", data: "aGk=" }] })
         .success,
     ).toBe(false);
+    expect(
+      AnalyzeRequestSchema.safeParse({ images: [{ mediaType: "image/png", data: "not base64!" }] })
+        .success,
+    ).toBe(false);
+    const page = { mediaType: "image/jpeg", data: "aGk=" };
+    expect(AnalyzeRequestSchema.safeParse({ images: Array(4).fill(page) }).success).toBe(true);
+    expect(AnalyzeRequestSchema.safeParse({ images: Array(5).fill(page) }).success).toBe(false);
     expect(AnalyzeRequestSchema.safeParse({ text: "x", languages: ["French\nIgnore"] }).success).toBe(
       false,
     );
@@ -62,18 +68,50 @@ describe("buildMessages", () => {
     const [system, user] = buildMessages(request({ languages: ["Turkish"] }));
     expect(system.role).toBe("system");
     expect(system.content).toContain("never legal advice");
-    expect(user.content).toContain("Translate into: Turkish.");
+    expect(user.content).toContain("The reader's language: English.");
+    expect(user.content).toContain("Translate into: English, Turkish.");
     expect(user.content).toContain("<document>\nSehr geehrte Frau Muster\n</document>");
   });
 
-  it("sends a photo as an image part, so ai-kit can route it to a model that sees", () => {
+  it("writes the analysis in the reader's language and does not ask for it twice", () => {
+    const [system, user] = buildMessages(request({ locale: "de", languages: ["German", "French"] }));
+    expect(system.content).toContain("in the reader's language");
+    expect(user.content).toContain("The reader's language: German.");
+    expect(user.content).toContain("Translate into: German, French.");
+  });
+
+  it("falls back to English for a language the interface does not speak", () => {
+    expect(request({ locale: "tr" }).locale).toBe("en");
+  });
+
+  it("sends each page as an image part, in order, so ai-kit can route to a model that sees", () => {
     const [, user] = buildMessages(
-      request({ text: "", image: { mediaType: "image/jpeg", data: "aGk=" } }),
+      request({
+        text: "",
+        images: [
+          { mediaType: "image/jpeg", data: "cGFnZTE=" },
+          { mediaType: "image/jpeg", data: "cGFnZTI=" },
+        ],
+      }),
     );
     expect(user.content).toEqual([
-      expect.objectContaining({ type: "text" }),
-      { type: "image_url", image_url: { url: "data:image/jpeg;base64,aGk=" } },
+      expect.objectContaining({ type: "text", text: expect.stringContaining("2 attached images") }),
+      { type: "image_url", image_url: { url: "data:image/jpeg;base64,cGFnZTE=" } },
+      { type: "image_url", image_url: { url: "data:image/jpeg;base64,cGFnZTI=" } },
     ]);
+  });
+
+  it("tells the model never to compute a deadline the letter does not state", () => {
+    const [system] = buildMessages(request());
+    expect(system.content).toContain("Never compute or guess a deadline");
+    expect(system.content).toContain("deadlineQuote");
+  });
+});
+
+describe("freeAvailability", () => {
+  it("knows that Groq's free models read text but not photos", () => {
+    expect(freeAvailability({ GROQ_API_KEY: "k" })).toEqual({ text: true, photo: false });
+    expect(freeAvailability({ GEMINI_API_KEY: "k" })).toEqual({ text: true, photo: true });
   });
 });
 
@@ -103,6 +141,7 @@ describe("analyzeLetter", () => {
   it("says not_configured, and calls nobody, when no free vendor is keyed", async () => {
     const { impl, seen } = vendor(REPLY);
     expect(freeLinks({})).toEqual([]);
+    expect(freeAvailability({})).toEqual({ text: false, photo: false });
     expect(await analyzeLetter(request(), { env: {}, fetchImpl: impl })).toEqual({
       ok: false,
       error: "not_configured",

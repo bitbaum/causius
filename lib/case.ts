@@ -69,13 +69,19 @@ export const CaseFileSchema = z
   .object({
     id: optionalText(60),
     title: text(200),
-    jurisdiction: text(120).catch("Not stated"),
-    area: text(120).catch("Not stated"),
-    authority: text(200).catch("Not stated"),
+    jurisdiction: optionalText(120),
+    area: optionalText(120),
+    authority: optionalText(200),
     reference: optionalText(120),
     /** ISO dates (YYYY-MM-DD). */
     received: isoDate,
     deadline: isoDate,
+    /**
+     * The sentence of the document the deadline was read from, verbatim. A
+     * wrong deadline is the worst thing this product can produce, so the date
+     * is never shown without the words it came from for the reader to check.
+     */
+    deadlineQuote: optionalText(500),
     summary: text(3000).catch(""),
     /** What happens if nothing is done. */
     consequence: optionalText(1000),
@@ -106,12 +112,6 @@ export type CaseFile = z.output<typeof CaseFileSchema>;
 export type CaseAsk = CaseFile["asks"][number];
 export type CaseText = CaseFile["texts"][number];
 
-export const TIER_LABEL: Record<HelperTier, string> = {
-  ai: "Causius AI",
-  assistant: "Legal assistant",
-  lawyer: "Licensed lawyer",
-};
-
 export function newId(): string {
   return `c_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
 }
@@ -127,8 +127,10 @@ export function daysUntil(deadline: string, today: string): number {
   return Math.round((Date.parse(deadline) - Date.parse(today)) / 86_400_000);
 }
 
-export function formatDate(iso: string): string {
-  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {
+/** A date in the reader's language, without shifting it across time zones. */
+export function formatDate(iso: string, locale = "en"): string {
+  const tag = locale === "en" ? "en-GB" : `${locale}-CH`;
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString(tag, {
     day: "numeric",
     month: "long",
     year: "numeric",

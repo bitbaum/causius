@@ -1,6 +1,7 @@
 "use client";
 
 import { BYOK_VENDORS, byokKeyHint, byokLabel, type ByokVendorId } from "@bitbaum/ai-kit/byok";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { API } from "@/lib/routes";
 import { clearOwnModel, saveOwnModel, useHydrated, useOwnModel } from "@/lib/store";
@@ -27,9 +28,17 @@ interface Probe {
   suggested: string | null;
 }
 
-type Check = { state: "idle" } | { state: "checking" } | { state: "done"; probe: Probe };
+/** A failure of ours (not the vendor's verdict), named so it can be said in the reader's language. */
+type Local = "tooMany" | "unreachable";
+type Check =
+  | { state: "idle" }
+  | { state: "checking" }
+  | { state: "done"; probe: Probe; local?: Local };
+
+const NO_ANSWER: Probe = { ok: false, reachable: false, message: "", models: [], suggested: null };
 
 export function OwnModelSettings() {
+  const t = useTranslations("Settings");
   const saved = useOwnModel();
   const hydrated = useHydrated();
   const [vendor, setVendor] = useState<ByokVendorId>("openrouter");
@@ -49,33 +58,25 @@ export function OwnModelSettings() {
     const timer = setTimeout(async () => {
       setCheck({ state: "checking" });
       let probe: Probe;
+      let local: Local | undefined;
       try {
         const response = await fetch(API.modelCheck, {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ vendor, key: trimmed }),
         });
-        probe =
-          response.status === 429
-            ? {
-                ok: false,
-                reachable: false,
-                message: "Too many checks in a short time. Wait a few minutes and try again.",
-                models: [],
-                suggested: null,
-              }
-            : ((await response.json()) as Probe);
+        if (response.status === 429) {
+          probe = NO_ANSWER;
+          local = "tooMany";
+        } else {
+          probe = (await response.json()) as Probe;
+        }
       } catch {
-        probe = {
-          ok: false,
-          reachable: false,
-          message: "Could not reach Causius to check the key. Check your connection.",
-          models: [],
-          suggested: null,
-        };
+        probe = NO_ANSWER;
+        local = "unreachable";
       }
       if (stale) return;
-      setCheck({ state: "done", probe });
+      setCheck({ state: "done", probe, local });
       setModel(probe.suggested ?? probe.models[0] ?? "");
     }, 600);
     return () => {
@@ -84,7 +85,8 @@ export function OwnModelSettings() {
     };
   }, [vendor, trimmed]);
 
-  const probe = check.state === "done" && trimmed ? check.probe : null;
+  const done = check.state === "done" && trimmed ? check : null;
+  const probe = done?.probe ?? null;
   const canSave = Boolean(probe?.ok && model.trim());
 
   function reset(next: ByokVendorId) {
@@ -100,9 +102,9 @@ export function OwnModelSettings() {
       {hydrated && saved && (
         <div className={`${card} flex flex-wrap items-center justify-between gap-4`}>
           <p className="text-sm">
-            <span className="block font-medium">Using your own model: {byokLabel(saved)}</span>
+            <span className="block font-medium">{t("using", { label: byokLabel(saved) })}</span>
             <span className="mt-1 block font-mono text-xs text-fg-secondary">
-              Key {byokKeyHint(saved.apiKey)}, kept in this browser only
+              {t("keyKept", { hint: byokKeyHint(saved.apiKey) })}
             </span>
           </p>
           <button
@@ -113,13 +115,13 @@ export function OwnModelSettings() {
               setJustSaved(false);
             }}
           >
-            Remove key
+            {t("remove")}
           </button>
         </div>
       )}
 
       <fieldset>
-        <legend className="text-sm font-medium">Provider</legend>
+        <legend className="text-sm font-medium">{t("provider")}</legend>
         <div className="mt-2 flex flex-wrap gap-2">
           {BYOK_VENDORS.map((v) => (
             <button
@@ -141,7 +143,7 @@ export function OwnModelSettings() {
 
       <div>
         <label htmlFor="own-key" className="block text-sm font-medium">
-          {chosen.label} API key
+          {t("keyLabel", { vendor: chosen.label })}
         </label>
         <input
           id="own-key"
@@ -158,19 +160,20 @@ export function OwnModelSettings() {
         />
         <p className="mt-2 text-sm">
           <a href={chosen.keyUrl} target="_blank" rel="noreferrer" className={link}>
-            Get a key from {chosen.label}
+            {t("getKey", { vendor: chosen.label })}
           </a>
         </p>
       </div>
 
       <div aria-live="polite" className="min-h-6 text-sm">
         {trimmed && check.state === "checking" && (
-          <p className="text-fg-secondary">Checking the key…</p>
+          <p className="text-fg-secondary">{t("checking")}</p>
         )}
-        {probe && (
+        {done && probe && (
           <p className={probe.ok ? "text-fg-primary" : "text-accent-fg"}>
-            {probe.message}
-            {!probe.ok && !probe.reachable && " This does not mean the key is wrong."}
+            {/* The vendor's own words are left as the vendor wrote them. */}
+            {done.local ? t(done.local) : <span lang="en">{probe.message}</span>}
+            {!probe.ok && !probe.reachable && ` ${t("notWrong")}`}
           </p>
         )}
       </div>
@@ -178,7 +181,7 @@ export function OwnModelSettings() {
       {probe?.ok && (
         <div>
           <label htmlFor="own-model" className="block text-sm font-medium">
-            Model
+            {t("model")}
           </label>
           {probe.models.length > 0 ? (
             <select
@@ -190,7 +193,7 @@ export function OwnModelSettings() {
               {probe.models.map((m) => (
                 <option key={m} value={m}>
                   {m}
-                  {m === probe.suggested ? " (strongest this key can use)" : ""}
+                  {m === probe.suggested ? ` (${t("strongest")})` : ""}
                 </option>
               ))}
             </select>
@@ -218,10 +221,10 @@ export function OwnModelSettings() {
             setJustSaved(true);
           }}
         >
-          Use this model
+          {t("use")}
         </button>
         <p aria-live="polite" className="text-sm text-fg-secondary">
-          {justSaved && "Saved in this browser. New analyses use it."}
+          {justSaved && t("saved")}
         </p>
       </div>
     </div>

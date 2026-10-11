@@ -7,7 +7,13 @@ Repo-only notes live below this line.
 
 - Run: `pnpm install`, `pnpm dev`. Check before pushing: `pnpm run verify`
   (type-check, lint, tests). CI also builds.
-- Tests are Vitest, next to the code they test (`lib/*.test.ts`).
+- Tests are Vitest, next to the code they test (`lib/*.test.ts`,
+  `i18n/parity.test.ts`). They are hermetic. `pnpm run check:analyze` is the
+  one check that calls a real model; it needs a vendor key and is not in CI.
+- Every string a reader sees lives in `messages/en.json`, `de.json` and
+  `fr.json`; the parity test fails on a missing key. English is the source.
+  German uses Swiss spelling (ss, never ß). Link with `@/i18n/navigation`,
+  never `next/link`, so a reader on `/de` stays on `/de`.
 - **This repository is public and the product handles legal letters.** No real
   person's letter, name, address or reference number goes into the code, the
   tests, the sample case or a commit message. `lib/sample.ts` is invented.
