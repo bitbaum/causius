@@ -710,7 +710,8 @@
       "body": "Before any text goes to a model, personal details are replaced with placeholders, and they are put back only after the answer returns.",
       "d1": "Found automatically: names in salutations and address blocks, street addresses, postcodes, email addresses, phone numbers, IBANs, AHV numbers, references and dates of birth.",
       "d2": "Your own words to hide are always added, and so is the name on your account.",
-      "d3": "In the quick check this happens in your browser, before the letter leaves your device."
+      "d3": "In the quick check this happens in your browser, before the letter leaves your device.",
+      "d4": "What the agent searches for on the web goes out with the placeholders too: a search engine never sees the name."
     },
     "sealed": {
       "title": "Sealed at rest",

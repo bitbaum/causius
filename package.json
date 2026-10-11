@@ -10,7 +10,8 @@
     "type-check": "tsc --noEmit",
     "verify": "pnpm run type-check && pnpm run lint && pnpm run test",
     "test": "vitest run",
-    "check:analyze": "vitest run --config vitest.live.config.mts"
+    "check:analyze": "vitest run --config vitest.live.config.mts live/analyze.live.ts",
+    "check:agent": "vitest run --config vitest.live.config.mts live/agent.live.ts"
   },
   "packageManager": "pnpm@11.25.0",
   "dependencies": {

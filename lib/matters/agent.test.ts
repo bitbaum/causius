@@ -113,6 +113,25 @@ describe("a turn", () => {
     expect(last).toMatchObject({ kind: "message", sources: [{ id: "1", url: "https://www.zh.ch/stg" }] });
   });
 
+  it("never sends a hidden detail to a search engine, even when the model writes its placeholder", async () => {
+    const id = await matter();
+    const model = scriptedModel([
+      { tools: [["web_search", { query: "[NAME-1] Steuerveranlagung Einsprache" }]] },
+      { text: "Done." },
+    ]);
+    const queries: string[] = [];
+    await runTurn({
+      db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl,
+      text: "I am Erika Muster and I want to object to my tax assessment.",
+      search: async (query) => {
+        queries.push(query);
+        return { status: "found", query, provider: "test", attempts: [], results: [] } as never;
+      },
+    });
+    expect(queries).toHaveLength(1);
+    expect(queries[0]).not.toMatch(/Erika|Muster/);
+  });
+
   it("checks domain names with the registries and reports what they said", async () => {
     const id = await matter();
     const model = scriptedModel([
