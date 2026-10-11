@@ -5,6 +5,14 @@ host, a name, or a page. Do not copy those facts into this file.
 
 Repo-only notes live below this line.
 
+- **The owner's standing instruction (2026-10-11): finish to production.** An
+  instruction from the owner is done when it is live on causius.orangecat.ch,
+  not when a pull request is open. Merge your own pull request as soon as CI is
+  green (`gh api -X PUT repos/bitbaum/causius/pulls/N/merge`), watch the Deploy
+  run, and check the live site. This overrides the "agents do not merge by
+  hand" line in fleet's auto-merge sweep for this repository. The sweep
+  (`auto-merge.yml`) is the fallback, not the plan.
+
 - Run: `pnpm install`, `pnpm dev`. Check before pushing: `pnpm run verify`
   (type-check, lint, tests). CI also builds.
 - Tests are Vitest, next to the code they test (`lib/*.test.ts`,
