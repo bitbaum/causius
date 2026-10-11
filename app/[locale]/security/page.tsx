@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 /** Each guarantee and the detail lines it carries in the messages. */
 const GUARANTEES = [
-  { key: "anon", details: ["d1", "d2", "d3"] },
+  { key: "anon", details: ["d1", "d2", "d3", "d4"] },
   { key: "sealed", details: ["d1", "d2", "d3"] },
   { key: "minimal", details: ["d1", "d2"] },
   { key: "browser", details: ["d1", "d2", "d3"] },

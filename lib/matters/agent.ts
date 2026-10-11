@@ -217,6 +217,9 @@ const ARGS = {
 
 type ToolName = keyof typeof ARGS;
 
+/** Tools whose arguments reach someone other than Causius. */
+const OUTBOUND = new Set<string>(["web_search", "read_page", "check_domain"]);
+
 export interface Source {
   id: string;
   title: string;
@@ -383,7 +386,10 @@ export async function runTurn(input: {
     } catch {
       return "arguments were not valid JSON; call again with valid JSON";
     }
-    const parsed = ARGS[name as ToolName].safeParse(mapStrings(json, unhide));
+    // Restore placeholders only for tools that write into the matter. A search
+    // query, a page address or a domain lookup leaves our server for a third
+    // party, so it goes out exactly as the model wrote it, placeholders and all.
+    const parsed = ARGS[name as ToolName].safeParse(OUTBOUND.has(name) ? json : mapStrings(json, unhide));
     if (!parsed.success) return `invalid arguments: ${parsed.error.issues.map((i) => i.message).join("; ")}`;
     if (name === "check_domain") {
       const names = (parsed.data as { names: string[] }).names;

@@ -1,0 +1,61 @@
+name: Agent check
+
+# By hand: one matter turn through the REAL free model chain (live/agent.live.ts).
+#
+# It runs ON THE BOX, because that is where the shared model keys are: the keys
+# never come to this runner and never reach the log. The database is PGlite
+# inside the test, so production data is not touched. The repository is public
+# and cloned fresh at this commit into a temporary directory that is removed.
+# Output is the test's own "[agent]" lines (tools called, deadline recorded,
+# whether the name was sent) and the result.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  agent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Run the agent against real models, on the box
+        env:
+          SSH_KEY: ${{ secrets.HETZNER_SSH_PRIVATE_KEY }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          IP=167.233.22.31
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id && chmod 600 ~/.ssh/id
+          ssh-keyscan -H "$IP" >> ~/.ssh/known_hosts 2>/dev/null
+          ssh -i ~/.ssh/id -o BatchMode=yes "ubuntu@$IP" "SHA=$SHA bash -s" > out.txt 2>&1 <<'REMOTE' || status=$?
+          set -euo pipefail
+          WD=$(mktemp -d /tmp/causius-agent.XXXXXX)
+          trap 'rm -rf "$WD"' EXIT
+          git clone -q https://github.com/bitbaum/causius "$WD/repo"
+          cd "$WD/repo" && git checkout -q "$SHA"
+          echo "node $(node --version)"
+          PNPM="corepack pnpm"; $PNPM --version >/dev/null 2>&1 || PNPM="npx --yes pnpm@11"
+          $PNPM install --frozen-lockfile >install.log 2>&1 || { echo "install failed:"; tail -n 20 install.log; exit 1; }
+          envf=/opt/causius/shared/.env; [ -f "$envf" ] || envf=/opt/causius/app/.env
+          # Only the model and search variables, read into this process alone.
+          set -a
+          eval "$(grep -E '^(GROQ_API_KEY|GEMINI_API_KEY|OPENROUTER_API_KEY|SEARXNG_URL|SEARXNG_TOKEN|BRAVE_SEARCH_API_KEY|TAVILY_API_KEY)=' "$envf")"
+          set +a
+          rc=0
+          $PNPM run check:agent >run.log 2>&1 || rc=$?
+          # Blank every key value, should an error message ever quote one.
+          for v in GROQ_API_KEY GEMINI_API_KEY OPENROUTER_API_KEY SEARXNG_TOKEN BRAVE_SEARCH_API_KEY TAVILY_API_KEY; do
+            val="${!v:-}"
+            if [ -n "$val" ]; then
+              esc=$(printf '%s' "$val" | sed 's/[][\/.*^$|]/\\&/g')
+              sed -i "s/$esc/[$v]/g" run.log
+            fi
+          done
+          grep -E '^\[agent\]|Tests |✓|×|AssertionError|Error:' run.log | head -n 60
+          exit $rc
+          REMOTE
+          rm -f ~/.ssh/id
+          while IFS= read -r line; do echo "::notice::$line"; done < out.txt
+          exit "${status:-0}"

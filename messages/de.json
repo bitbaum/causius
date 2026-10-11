@@ -710,7 +710,8 @@
       "body": "Bevor ein Text an ein Modell geht, werden persönliche Angaben durch Platzhalter ersetzt und erst nach der Antwort wieder eingesetzt.",
       "d1": "Automatisch erkannt: Namen in Anreden und Adressblöcken, Strassenadressen, Postleitzahlen, E-Mail-Adressen, Telefonnummern, IBAN, AHV-Nummern, Referenzen und Geburtsdaten.",
       "d2": "Ihre eigenen Wörter zum Verbergen kommen immer dazu, ebenso der Name auf Ihrem Konto.",
-      "d3": "Bei der Schnellprüfung geschieht das in Ihrem Browser, bevor der Brief Ihr Gerät verlässt."
+      "d3": "Bei der Schnellprüfung geschieht das in Ihrem Browser, bevor der Brief Ihr Gerät verlässt.",
+      "d4": "Auch was der Agent im Web sucht, geht mit den Platzhaltern hinaus: Eine Suchmaschine sieht den Namen nie."
     },
     "sealed": {
       "title": "Verschlüsselt gespeichert",

@@ -710,7 +710,8 @@
       "body": "Avant qu'un texte ne parte vers un modèle, les données personnelles sont remplacées par des marqueurs, et ne sont remises en place qu'au retour de la réponse.",
       "d1": "Détectés automatiquement : noms dans les formules d'appel et les blocs d'adresse, adresses, codes postaux, e-mails, numéros de téléphone, IBAN, numéros AVS, références et dates de naissance.",
       "d2": "Vos propres mots à cacher sont toujours ajoutés, tout comme le nom de votre compte.",
-      "d3": "Dans la vérification rapide, cela se fait dans votre navigateur, avant que la lettre ne quitte votre appareil."
+      "d3": "Dans la vérification rapide, cela se fait dans votre navigateur, avant que la lettre ne quitte votre appareil.",
+      "d4": "Ce que l'agent cherche sur le web part aussi avec les marqueurs : un moteur de recherche ne voit jamais le nom."
     },
     "sealed": {
       "title": "Scellé au repos",
