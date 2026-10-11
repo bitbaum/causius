@@ -1,0 +1,57 @@
+name: Live check
+
+# After every deploy, ask the live site what it can do, from outside.
+#
+# The deploy's own checks prove the page answers. This proves the product
+# works: every language answers, the security headers are on, and the letter
+# analysis is switched on. A deploy that ships a site which cannot analyse a
+# letter is red here, not discovered later by the owner opening the page.
+on:
+  workflow_run:
+    workflows: ["Deploy"]
+    types: [completed]
+  workflow_dispatch: {}
+  schedule:
+    - cron: "17 */6 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Pages answer in every language
+        run: |
+          set -uo pipefail
+          fail=0
+          for path in /en /de /fr /en/cases/new /de/cases/sample /fr/helpers /en/settings; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "https://causius.orangecat.ch$path")
+            echo "::notice::$path → $code"
+            [ "$code" = "200" ] || fail=1
+          done
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "https://causius.orangecat.ch/")
+          echo "::notice::/ → $code (expected a redirect to a language)"
+          [ "$code" = "307" ] || [ "$code" = "308" ] || fail=1
+          exit $fail
+
+      - name: Security headers are on
+        run: |
+          set -uo pipefail
+          h=$(curl -s -D - -o /dev/null --max-time 20 https://causius.orangecat.ch/en | tr -d '\r')
+          fail=0
+          for want in "content-security-policy: default-src 'self'" "strict-transport-security: max-age=63072000" "x-frame-options: deny" "referrer-policy: no-referrer" "x-content-type-options: nosniff"; do
+            if printf '%s\n' "$h" | grep -qi "^$want"; then echo "::notice::ok — $want"; else echo "::error::missing — $want"; fail=1; fi
+          done
+          if printf '%s\n' "$h" | grep -qi '^x-powered-by'; then echo "::error::x-powered-by is exposed"; fail=1; fi
+          exit $fail
+
+      - name: Letter analysis is switched on
+        run: |
+          set -uo pipefail
+          body=$(curl -s --max-time 20 https://causius.orangecat.ch/api/health)
+          echo "::notice::health $body"
+          echo "$body" | grep -q '"text":true' || { echo "::error::free analysis is OFF: no shared model key reaches the app"; exit 1; }
+          echo "$body" | grep -q '"photo":true' || echo "::warning::photos cannot be read by the free models (needs GEMINI_API_KEY or OPENROUTER_API_KEY)"

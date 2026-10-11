@@ -11,7 +11,10 @@ Repo-only notes live below this line.
   green (`gh api -X PUT repos/bitbaum/causius/pulls/N/merge`), watch the Deploy
   run, and check the live site. This overrides the "agents do not merge by
   hand" line in fleet's auto-merge sweep for this repository. The sweep
-  (`auto-merge.yml`) is the fallback, not the plan.
+  (`auto-merge.yml`) is the fallback, not the plan. After every deploy,
+  `live-check.yml` asks the live site from outside whether every language
+  answers, the security headers are on and analysis is switched on; a red
+  Live check means the product is not working, whatever Deploy said.
 
 - Run: `pnpm install`, `pnpm dev`. Check before pushing: `pnpm run verify`
   (type-check, lint, tests). CI also builds.
