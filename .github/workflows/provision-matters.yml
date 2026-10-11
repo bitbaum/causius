@@ -97,6 +97,13 @@ jobs:
             note "db: schema present"
           fi
           rm -f /tmp/causius-0000_init.sql
+          # Tell the shared deploy (loki apply-schema.sh) that 0000_init is in,
+          # in its own ledger. It will not baseline a populated database by
+          # itself, and it must never try to create these tables a second time.
+          sudo -n -u postgres psql -d causius -v ON_ERROR_STOP=1 -qc "
+            CREATE TABLE IF NOT EXISTS public._deploy_schema_history (tag text PRIMARY KEY, applied_at timestamptz NOT NULL DEFAULT now());
+            INSERT INTO public._deploy_schema_history(tag) VALUES ('0000_init') ON CONFLICT DO NOTHING;"
+          note "db: ledger $(sudo -n -u postgres psql -d causius -tAc "SELECT string_agg(tag, ' ') FROM public._deploy_schema_history")"
           note "db: tables $(PGPASSWORD="$pass" psql -h 127.0.0.1 -U causius -d causius -tAc "SELECT string_agg(tablename, ' ' ORDER BY tablename) FROM pg_tables WHERE schemaname='public'")"
 
           # ── Env files ─────────────────────────────────────────────────
