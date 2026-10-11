@@ -47,6 +47,7 @@ import {
  */
 
 const health = createHealthTracker();
+const LANGUAGE = { en: "English", de: "German (Swiss spelling)", fr: "French" } as const;
 const MAX_ROUNDS = 6;
 const HISTORY = 30;
 const DOC_BUDGET = 24_000;
@@ -288,6 +289,8 @@ export async function runTurn(input: {
   search?: typeof webSearch;
   read?: typeof readPage;
   domains?: typeof checkDomains;
+  /** The reader's interface language; the answer is written in it. */
+  locale?: "en" | "de" | "fr";
 }): Promise<TurnOutcome> {
   const { db, master, matterId, sub } = input;
   const opened = await openMatter(db, master, matterId, sub);
@@ -323,7 +326,10 @@ export async function runTurn(input: {
   const unhide = (s: string) => restore(s, table.filter((r) => shown.has(r.token)));
 
   const conversation: ChatMessage[] = [
-    { role: "system", content: `${SYSTEM}\n\n=== The matter ===\n${hide(context)}` },
+    {
+      role: "system",
+      content: `${SYSTEM}${input.locale ? `\n- The person reads ${LANGUAGE[input.locale]}: write your answers in ${LANGUAGE[input.locale]}, whatever language a letter is in.` : ""}\n\n=== The matter ===\n${hide(context)}`,
+    },
     ...history.map((e): ChatMessage => ({
       role: e.kind === "message" && e.role === "assistant" ? "assistant" : "user",
       content: hide(e.kind === "message" ? e.text : ""),
