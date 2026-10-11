@@ -337,6 +337,9 @@ export async function runTurn(input: {
   ];
 
   const sources: Source[] = [];
+  const deadlineDates = new Set(
+    view.items.filter((i) => i.kind === "deadline" && i.status === "open" && i.due).map((i) => i.due!),
+  );
   const search = input.search ?? webSearch;
   const read = input.read ?? readPage;
   let servedBy = "";
@@ -435,6 +438,10 @@ export async function runTurn(input: {
           return doc ? `${doc.meta.name}\n${doc.text}` : "no such document in this matter";
         }
         case "record_deadline": {
+          // One deadline per date: a model that records the same date twice
+          // under two labels would make the matter look like it has two.
+          if (deadlineDates.has(args.date!)) return `a deadline on ${args.date} is already recorded`;
+          deadlineDates.add(args.date!);
           await addItem(db, m, { kind: "deadline", due: args.date!, label: args.label!, quote: args.quote });
           await appendStep(db, m, { tool: "record_deadline", summary: `${args.date}: ${args.label}` });
           return "recorded";

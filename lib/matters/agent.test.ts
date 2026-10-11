@@ -85,6 +85,23 @@ describe("a turn", () => {
     ]);
   });
 
+  it("records one deadline per date, however the model labels it", async () => {
+    const id = await matter();
+    const model = scriptedModel([
+      {
+        tools: [
+          ["record_deadline", { date: "2026-11-04", label: "Objection due" }],
+          ["record_deadline", { date: "2026-11-04", label: "Deadline to file Einsprache" }],
+        ],
+      },
+      { text: "Recorded." },
+    ]);
+    await runTurn({ db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl, text: "When?" });
+    const items = (await loadMatter(db, MASTER, id, OWNER))!.items;
+    expect(items.map((i) => [i.due, i.label])).toEqual([["2026-11-04", "Objection due"]]);
+    expect(model.seen[1]).toContain("already recorded");
+  });
+
   it("tells a bad tool call what was wrong instead of acting on it", async () => {
     const id = await matter();
     const model = scriptedModel([
