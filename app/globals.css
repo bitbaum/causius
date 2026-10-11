@@ -123,3 +123,34 @@ body {
   align-items: center;
   min-height: 2.75rem;
 }
+
+/* The shared account menu and chat (@bitbaum/accountkit, @bitbaum/chatkit)
+   read their colours from --acct-* and --ck-*. Mapped here onto this site's
+   tokens, once; dark mode follows because the tokens already switch. */
+:root {
+  --acct-panel: var(--color-surface-page);
+  --acct-hover: var(--color-surface-raised);
+  --acct-trigger-bg: var(--color-surface-raised);
+  --acct-fg: var(--color-fg-primary);
+  --acct-muted: var(--color-fg-secondary);
+  --acct-line: var(--color-border-subtle);
+  --acct-focus: var(--color-accent-fg);
+  --acct-action: var(--color-accent);
+  --acct-on-action: var(--color-accent-contrast);
+  --acct-radius: var(--radius-card);
+  --acct-radius-sm: var(--radius-card);
+  --acct-font: var(--font-sans);
+
+  --ck-bg: var(--color-surface-page);
+  --ck-raised: var(--color-surface-raised);
+  --ck-overlay: var(--color-surface-page);
+  --ck-fg: var(--color-fg-primary);
+  --ck-muted: var(--color-fg-secondary);
+  --ck-line: var(--color-border-subtle);
+  --ck-accent: var(--color-accent);
+  --ck-on-accent: var(--color-accent-contrast);
+  --ck-radius: var(--radius-card);
+  --ck-radius-sm: var(--radius-card);
+  --ck-font: var(--font-sans);
+  --ck-mono: var(--font-mono);
+}

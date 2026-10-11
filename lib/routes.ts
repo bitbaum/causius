@@ -4,6 +4,8 @@
  */
 export const ROUTES = {
   home: "/",
+  matters: "/matters",
+  matterById: (id: string) => `/matters/${id}`,
   cases: "/cases",
   newCase: "/cases/new",
   sampleCase: "/cases/sample",
@@ -19,6 +21,13 @@ export const API = {
   analyze: "/api/analyze",
   modelCheck: "/api/model/check",
   health: "/api/health",
+  matters: "/api/matters",
+  matter: (id: string) => `/api/matters/${id}`,
+  matterMessages: (id: string) => `/api/matters/${id}/messages`,
+  matterDocuments: (id: string) => `/api/matters/${id}/documents`,
+  matterDocument: (id: string, doc: string) => `/api/matters/${id}/documents/${doc}`,
+  matterItem: (id: string, item: string) => `/api/matters/${id}/items/${item}`,
+  matterApproval: (id: string, approval: string) => `/api/matters/${id}/approvals/${approval}`,
 } as const;
 
 /** The three planes this product sits on, and its own repository. */

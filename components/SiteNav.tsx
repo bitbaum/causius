@@ -6,7 +6,7 @@ import { localeNames, locales } from "@/i18n/routing";
 import { ROUTES } from "@/lib/routes";
 
 const NAV = [
-  { href: ROUTES.cases, key: "cases" },
+  { href: ROUTES.matters, key: "matters" },
   { href: ROUTES.helpers, key: "helpers" },
   { href: ROUTES.settings, key: "settings" },
 ] as const;
@@ -23,14 +23,13 @@ export function SiteNav() {
   // Without the language prefix, so it compares against the routes constant.
   const pathname = usePathname();
   const isCurrent = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
-  // "New case" lives under /cases, so it wins over "My cases" when both match.
-  const onNewCase = pathname === ROUTES.newCase;
+  const onQuick = pathname === ROUTES.newCase || pathname.startsWith(`${ROUTES.cases}/`) || pathname === ROUTES.cases;
 
   return (
     <div className="flex flex-wrap items-center gap-x-4">
       <nav aria-label={t("main")} className="flex flex-wrap items-center gap-x-1 text-sm">
         {NAV.map((n) => {
-          const current = isCurrent(n.href) && !(onNewCase && n.href === ROUTES.cases);
+          const current = isCurrent(n.href);
           return (
             <Link
               key={n.href}
@@ -44,10 +43,10 @@ export function SiteNav() {
         })}
         <Link
           href={ROUTES.newCase}
-          aria-current={onNewCase ? "page" : undefined}
-          className="ml-1.5 inline-flex min-h-11 items-center rounded-card bg-accent px-4 font-medium text-accent-contrast hover:opacity-85"
+          aria-current={onQuick ? "page" : undefined}
+          className="inline-flex min-h-11 min-w-11 items-center px-2.5 text-fg-secondary hover:text-fg-primary aria-[current=page]:text-fg-primary aria-[current=page]:underline aria-[current=page]:decoration-accent-fg aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-8"
         >
-          {t("newCase")}
+          {t("quick")}
         </Link>
       </nav>
 

@@ -10,7 +10,9 @@
     "settings": "Settings",
     "newCase": "New case",
     "beta": "Beta",
-    "language": "Language"
+    "language": "Language",
+    "matters": "Matters",
+    "quick": "Quick check"
   },
   "Footer": {
     "disclaimer": "Beta: running, not released. Causius AI gives legal information, not legal advice. Only a lawyer licensed where your case is may advise you on it or represent you.",
@@ -300,5 +302,146 @@
       "REF": "Reference",
       "BIRTHDATE": "Born"
     }
+  },
+  "Account": {
+    "signIn": "Sign in",
+    "matters": "My matters",
+    "settings": "Settings",
+    "trigger": "Account: {name}",
+    "menu": "Account",
+    "signOut": "Sign out",
+    "signingOut": "Signing out…",
+    "signOutFailed": "Sign-out did not complete. Try again."
+  },
+  "Matters": {
+    "title": "Matters",
+    "lead": "A matter is anything legal you need handled: a letter to answer, a contract, a dispute, a company to set up. Causius works it with you, keeps every deadline, and asks before anything leaves it.",
+    "signInTitle": "Sign in to keep matters",
+    "signInLead": "Matters are kept on the server, encrypted with a key of their own, so you can come back from any device. You sign in with OrangeCat, and can be a pseudonym there.",
+    "signIn": "Sign in with OrangeCat",
+    "signInOff": "Sign-in is not switched on for this site yet.",
+    "quickCheckSignedOut": "Or check a letter without an account",
+    "newTitle": "Start a matter",
+    "newLead": "Say what is going on, in your own words. Causius will ask what it needs.",
+    "situation": "What's going on?",
+    "situationPlaceholder": "For example: I received a tax assessment that is too high and want to object. Or: my landlord is keeping my deposit.",
+    "where": "Where",
+    "whereUnknown": "Not sure / let Causius find out",
+    "federal": "Switzerland (federal)",
+    "elsewhere": "Elsewhere",
+    "open": "Start",
+    "opening": "Starting…",
+    "quickCheck": "Just check a letter, without saving",
+    "mine": "Your matters",
+    "loading": "Loading…",
+    "none": "No matters yet.",
+    "nextDue": "{label}: {date}",
+    "waiting": "{count, plural, one {# decision waiting} other {# decisions waiting}}",
+    "errors": {
+      "not_configured": "Matters are not switched on for this site yet.",
+      "sign_in": "Please sign in again.",
+      "rate_limited": "Too many new matters in a short time. Wait a little.",
+      "offline": "Causius could not be reached. Check your connection.",
+      "unknown": "That did not work. Try again."
+    }
+  },
+  "Matter": {
+    "pageTitle": "Matter",
+    "loading": "Opening the matter…",
+    "load": {
+      "not_found": "This matter does not exist, or you do not take part in it.",
+      "failed": "The matter could not be opened."
+    },
+    "backToMatters": "Back to your matters",
+    "newMatter": "New matter",
+    "agentName": "Causius",
+    "stepsCount": "{count, plural, one {# step} other {# steps}} Causius took",
+    "tool": {
+      "web_search": "searched",
+      "read_page": "read",
+      "record_deadline": "deadline",
+      "add_task": "task",
+      "note_fact": "noted",
+      "update_matter": "updated",
+      "draft_document": "drafted",
+      "request_approval": "asked you",
+      "error": "error",
+      "other": "step"
+    },
+    "emptyThread": "Write what is going on. Causius will start working.",
+    "composer": "Write to Causius…",
+    "modelOwn": "Working with your own model, {model}.",
+    "modelFree": "Working with free shared models.",
+    "change": "Change",
+    "openSettings": "Model settings",
+    "working": {
+      "reading": "Reading the matter…",
+      "researching": "Looking up what applies…",
+      "drafting": "Working on it…",
+      "checking": "Checking the details…"
+    },
+    "errors": {
+      "not_configured": "No model is switched on for this site. Connect your own model to continue.",
+      "busy": "No model answered. The free shared budget may be used up; your own model is not affected.",
+      "busy_own": "Your model did not answer. Check its key in the settings.",
+      "rate_limited": "That is a lot in a short time. Wait a little, or use your own model.",
+      "bad_own_model": "Your saved model settings could not be used.",
+      "offline": "Causius could not be reached. Your message was not lost: send it again.",
+      "not_allowed": "You can read this matter but not write to it.",
+      "unknown": "That turn did not complete. Try again."
+    },
+    "panel": "The matter",
+    "due": "Due",
+    "nothingDue": "Nothing due yet.",
+    "daysLeft": "{days, plural, one {# day left} other {# days left}}",
+    "tomorrow": "tomorrow",
+    "today": "today",
+    "overdue": "{days, plural, one {# day overdue} other {# days overdue}}",
+    "decisions": "Waiting for you",
+    "noDecisions": "Nothing waits for your decision.",
+    "action": {
+      "send": "Send",
+      "file": "File",
+      "sign": "Sign",
+      "share": "Share",
+      "pay": "Pay",
+      "other": "Action"
+    },
+    "approve": "Approve",
+    "decline": "Decline",
+    "approveNote": "Approving records your decision. Sending or filing is still done by you, with the document.",
+    "documents": "Documents",
+    "draft": "draft",
+    "uploaded": "yours",
+    "upload": "Add a document",
+    "uploading": "Adding…",
+    "uploadHint": "PDF or text, up to 10 MB. Only the text is kept, encrypted.",
+    "uploadErrors": {
+      "too_large": "That file is larger than 10 MB.",
+      "unsupported_type": "Only PDF and text files for now.",
+      "scanned_pdf": "That PDF is a scan without text. Use the quick check to read a photo of it.",
+      "unreadable": "That PDF could not be read.",
+      "rate_limited": "Too many uploads in a short time.",
+      "unknown": "The document could not be added."
+    },
+    "privacy": "Privacy",
+    "privacyLead": "Before anything goes to a model, names, addresses and numbers are replaced with placeholders. Add any other words to keep out.",
+    "hideWords": "Words to keep from models",
+    "hidePlaceholder": "Your name, your employer…",
+    "save": "Save",
+    "saved": "Saved.",
+    "delete": "Delete this matter",
+    "deleteConfirm": "Delete this matter and everything in it? This cannot be undone."
+  },
+  "AuthError": {
+    "kicker": "Sign-in",
+    "failedTitle": "Sign-in did not complete",
+    "failedBody": "Something went wrong between Causius and OrangeCat. Trying again usually works.",
+    "deniedTitle": "Sign-in was cancelled",
+    "deniedBody": "You did not allow Causius to sign you in. Nothing was shared.",
+    "configurationTitle": "Sign-in is not set up correctly",
+    "configurationBody": "This is a problem on our side, not yours.",
+    "tryAgain": "Try again",
+    "home": "Home"
   }
 }

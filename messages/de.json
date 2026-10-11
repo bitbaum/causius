@@ -10,7 +10,9 @@
     "settings": "Einstellungen",
     "newCase": "Neuer Fall",
     "beta": "Beta",
-    "language": "Sprache"
+    "language": "Sprache",
+    "matters": "Fälle",
+    "quick": "Schnellprüfung"
   },
   "Footer": {
     "disclaimer": "Beta: in Betrieb, nicht veröffentlicht. Die KI von Causius gibt Rechtsinformationen, keine Rechtsberatung. Nur eine Anwältin oder ein Anwalt mit Zulassung am Ort Ihres Falls darf Sie dazu beraten oder vertreten.",
@@ -300,5 +302,146 @@
       "REF": "Referenz",
       "BIRTHDATE": "Geboren"
     }
+  },
+  "Account": {
+    "signIn": "Anmelden",
+    "matters": "Meine Fälle",
+    "settings": "Einstellungen",
+    "trigger": "Konto: {name}",
+    "menu": "Konto",
+    "signOut": "Abmelden",
+    "signingOut": "Abmelden…",
+    "signOutFailed": "Die Abmeldung hat nicht geklappt. Versuchen Sie es noch einmal."
+  },
+  "Matters": {
+    "title": "Fälle",
+    "lead": "Ein Fall ist alles Rechtliche, das erledigt werden muss: ein Brief, ein Vertrag, ein Streit, eine Firma, die gegründet werden soll. Causius bearbeitet ihn mit Ihnen, hält jede Frist im Blick und fragt, bevor etwas den Fall verlässt.",
+    "signInTitle": "Anmelden, um Fälle zu behalten",
+    "signInLead": "Fälle werden auf dem Server gespeichert, jeder mit einem eigenen Schlüssel verschlüsselt, damit Sie von jedem Gerät aus weiterarbeiten können. Sie melden sich mit OrangeCat an und können dort ein Pseudonym sein.",
+    "signIn": "Mit OrangeCat anmelden",
+    "signInOff": "Die Anmeldung ist für diese Website noch nicht eingeschaltet.",
+    "quickCheckSignedOut": "Oder einen Brief ohne Konto prüfen",
+    "newTitle": "Einen Fall eröffnen",
+    "newLead": "Sagen Sie in eigenen Worten, worum es geht. Causius fragt nach, was es braucht.",
+    "situation": "Worum geht es?",
+    "situationPlaceholder": "Zum Beispiel: Ich habe eine zu hohe Steuerveranlagung erhalten und will Einsprache erheben. Oder: Mein Vermieter behält die Kaution.",
+    "where": "Wo",
+    "whereUnknown": "Unklar / Causius soll es herausfinden",
+    "federal": "Schweiz (Bund)",
+    "elsewhere": "Anderswo",
+    "open": "Eröffnen",
+    "opening": "Wird eröffnet…",
+    "quickCheck": "Nur einen Brief prüfen, ohne Speichern",
+    "mine": "Ihre Fälle",
+    "loading": "Wird geladen…",
+    "none": "Noch keine Fälle.",
+    "nextDue": "{label}: {date}",
+    "waiting": "{count, plural, one {# Entscheid offen} other {# Entscheide offen}}",
+    "errors": {
+      "not_configured": "Fälle sind für diese Website noch nicht eingeschaltet.",
+      "sign_in": "Bitte melden Sie sich erneut an.",
+      "rate_limited": "Zu viele neue Fälle in kurzer Zeit. Warten Sie einen Moment.",
+      "offline": "Causius ist nicht erreichbar. Prüfen Sie Ihre Verbindung.",
+      "unknown": "Das hat nicht geklappt. Versuchen Sie es noch einmal."
+    }
+  },
+  "Matter": {
+    "pageTitle": "Fall",
+    "loading": "Der Fall wird geöffnet…",
+    "load": {
+      "not_found": "Diesen Fall gibt es nicht, oder Sie sind nicht daran beteiligt.",
+      "failed": "Der Fall konnte nicht geöffnet werden."
+    },
+    "backToMatters": "Zurück zu Ihren Fällen",
+    "newMatter": "Neuer Fall",
+    "agentName": "Causius",
+    "stepsCount": "{count, plural, one {# Schritt} other {# Schritte}} von Causius",
+    "tool": {
+      "web_search": "gesucht",
+      "read_page": "gelesen",
+      "record_deadline": "Frist",
+      "add_task": "Aufgabe",
+      "note_fact": "notiert",
+      "update_matter": "aktualisiert",
+      "draft_document": "entworfen",
+      "request_approval": "Sie gefragt",
+      "error": "Fehler",
+      "other": "Schritt"
+    },
+    "emptyThread": "Schreiben Sie, worum es geht. Causius beginnt mit der Arbeit.",
+    "composer": "An Causius schreiben…",
+    "modelOwn": "Arbeitet mit Ihrem eigenen Modell, {model}.",
+    "modelFree": "Arbeitet mit kostenlosen, geteilten Modellen.",
+    "change": "Ändern",
+    "openSettings": "Modelleinstellungen",
+    "working": {
+      "reading": "Liest den Fall…",
+      "researching": "Sucht, was gilt…",
+      "drafting": "Arbeitet daran…",
+      "checking": "Prüft die Einzelheiten…"
+    },
+    "errors": {
+      "not_configured": "Für diese Website ist kein Modell eingeschaltet. Verbinden Sie Ihr eigenes Modell, um weiterzumachen.",
+      "busy": "Kein Modell hat geantwortet. Das kostenlose, geteilte Budget ist vielleicht aufgebraucht; Ihr eigenes Modell ist nicht betroffen.",
+      "busy_own": "Ihr Modell hat nicht geantwortet. Prüfen Sie den Schlüssel in den Einstellungen.",
+      "rate_limited": "Das ist viel in kurzer Zeit. Warten Sie einen Moment oder verwenden Sie Ihr eigenes Modell.",
+      "bad_own_model": "Ihre gespeicherten Modelleinstellungen konnten nicht verwendet werden.",
+      "offline": "Causius ist nicht erreichbar. Ihre Nachricht ist nicht verloren: Senden Sie sie noch einmal.",
+      "not_allowed": "Sie können diesen Fall lesen, aber nicht darin schreiben.",
+      "unknown": "Dieser Schritt wurde nicht abgeschlossen. Versuchen Sie es noch einmal."
+    },
+    "panel": "Der Fall",
+    "due": "Fällig",
+    "nothingDue": "Noch nichts fällig.",
+    "daysLeft": "{days, plural, one {noch # Tag} other {noch # Tage}}",
+    "tomorrow": "morgen",
+    "today": "heute",
+    "overdue": "{days, plural, one {# Tag überfällig} other {# Tage überfällig}}",
+    "decisions": "Wartet auf Sie",
+    "noDecisions": "Nichts wartet auf Ihren Entscheid.",
+    "action": {
+      "send": "Senden",
+      "file": "Einreichen",
+      "sign": "Unterschreiben",
+      "share": "Teilen",
+      "pay": "Bezahlen",
+      "other": "Aktion"
+    },
+    "approve": "Genehmigen",
+    "decline": "Ablehnen",
+    "approveNote": "Mit der Genehmigung halten Sie Ihren Entscheid fest. Senden oder Einreichen erledigen Sie selbst, mit dem Dokument.",
+    "documents": "Dokumente",
+    "draft": "Entwurf",
+    "uploaded": "Ihres",
+    "upload": "Dokument hinzufügen",
+    "uploading": "Wird hinzugefügt…",
+    "uploadHint": "PDF oder Text, bis 10 MB. Nur der Text wird behalten, verschlüsselt.",
+    "uploadErrors": {
+      "too_large": "Die Datei ist grösser als 10 MB.",
+      "unsupported_type": "Vorerst nur PDF- und Textdateien.",
+      "scanned_pdf": "Dieses PDF ist ein Scan ohne Text. Lesen Sie ein Foto davon mit der Schnellprüfung.",
+      "unreadable": "Dieses PDF konnte nicht gelesen werden.",
+      "rate_limited": "Zu viele Uploads in kurzer Zeit.",
+      "unknown": "Das Dokument konnte nicht hinzugefügt werden."
+    },
+    "privacy": "Privatsphäre",
+    "privacyLead": "Bevor etwas an ein Modell geht, werden Namen, Adressen und Nummern durch Platzhalter ersetzt. Ergänzen Sie weitere Wörter, die draussen bleiben sollen.",
+    "hideWords": "Wörter, die kein Modell sehen soll",
+    "hidePlaceholder": "Ihr Name, Ihr Arbeitgeber…",
+    "save": "Speichern",
+    "saved": "Gespeichert.",
+    "delete": "Diesen Fall löschen",
+    "deleteConfirm": "Diesen Fall mit allem, was darin ist, löschen? Das lässt sich nicht rückgängig machen."
+  },
+  "AuthError": {
+    "kicker": "Anmeldung",
+    "failedTitle": "Die Anmeldung wurde nicht abgeschlossen",
+    "failedBody": "Zwischen Causius und OrangeCat ist etwas schiefgegangen. Ein neuer Versuch klappt meistens.",
+    "deniedTitle": "Die Anmeldung wurde abgebrochen",
+    "deniedBody": "Sie haben Causius die Anmeldung nicht erlaubt. Es wurde nichts geteilt.",
+    "configurationTitle": "Die Anmeldung ist nicht richtig eingerichtet",
+    "configurationBody": "Das ist ein Problem bei uns, nicht bei Ihnen.",
+    "tryAgain": "Noch einmal versuchen",
+    "home": "Startseite"
   }
 }

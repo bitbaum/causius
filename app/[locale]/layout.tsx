@@ -4,12 +4,16 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { AccountControl } from "@/components/AccountControl";
 import { SiteNav } from "@/components/SiteNav";
 import { shell } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { routing, toLocale } from "@/i18n/routing";
+import { auth, authEnabled } from "@/lib/auth";
+import { signInWithOrangecat, signOutOfCausius } from "@/lib/auth/actions";
 import { loadFleetPresence } from "@/lib/fleet";
 import { EXTERNAL, ROUTES } from "@/lib/routes";
+import "@bitbaum/accountkit/styles.css";
 import "../globals.css";
 
 const SITE_URL = "https://causius.orangecat.ch";
@@ -60,6 +64,7 @@ export default async function LocaleLayout({
   // Which planes this product is actually on. A link is rendered only when the
   // fleet map reports the profile exists — see lib/fleet.ts.
   const { orangecatUrl, solonUrl } = await loadFleetPresence();
+  const session = await auth();
 
   return (
     <html lang={locale}>
@@ -77,7 +82,16 @@ export default async function LocaleLayout({
                   {nav("beta")}
                 </span>
               </Link>
-              <SiteNav />
+              <div className="flex flex-wrap items-center gap-x-3">
+                <SiteNav />
+                {authEnabled && (
+                  <AccountControl
+                    user={session?.actorId ? { name: session.user?.name } : null}
+                    signInAction={signInWithOrangecat.bind(null, `/${locale}${ROUTES.matters}`)}
+                    signOutAction={signOutOfCausius.bind(null, locale)}
+                  />
+                )}
+              </div>
             </div>
           </header>
 
