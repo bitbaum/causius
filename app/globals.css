@@ -3,107 +3,78 @@
 /**
  * Causius — design tokens. The only place a colour, font or radius is defined.
  *
- * THE DEFAULT IS LOKI'S LANGUAGE, ON PURPOSE.
+ * This site used to wear Loki's monochrome, as every scaffold does until its
+ * owner builds it. It is Causius's own now: paper, ink and a seal.
  *
- * It used to be an invented mid-blue (#4a6fa5) that belonged to nothing we own.
- * A site sitting in it did not read as "new", it read as "generated" — a
- * template nobody had touched. The palette below is Loki's own, taken
- * from its globals.css: monochrome, with a single warm accent used sparingly.
+ *   paper  a warm ground, because this is where people read letters
+ *   ink    a blue-black for text and for the primary action
+ *   seal   one red, used for the accent and for deadlines, and nothing else
  *
- * That is deliberate. Until its owner builds it, this site IS a Loki
- * surface and should look like one — "made with Loki, not yet yours"
- * rather than "unfinished template".
- *
- * ⚠️  ONCE IT IS THEIRS, THESE VALUES MUST CHANGE.
- *
- * The studio's whole claim is that these are real, bespoke sites — not a
- * template farm. sinktattoo, annushka, vitareba and petvity look nothing like
- * each other, and that is the product. Share the SYSTEM (semantic token names,
- * the spacing scale, accessibility, no webfont fetch) and let the expression
- * diverge completely.
+ * Headings are a serif from the system stack (no webfont fetch: next/font
+ * fetches at BUILD time, so a webfont makes a deploy depend on a third party).
  *
  * Structure:
  *   Tier 1  primitives — raw values, never used by a component
  *   Tier 2  semantics  — what components use, always
- * Retheming is then editing this file and nothing else.
  *
- * Colours are oklch, matching Loki. Perceptual lightness means a scheme
- * can be inverted by moving L and leaving hue and chroma alone.
+ * Contrast (WCAG, computed 2026-10-10 by converting OKLCH to sRGB; recompute
+ * when you touch a value — nothing enforces these):
+ *   see the table in README.md, "Design tokens".
  */
 @theme {
-  /* System stack on purpose: next/font fetches at BUILD time, so a webfont
-     makes every new site's first deploy depend on a third party being up. */
-  --font-heading: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --tracking-display: -0.035em;
+  --tracking-display: -0.02em;
   --tracking-caps: 0.14em;
   --spacing-shell: 68rem;
-  --radius-card: 0.5rem;
+  --radius-card: 0.375rem;
 
-  /* Tier 1 — primitives. Replace these first. */
-  --primitive-ink-950: oklch(0.15 0 0);
-  --primitive-ink-050: oklch(0.98 0 0);
-  --primitive-warm-500: oklch(0.52 0.18 41);
-  --primitive-warm-300: oklch(0.75 0.16 41);
-  --primitive-green-500: oklch(0.52 0.15 145);
-  --primitive-green-300: oklch(0.75 0.16 145);
+  /* Tier 1 — primitives. */
+  --primitive-paper-050: oklch(0.975 0.008 85);
+  --primitive-paper-100: oklch(0.945 0.01 85);
+  --primitive-paper-300: oklch(0.86 0.012 85);
+  --primitive-ink-900: oklch(0.2 0.02 265);
+  --primitive-ink-800: oklch(0.27 0.06 265);
+  --primitive-ink-600: oklch(0.4 0.02 265);
+  --primitive-ink-500: oklch(0.5 0.015 265);
+  --primitive-seal-500: oklch(0.5 0.17 25);
+  --primitive-seal-300: oklch(0.76 0.12 25);
+  --primitive-green-500: oklch(0.5 0.13 150);
+  --primitive-green-300: oklch(0.78 0.14 150);
 
   /* Tier 2 — semantics. Components only ever use these. */
-  --color-surface-page: oklch(0.97 0 0);
-  --color-surface-raised: oklch(0.94 0 0);
-  --color-fg-primary: var(--primitive-ink-950);
-  --color-fg-secondary: oklch(0.4 0 0);
-  /* 0.53, not 0.55. At 0.55 this is 4.45:1 on the page ground — a fifth of a
-     point under AA, which is exactly the kind of miss that survives an eyeball
-     and only dies to the arithmetic. Computed by hand; see the note below. */
-  --color-fg-muted: oklch(0.53 0 0);
-  --color-border-subtle: oklch(0.87 0 0);
+  --color-surface-page: var(--primitive-paper-050);
+  --color-surface-raised: var(--primitive-paper-100);
+  --color-fg-primary: var(--primitive-ink-900);
+  --color-fg-secondary: var(--primitive-ink-600);
+  --color-fg-muted: var(--primitive-ink-500);
+  --color-border-subtle: var(--primitive-paper-300);
 
-  /* An accent is THREE tokens, not one, and collapsing them is an
-     accessibility bug rather than a simplification:
-       accent           the primary action as a SURFACE
-       accent-contrast  the label ON that surface
-       accent-fg        the accent as TEXT, on the page ground
-     No single value serves all three. Loki's primary action is
-     monochrome and INVERTS between schemes (near-black on light, near-white
-     on dark), so `accent` and `accent-contrast` must swap together — while
-     `accent-fg` is the warm accent and moves independently of both.
+  /* An accent is THREE tokens: the action as a surface, the label on it, and
+     the accent as text on the page. No single value serves all three. */
+  --color-accent: var(--primitive-ink-800);
+  --color-accent-contrast: var(--primitive-paper-050);
+  --color-accent-fg: var(--primitive-seal-500);
 
-     ⚠️ These ratios are asserted, not enforced. The version of this file that
-     shipped with diplodoctor cited `scripts/hetzner/check-template-contrast.mjs`
-     as computing them — that script does not exist, in this repository or any
-     other. A comment naming a gate reads exactly like a gate and is worth less
-     than nothing, because it stops anyone from looking. Writing it is the right
-     follow-up: every pair below is a candidate, and an OKLCH-to-sRGB conversion
-     plus the WCAG formula is the whole job. Until then, recompute by hand when
-     you touch a value here. */
-  --color-accent: var(--primitive-ink-950);
-  --color-accent-contrast: var(--primitive-ink-050);
-  --color-accent-fg: var(--primitive-warm-500);
-
-  /* "This host is answering." Status only, never decoration — it keeps
-     meaning something only if nothing else uses it. */
+  /* Status only, never decoration. */
   --color-signal-live: var(--primitive-green-500);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-surface-page: oklch(0.12 0 0);
-    --color-surface-raised: oklch(0.17 0 0);
-    --color-fg-primary: oklch(0.95 0 0);
-    --color-fg-secondary: oklch(0.75 0 0);
-    --color-fg-muted: oklch(0.62 0 0);
-    --color-border-subtle: oklch(0.28 0 0);
+    --color-surface-page: oklch(0.17 0.02 265);
+    --color-surface-raised: oklch(0.215 0.022 265);
+    --color-fg-primary: oklch(0.95 0.008 85);
+    --color-fg-secondary: oklch(0.8 0.01 85);
+    --color-fg-muted: oklch(0.68 0.012 265);
+    --color-border-subtle: oklch(0.32 0.02 265);
 
-    /* The primary action inverts, so BOTH halves move together — a near-white
-       surface carrying a near-black label. Moving one without the other is
-       exactly the failure this pairing exists to prevent. */
-    --color-accent: oklch(0.95 0 0);
-    --color-accent-contrast: oklch(0.13 0 0);
-    /* The warm accent only lightens; it is text on the page, not a surface. */
-    --color-accent-fg: var(--primitive-warm-300);
+    /* The primary action inverts, so both halves move together. */
+    --color-accent: oklch(0.93 0.01 85);
+    --color-accent-contrast: oklch(0.2 0.02 265);
+    --color-accent-fg: var(--primitive-seal-300);
     --color-signal-live: var(--primitive-green-300);
   }
 }
@@ -117,4 +88,38 @@ body {
   color: var(--color-fg-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+}
+
+/* One focus treatment for every interactive element. */
+:where(a, button, input, textarea, select, summary):focus-visible {
+  outline: 2px solid var(--color-accent-fg);
+  outline-offset: 3px;
+}
+
+/* bip-kit renders the roadmap and changelog. Its neutral theme is retuned to
+   this site's tokens here, so those pages change with the theme above and not
+   separately. The semantic tokens already switch for dark mode. */
+.bp-development {
+  --bp-bg: var(--color-surface-page);
+  --bp-surface: var(--color-surface-raised);
+  --bp-fg: var(--color-fg-primary);
+  --bp-fg-muted: var(--color-fg-secondary);
+  --bp-fg-faint: var(--color-fg-muted);
+  --bp-border: var(--color-border-subtle);
+  --bp-accent: var(--color-accent-fg);
+  --bp-accent-contrast: var(--color-surface-page);
+  --bp-font-sans: var(--font-sans);
+  --bp-font-mono: var(--font-mono);
+  --bp-radius: var(--radius-card);
+  --bp-radius-sm: var(--radius-card);
+  --bp-development-padding: 0;
+}
+
+/* bip-kit's "Back to the product" link is 20px tall, under the nav contract's
+   44px floor (rule 3), on every site that renders these pages. Raised here
+   until it is fixed in bip-kit itself. */
+.bp-development > header > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
 }

@@ -8,22 +8,30 @@
     "start": "next start",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
-    "verify": "pnpm run type-check && pnpm run lint"
+    "verify": "pnpm run type-check && pnpm run lint && pnpm run test",
+    "test": "vitest run",
+    "check:analyze": "vitest run --config vitest.live.config.mts"
   },
   "packageManager": "pnpm@11.25.0",
   "dependencies": {
+    "@bitbaum/ai-kit": "^1.20.1",
+    "bip-kit": "^0.6.0",
+    "limitkit": "^0.2.0",
     "next": "16.3.8",
+    "next-intl": "^4.14.9",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^22",
+    "@types/node": "^26.6.4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^9",
+    "eslint": "^10.12.0",
     "eslint-config-next": "16.3.8",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.11"
   }
 }
