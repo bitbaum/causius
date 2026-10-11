@@ -66,16 +66,38 @@ jobs:
           else
             note "db: database present"
           fi
-          DBURL="postgresql://causius:$pass@localhost:5432/causius"
-          if [ "$(PGPASSWORD="$pass" psql -h localhost -U causius -d causius -tAc "SELECT to_regclass('public.matters') IS NOT NULL")" != "t" ]; then
+          # Client authentication: the box lists each app's database and role
+          # in pg_hba.conf rather than allowing all. Give causius the same
+          # lines the app before it has, right after them, and reload.
+          HBA=$(sudo -n -u postgres psql -tAc "SHOW hba_file")
+          note "hba: $(sudo -n grep -vE '^\s*(#|$)' "$HBA" | awk '{print $1"/"$2"/"$3"/"$4}' | tr '\n' ' ')"
+          if ! sudo -n grep -qE '^\s*host(ssl)?\s+causius\s' "$HBA"; then
+            other=$(cut -d'|' -f1 "$CREDS" | grep -vx causius | while read -r d; do
+              sudo -n grep -qE "^\s*host(ssl)?\s+$d\s+$d\s" "$HBA" && { echo "$d"; break; }; done || true)
+            if [ -n "$other" ]; then
+              sudo -n cp "$HBA" "$HBA.bak-causius"
+              # Insert the causius lines directly after the last line for $other.
+              last=$(sudo -n grep -nE "^\s*host(ssl)?\s+$other\s+$other\s" "$HBA" | tail -1 | cut -d: -f1)
+              lines=$(sudo -n grep -E "^\s*host(ssl)?\s+$other\s+$other\s" "$HBA" | sed -E "s/^(\s*host(ssl)?\s+)$other(\s+)$other(\s)/\1causius\3causius\4/")
+              { sudo -n head -n "$last" "$HBA"; printf '%s\n' "$lines"; sudo -n tail -n +"$((last + 1))" "$HBA"; } > /tmp/hba.tmp
+              sudo -n install -m 640 -o postgres -g postgres /tmp/hba.tmp "$HBA"
+              rm -f /tmp/hba.tmp
+              sudo -n -u postgres psql -qtAc "SELECT pg_reload_conf()" >/dev/null
+              note "hba: causius added after $other"
+            else
+              note "hba: no per-app line to copy; trying as configured"
+            fi
+          fi
+          DBURL="postgresql://causius:$pass@127.0.0.1:5432/causius"
+          if [ "$(PGPASSWORD="$pass" psql -h 127.0.0.1 -U causius -d causius -tAc "SELECT to_regclass('public.matters') IS NOT NULL")" != "t" ]; then
             sed 's/--> statement-breakpoint//' /tmp/causius-0000_init.sql \
-              | PGPASSWORD="$pass" psql -h localhost -U causius -d causius -v ON_ERROR_STOP=1 -q -1
+              | PGPASSWORD="$pass" psql -h 127.0.0.1 -U causius -d causius -v ON_ERROR_STOP=1 -q -1
             note "db: schema 0000_init applied"
           else
             note "db: schema present"
           fi
           rm -f /tmp/causius-0000_init.sql
-          note "db: tables $(PGPASSWORD="$pass" psql -h localhost -U causius -d causius -tAc "SELECT string_agg(tablename, ' ' ORDER BY tablename) FROM pg_tables WHERE schemaname='public'")"
+          note "db: tables $(PGPASSWORD="$pass" psql -h 127.0.0.1 -U causius -d causius -tAc "SELECT string_agg(tablename, ' ' ORDER BY tablename) FROM pg_tables WHERE schemaname='public'")"
 
           # ── Env files ─────────────────────────────────────────────────
           ENVS=""
