@@ -124,9 +124,11 @@ jobs:
 
           # The fleet's web search, copied from another app's env if one has it.
           for name in SEARXNG_URL SEARXNG_TOKEN BRAVE_SEARCH_API_KEY TAVILY_API_KEY; do
-            has "$name" && continue
+            if has "$name"; then continue; fi
             line=$(grep -hm1 "^$name=" /opt/*/shared/.env /opt/*/app/.env 2>/dev/null | head -1 || true)
-            [ -n "$line" ] && set_env "$name" "${line#*=}"
+            # `if`, not `&&`: a false `&&` as a loop's last command fails the
+            # loop, and with `set -e` the whole script (the first run did).
+            if [ -n "$line" ]; then set_env "$name" "${line#*=}"; fi
           done
 
           # ── 2. OrangeCat client ──────────────────────────────────────
