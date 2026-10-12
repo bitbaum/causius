@@ -1,14 +1,17 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import { btnPrimary, card, field, link } from "@/components/ui";
+import { useEffect, useRef, useState } from "react";
+import { card, field, link } from "@/components/ui";
 import { Link, useRouter } from "@/i18n/navigation";
 import { formatDate } from "@/lib/case";
 import { CANTONS, COUNTRIES, jurisdictionLabel } from "@/lib/jurisdictions";
 import type { MatterSummary } from "@/lib/matters/store";
 import { API, ROUTES } from "@/lib/routes";
 import { useOwnWords } from "@/lib/store";
+import { IntakeComposer, uploadErrorKey } from "./IntakeComposer";
+import { useModelChoice } from "./ModelPicker";
+import { uploadStaged, type Staged } from "./staging";
 
 /** A first message carried from this page to the new matter's page. */
 export const FIRST_MESSAGE_KEY = (id: string) => `causius.first.${id}`;
@@ -20,9 +23,9 @@ export function MattersHome() {
   const ownWords = useOwnWords();
   const [list, setList] = useState<MatterSummary[] | null>(null);
   const [failed, setFailed] = useState<string | null>(null);
-  const [text, setText] = useState("");
+  const chat = useTranslations("Chat");
+  const choice = useModelChoice();
   const [jurisdiction, setJurisdiction] = useState("");
-  const [busy, setBusy] = useState(false);
 
   useEffect(() => {
     let stale = false;
@@ -39,88 +42,94 @@ export function MattersHome() {
     };
   }, []);
 
-  async function start(e: React.FormEvent) {
-    e.preventDefault();
-    if (!text.trim()) return;
-    setBusy(true);
+  const [startError, setStartError] = useState<string | null>(null);
+  // A matter is created once; if attaching fails the person retries into the same one.
+  const created = useRef<string | null>(null);
+
+  async function start(text: string, staged: Staged[]): Promise<boolean> {
     setFailed(null);
+    setStartError(null);
     try {
-      const r = await fetch(API.matters, {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ jurisdiction: jurisdiction || undefined, hide: ownWords }),
-      });
-      const body = (await r.json().catch(() => ({}))) as { id?: string; error?: string };
-      if (!r.ok || !body.id) {
-        setFailed(body.error ?? "unknown");
-        return;
+      if (!created.current) {
+        const r = await fetch(API.matters, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ jurisdiction: jurisdiction || undefined, hide: ownWords }),
+        });
+        const body = (await r.json().catch(() => ({}))) as { id?: string; error?: string };
+        if (!r.ok || !body.id) {
+          setFailed(body.error ?? "unknown");
+          return false;
+        }
+        created.current = body.id;
+      }
+      const id = created.current;
+      if (staged.length) {
+        const failure = await uploadStaged(id, staged, choice);
+        if (failure) {
+          setStartError(failure);
+          return false;
+        }
       }
       try {
-        sessionStorage.setItem(FIRST_MESSAGE_KEY(body.id), text.trim());
+        sessionStorage.setItem(FIRST_MESSAGE_KEY(id), text.trim() || chat("attachedOnly"));
       } catch {
         // Without session storage the person types it again; nothing is lost.
       }
-      router.push(ROUTES.matterById(body.id));
+      router.push(ROUTES.matterById(id));
+      return true;
     } catch {
       setFailed("offline");
-    } finally {
-      setBusy(false);
+      return false;
     }
   }
 
   return (
     <div className="grid gap-12">
-      <form onSubmit={start} className={`${card} grid gap-5 sm:p-8`}>
+      <section aria-labelledby="start" className={`${card} grid gap-5 sm:p-8`}>
         <div>
-          <h2 className="text-2xl font-semibold tracking-tight">{t("newTitle")}</h2>
+          <h2 id="start" className="text-2xl font-semibold tracking-tight">
+            {t("newTitle")}
+          </h2>
           <p className="mt-1 max-w-prose text-sm leading-relaxed text-fg-secondary">{t("newLead")}</p>
         </div>
-        <label className="grid gap-2">
-          <span className="text-sm font-medium">{t("situation")}</span>
-          <textarea
-            rows={6}
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder={t("situationPlaceholder")}
-            className={field}
-            required
-          />
-        </label>
-        <label className="grid max-w-md gap-2">
-          <span className="text-sm font-medium">{t("where")}</span>
-          <select value={jurisdiction} onChange={(e) => setJurisdiction(e.target.value)} className={field}>
-            <option value="">{t("whereUnknown")}</option>
-            <optgroup label={jurisdictionLabel("CH", locale)}>
-              <option value="CH">{t("federal")}</option>
-              {Object.keys(CANTONS).map((code) => (
-                <option key={code} value={code}>
-                  {jurisdictionLabel(code, locale)}
-                </option>
-              ))}
-            </optgroup>
-            <optgroup label={t("elsewhere")}>
-              {COUNTRIES.filter((c) => c !== "CH").map((c) => (
-                <option key={c} value={c}>
-                  {jurisdictionLabel(c, locale)}
-                </option>
-              ))}
-            </optgroup>
-          </select>
-        </label>
-        {failed && (
+        <IntakeComposer
+          onSend={start}
+          sending={false}
+          placeholder={t("situationPlaceholder")}
+          above={
+            <label className="mb-3 grid max-w-md gap-2">
+              <span className="text-sm font-medium">{t("where")}</span>
+              <select value={jurisdiction} onChange={(e) => setJurisdiction(e.target.value)} className={field}>
+                <option value="">{t("whereUnknown")}</option>
+                <optgroup label={jurisdictionLabel("CH", locale)}>
+                  <option value="CH">{t("federal")}</option>
+                  {Object.keys(CANTONS).map((code) => (
+                    <option key={code} value={code}>
+                      {jurisdictionLabel(code, locale)}
+                    </option>
+                  ))}
+                </optgroup>
+                <optgroup label={t("elsewhere")}>
+                  {COUNTRIES.filter((c) => c !== "CH").map((c) => (
+                    <option key={c} value={c}>
+                      {jurisdictionLabel(c, locale)}
+                    </option>
+                  ))}
+                </optgroup>
+              </select>
+            </label>
+          }
+        />
+        {(failed || startError) && (
           <p role="alert" className="text-sm text-accent">
-            {t(`errors.${failed in ERRORS ? failed : "unknown"}`)}
+            {startError ? chat(uploadErrorKey(startError)) : t(`errors.${failed! in ERRORS ? failed : "unknown"}`)}
           </p>
         )}
-        <div className="flex flex-wrap items-center gap-5">
-          <button type="submit" disabled={busy || !text.trim()} className={btnPrimary}>
-            {busy ? t("opening") : t("open")}
-          </button>
-          <Link href={ROUTES.newCase} className={`${link} inline-flex min-h-11 items-center text-sm`}>
-            {t("quickCheck")}
-          </Link>
-        </div>
-      </form>
+        <Link href={ROUTES.newCase} className={`${link} inline-flex min-h-11 items-center text-sm`}>
+          {t("quickCheck")}
+        </Link>
+      </section>
 
       <section aria-labelledby="mine">
         <h2 id="mine" className="text-2xl font-semibold tracking-tight">

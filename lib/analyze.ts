@@ -5,6 +5,7 @@ import {
   complete,
   createHealthTracker,
   freeChain,
+  linkSeesImages,
   usableChain,
   visionProviders,
   type ChatMessage,
@@ -142,6 +143,32 @@ export function buildMessages(request: AnalyzeRequest): ChatMessage[] {
 /** Whether this deployment can analyse anything without the reader's own key. */
 export function freeLinks(env: Env): Link[] {
   return chainFrom(env.CAUSIUS_MODEL, usableChain(freeChain(ENV_PREFIX), env));
+}
+
+/** One model the picker may offer: an id, who serves it, and whether it can read a photo. */
+export interface OfferedModel {
+  id: string;
+  provider: string;
+  sees: "yes" | "no" | "unknown";
+}
+
+/** The free models this deployment can reach right now, for the model picker. */
+export function offeredModels(env: Env): OfferedModel[] {
+  return usableChain(freeChain(ENV_PREFIX), env).map((link) => ({
+    id: link.model,
+    provider: link.provider.id,
+    sees: linkSeesImages(link),
+  }));
+}
+
+/**
+ * The free chain, starting at the model the reader picked. A pick is a
+ * starting point with the fallback intact, and only an id this deployment
+ * offers counts: an unknown id is an injection, not a preference.
+ */
+export function freeLinksFor(env: Env, model?: string): Link[] {
+  const chain = freeLinks(env);
+  return model && chain.some((l) => l.model === model) ? chainFrom(model, chain) : chain;
 }
 
 /**

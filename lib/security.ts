@@ -13,7 +13,7 @@
  *  - HTTPS only, for two years, subdomains included;
  *  - no referrer leaves the site: a case URL never shows up in someone else's
  *    logs;
- *  - camera, microphone, location and payment APIs are off for every frame.
+ *  - camera, location and payment APIs are off for every frame; the microphone is on for this origin only (dictation), and nothing may frame the page.
  *
  * The Loki feedback widget is the one third party, and it is allowed only when
  * this deployment turns the widget on.
@@ -56,7 +56,7 @@ export const SECURITY_HEADERS: { key: string; value: string }[] = [
   {
     key: "Permissions-Policy",
     value:
-      "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), bluetooth=(), interest-cohort=()",
+      "camera=(), microphone=(self), geolocation=(), payment=(), usb=(), serial=(), bluetooth=(), interest-cohort=()",
   },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
   { key: "Cross-Origin-Resource-Policy", value: "same-origin" },

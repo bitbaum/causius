@@ -10,7 +10,7 @@ import { byokChain, isByokConfig } from "@bitbaum/ai-kit/byok";
 import { webSearch, readPage, describeEmptySearch } from "@bitbaum/ai-kit/web";
 import { isIP } from "node:net";
 import { z } from "zod";
-import { freeLinks } from "../analyze";
+import { freeLinksFor } from "../analyze";
 import type { Db } from "../db";
 import { checkDomains, describeDomain } from "../domains";
 import {
@@ -445,6 +445,7 @@ function documentsBlock(
 function chainFor(
   byok: unknown,
   env: Env,
+  model?: string,
 ):
   | {
       chain: Link[];
@@ -461,7 +462,7 @@ function chainFor(
     });
     return { ...c, own: true };
   }
-  const chain = freeLinks(env);
+  const chain = freeLinksFor(env, model);
   return chain.length ? { chain, env, own: false } : "not_configured";
 }
 
@@ -483,6 +484,8 @@ async function runTurnLocked(input: {
   sub: string;
   text: string;
   byok?: unknown;
+  /** A free model the reader picked: where the chain starts, fallback intact. */
+  model?: string;
   env: Env;
   signal?: AbortSignal;
   fetchImpl?: typeof fetch;
@@ -499,7 +502,7 @@ async function runTurnLocked(input: {
   if (opened.role === "observer") return { ok: false, error: "not_allowed" };
   const m = opened;
 
-  const models = chainFor(input.byok, input.env);
+  const models = chainFor(input.byok, input.env, input.model);
   if (typeof models === "string") return { ok: false, error: models };
 
   await appendMessage(db, m, { actor: sub, role: "user", text: input.text });
