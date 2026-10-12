@@ -53,7 +53,7 @@ export default function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     {
-      source: "/((?!api|_next/static|_next/image|_vercel|.*\\..*).*)",
+      source: "/((?!api|_next/static|_next/image|_vercel|.*\\.(?:ico|png|jpe?g|svg|webp|gif|txt|xml|json|webmanifest|woff2?|map|js|css)$).*)",
       // A prefetch is not rendered for a reader and needs no nonce.
       missing: [
         { type: "header", key: "next-router-prefetch" },

@@ -706,8 +706,8 @@
     "title": "Private by construction",
     "lede": "Causius handles legal letters: names, addresses, residence, money. Each guarantee below is a property of the code, which is public. None of them asks you to trust us.",
     "anon": {
-      "title": "Models never learn who",
-      "body": "Before any text goes to a model, personal details are replaced with placeholders, and they are put back only after the answer returns.",
+      "title": "Models are not told who",
+      "body": "Before any text goes to a model, personal details are replaced with placeholders, and they are put back only after the answer returns. Automatic detection is good, not perfect: check what is hidden before you send.",
       "d1": "Found automatically: names in salutations and address blocks, street addresses, postcodes, email addresses, phone numbers, IBANs, AHV numbers, references and dates of birth.",
       "d2": "Your own words to hide are always added, and so is the name on your account.",
       "d3": "In the quick check this happens in your browser, before the letter leaves your device.",
@@ -724,7 +724,7 @@
       "title": "Nothing kept that is not needed",
       "body": "An upload is reduced to its text and the file itself is dropped. A letter checked without an account is not stored at all.",
       "d1": "No users table and no passwords: sign-in is OrangeCat's, and Causius keeps only an account id.",
-      "d2": "Logs record which model served a turn, never what was said. No analytics, no tracking scripts."
+      "d2": "Logs record which model served a turn, never what was said. No analytics. The one extra script is the optional feedback widget, and it sends only what you write into it."
     },
     "browser": {
       "title": "A locked-down browser",
@@ -745,7 +745,7 @@
       "lede": "What each party would hold if the worst happened to it.",
       "database": {
         "title": "A stolen database",
-        "body": "Ciphertext, account ids and dates. No names, no letters, no deadlines."
+        "body": "Ciphertext, account ids and dates. No names, no letters. Deadline dates are the one thing readable."
       },
       "provider": {
         "title": "A model provider's logs",

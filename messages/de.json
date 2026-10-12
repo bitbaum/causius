@@ -706,8 +706,8 @@
     "title": "Privat durch Bauweise",
     "lede": "Causius bearbeitet amtliche Briefe: Namen, Adressen, Aufenthalt, Geld. Jede Garantie unten ist eine Eigenschaft des Codes, und der ist öffentlich. Keine verlangt, dass Sie uns vertrauen.",
     "anon": {
-      "title": "Modelle erfahren nie, um wen es geht",
-      "body": "Bevor ein Text an ein Modell geht, werden persönliche Angaben durch Platzhalter ersetzt und erst nach der Antwort wieder eingesetzt.",
+      "title": "Modelle erfahren nicht, um wen es geht",
+      "body": "Bevor ein Text an ein Modell geht, werden persönliche Angaben durch Platzhalter ersetzt und erst nach der Antwort wieder eingesetzt. Die automatische Erkennung ist gut, aber nicht lückenlos: Prüfen Sie vor dem Senden, was verborgen wird.",
       "d1": "Automatisch erkannt: Namen in Anreden und Adressblöcken, Strassenadressen, Postleitzahlen, E-Mail-Adressen, Telefonnummern, IBAN, AHV-Nummern, Referenzen und Geburtsdaten.",
       "d2": "Ihre eigenen Wörter zum Verbergen kommen immer dazu, ebenso der Name auf Ihrem Konto.",
       "d3": "Bei der Schnellprüfung geschieht das in Ihrem Browser, bevor der Brief Ihr Gerät verlässt.",
@@ -724,7 +724,7 @@
       "title": "Nichts behalten, was nicht nötig ist",
       "body": "Ein Upload wird auf seinen Text reduziert und die Datei selbst verworfen. Ein ohne Konto geprüfter Brief wird gar nicht gespeichert.",
       "d1": "Keine Benutzertabelle, keine Passwörter: Die Anmeldung gehört OrangeCat, Causius behält nur eine Konto-ID.",
-      "d2": "Protokolle halten fest, welches Modell einen Durchgang bedient hat, nie was gesagt wurde. Keine Analytik, keine Tracking-Skripte."
+      "d2": "Protokolle halten fest, welches Modell einen Durchgang bedient hat, nie was gesagt wurde. Keine Analytik. Das einzige zusätzliche Skript ist das optionale Feedback-Widget; es sendet nur, was Sie hineinschreiben."
     },
     "browser": {
       "title": "Ein abgeriegelter Browser",
@@ -745,7 +745,7 @@
       "lede": "Was jede Seite in der Hand hätte, wenn ihr das Schlimmste passierte.",
       "database": {
         "title": "Eine gestohlene Datenbank",
-        "body": "Chiffretext, Konto-IDs und Daten. Keine Namen, keine Briefe, keine Fristen."
+        "body": "Chiffretext, Konto-IDs und Daten. Keine Namen, keine Briefe. Lesbar bleiben nur Fristdaten."
       },
       "provider": {
         "title": "Die Protokolle eines Modellanbieters",
