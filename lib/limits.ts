@@ -18,6 +18,9 @@ export const limits = {
   turnOwn: slidingWindow({ limit: 200, windowMs: 60 * 60_000 }),
   matterCreate: slidingWindow({ limit: 20, windowMs: 60 * 60_000 }),
   upload: slidingWindow({ limit: 60, windowMs: 60 * 60_000 }),
+  // A spoken take or a photographed page each cost a model call on the shared free tier.
+  transcribe: slidingWindow({ limit: 40, windowMs: 10 * 60_000 }),
+  pages: slidingWindow({ limit: 20, windowMs: 60 * 60_000 }),
 };
 
 export function callerKey(request: Request, scope: string): string {

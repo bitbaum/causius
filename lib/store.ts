@@ -98,6 +98,17 @@ const ownModel = createBrowserStore<ByokConfig | null>("causius.model.v1", null,
 );
 
 export const useOwnModel = ownModel.use;
+
+/**
+ * Which model answers: "" lets Causius walk its free chain, a model id starts
+ * the chain there, and "own" uses the reader's own key. Only a preference; the
+ * server checks the id against what it offers.
+ */
+const modelPick = createBrowserStore<string>("causius.model.pick.v1", "", (raw) =>
+  typeof raw === "string" && raw.length <= 120 ? raw : "",
+);
+export const useModelPick = modelPick.use;
+export const saveModelPick = (pick: string) => modelPick.write(pick);
 export const saveOwnModel = (config: ByokConfig) => ownModel.write(config);
 export const clearOwnModel = () => ownModel.write(null);
 

@@ -1,8 +1,7 @@
 "use client";
 
-import { ChatThread, Composer, type ChatMessageData } from "@bitbaum/chatkit/react";
+import { ChatThread, type ChatMessageData } from "@bitbaum/chatkit/react";
 import "@bitbaum/chatkit/styles.css";
-import { byokLabel } from "@bitbaum/ai-kit/byok";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { btnQuiet, card, eyebrow, field, link } from "@/components/ui";
@@ -11,8 +10,11 @@ import { daysUntil, formatDate } from "@/lib/case";
 import { jurisdictionLabel } from "@/lib/jurisdictions";
 import type { MatterEvent, MatterView } from "@/lib/matters/store";
 import { API, ROUTES } from "@/lib/routes";
-import { useOwnModel, useToday } from "@/lib/store";
+import { useToday } from "@/lib/store";
+import { IntakeComposer, uploadErrorKey, useChatLabels } from "./IntakeComposer";
 import { FIRST_MESSAGE_KEY } from "./MattersHome";
+import { useModelChoice } from "./ModelPicker";
+import { uploadStaged, type Staged } from "./staging";
 
 type Load = { state: "loading" } | { state: "failed"; error: string } | { state: "ready"; matter: MatterView };
 
@@ -27,7 +29,10 @@ export function MatterWorkspace({ id }: { id: string }) {
   const t = useTranslations("Matter");
   const locale = useLocale();
   const router = useRouter();
-  const ownModel = useOwnModel();
+  const choice = useModelChoice();
+  const chat = useTranslations("Chat");
+  const labels = useChatLabels();
+  const turn = useRef<AbortController | null>(null);
   const today = useToday();
   const [load, setLoad] = useState<Load>({ state: "loading" });
   const [sending, setSending] = useState(false);
@@ -48,49 +53,68 @@ export function MatterWorkspace({ id }: { id: string }) {
   }, [id]);
 
   const send = useCallback(
-    async (text: string): Promise<boolean> => {
-      if (!text.trim()) return false;
+    async (text: string, staged: Staged[] = []): Promise<boolean> => {
+      if (!text.trim() && staged.length === 0) return false;
+      const words = text.trim() || chat("attachedOnly");
       setSending(true);
       setStartedAt(Date.now());
       setNow(Date.now());
       setTurnError(null);
-      // Show the message at once; the agent's work follows.
-      setLoad((l) =>
-        l.state === "ready"
-          ? {
-              ...l,
-              matter: {
-                ...l.matter,
-                events: [
-                  ...l.matter.events,
-                  { id: -Date.now(), at: new Date().toISOString(), kind: "message", actor: "me", role: "user", text },
-                ],
-              },
-            }
-          : l,
-      );
+      const controller = new AbortController();
+      turn.current = controller;
       try {
+        // What was attached becomes documents first, so this very turn can read it.
+        if (staged.length) {
+          const failure = await uploadStaged(id, staged, choice, controller.signal);
+          if (failure) {
+            setTurnError(`upload:${failure}`);
+            return false;
+          }
+          await refresh();
+        }
+        // Show the message at once; the agent's work follows.
+        setLoad((l) =>
+          l.state === "ready"
+            ? {
+                ...l,
+                matter: {
+                  ...l.matter,
+                  events: [
+                    ...l.matter.events,
+                    { id: -Date.now(), at: new Date().toISOString(), kind: "message", actor: "me", role: "user", text: words },
+                  ],
+                },
+              }
+            : l,
+        );
         const r = await fetch(API.matterMessages(id), {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ text, byok: ownModel ?? undefined, locale }),
+          body: JSON.stringify({ text: words, byok: choice.byok, model: choice.model, locale }),
+          signal: controller.signal,
         });
         const body = (await r.json().catch(() => ({}))) as { matter?: MatterView; error?: string };
         if (r.ok && body.matter) {
           setLoad({ state: "ready", matter: body.matter });
           return true;
         }
-        setTurnError(body.error === "busy" && ownModel ? "busy_own" : (body.error ?? "unknown"));
+        setTurnError(body.error === "busy" && choice.byok ? "busy_own" : (body.error ?? "unknown"));
         await refresh();
         return true;
-      } catch {
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          setTurnError("stopped");
+          await refresh();
+          return true;
+        }
         setTurnError("offline");
         return false;
       } finally {
+        turn.current = null;
         setSending(false);
       }
     },
-    [id, locale, ownModel, refresh],
+    [id, locale, choice, chat, refresh],
   );
 
   // Open the matter; then send the first message, if one was typed on the
@@ -166,9 +190,9 @@ export function MatterWorkspace({ id }: { id: string }) {
         <div className="mt-8">
           <ChatThread
             messages={messages}
-            loading={sending}
             live={sending ? { status: workingLines[working % workingLines.length] } : null}
             onReply={(text) => void send(text)}
+            onStop={() => turn.current?.abort()}
             renderFooter={(msg) => {
               const steps = stepsBefore.get(msg.id);
               return steps?.length ? (
@@ -185,11 +209,13 @@ export function MatterWorkspace({ id }: { id: string }) {
               ) : null;
             }}
             empty={<p className="text-sm text-fg-secondary">{t("emptyThread")}</p>}
-            labels={{}}
+            labels={labels.thread}
           />
           {turnError && (
             <p role="alert" className="mt-3 rounded-control border border-accent px-4 py-3 text-sm">
-              {t(`errors.${TURN_ERRORS.has(turnError) ? turnError : "unknown"}`)}{" "}
+              {turnError.startsWith("upload:")
+                ? chat(uploadErrorKey(turnError.slice(7)))
+                : t(`errors.${TURN_ERRORS.has(turnError) ? turnError : "unknown"}`)}{" "}
               {(turnError === "not_configured" || turnError === "busy" || turnError === "busy_own") && (
                 <Link href={ROUTES.ownModel} className={link}>
                   {t("openSettings")}
@@ -199,18 +225,12 @@ export function MatterWorkspace({ id }: { id: string }) {
           )}
           {m.role !== "observer" && (
             <div className="mt-4">
-              <Composer
-                onSend={(text) => send(text)}
+              <IntakeComposer
+                onSend={(text, staged) => send(text, staged)}
                 placeholder={t("composer")}
                 sending={sending}
-                voice={false}
+                onStop={() => turn.current?.abort()}
               />
-              <p className="mt-2 text-xs text-fg-secondary">
-                {ownModel ? t("modelOwn", { model: byokLabel(ownModel) }) : t("modelFree")}{" "}
-                <Link href={ROUTES.ownModel} className={link}>
-                  {t("change")}
-                </Link>
-              </p>
             </div>
           )}
         </div>
@@ -329,7 +349,7 @@ const TOOL_KEYS = new Set([
   "error",
 ]);
 const ACTIONS = new Set(["send", "file", "sign", "share", "pay"]);
-const TURN_ERRORS = new Set(["not_configured", "busy", "busy_own", "rate_limited", "bad_own_model", "offline", "not_allowed"]);
+const TURN_ERRORS = new Set(["stopped", "not_configured", "busy", "busy_own", "rate_limited", "bad_own_model", "offline", "not_allowed"]);
 
 function relative(days: number, t: ReturnType<typeof useTranslations>): string {
   if (days > 1) return t("daysLeft", { days });

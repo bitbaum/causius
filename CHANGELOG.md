@@ -6,6 +6,16 @@ brackets, it is the pull request to read for the detail.
 
 ## 2026-10-12
 
+### Added
+
+- **Say it, photograph it, attach it.** Starting a matter and writing in one
+  use the same message box: a microphone, a camera/photos/files menu, and a
+  choice of model. Photos are covered by you in the browser before they are
+  read; PDFs and text files are added as they are. {#intake}
+- **Speaking, disclosed.** A spoken take goes to a speech service and cannot be
+  hidden first. The text comes back for you to edit, and the security page says
+  so. {#voice}
+
 ### Fixed
 
 - **Hiding personal details is sturdier.** Titles (Dr., Prof.), initials,
