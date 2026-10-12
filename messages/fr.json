@@ -724,7 +724,7 @@
       "title": "Rien de gardé qui ne soit nécessaire",
       "body": "Un fichier téléversé est réduit à son texte et le fichier lui-même est écarté. Une lettre vérifiée sans compte n'est pas stockée du tout.",
       "d1": "Ni table d'utilisateurs ni mots de passe : la connexion appartient à OrangeCat, Causius ne garde qu'un identifiant de compte.",
-      "d2": "Aucune analytique. Le seul script en plus est le widget de retour optionnel ; il n'envoie que ce que vous y écrivez."
+      "d2": "Les journaux notent quel modèle a servi un tour, jamais ce qui a été dit. Aucune analytique. Le seul script en plus est le widget de retour optionnel ; il n'envoie que ce que vous y écrivez."
     },
     "browser": {
       "title": "Un navigateur verrouillé",

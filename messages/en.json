@@ -724,7 +724,7 @@
       "title": "Nothing kept that is not needed",
       "body": "An upload is reduced to its text and the file itself is dropped. A letter checked without an account is not stored at all.",
       "d1": "No users table and no passwords: sign-in is OrangeCat's, and Causius keeps only an account id.",
-      "d2": "No analytics. The one extra script is the optional feedback widget, and it sends only what you write into it."
+      "d2": "Logs record which model served a turn, never what was said. No analytics. The one extra script is the optional feedback widget, and it sends only what you write into it."
     },
     "browser": {
       "title": "A locked-down browser",

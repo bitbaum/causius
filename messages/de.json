@@ -724,7 +724,7 @@
       "title": "Nichts behalten, was nicht nötig ist",
       "body": "Ein Upload wird auf seinen Text reduziert und die Datei selbst verworfen. Ein ohne Konto geprüfter Brief wird gar nicht gespeichert.",
       "d1": "Keine Benutzertabelle, keine Passwörter: Die Anmeldung gehört OrangeCat, Causius behält nur eine Konto-ID.",
-      "d2": "Keine Analytik. Das einzige zusätzliche Skript ist das optionale Feedback-Widget; es sendet nur, was Sie hineinschreiben."
+      "d2": "Protokolle halten fest, welches Modell einen Durchgang bedient hat, nie was gesagt wurde. Keine Analytik. Das einzige zusätzliche Skript ist das optionale Feedback-Widget; es sendet nur, was Sie hineinschreiben."
     },
     "browser": {
       "title": "Ein abgeriegelter Browser",
