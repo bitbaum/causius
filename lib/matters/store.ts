@@ -1,9 +1,21 @@
 import { randomUUID } from "node:crypto";
 import { and, asc, desc, eq, inArray, sql } from "drizzle-orm";
 import { z } from "zod";
-import { matterSealer, newMatterKey, openMatterKey, type MatterSealer } from "../crypto";
+import {
+  matterSealer,
+  newMatterKey,
+  openMatterKey,
+  type MatterSealer,
+} from "../crypto";
 import type { Db } from "../db";
-import { approvals, documents, events, items, matters, participants } from "../db/schema";
+import {
+  approvals,
+  documents,
+  events,
+  items,
+  matters,
+  participants,
+} from "../db/schema";
 
 /**
  * The matter engine: everything that reads or writes a matter goes through
@@ -118,12 +130,20 @@ export class NotAllowed extends Error {}
 
 const iso = (d: Date | string) => (d instanceof Date ? d.toISOString() : d);
 
-export async function openMatter(db: Db, master: Buffer, matterId: string, sub: string): Promise<OpenMatter | null> {
+export async function openMatter(
+  db: Db,
+  master: Buffer,
+  matterId: string,
+  sub: string,
+): Promise<OpenMatter | null> {
   if (!z.uuid().safeParse(matterId).success) return null;
   const rows = await db
     .select({ sealedKey: matters.sealedKey, role: participants.role })
     .from(matters)
-    .innerJoin(participants, and(eq(participants.matterId, matters.id), eq(participants.sub, sub)))
+    .innerJoin(
+      participants,
+      and(eq(participants.matterId, matters.id), eq(participants.sub, sub)),
+    )
     .where(eq(matters.id, matterId))
     .limit(1);
   const row = rows[0];
@@ -133,7 +153,10 @@ export async function openMatter(db: Db, master: Buffer, matterId: string, sub: 
 }
 
 async function touch(db: Db, matterId: string) {
-  await db.update(matters).set({ updatedAt: new Date() }).where(eq(matters.id, matterId));
+  await db
+    .update(matters)
+    .set({ updatedAt: new Date() })
+    .where(eq(matters.id, matterId));
 }
 
 export async function createMatter(
@@ -146,7 +169,9 @@ export async function createMatter(
   const sealer = matterSealer(key, id);
   const core = MatterCore.parse(input.core);
   const jurisdiction =
-    input.jurisdiction && JURISDICTION.test(input.jurisdiction) ? input.jurisdiction : null;
+    input.jurisdiction && JURISDICTION.test(input.jurisdiction)
+      ? input.jurisdiction
+      : null;
   await db.transaction(async (tx) => {
     await tx.insert(matters).values({
       id,
@@ -168,7 +193,10 @@ export async function createMatter(
 }
 
 export async function readCore(db: Db, m: OpenMatter): Promise<MatterCore> {
-  const [row] = await db.select({ sealed: matters.sealed }).from(matters).where(eq(matters.id, m.id));
+  const [row] = await db
+    .select({ sealed: matters.sealed })
+    .from(matters)
+    .where(eq(matters.id, m.id));
   return MatterCore.parse(m.sealer.open("core", row!.sealed));
 }
 
@@ -178,15 +206,20 @@ export async function updateCore(
   change: (core: MatterCore) => MatterCore,
   jurisdiction?: string | null,
 ): Promise<MatterCore> {
-  if (m.role === "observer") throw new NotAllowed("observers cannot change a matter");
+  if (m.role === "observer")
+    throw new NotAllowed("observers cannot change a matter");
   const next = MatterCore.parse(change(await readCore(db, m)));
   await db
     .update(matters)
     .set({
       sealed: m.sealer.seal("core", next),
       updatedAt: new Date(),
-      ...(jurisdiction !== undefined
-        ? { jurisdiction: jurisdiction && JURISDICTION.test(jurisdiction) ? jurisdiction : null }
+      // undefined or an unrecognised code leaves the saved one alone; only an
+      // explicit null clears it. A model that guesses "Switzerland" must not
+      // erase the canton the person picked.
+      ...(jurisdiction === null ||
+      (jurisdiction !== undefined && JURISDICTION.test(jurisdiction))
+        ? { jurisdiction }
         : {}),
     })
     .where(eq(matters.id, m.id));
@@ -196,23 +229,37 @@ export async function updateCore(
 export async function appendMessage(
   db: Db,
   m: OpenMatter,
-  msg: { actor: string; role: "user" | "assistant"; text: string; sources?: MessageEvent["sources"] },
+  msg: {
+    actor: string;
+    role: "user" | "assistant";
+    text: string;
+    sources?: MessageEvent["sources"];
+  },
 ): Promise<number> {
-  if (msg.role === "user" && m.role === "observer") throw new NotAllowed("observers cannot write");
+  if (msg.role === "user" && m.role === "observer")
+    throw new NotAllowed("observers cannot write");
   const [row] = await db
     .insert(events)
     .values({
       matterId: m.id,
       kind: "message",
       actor: msg.actor,
-      sealed: m.sealer.seal("event", { role: msg.role, text: msg.text, sources: msg.sources }),
+      sealed: m.sealer.seal("event", {
+        role: msg.role,
+        text: msg.text,
+        sources: msg.sources,
+      }),
     })
     .returning({ id: events.id });
   await touch(db, m.id);
   return row!.id;
 }
 
-export async function appendStep(db: Db, m: OpenMatter, step: { tool: string; summary: string }) {
+export async function appendStep(
+  db: Db,
+  m: OpenMatter,
+  step: { tool: string; summary: string },
+) {
   await db.insert(events).values({
     matterId: m.id,
     kind: "step",
@@ -224,7 +271,12 @@ export async function appendStep(db: Db, m: OpenMatter, step: { tool: string; su
 export async function addItem(
   db: Db,
   m: OpenMatter,
-  item: { kind: "deadline" | "task"; due: string | null; label: string; quote?: string },
+  item: {
+    kind: "deadline" | "task";
+    due: string | null;
+    label: string;
+    quote?: string;
+  },
 ): Promise<string> {
   const id = randomUUID();
   await db.insert(items).values({
@@ -238,8 +290,14 @@ export async function addItem(
   return id;
 }
 
-export async function setItemStatus(db: Db, m: OpenMatter, itemId: string, status: "open" | "done") {
-  if (m.role === "observer") throw new NotAllowed("observers cannot change a matter");
+export async function setItemStatus(
+  db: Db,
+  m: OpenMatter,
+  itemId: string,
+  status: "open" | "done",
+) {
+  if (m.role === "observer")
+    throw new NotAllowed("observers cannot change a matter");
   await db
     .update(items)
     .set({ status })
@@ -252,7 +310,9 @@ export async function requestApproval(
   a: { action: string; summary: string; documentId?: string },
 ): Promise<string> {
   const id = randomUUID();
-  await db.insert(approvals).values({ id, matterId: m.id, sealed: m.sealer.seal("approval", a) });
+  await db
+    .insert(approvals)
+    .values({ id, matterId: m.id, sealed: m.sealer.seal("approval", a) });
   await touch(db, m.id);
   return id;
 }
@@ -269,7 +329,13 @@ export async function decideApproval(
   const updated = await db
     .update(approvals)
     .set({ status: decision, decidedBySub: sub, decidedAt: new Date() })
-    .where(and(eq(approvals.id, approvalId), eq(approvals.matterId, m.id), eq(approvals.status, "pending")))
+    .where(
+      and(
+        eq(approvals.id, approvalId),
+        eq(approvals.matterId, m.id),
+        eq(approvals.status, "pending"),
+      ),
+    )
     .returning({ id: approvals.id });
   return updated.length === 1;
 }
@@ -279,9 +345,16 @@ export const MAX_DOCUMENT_CHARS = 200_000;
 export async function addDocument(
   db: Db,
   m: OpenMatter,
-  doc: { name: string; mime: string; origin: "upload" | "draft"; text: string; bySub: string },
+  doc: {
+    name: string;
+    mime: string;
+    origin: "upload" | "draft";
+    text: string;
+    bySub: string;
+  },
 ): Promise<string> {
-  if (m.role === "observer") throw new NotAllowed("observers cannot add documents");
+  if (m.role === "observer")
+    throw new NotAllowed("observers cannot add documents");
   const id = randomUUID();
   const text = doc.text.slice(0, MAX_DOCUMENT_CHARS);
   await db.insert(documents).values({
@@ -311,23 +384,56 @@ export async function readDocument(
     .from(documents)
     .where(and(eq(documents.id, documentId), eq(documents.matterId, m.id)));
   if (!row) return null;
-  const meta = m.sealer.open<Omit<DocumentMeta, "id" | "size" | "createdAt">>("document-meta", row.sealedMeta);
+  const meta = m.sealer.open<Omit<DocumentMeta, "id" | "size" | "createdAt">>(
+    "document-meta",
+    row.sealedMeta,
+  );
   return {
-    meta: { ...meta, id: row.id, size: row.size, createdAt: iso(row.createdAt) },
+    meta: {
+      ...meta,
+      id: row.id,
+      size: row.size,
+      createdAt: iso(row.createdAt),
+    },
     text: m.sealer.open<string>("document-text", row.sealedText),
   };
 }
 
-export async function loadMatter(db: Db, master: Buffer, matterId: string, sub: string): Promise<MatterView | null> {
+export async function loadMatter(
+  db: Db,
+  master: Buffer,
+  matterId: string,
+  sub: string,
+): Promise<MatterView | null> {
   const m = await openMatter(db, master, matterId, sub);
   if (!m) return null;
   const [row] = await db.select().from(matters).where(eq(matters.id, matterId));
   const [ps, evs, its, aps, docs] = await Promise.all([
-    db.select().from(participants).where(eq(participants.matterId, matterId)).orderBy(asc(participants.addedAt)),
-    db.select().from(events).where(eq(events.matterId, matterId)).orderBy(asc(events.id)),
-    db.select().from(items).where(eq(items.matterId, matterId)).orderBy(asc(items.due), asc(items.createdAt)),
-    db.select().from(approvals).where(eq(approvals.matterId, matterId)).orderBy(desc(approvals.requestedAt)),
-    db.select().from(documents).where(eq(documents.matterId, matterId)).orderBy(asc(documents.createdAt)),
+    db
+      .select()
+      .from(participants)
+      .where(eq(participants.matterId, matterId))
+      .orderBy(asc(participants.addedAt)),
+    db
+      .select()
+      .from(events)
+      .where(eq(events.matterId, matterId))
+      .orderBy(asc(events.id)),
+    db
+      .select()
+      .from(items)
+      .where(eq(items.matterId, matterId))
+      .orderBy(asc(items.due), asc(items.createdAt)),
+    db
+      .select()
+      .from(approvals)
+      .where(eq(approvals.matterId, matterId))
+      .orderBy(desc(approvals.requestedAt)),
+    db
+      .select()
+      .from(documents)
+      .where(eq(documents.matterId, matterId))
+      .orderBy(asc(documents.createdAt)),
   ]);
 
   return {
@@ -349,14 +455,35 @@ export async function loadMatter(db: Db, master: Buffer, matterId: string, sub: 
             text: String(body.text ?? ""),
             sources: body.sources as MessageEvent["sources"],
           }
-        : { id: e.id, at: iso(e.at), kind: "step", actor: e.actor, tool: String(body.tool), summary: String(body.summary) };
+        : {
+            id: e.id,
+            at: iso(e.at),
+            kind: "step",
+            actor: e.actor,
+            tool: String(body.tool),
+            summary: String(body.summary),
+          };
     }),
     items: its.map((i) => {
-      const body = m.sealer.open<{ label: string; quote?: string }>("item", i.sealed);
-      return { id: i.id, kind: i.kind, due: i.due, status: i.status, label: body.label, quote: body.quote };
+      const body = m.sealer.open<{ label: string; quote?: string }>(
+        "item",
+        i.sealed,
+      );
+      return {
+        id: i.id,
+        kind: i.kind,
+        due: i.due,
+        status: i.status,
+        label: body.label,
+        quote: body.quote,
+      };
     }),
     approvals: aps.map((a) => {
-      const body = m.sealer.open<{ action: string; summary: string; documentId?: string }>("approval", a.sealed);
+      const body = m.sealer.open<{
+        action: string;
+        summary: string;
+        documentId?: string;
+      }>("approval", a.sealed);
       return {
         id: a.id,
         status: a.status,
@@ -366,7 +493,10 @@ export async function loadMatter(db: Db, master: Buffer, matterId: string, sub: 
       };
     }),
     documents: docs.map((d) => ({
-      ...m.sealer.open<Omit<DocumentMeta, "id" | "size" | "createdAt">>("document-meta", d.sealedMeta),
+      ...m.sealer.open<Omit<DocumentMeta, "id" | "size" | "createdAt">>(
+        "document-meta",
+        d.sealedMeta,
+      ),
       id: d.id,
       size: d.size,
       createdAt: iso(d.createdAt),
@@ -377,7 +507,11 @@ export async function loadMatter(db: Db, master: Buffer, matterId: string, sub: 
 }
 
 /** The caller's matters, newest activity first, with what needs attention. */
-export async function listMatters(db: Db, master: Buffer, sub: string): Promise<MatterSummary[]> {
+export async function listMatters(
+  db: Db,
+  master: Buffer,
+  sub: string,
+): Promise<MatterSummary[]> {
   const rows = await db
     .select({
       id: matters.id,
@@ -388,21 +522,36 @@ export async function listMatters(db: Db, master: Buffer, sub: string): Promise<
       updatedAt: matters.updatedAt,
     })
     .from(matters)
-    .innerJoin(participants, and(eq(participants.matterId, matters.id), eq(participants.sub, sub)))
+    .innerJoin(
+      participants,
+      and(eq(participants.matterId, matters.id), eq(participants.sub, sub)),
+    )
     .orderBy(desc(matters.updatedAt))
     .limit(200);
   if (rows.length === 0) return [];
   const ids = rows.map((r) => r.id);
   const [dues, pending] = await Promise.all([
     db
-      .select({ matterId: items.matterId, due: items.due, sealed: items.sealed })
+      .select({
+        matterId: items.matterId,
+        due: items.due,
+        sealed: items.sealed,
+      })
       .from(items)
-      .where(and(inArray(items.matterId, ids), eq(items.status, "open"), sql`${items.due} is not null`))
+      .where(
+        and(
+          inArray(items.matterId, ids),
+          eq(items.status, "open"),
+          sql`${items.due} is not null`,
+        ),
+      )
       .orderBy(asc(items.due)),
     db
       .select({ matterId: approvals.matterId, n: sql<number>`count(*)::int` })
       .from(approvals)
-      .where(and(inArray(approvals.matterId, ids), eq(approvals.status, "pending")))
+      .where(
+        and(inArray(approvals.matterId, ids), eq(approvals.status, "pending")),
+      )
       .groupBy(approvals.matterId),
   ]);
   return rows.map((r) => {
@@ -416,7 +565,10 @@ export async function listMatters(db: Db, master: Buffer, sub: string): Promise<
       jurisdiction: r.jurisdiction,
       status: r.status,
       nextDue: next?.due
-        ? { date: next.due, label: sealer.open<{ label: string }>("item", next.sealed).label }
+        ? {
+            date: next.due,
+            label: sealer.open<{ label: string }>("item", next.sealed).label,
+          }
         : null,
       pendingApprovals: pending.find((p) => p.matterId === r.id)?.n ?? 0,
       updatedAt: iso(r.updatedAt),
@@ -425,6 +577,7 @@ export async function listMatters(db: Db, master: Buffer, sub: string): Promise<
 }
 
 export async function deleteMatter(db: Db, m: OpenMatter) {
-  if (m.role !== "owner") throw new NotAllowed("only the owner deletes a matter");
+  if (m.role !== "owner")
+    throw new NotAllowed("only the owner deletes a matter");
   await db.delete(matters).where(eq(matters.id, m.id));
 }

@@ -4,6 +4,20 @@ What changed for the people who use Causius, newest first. Every entry comes
 from a change merged into this repository; where there is a number in
 brackets, it is the pull request to read for the detail.
 
+## 2026-10-12
+
+### Fixed
+
+- **Hiding personal details is sturdier.** Titles (Dr., Prof.), initials,
+  ALL-CAPS names, street and PO-box forms, phone and IBAN variants are now
+  caught, and a very long paste can no longer slow the check down. {#redaction}
+- **The agent is stricter with what it reads.** Web pages and documents are
+  treated as untrusted text, the agent refuses internal addresses, and one
+  matter handles one message at a time. {#agent-hardening}
+- **The security page says only what is true.** Deadline dates are readable in
+  the database, detection is not perfect, and the feedback widget is named.
+  {#honest-security}
+
 ## 2026-10-11
 
 ### Added

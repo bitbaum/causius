@@ -706,8 +706,8 @@
     "title": "Privé par construction",
     "lede": "Causius traite des lettres officielles : noms, adresses, séjour, argent. Chaque garantie ci-dessous est une propriété du code, qui est public. Aucune ne vous demande de nous faire confiance.",
     "anon": {
-      "title": "Les modèles ne savent jamais de qui il s'agit",
-      "body": "Avant qu'un texte ne parte vers un modèle, les données personnelles sont remplacées par des marqueurs, et ne sont remises en place qu'au retour de la réponse.",
+      "title": "Les modèles ne sont pas informés de qui il s'agit",
+      "body": "Avant qu'un texte ne parte vers un modèle, les données personnelles sont remplacées par des marqueurs, et ne sont remises en place qu'au retour de la réponse. La détection automatique est bonne, pas parfaite : vérifiez ce qui est masqué avant d'envoyer.",
       "d1": "Détectés automatiquement : noms dans les formules d'appel et les blocs d'adresse, adresses, codes postaux, e-mails, numéros de téléphone, IBAN, numéros AVS, références et dates de naissance.",
       "d2": "Vos propres mots à cacher sont toujours ajoutés, tout comme le nom de votre compte.",
       "d3": "Dans la vérification rapide, cela se fait dans votre navigateur, avant que la lettre ne quitte votre appareil.",
@@ -724,7 +724,7 @@
       "title": "Rien de gardé qui ne soit nécessaire",
       "body": "Un fichier téléversé est réduit à son texte et le fichier lui-même est écarté. Une lettre vérifiée sans compte n'est pas stockée du tout.",
       "d1": "Ni table d'utilisateurs ni mots de passe : la connexion appartient à OrangeCat, Causius ne garde qu'un identifiant de compte.",
-      "d2": "Les journaux notent quel modèle a servi un tour, jamais ce qui a été dit. Aucune analytique, aucun script de pistage."
+      "d2": "Aucune analytique. Le seul script en plus est le widget de retour optionnel ; il n'envoie que ce que vous y écrivez."
     },
     "browser": {
       "title": "Un navigateur verrouillé",
@@ -745,7 +745,7 @@
       "lede": "Ce que chaque partie détiendrait si le pire lui arrivait.",
       "database": {
         "title": "Une base de données volée",
-        "body": "Du texte chiffré, des identifiants de compte et des dates. Aucun nom, aucune lettre, aucun délai."
+        "body": "Du texte chiffré, des identifiants de compte et des dates. Aucun nom, aucune lettre. Seules les dates d'échéance restent lisibles."
       },
       "provider": {
         "title": "Les journaux d'un fournisseur de modèles",
