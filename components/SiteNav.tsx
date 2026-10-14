@@ -89,7 +89,7 @@ function Languages() {
           hrefLang={l}
           aria-current={l === locale ? "true" : undefined}
           title={localeNames[l]}
-          className="inline-flex min-h-11 min-w-9 items-center justify-center font-mono text-xs uppercase text-fg-tertiary transition-colors hover:text-fg-primary aria-[current=true]:text-fg-primary"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center font-mono text-xs uppercase text-fg-tertiary transition-colors hover:text-fg-primary aria-[current=true]:text-fg-primary"
         >
           <span aria-hidden="true">{l}</span>
           <span className="sr-only">{localeNames[l]}</span>

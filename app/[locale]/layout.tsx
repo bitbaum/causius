@@ -4,6 +4,8 @@ import "@bitbaum/design-tokens/tokens.css";
 // The account menu and the sign-in error screen are drawn by this sheet.
 import "@bitbaum/accountkit/styles.css";
 import "../globals.css";
+// The look: the one file that decides it. After the tokens it overrides.
+import "../theme.css";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
@@ -11,6 +13,7 @@ import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AccountControl } from "@/components/AccountControl";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Logo } from "@/components/site/Logo";
 import { SiteNav } from "@/components/SiteNav";
@@ -21,6 +24,7 @@ import { signOutOfCausius } from "@/lib/auth/actions";
 import { entryHref } from "@/lib/auth/entry";
 import { FLEET_SLUG, loadFleetPresence } from "@/lib/fleet";
 import { ROUTES } from "@/lib/routes";
+import { THEME_BOOT } from "@/lib/theme";
 
 const SITE_URL = "https://causius.orangecat.ch";
 
@@ -37,8 +41,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 /**
- * The frame every page shares: the fleet's tokens, pinned dark like Solon's
- * public surface, a header with the product's places and the one account,
+ * The frame every page shares: the fleet's tokens wearing Causius's own look
+ * (app/theme.css), light by default and dark on request, a header with the product's places and the one account,
  * and a footer that holds the rest of the site.
  *
  * Deliberately bare otherwise: no analytics, no third-party script.
@@ -63,7 +67,12 @@ export default async function LocaleLayout({
     .map((p) => ({ slug: p.slug, name: p.name, url: p.url! }));
 
   return (
-    <html lang={locale} className="dark">
+    // The class is set before paint by THEME_BOOT, so React must not insist on
+    // the server's. Light is the default; dark follows the device or the toggle.
+    <html lang={locale} suppressHydrationWarning>
+      <head>
+        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: THEME_BOOT }} />
+      </head>
       <body className="flex min-h-screen flex-col antialiased">
         <NextIntlClientProvider>
           <a
@@ -79,12 +88,13 @@ export default async function LocaleLayout({
                   <Logo />
                 </Link>
                 {/* Fleet AGENTS.md: nothing is "Live". Served and unfinished says so. */}
-                <span className="hidden border border-border px-1.5 sm:inline py-0.5 font-mono text-[0.625rem] uppercase tracking-caps text-fg-secondary">
+                <span className="hidden rounded-control border border-border px-1.5 sm:inline py-0.5 font-mono text-[0.625rem] uppercase tracking-caps text-fg-secondary">
                   {nav("beta")}
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 sm:gap-2">
                 <SiteNav />
+                <ThemeToggle />
                 {authEnabled && (
                   <AccountControl
                     user={session?.actorId ? { name: session.user?.name } : null}

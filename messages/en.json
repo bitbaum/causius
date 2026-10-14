@@ -17,7 +17,8 @@
     "security": "Security",
     "ecosystem": "Ecosystem",
     "menu": "Menu",
-    "skip": "Skip to content"
+    "skip": "Skip to content",
+    "dark": "Dark mode"
   },
   "Footer": {
     "tagline": "The legal layer of the fleet: an agent that does the legal work, and a person who decides.",
@@ -46,38 +47,11 @@
     "fleet": "The fleet"
   },
   "Home": {
-    "tiersTitle": "Three kinds of help, and an honest line between them",
-    "tiersLead": "Most legal trouble starts as paperwork, and most paperwork does not need a lawyer. Some of it does. Causius keeps the difference visible.",
-    "tiers": {
-      "ai": {
-        "name": "Causius AI",
-        "can": "Reads, translates, lists what is asked and drafts a reply.",
-        "limit": "Legal information only. It does not advise or represent you."
-      },
-      "assistant": {
-        "name": "Legal assistants",
-        "can": "People who know the paperwork: gathering evidence, forms, filing, translation. They may work under a pseudonym.",
-        "limit": "Not lawyers. They help you do it; they do not give legal advice."
-      },
-      "lawyer": {
-        "name": "Licensed lawyers",
-        "can": "Admitted to practise where your case is; their admission is verified. They advise and can represent you, and may appear under a pseudonym until you engage them.",
-        "limit": "Licensed per jurisdiction: a lawyer in one country cannot advise on another's law."
-      },
-      "kicker": "Who does what"
-    },
-    "marketplaceLink": "How the marketplace works, and how to join it",
-    "identity": {
-      "problem": "The problem",
-      "solution": "What Causius does about it",
-      "mission": "Mission",
-      "vision": "Vision"
-    },
     "hero": {
       "kicker": "Legal work, with you in charge",
       "line1": "Your matter.",
       "line2": "Worked through.",
-      "lede": "Causius is an AI legal workspace. Say what is happening or bring the letter: it finds what applies and cites it, keeps your deadlines, drafts what needs writing, and asks you before anything leaves your hands.",
+      "lede": "Say what is happening, or bring the letter. Causius finds the rules, keeps your deadlines and drafts the reply. Nothing leaves without you.",
       "open": "Open a matter",
       "quick": "Check a letter, no account"
     },
@@ -86,69 +60,74 @@
       "title": "Objection to a tax assessment",
       "s1": {
         "tool": "searched",
-        "text": "Objection period for a cantonal tax assessment"
+        "text": "Objection period"
       },
       "s2": {
         "tool": "deadline",
-        "text": "Objection due 30 days after notification, quoted from the letter"
+        "text": "30 days from notification"
       },
       "s3": {
         "tool": "drafted",
-        "text": "Objection with grounds, ready to sign"
+        "text": "Objection, ready to sign"
       },
       "s4": {
         "tool": "asked you",
-        "text": "Send it by registered post?"
-      },
-      "dueLabel": "Due",
-      "due": "2 Nov 2026",
-      "waitLabel": "Waiting for you",
-      "wait": "Approve sending"
+        "text": "Send by registered post?"
+      }
     },
     "how": {
-      "kicker": "How it works",
       "title": "You decide. It does the work.",
       "describe": {
         "title": "Say what is going on",
-        "body": "In your own words, in English, German or French. Add the letter, the contract or any document; only its text is kept, encrypted."
+        "body": "In your own words. Add the letter if you have it."
       },
       "work": {
-        "title": "Causius works the matter",
-        "body": "It finds the rules that apply and cites them, computes and records the deadlines, and drafts the objection, the reply or the contract, ready to use."
+        "title": "It works the matter",
+        "body": "Finds and cites the rules, tracks deadlines, drafts the reply."
       },
       "approve": {
         "title": "Nothing leaves without you",
-        "body": "Sending, filing, signing, sharing and paying are proposals you approve or decline. Where the law reserves a step for a lawyer, it says so."
+        "body": "Sending, filing, signing and paying wait for your approval."
       }
     },
     "privacy": {
-      "kicker": "Private by construction",
-      "title": "Built so that nobody reads your matter",
-      "cta": "How the security works",
+      "title": "Built so nobody reads your matter",
+      "cta": "How security works",
       "redact": {
         "title": "Anonymised before any model",
-        "body": "Names, addresses, numbers and any words you add become placeholders before a model is asked anything, and are put back only on our server or in your browser."
+        "body": "Names, addresses and numbers become placeholders first."
       },
       "sealed": {
         "title": "Sealed at rest",
-        "body": "Every matter has its own key. Titles, messages, deadlines and documents are stored encrypted; the database on its own names nobody."
+        "body": "Every matter has its own key."
       },
       "pseudonymous": {
-        "title": "Pseudonymous on every side",
-        "body": "Clients, legal assistants and lawyers can all work under a pseudonym. A lawyer's admission is checked privately and their name disclosed to a client on engagement."
+        "title": "Pseudonymous",
+        "body": "Everyone may use a pseudonym."
       }
     },
-    "capabilities": {
-      "kicker": "What is real today",
-      "title": "What it does, and what comes next",
-      "lede": "Each line says whether it works today. The roadmap is public, and so is the record of what shipped.",
-      "roadmap": "Roadmap",
-      "changelog": "Changelog"
+    "tiersTitle": "Three kinds of help",
+    "tiers": {
+      "ai": {
+        "name": "Causius AI",
+        "can": "Reads, translates, drafts a reply.",
+        "limit": "Information, not advice."
+      },
+      "assistant": {
+        "name": "Legal assistants",
+        "can": "Know the paperwork: evidence, forms, filing.",
+        "limit": "Not lawyers."
+      },
+      "lawyer": {
+        "name": "Licensed lawyers",
+        "can": "Admitted where your case is. They advise and represent.",
+        "limit": "Licensed per country."
+      }
     },
+    "marketplaceLink": "How helpers work",
     "fleet": {
-      "kicker": "One account, the whole fleet",
-      "title": "The legal layer of a larger system",
-      "lede": "Your OrangeCat account signs you in here, and the same account opens OrangeCat, Solon and Loki. Each does one job; together they let one person do what used to take a firm, a bank and a registry.",
+      "title": "One account, the whole fleet",
+      "lede": "Your OrangeCat account signs you in here and opens OrangeCat, Solon and Loki.",
       "more": "How the products fit together",
       "signedIn": "Go to your matters"
     }
@@ -167,17 +146,17 @@
   },
   "NewCase": {
     "title": "New case",
-    "lead": "Give Causius the letter. It is sent to an AI model provider to be read and is not stored by Causius; the result is kept in this browser only.",
+    "lead": "The letter goes to an AI model to be read. Causius does not store it; the result stays in this browser.",
     "modelOwn": "Read by your own model, {model}.",
-    "modelFree": "Read by free shared models, which vary and have a small daily budget.",
-    "modelFreeNoPhoto": "Read by free shared models, which vary and have a small daily budget. Right now they can read pasted text but not photos.",
-    "modelOff": "The free shared models are not switched on right now. Connect your own model to analyse a letter, or file it by hand below.",
+    "modelFree": "Free shared models, small daily budget.",
+    "modelFreeNoPhoto": "Free shared models. Right now they read pasted text, not photos.",
+    "modelOff": "Free shared models are off right now. Connect your own model, or file the letter by hand below.",
     "change": "Change",
     "useOwn": "Use your own model",
     "textLabel": "The letter's text",
     "textPlaceholder": "Paste it here, in any language.",
     "photoLabel": "Or photos of its pages",
-    "photoHint": "Up to {max} pages, in order. JPEG, PNG or WebP. Photos are made smaller in your browser before they are sent.",
+    "photoHint": "Up to {max} pages, in order. JPEG, PNG or WebP.",
     "pages": "{count, plural, one {# page added} other {# pages added}}",
     "page": "Page {n}",
     "removePage": "Remove page {n}",
@@ -193,7 +172,7 @@
     "openSettings": "Open model settings",
     "byHand": {
       "title": "File it by hand",
-      "body": "No analysis, but the letter and its deadline are kept together, and the case file can be handed to a helper. Already have a case file?",
+      "body": "No analysis; the letter and its deadline stay together. Already have a case file?",
       "import": "Import it",
       "about": "What is it about?",
       "sender": "Who sent it?",
@@ -202,17 +181,17 @@
       "original": "Original"
     },
     "errors": {
-      "not_configured": "The free shared models are not switched on for this site right now. You can connect your own model, or file the letter by hand and keep track of its deadline.",
-      "busy": "No model answered. The free shared budget for today may be used up, or a provider is down. Your own model is not affected by the shared budget.",
-      "busy_own": "Your model did not answer. The key may have run out of credit or been revoked. Check it in the settings, or remove it to use the free shared models.",
-      "no_vision": "None of the models available right now can read a photo. Paste the letter's text instead, or connect your own model that can read images.",
-      "rate_limited": "That is a lot of letters in a short time. The free shared models allow a few per hour; your own model allows many more.",
+      "not_configured": "Free shared models are off for now. Connect your own model, or file the letter by hand.",
+      "busy": "No model answered. The free daily budget may be used up. Your own model is not affected.",
+      "busy_own": "Your model did not answer. Check its key in the settings.",
+      "no_vision": "No available model can read a photo. Paste the text, or connect a model that reads images.",
+      "rate_limited": "Too many letters in a short time. Your own model allows many more.",
       "bad_own_model": "Your saved model settings could not be used. Set them up again.",
-      "unreadable_analysis": "The model answered, but not in a form Causius could turn into a case. Try again; a stronger model does this more reliably.",
-      "empty": "Paste the letter's text or add a photo of it.",
-      "bad_image": "That file could not be used as a photo. Send a JPEG, PNG or WebP image.",
-      "too_many_pages": "That is more than {max} pages. Add the pages that carry the request and the deadline.",
-      "offline": "Causius could not be reached. Check your connection and try again.",
+      "unreadable_analysis": "The answer could not be turned into a case. Try again.",
+      "empty": "Paste the text or add a photo.",
+      "bad_image": "Send a JPEG, PNG or WebP image.",
+      "too_many_pages": "More than {max} pages. Add the pages with the request and the deadline.",
+      "offline": "Causius could not be reached. Check your connection.",
       "unknown": "The analysis did not go through. Try again in a minute."
     }
   },
@@ -223,8 +202,8 @@
     "dueToday": "Due today",
     "passed": "{days, plural, one {Passed # day ago} other {Passed # days ago}}",
     "deadlineSource": "The letter says:",
-    "checkDeadline": "Check this date against your letter before you rely on it.",
-    "noDeadline": "No reply date was found in the letter. Read it for a deadline yourself.",
+    "checkDeadline": "Check it against your letter.",
+    "noDeadline": "No reply date found. Read the letter for one.",
     "ifNothing": "If you do nothing:",
     "facts": {
       "from": "From",
@@ -238,7 +217,7 @@
     "letterTitle": "The letter",
     "language": "Language",
     "draftTitle": "Draft reply",
-    "draftHint": "A starting point, not something to send as it is. Fill every [bracket] with your own true facts.",
+    "draftHint": "A starting point. Fill every [bracket] with your own true facts.",
     "copy": "Copy",
     "copied": "Copied",
     "notesTitle": "Worth knowing",
@@ -249,14 +228,14 @@
       "lawyer": "Licensed lawyer"
     },
     "findHelper": "Find a helper",
-    "aiNotice": "Written by an AI model. It can be wrong: the letter itself is what counts.",
+    "aiNotice": "Written by an AI model; it can be wrong. The letter is what counts.",
     "export": "Export full case file",
     "saveCopy": "Save a copy to my cases",
     "delete": "Delete case",
     "deleteConfirm": "Delete this case from this browser? This cannot be undone.",
-    "sampleBanner": "Worked example. The person, dates and reference number are invented.",
+    "sampleBanner": "Worked example. All details are invented.",
     "notHereTitle": "This case is not on this device",
-    "notHereBody": "Cases are kept in the browser they were created in. If you have the exported file, you can import it.",
+    "notHereBody": "Cases stay in the browser that made them. Import an exported file instead.",
     "goCases": "Go to my cases",
     "exportAnon": "Export for a helper (anonymised)"
   },
@@ -265,49 +244,49 @@
     "metaDescription": "The Causius marketplace: legal assistants who help with paperwork, and licensed lawyers who can advise and represent you.",
     "eyebrow": "Marketplace",
     "title": "People who help when the AI is not enough",
-    "lead": "Two kinds of people work on Causius cases. What separates them is not price or rank but what the law lets each of them do. Neither needs to know who you are, and you need not know who they are until you engage one.",
+    "lead": "Two kinds of people help. What separates them is what the law lets each one do.",
     "noneTitle": "No helpers are listed yet.",
-    "noneBody": "Causius does not match or verify anyone yet. Until it does, use the case file with a lawyer or advice centre you find yourself: it is made to be handed over.",
+    "noneBody": "Causius does not match or verify anyone yet. Meanwhile, hand the case file to a lawyer or advice centre you find yourself.",
     "listedUnder": "Listed under: {identity}",
     "assistant": {
       "name": "Legal assistant",
       "identity": "Name or pseudonym",
-      "does1": "Explains procedure and what an office usually expects",
-      "does2": "Helps gather and order evidence",
-      "does3": "Fills in forms with you, translates, prepares the filing",
-      "doesNot": "Does not give legal advice, take a position on your case, or represent you.",
-      "checks": "Planned: reputation earned on completed cases, confirmed by the person who was helped. A pseudonym keeps its history, so it cannot be shed."
+      "does1": "Explains procedure",
+      "does2": "Helps gather evidence",
+      "does3": "Fills in forms, translates, prepares the filing",
+      "doesNot": "Does not give legal advice or represent you.",
+      "checks": "Planned: reputation earned on completed cases."
     },
     "lawyer": {
       "name": "Licensed lawyer",
       "identity": "Name or pseudonym; admission verified privately",
-      "does1": "Advises you on your rights and your options",
+      "does1": "Advises on your rights and options",
       "does2": "Reviews or writes what you send",
-      "does3": "Represents you before the authority or the court",
-      "doesNot": "Only for the jurisdictions they are admitted in, shown on their profile.",
-      "checks": "Planned: admission checked privately against the public bar register of each jurisdiction before a profile carries this label, and re-checked. A lawyer may appear under a pseudonym; you learn their name when you engage them, because the law ties a lawyer's duties to their name."
+      "does3": "Represents you before authorities and courts",
+      "doesNot": "Only where admitted, shown on the profile.",
+      "checks": "Planned: admission checked against the public bar register."
     },
     "wantTitle": "Want to help?",
-    "wantBody": "Helpers are not Causius accounts. You offer your help as a service on OrangeCat, under your name or a pseudonym, and are paid there directly by the person you helped. You can list a service today. Causius does not yet pull those listings in, label them or check a lawyer's admission; that is the next thing on the roadmap.",
+    "wantBody": "Offer your help as a service on OrangeCat, under your name or a pseudonym, and be paid there directly. Causius does not yet list, label or check these; that is next on the roadmap.",
     "offer": "Offer a service on OrangeCat",
     "seeRoadmap": "See the roadmap",
     "rulesTitle": "The rules",
     "rules": {
       "label": {
         "title": "The label is the law",
-        "body": "Who may give legal advice is set by each country, and almost everywhere it is reserved to admitted lawyers. A helper's label says which side of that line they are on, and they may not work past it."
+        "body": "Who may give legal advice is set by each country, almost always reserved to lawyers. A label says which side a helper is on."
       },
       "pseudonym": {
         "title": "Pseudonymous on every side",
-        "body": "People seeking help, legal assistants and lawyers can all appear under a pseudonym. Causius checks privately what has to be true — that a lawyer is admitted — and shows only what is needed. Many people who know a system best learned it by going through it, and would rather not put their name to that."
+        "body": "Everyone may use a pseudonym; Causius checks privately only what must be true."
       },
       "share": {
         "title": "You choose what a helper sees",
-        "body": "A helper gets the case file you hand them and nothing else, and by default that file is anonymised: the case, the deadline and the letter, with your name, address and numbers replaced. You decide if and when to tell them more."
+        "body": "They get only the case file you hand over, anonymised by default."
       },
       "place": {
-        "title": "Any jurisdiction, one at a time",
-        "body": "A case names where it is. Helpers are matched on that place, the area of law and a language you share."
+        "title": "One jurisdiction at a time",
+        "body": "Helpers are matched on place, area of law and a shared language."
       }
     },
     "start": "Start a case"
@@ -397,16 +376,16 @@
   },
   "Matters": {
     "title": "Matters",
-    "lead": "A matter is anything legal you need handled: a letter to answer, a contract, a dispute, a company to set up. Causius works it with you, keeps every deadline, and asks before anything leaves it.",
+    "lead": "A matter is anything legal you need handled. Causius works it with you, keeps every deadline and asks before anything leaves.",
     "signInTitle": "Sign in to keep matters",
-    "signInLead": "Matters are kept on the server, encrypted with a key of their own, so you can come back from any device. You sign in with OrangeCat, and can be a pseudonym there.",
+    "signInLead": "Matters are stored sealed with their own key, so you can return from any device. Sign in with OrangeCat; a pseudonym is fine.",
     "signIn": "Sign in with OrangeCat",
     "signInOff": "Sign-in is not switched on for this site yet.",
     "quickCheckSignedOut": "Or check a letter without an account",
     "newTitle": "Start a matter",
     "newLead": "Say what is going on, in your own words. Causius will ask what it needs.",
     "situation": "What's going on?",
-    "situationPlaceholder": "For example: I received a tax assessment that is too high and want to object. Or: my landlord is keeping my deposit.",
+    "situationPlaceholder": "For example: a tax assessment I want to object to, or a landlord keeping my deposit.",
     "where": "Where",
     "whereUnknown": "Not sure / let Causius find out",
     "federal": "Switzerland (federal)",
@@ -533,7 +512,7 @@
   "Entry": {
     "signUp": "Create an account",
     "signIn": "I already have an account",
-    "cost": "One OrangeCat account for Causius, OrangeCat, Solon and Loki. An email and a password, an emailed code, Google or GitHub: whichever you like. You can use a pseudonym. No wallet needed."
+    "cost": "One OrangeCat account opens Causius, Solon and Loki. A pseudonym is fine."
   },
   "Capabilities": {
     "status": {
@@ -543,43 +522,43 @@
     },
     "letters": {
       "name": "Read an official letter",
-      "body": "Paste it or photograph it: what it says, what it asks of you, the deadline with the sentence it comes from, a translation and a draft reply. No account; names are removed in your browser first."
+      "body": "Paste or photograph it: what it asks, the deadline with its source sentence, a translation, a draft reply. No account."
     },
     "matters": {
       "name": "Work a matter with an agent",
-      "body": "One workspace per matter: the conversation, research with numbered sources, deadlines, tasks, drafts and documents, behind your account."
+      "body": "One workspace per matter: conversation, sourced research, deadlines, tasks, drafts, documents."
     },
     "approvals": {
       "name": "Nothing leaves without your approval",
-      "body": "Sending, filing, signing, sharing and paying are proposals that wait for your decision, recorded in the matter."
+      "body": "Sending, filing, signing, sharing and paying wait for your decision."
     },
     "models": {
       "name": "Any model, including your own",
-      "body": "Free shared models by default, or your own key with one of ten providers, among them OpenAI, Anthropic, Google and Mistral. The key stays in your browser."
+      "body": "Free shared models, or your own key with one of ten providers. The key stays in your browser."
     },
     "domains": {
       "name": "Check a name before you found on it",
-      "body": "The agent asks the domain registries themselves whether a name is registered, for any top-level domain, before it recommends one."
+      "body": "The agent asks the domain registries whether a name is taken."
     },
     "marketplace": {
       "name": "Legal assistants and lawyers",
-      "body": "A marketplace where admitted lawyers and pseudonymous legal assistants offer their work, compete on price and quality, and are paid through OrangeCat."
+      "body": "Admitted lawyers and pseudonymous assistants offer their work and are paid through OrangeCat."
     },
     "formation": {
       "name": "Found and register",
-      "body": "Companies, associations and registrations, prepared end to end by the agent and filed on your approval."
+      "body": "Companies and associations prepared by the agent, filed on your approval."
     },
     "contracts": {
       "name": "Contracts that keep themselves",
-      "body": "Agreements drafted here and signed by the parties, with every obligation tracked and, where the parties choose, payment held in escrow until it is met."
+      "body": "Agreements signed by the parties, obligations tracked, payment held in escrow if they choose."
     },
     "law": {
       "name": "Law as data, from Solon",
-      "body": "Statutes, procedures and jurisdictions as versioned, citable data, so every answer points at the exact rule it applied."
+      "body": "Statutes and procedures as citable data, so every answer points at its rule."
     },
     "firms": {
       "name": "Firms on their own models",
-      "body": "Law firms run Causius with models inside their own walls, so client data never leaves the firm."
+      "body": "Law firms run Causius on models inside their own walls."
     }
   },
   "Platform": {
@@ -587,69 +566,70 @@
     "metaDescription": "The architecture of Causius: an agent that does legal work on a sealed case file, with every personal detail hidden from the models it uses.",
     "kicker": "Platform",
     "title": "How Causius is built, and why",
-    "lede": "Legal help is expensive because legal work is slow, and it is slow because it is done by hand. Causius is an agent that does the work and a person who decides, built so that what it handles stays private and what it claims can be checked.",
+    "lede": "Legal work is slow because it is done by hand. Causius is an agent that does the work and a person who decides, built so what it handles stays private and what it claims can be checked.",
     "why": {
       "title": "Why build it",
-      "p1": "Most legal trouble never sees a courtroom. It is a letter with a deadline, a form, an objection, a contract, a registration: work with clear rules that is billed by the hour because nobody automated it.",
-      "p2": "Language models can now do much of that work, but a chat window is the wrong shape for it. It forgets the deadline, keeps no file, and sends everything you type to whoever runs the model.",
-      "p3": "So Causius is shaped like a case file with an agent attached, not like a chat. Lawyers stay where the law puts them; everything else gets done."
+      "p1": "Most legal trouble is a letter with a deadline, a form or a contract: work with clear rules, billed by the hour because nobody automated it.",
+      "p3": "So Causius is a case file with an agent attached, not a chat. Lawyers stay where the law puts them; the rest gets done."
+    },
+    "capabilities": {
+      "title": "What is real today",
+      "lede": "Each line says whether it works. The roadmap and changelog are public.",
+      "roadmap": "Roadmap",
+      "changelog": "Changelog"
+    },
+    "identity": {
+      "problem": "The problem",
+      "solution": "What Causius does about it",
+      "mission": "Mission",
+      "vision": "Vision"
     },
     "architecture": {
       "kicker": "Architecture",
       "title": "Five layers, one job each",
       "intake": {
         "title": "Intake, in your browser",
-        "body": "The quick check reads letters and photos on your own device. Names, addresses and numbers are swapped for placeholders before anything is sent, and photos can be blacked out by hand first."
+        "body": "Letters and photos are read on your device. Names, addresses and numbers become placeholders before anything is sent."
       },
       "matter": {
         "title": "The matter",
-        "body": "One record per matter: conversation, facts, deadlines, tasks, decisions and documents. One schema, shared by the analysis, the store and the export, and sealed with a key of its own."
+        "body": "One sealed record per matter: conversation, facts, deadlines, tasks, decisions, documents."
       },
       "agent": {
         "title": "The agent",
-        "body": "A loop of tools: search and read the web for sources, record deadlines, tasks and facts, draft documents, check domain names, ask for approval. It may change the matter freely; anything that acts on the world it can only propose."
+        "body": "A loop of tools that searches, records deadlines and facts, and drafts. It may change the matter; anything that acts on the world it can only propose."
       },
       "models": {
         "title": "Models",
-        "body": "Model-agnostic through the fleet's model kit: a chain of free models with health tracking, or your own key with one of ten providers. No vendor SDK and no pinned model, so a better model is a setting, not a rewrite."
+        "body": "Model-agnostic: a chain of free models, or your own key with one of ten providers. A better model is a setting, not a rewrite."
       },
       "identity": {
         "title": "Identity and money",
-        "body": "Sign-in is OrangeCat, over OpenID Connect with PKCE. Causius keeps no users table and no password, only an account id. Paying helpers, with escrow, will run on OrangeCat too."
+        "body": "Sign-in is OrangeCat, over OpenID Connect. Causius keeps no users table and no password, only an account id. Paying helpers will run on OrangeCat too."
       }
-    },
-    "turn": {
-      "title": "One turn, start to finish",
-      "lede": "What happens between your message and the answer.",
-      "s1": "You write, or add a document. Only its text is kept, sealed.",
-      "s2": "The matter is opened with its own key and assembled: facts, open deadlines, decisions waiting, documents.",
-      "s3": "Every personal detail in it becomes a placeholder. The model reads [NAME-1], never the name.",
-      "s4": "The model works with tools for up to six rounds: searching, reading, recording deadlines, drafting. Arguments are restored on the server just before a tool runs.",
-      "s5": "Anything that would leave the matter becomes a proposal that waits for you.",
-      "s6": "The answer is restored, its sources numbered, and the turn sealed into the matter."
     },
     "principles": {
       "title": "Principles",
       "human": {
         "title": "A person approves what matters",
-        "body": "The agent does the work; a person decides what leaves. That one rule is what makes it safe to let it do everything else."
+        "body": "The agent does the work; a person decides what leaves."
       },
       "honest": {
         "title": "Nothing claimed that is not true",
-        "body": "No invented statute, deadline, helper, rating or testimonial. Causius gives legal information, not advice: who may advise is set by law, not by us."
+        "body": "No invented statute, deadline, helper or testimonial. Causius gives legal information, not advice."
       },
       "open": {
         "title": "Open source",
-        "body": "Every line is public under the MIT licence. Anyone can read how a letter is handled, check the claims on this site against the code, and run it themselves."
+        "body": "Every line is public under the MIT licence."
       },
       "shared": {
         "title": "Built from shared parts",
-        "body": "Design, sign-in, chat, models, rate limits and the public record come from packages the whole fleet uses, so a fix made once reaches every product."
+        "body": "Design, sign-in, chat, models and the public record come from packages the whole fleet uses."
       }
     },
     "stack": {
       "title": "The stack",
-      "lede": "Boring where it can be, shared wherever two products need the same thing.",
+      "lede": "Boring where it can be.",
       "framework": {
         "label": "Framework",
         "value": "Next.js 16 · React 19 · TypeScript, strict"
@@ -694,7 +674,7 @@
     "next": {
       "kicker": "Where it is going",
       "title": "From letters to legal existence",
-      "lede": "Causius holds legal work: matters, founding and registering, and keeping contracts. The law itself (statutes, jurisdictions, procedures) belongs in Solon, as data every product can cite. Next comes the marketplace of lawyers and legal assistants, paid through OrangeCat.",
+      "lede": "Causius holds legal work: matters, founding and registering, contracts. The law itself belongs in Solon, as data every product can cite. Next comes the marketplace of lawyers and legal assistants, paid through OrangeCat.",
       "roadmap": "Read the roadmap",
       "ecosystem": "See the ecosystem",
       "source": "Read the source"
@@ -705,49 +685,49 @@
     "metaDescription": "How Causius keeps legal matters private: anonymisation before any model, per-matter encryption at rest, a locked-down browser and approvals only the owner can give.",
     "kicker": "Security",
     "title": "Private by construction",
-    "lede": "Causius handles legal letters: names, addresses, residence, money. Each guarantee below is a property of the code, which is public. None of them asks you to trust us.",
+    "lede": "Causius handles legal letters. Each guarantee below is a property of the public code. None asks you to trust us.",
     "anon": {
       "title": "Models are not told who",
-      "body": "Before any text goes to a model, personal details are replaced with placeholders, and they are put back only after the answer returns. Automatic detection is good, not perfect: check what is hidden before you send.",
-      "d1": "Found automatically: names in salutations and address blocks, street addresses, postcodes, email addresses, phone numbers, IBANs, AHV numbers, references and dates of birth.",
-      "d2": "Your own words to hide are always added, and so is the name on your account.",
-      "d3": "In the quick check this happens in your browser, before the letter leaves your device.",
-      "d4": "What the agent searches for on the web goes out with the placeholders too: a search engine never sees the name.",
-      "d5": "The one exception is your voice. If you speak instead of typing, the recording goes to a speech service to be turned into text, and a voice cannot be hidden first. It is not stored by Causius, you can edit the text before sending, and typing never involves it."
+      "body": "Before text goes to a model, personal details become placeholders, restored only after the answer returns. Detection is good, not perfect: check what is hidden.",
+      "d1": "Found automatically: names, addresses, postcodes, emails, phone numbers, IBANs, AHV numbers, references, birth dates.",
+      "d2": "Your own words to hide are always added.",
+      "d3": "In the quick check this happens in your browser.",
+      "d4": "Web searches go out with placeholders too.",
+      "d5": "The exception is your voice: a recording goes to a speech service and cannot be hidden first. Causius does not store it, and typing never involves it."
     },
     "sealed": {
       "title": "Sealed at rest",
-      "body": "Each matter has its own data key, itself sealed by a master key that is never stored in the database.",
-      "d1": "AES-256-GCM, a fresh nonce for every value, each bound to its matter and its purpose so it cannot be moved to another.",
-      "d2": "Titles, messages, facts, deadlines, decisions and document text are all sealed. Only what sorting and routing need is in the clear: dates, statuses, the jurisdiction code, sizes.",
+      "body": "Each matter has its own data key, sealed by a master key that is never in the database.",
+      "d1": "AES-256-GCM, a fresh nonce per value, bound to its matter and purpose.",
+      "d2": "Titles, messages, facts, deadlines, decisions and document text are sealed; only dates, statuses, sizes and the jurisdiction code are clear.",
       "d3": "Without the master key, a copy of the database is noise."
     },
     "minimal": {
       "title": "Nothing kept that is not needed",
-      "body": "An upload is reduced to its text and the file itself is dropped. A letter checked without an account is not stored at all.",
-      "d1": "No users table and no passwords: sign-in is OrangeCat's, and Causius keeps only an account id.",
-      "d2": "Logs record which model served a turn, never what was said. No analytics. The one extra script is the optional feedback widget, and it sends only what you write into it."
+      "body": "An upload is reduced to its text. A letter checked without an account is not stored.",
+      "d1": "No users table, no passwords: only an OrangeCat account id.",
+      "d2": "Logs record which model served a turn, never what was said. No analytics. The only extra script is the optional feedback widget."
     },
     "browser": {
       "title": "A locked-down browser",
-      "body": "Every page is served with a strict content security policy.",
-      "d1": "Scripts run only with a nonce made for that one request, and a page may talk to Causius and nothing else.",
-      "d2": "No framing, no referrer, HSTS, and an isolated origin.",
-      "d3": "Answers from the API are never cached."
+      "body": "Every page carries a strict content security policy.",
+      "d1": "Scripts run only with a per-request nonce, and a page may talk to Causius and nothing else.",
+      "d2": "No framing, no referrer, HSTS.",
+      "d3": "API answers are never cached."
     },
     "access": {
       "title": "Only you decide",
-      "body": "A matter opens only for the people in it. Anyone else gets the same answer as for a matter that does not exist.",
-      "d1": "Actions that leave the matter are proposals only its owner can approve, and a decision is final.",
-      "d2": "Limits per account keep the shared models from being drained.",
-      "d3": "Deleting a matter deletes all of it: messages, deadlines, decisions and documents."
+      "body": "A matter opens only for the people in it. Anyone else gets the answer a missing matter gets.",
+      "d1": "Actions that leave the matter are proposals only its owner can approve.",
+      "d2": "Limits per account protect the shared models.",
+      "d3": "Deleting a matter deletes all of it."
     },
     "breach": {
       "title": "If it went wrong",
-      "lede": "What each party would hold if the worst happened to it.",
+      "lede": "What each party would hold if the worst happened.",
       "database": {
         "title": "A stolen database",
-        "body": "Ciphertext, account ids and dates. No names, no letters. Deadline dates are the one thing readable."
+        "body": "Ciphertext, account ids and dates. No names, no letters. Deadline dates are readable."
       },
       "provider": {
         "title": "A model provider's logs",
@@ -755,7 +735,7 @@
       },
       "operator": {
         "title": "Us, the operator",
-        "body": "We run the server that holds the master key, so we could be compelled. Keys that only you hold are on the roadmap; until then, that is the honest limit."
+        "body": "We run the server holding the master key, so we could be compelled. Keys only you hold are on the roadmap; until then, that is the honest limit."
       }
     },
     "links": {

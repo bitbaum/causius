@@ -14,6 +14,6 @@ export const eyebrow = "kicker";
 export const field = "field";
 
 /** A box, used sparingly: space separates first, a frame is the last resort. */
-export const card = "border border-border p-5 sm:p-6";
+export const card = "rounded-surface border border-border p-5 sm:p-6";
 
 export const shell = "section-shell";

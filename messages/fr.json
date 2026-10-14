@@ -17,7 +17,8 @@
     "security": "Sécurité",
     "ecosystem": "Écosystème",
     "menu": "Menu",
-    "skip": "Aller au contenu"
+    "skip": "Aller au contenu",
+    "dark": "Mode sombre"
   },
   "Footer": {
     "tagline": "La couche juridique de la flotte : un agent qui fait le travail juridique, et une personne qui décide.",
@@ -46,38 +47,11 @@
     "fleet": "La flotte"
   },
   "Home": {
-    "tiersTitle": "Trois formes d'aide, et une frontière honnête entre elles",
-    "tiersLead": "La plupart des ennuis juridiques commencent par de la paperasse, et la plupart de la paperasse ne demande pas d'avocat. Une partie, si. Causius garde la différence visible.",
-    "tiers": {
-      "ai": {
-        "name": "L'IA de Causius",
-        "can": "Lit, traduit, énumère ce qui est demandé et rédige un projet de réponse.",
-        "limit": "Information juridique uniquement. Elle ne vous conseille pas et ne vous représente pas."
-      },
-      "assistant": {
-        "name": "Assistantes et assistants juridiques",
-        "can": "Des personnes qui connaissent la paperasse : réunir les preuves, les formulaires, le dépôt, la traduction. Elles peuvent travailler sous pseudonyme.",
-        "limit": "Ce ne sont pas des avocats. Elles vous aident à faire les démarches ; elles ne donnent pas de conseil juridique."
-      },
-      "lawyer": {
-        "name": "Avocates et avocats inscrits au barreau",
-        "can": "Autorisés à pratiquer là où se trouve votre dossier ; leur inscription est vérifiée. Ils conseillent et peuvent vous représenter, et peuvent apparaître sous pseudonyme jusqu'à ce que vous leur confiiez le mandat.",
-        "limit": "L'autorisation vaut par ordre juridique : un avocat d'un pays ne peut pas conseiller sur le droit d'un autre."
-      },
-      "kicker": "Qui fait quoi"
-    },
-    "marketplaceLink": "Comment fonctionne la place de marché, et comment la rejoindre",
-    "identity": {
-      "problem": "Le problème",
-      "solution": "Ce que Causius y fait",
-      "mission": "Mission",
-      "vision": "Vision"
-    },
     "hero": {
       "kicker": "Le travail juridique, c'est vous qui décidez",
       "line1": "Votre dossier.",
       "line2": "Traité de bout en bout.",
-      "lede": "Causius est un espace de travail juridique avec IA. Dites ce qui se passe ou apportez la lettre : il trouve ce qui s'applique et le cite, tient vos délais, rédige ce qui doit l'être, et vous demande avant que quoi que ce soit ne sorte de vos mains.",
+      "lede": "Dites ce qui se passe, ou apportez la lettre. Causius trouve les règles, tient vos délais et rédige la réponse. Rien ne part sans vous.",
       "open": "Ouvrir un dossier",
       "quick": "Vérifier une lettre, sans compte"
     },
@@ -86,69 +60,74 @@
       "title": "Réclamation contre une taxation fiscale",
       "s1": {
         "tool": "cherché",
-        "text": "Délai de réclamation contre une taxation cantonale"
+        "text": "Délai de réclamation"
       },
       "s2": {
         "tool": "délai",
-        "text": "Réclamation dans les 30 jours dès la notification, citée de la lettre"
+        "text": "30 jours dès la notification"
       },
       "s3": {
         "tool": "rédigé",
-        "text": "Réclamation motivée, prête à signer"
+        "text": "Réclamation, prête à signer"
       },
       "s4": {
         "tool": "votre décision",
         "text": "L'envoyer en recommandé ?"
-      },
-      "dueLabel": "Échéance",
-      "due": "2 nov. 2026",
-      "waitLabel": "Vous attend",
-      "wait": "Autoriser l'envoi"
+      }
     },
     "how": {
-      "kicker": "Comment ça marche",
       "title": "Vous décidez. Il fait le travail.",
       "describe": {
         "title": "Dites ce qui se passe",
-        "body": "Avec vos mots, en français, en allemand ou en anglais. Ajoutez la lettre, le contrat ou tout autre document ; seul son texte est conservé, chiffré."
+        "body": "Avec vos mots. Ajoutez la lettre si vous l'avez."
       },
       "work": {
-        "title": "Causius traite le dossier",
-        "body": "Il trouve les règles qui s'appliquent et les cite, calcule et inscrit les délais, et rédige la réclamation, la réponse ou le contrat, prêts à l'emploi."
+        "title": "Il traite le dossier",
+        "body": "Trouve et cite les règles, suit les délais, rédige la réponse."
       },
       "approve": {
         "title": "Rien ne part sans vous",
-        "body": "Envoyer, déposer, signer, partager et payer sont des propositions que vous acceptez ou refusez. Là où la loi réserve une étape à un avocat, il le dit."
+        "body": "Envoyer, déposer, signer et payer attendent votre accord."
       }
     },
     "privacy": {
-      "kicker": "Privé par construction",
       "title": "Conçu pour que personne ne lise votre dossier",
       "cta": "Comment fonctionne la sécurité",
       "redact": {
         "title": "Anonymisé avant tout modèle",
-        "body": "Noms, adresses, numéros et tous les mots que vous ajoutez deviennent des marqueurs avant qu'un modèle ne soit interrogé, et ne sont remis en place que sur notre serveur ou dans votre navigateur."
+        "body": "Noms, adresses et numéros deviennent d'abord des marqueurs."
       },
       "sealed": {
         "title": "Scellé au repos",
-        "body": "Chaque dossier a sa propre clé. Titres, messages, délais et documents sont stockés chiffrés ; la base de données seule ne nomme personne."
+        "body": "Chaque dossier a sa propre clé."
       },
       "pseudonymous": {
-        "title": "Pseudonyme de tous les côtés",
-        "body": "Clients, assistants juridiques et avocats peuvent tous travailler sous pseudonyme. L'admission d'un avocat est vérifiée en privé et son nom révélé au client lors du mandat."
+        "title": "Pseudonyme possible",
+        "body": "Chacun peut agir sous pseudonyme."
       }
     },
-    "capabilities": {
-      "kicker": "Ce qui est réel aujourd'hui",
-      "title": "Ce qu'il fait, et ce qui vient ensuite",
-      "lede": "Chaque ligne dit si cela fonctionne aujourd'hui. La feuille de route est publique, tout comme le journal de ce qui a été livré.",
-      "roadmap": "Feuille de route",
-      "changelog": "Journal des modifications"
+    "tiersTitle": "Trois formes d'aide",
+    "tiers": {
+      "ai": {
+        "name": "L'IA de Causius",
+        "can": "Lit, traduit, rédige un projet de réponse.",
+        "limit": "De l'information, pas du conseil."
+      },
+      "assistant": {
+        "name": "Assistantes et assistants juridiques",
+        "can": "Connaissent la paperasse : preuves, formulaires, dépôt.",
+        "limit": "Pas des avocats."
+      },
+      "lawyer": {
+        "name": "Avocates et avocats inscrits au barreau",
+        "can": "Autorisés là où se trouve votre dossier. Ils conseillent et représentent.",
+        "limit": "L'autorisation vaut par pays."
+      }
     },
+    "marketplaceLink": "Comment fonctionnent les aidants",
     "fleet": {
-      "kicker": "Un compte, toute la flotte",
-      "title": "La couche juridique d'un système plus large",
-      "lede": "Votre compte OrangeCat vous connecte ici, et le même compte ouvre OrangeCat, Solon et Loki. Chaque produit fait une seule chose ; ensemble, ils permettent à une personne de faire ce qui demandait une étude, une banque et un registre.",
+      "title": "Un compte, toute la flotte",
+      "lede": "Votre compte OrangeCat vous connecte ici et ouvre OrangeCat, Solon et Loki.",
       "more": "Comment les produits s'assemblent",
       "signedIn": "Aller à vos dossiers"
     }
@@ -167,17 +146,17 @@
   },
   "NewCase": {
     "title": "Nouveau dossier",
-    "lead": "Donnez le courrier à Causius. Il est envoyé à un fournisseur de modèles d'IA pour être lu et n'est pas conservé par Causius ; le résultat reste uniquement dans ce navigateur.",
+    "lead": "Le courrier est envoyé à un modèle d'IA pour être lu. Causius ne le conserve pas ; le résultat reste uniquement dans ce navigateur.",
     "modelOwn": "Lu par votre propre modèle, {model}.",
-    "modelFree": "Lu par des modèles gratuits partagés, qui varient et disposent d'un petit budget quotidien.",
-    "modelFreeNoPhoto": "Lu par des modèles gratuits partagés, qui varient et disposent d'un petit budget quotidien. Pour l'instant, ils lisent un texte collé mais pas les photos.",
-    "modelOff": "Les modèles gratuits partagés ne sont pas activés pour l'instant. Connectez votre propre modèle pour analyser un courrier, ou saisissez-le à la main ci-dessous.",
+    "modelFree": "Modèles gratuits partagés, petit budget quotidien.",
+    "modelFreeNoPhoto": "Modèles gratuits partagés. Pour l'instant, ils lisent un texte collé, pas les photos.",
+    "modelOff": "Les modèles gratuits partagés sont éteints pour l'instant. Connectez votre propre modèle, ou saisissez le courrier à la main ci-dessous.",
     "change": "Modifier",
     "useOwn": "Utiliser votre propre modèle",
     "textLabel": "Le texte du courrier",
     "textPlaceholder": "Collez-le ici, dans n'importe quelle langue.",
     "photoLabel": "Ou des photos de ses pages",
-    "photoHint": "Jusqu'à {max} pages, dans l'ordre. JPEG, PNG ou WebP. Les photos sont réduites dans votre navigateur avant d'être envoyées.",
+    "photoHint": "Jusqu'à {max} pages, dans l'ordre. JPEG, PNG ou WebP.",
     "pages": "{count, plural, one {# page ajoutée} other {# pages ajoutées}}",
     "page": "Page {n}",
     "removePage": "Retirer la page {n}",
@@ -193,7 +172,7 @@
     "openSettings": "Ouvrir les réglages du modèle",
     "byHand": {
       "title": "Saisie à la main",
-      "body": "Pas d'analyse, mais le courrier et son délai restent ensemble, et le dossier peut être remis à une personne qui vous aide. Vous avez déjà un fichier de dossier ?",
+      "body": "Pas d'analyse ; le courrier et son délai restent ensemble. Vous avez déjà un dossier ?",
       "import": "Importez-le",
       "about": "De quoi s'agit-il ?",
       "sender": "Qui l'a envoyé ?",
@@ -202,17 +181,17 @@
       "original": "Original"
     },
     "errors": {
-      "not_configured": "Les modèles gratuits partagés ne sont pas activés pour ce site en ce moment. Vous pouvez connecter votre propre modèle, ou saisir le courrier à la main et suivre son délai.",
-      "busy": "Aucun modèle n'a répondu. Le budget gratuit partagé du jour est peut-être épuisé, ou un fournisseur est en panne. Votre propre modèle ne dépend pas du budget partagé.",
-      "busy_own": "Votre modèle n'a pas répondu. Le crédit de la clé est peut-être épuisé, ou la clé a été révoquée. Vérifiez-la dans les réglages, ou retirez-la pour utiliser les modèles gratuits partagés.",
-      "no_vision": "Aucun des modèles disponibles en ce moment ne peut lire une photo. Collez plutôt le texte du courrier, ou connectez votre propre modèle capable de lire des images.",
-      "rate_limited": "Cela fait beaucoup de courriers en peu de temps. Les modèles gratuits partagés en acceptent quelques-uns par heure ; votre propre modèle, bien davantage.",
+      "not_configured": "Les modèles gratuits partagés sont éteints pour l'instant. Connectez votre propre modèle, ou saisissez le courrier à la main.",
+      "busy": "Aucun modèle n'a répondu. Le budget gratuit du jour est peut-être épuisé. Votre propre modèle n'est pas touché.",
+      "busy_own": "Votre modèle n'a pas répondu. Vérifiez sa clé dans les réglages.",
+      "no_vision": "Aucun modèle disponible ne lit une photo. Collez le texte, ou connectez un modèle qui lit les images.",
+      "rate_limited": "Trop de courriers en peu de temps. Votre propre modèle en permet beaucoup plus.",
       "bad_own_model": "Vos réglages de modèle enregistrés n'ont pas pu être utilisés. Configurez-les à nouveau.",
-      "unreadable_analysis": "Le modèle a répondu, mais pas sous une forme dont Causius pouvait tirer un dossier. Réessayez ; un modèle plus puissant y parvient plus sûrement.",
-      "empty": "Collez le texte du courrier ou ajoutez-en une photo.",
-      "bad_image": "Ce fichier n'a pas pu être utilisé comme photo. Envoyez une image JPEG, PNG ou WebP.",
-      "too_many_pages": "Cela fait plus de {max} pages. Ajoutez les pages qui portent la demande et le délai.",
-      "offline": "Causius est injoignable. Vérifiez votre connexion et réessayez.",
+      "unreadable_analysis": "La réponse n'a pas pu devenir un dossier. Réessayez.",
+      "empty": "Collez le texte ou ajoutez une photo.",
+      "bad_image": "Envoyez une image JPEG, PNG ou WebP.",
+      "too_many_pages": "Plus de {max} pages. Ajoutez celles qui portent la demande et le délai.",
+      "offline": "Causius est injoignable. Vérifiez votre connexion.",
       "unknown": "L'analyse n'a pas abouti. Réessayez dans une minute."
     }
   },
@@ -223,8 +202,8 @@
     "dueToday": "Échéance aujourd'hui",
     "passed": "{days, plural, one {Échu depuis # jour} other {Échu depuis # jours}}",
     "deadlineSource": "Le courrier dit :",
-    "checkDeadline": "Comparez cette date avec votre courrier avant de vous y fier.",
-    "noDeadline": "Aucune date de réponse n'a été trouvée dans le courrier. Cherchez vous-même un délai.",
+    "checkDeadline": "Comparez-la à votre lettre.",
+    "noDeadline": "Aucune date de réponse trouvée. Cherchez-en une dans la lettre.",
     "ifNothing": "Si vous ne faites rien :",
     "facts": {
       "from": "De",
@@ -238,7 +217,7 @@
     "letterTitle": "Le courrier",
     "language": "Langue",
     "draftTitle": "Projet de réponse",
-    "draftHint": "Un point de départ, pas un texte à envoyer tel quel. Remplacez chaque [crochet] par vos propres faits, exacts.",
+    "draftHint": "Un point de départ. Remplissez chaque [crochet] avec vos propres faits, exacts.",
     "copy": "Copier",
     "copied": "Copié",
     "notesTitle": "Bon à savoir",
@@ -249,65 +228,65 @@
       "lawyer": "Avocate ou avocat inscrit au barreau"
     },
     "findHelper": "Trouver de l'aide",
-    "aiNotice": "Rédigé par un modèle d'IA. Il peut se tromper : c'est le courrier lui-même qui fait foi.",
+    "aiNotice": "Écrit par un modèle d'IA ; il peut se tromper. C'est la lettre qui fait foi.",
     "export": "Exporter le dossier complet",
     "saveCopy": "Enregistrer une copie dans mes dossiers",
     "delete": "Supprimer le dossier",
     "deleteConfirm": "Supprimer ce dossier de ce navigateur ? Cette action est irréversible.",
-    "sampleBanner": "Exemple. La personne, les dates et le numéro de référence sont inventés.",
+    "sampleBanner": "Exemple. Tous les détails sont inventés.",
     "notHereTitle": "Ce dossier n'est pas sur cet appareil",
-    "notHereBody": "Les dossiers restent dans le navigateur où ils ont été créés. Si vous avez le fichier exporté, vous pouvez l'importer.",
+    "notHereBody": "Les dossiers restent dans le navigateur qui les a créés. Importez plutôt un fichier exporté.",
     "goCases": "Aller à mes dossiers",
     "exportAnon": "Exporter pour un aidant (anonymisé)"
   },
   "Helpers": {
     "metaTitle": "Aidants",
-    "metaDescription": "La place de marché de Causius : des assistantes et assistants juridiques pour la paperasse, des avocates et avocats inscrits au barreau pour le conseil et la représentation.",
+    "metaDescription": "La place de marché de Causius : des assistants juridiques pour la paperasse et des avocats inscrits qui peuvent vous conseiller et vous représenter.",
     "eyebrow": "Place de marché",
     "title": "Des personnes qui aident quand l'IA ne suffit pas",
-    "lead": "Deux sortes de personnes travaillent sur les dossiers Causius. Ce qui les distingue n'est ni le prix ni le rang, mais ce que la loi permet à chacune. Aucune n'a besoin de savoir qui vous êtes, et vous n'avez pas besoin de savoir qui elles sont avant de confier un mandat.",
-    "noneTitle": "Personne n'est encore répertorié.",
-    "noneBody": "Causius ne met encore personne en relation et ne vérifie personne. D'ici là, utilisez le dossier auprès d'une avocate, d'un avocat ou d'un service de consultation que vous trouvez vous-même : il est fait pour être remis.",
-    "listedUnder": "Répertorié sous : {identity}",
+    "lead": "Deux sortes de personnes aident. Ce qui les distingue, c'est ce que la loi permet à chacune.",
+    "noneTitle": "Personne n'est encore listé.",
+    "noneBody": "Causius ne met encore personne en relation et ne vérifie personne. D'ici là, remettez le dossier à un avocat ou à un centre de conseil que vous trouvez vous-même.",
+    "listedUnder": "Listé sous : {identity}",
     "assistant": {
-      "name": "Assistante ou assistant juridique",
+      "name": "Assistant juridique",
       "identity": "Nom ou pseudonyme",
-      "does1": "Explique la procédure et ce qu'une administration attend d'ordinaire",
-      "does2": "Aide à réunir et à classer les preuves",
-      "does3": "Remplit les formulaires avec vous, traduit, prépare le dépôt",
-      "doesNot": "Ne donne pas de conseil juridique, ne prend pas position sur votre dossier et ne vous représente pas.",
-      "checks": "Prévu : une réputation acquise au fil des dossiers terminés, confirmée par la personne aidée. Un pseudonyme garde son historique : on ne peut pas s'en défaire."
+      "does1": "Explique la procédure",
+      "does2": "Aide à réunir les preuves",
+      "does3": "Remplit les formulaires, traduit, prépare le dépôt",
+      "doesNot": "Ne donne pas de conseil juridique et ne vous représente pas.",
+      "checks": "Prévu : une réputation gagnée sur des dossiers terminés."
     },
     "lawyer": {
-      "name": "Avocate ou avocat inscrit au barreau",
-      "identity": "Nom ou pseudonyme ; inscription vérifiée en toute confidentialité",
+      "name": "Avocat inscrit",
+      "identity": "Nom ou pseudonyme ; admission vérifiée en privé",
       "does1": "Vous conseille sur vos droits et vos options",
       "does2": "Relit ou rédige ce que vous envoyez",
-      "does3": "Vous représente devant l'autorité ou le tribunal",
-      "doesNot": "Uniquement pour les ordres juridiques où ils sont autorisés à pratiquer, indiqués sur leur profil.",
-      "checks": "Prévu : l'inscription est vérifiée en toute confidentialité dans le registre public des avocats de chaque ordre juridique avant qu'un profil porte cette mention, puis revérifiée. Une avocate ou un avocat peut apparaître sous pseudonyme ; vous apprenez son nom au moment de lui confier le mandat, car la loi lie ses devoirs professionnels à son nom."
+      "does3": "Vous représente devant les autorités et les tribunaux",
+      "doesNot": "Seulement là où il est admis, indiqué sur le profil.",
+      "checks": "Prévu : admission vérifiée dans le registre public du barreau."
     },
-    "wantTitle": "Vous voulez aider ?",
-    "wantBody": "Les aidants ne sont pas des comptes Causius. Vous proposez votre aide comme service sur OrangeCat, sous votre nom ou un pseudonyme, et vous y êtes payé directement par la personne que vous avez aidée. Vous pouvez inscrire un service dès aujourd'hui. Causius ne reprend pas encore ces annonces, ne les qualifie pas et ne vérifie pas l'inscription d'un avocat ; c'est la prochaine étape de la feuille de route.",
+    "wantTitle": "Envie d'aider ?",
+    "wantBody": "Proposez votre aide comme service sur OrangeCat, sous votre nom ou un pseudonyme, et soyez payé directement là-bas. Causius ne liste, n'étiquette ni ne vérifie encore ces offres ; c'est la prochaine étape de la feuille de route.",
     "offer": "Proposer un service sur OrangeCat",
     "seeRoadmap": "Voir la feuille de route",
     "rulesTitle": "Les règles",
     "rules": {
       "label": {
-        "title": "La mention, c'est la loi",
-        "body": "Chaque pays fixe qui peut donner un conseil juridique, et presque partout c'est réservé aux avocats inscrits. La mention d'un aidant dit de quel côté de cette frontière il se trouve, et il ne peut pas travailler au-delà."
+        "title": "L'étiquette, c'est la loi",
+        "body": "Qui peut donner un conseil juridique, chaque pays le fixe, presque toujours réservé aux avocats. L'étiquette dit de quel côté se trouve l'aidant."
       },
       "pseudonym": {
         "title": "Pseudonyme de tous les côtés",
-        "body": "Les personnes qui cherchent de l'aide, les assistants juridiques et les avocats peuvent tous apparaître sous pseudonyme. Causius vérifie en toute confidentialité ce qui doit être vrai — qu'un avocat est inscrit — et ne montre que le nécessaire. Beaucoup de ceux qui connaissent le mieux un système l'ont appris en le traversant, et préfèrent ne pas y associer leur nom."
+        "body": "Chacun peut agir sous pseudonyme ; Causius ne vérifie en privé que ce qui doit être vrai."
       },
       "share": {
-        "title": "Vous choisissez ce qu'un aidant voit",
-        "body": "Un aidant reçoit le dossier que vous lui remettez, et rien d'autre — et ce fichier est anonymisé par défaut : le dossier, le délai et le courrier, avec votre nom, votre adresse et vos numéros remplacés. Vous décidez si et quand en dire plus."
+        "title": "Vous choisissez ce que voit un aidant",
+        "body": "Il ne reçoit que le dossier que vous remettez, anonymisé par défaut."
       },
       "place": {
-        "title": "Tous les ordres juridiques, un à la fois",
-        "body": "Un dossier indique où il se situe. Les aidants sont proposés selon ce lieu, le domaine du droit et une langue commune."
+        "title": "Un ordre juridique à la fois",
+        "body": "Les aidants sont appariés selon le lieu, le domaine du droit et une langue commune."
       }
     },
     "start": "Ouvrir un dossier"
@@ -397,16 +376,16 @@
   },
   "Matters": {
     "title": "Dossiers",
-    "lead": "Un dossier, c'est toute affaire juridique à régler : un courrier, un contrat, un litige, une société à créer. Causius le traite avec vous, suit chaque délai et demande avant que quoi que ce soit ne sorte du dossier.",
+    "lead": "Un dossier, c'est tout ce qui est juridique et doit être réglé. Causius le traite avec vous, tient chaque délai et demande avant que quoi que ce soit parte.",
     "signInTitle": "Se connecter pour garder ses dossiers",
-    "signInLead": "Les dossiers sont conservés sur le serveur, chacun chiffré avec sa propre clé, pour que vous puissiez y revenir depuis n'importe quel appareil. Vous vous connectez avec OrangeCat, et pouvez y être un pseudonyme.",
+    "signInLead": "Les dossiers sont stockés scellés, chacun avec sa clé, pour que vous puissiez revenir depuis n'importe quel appareil. Connectez-vous avec OrangeCat ; un pseudonyme suffit.",
     "signIn": "Se connecter avec OrangeCat",
     "signInOff": "La connexion n'est pas encore activée pour ce site.",
     "quickCheckSignedOut": "Ou vérifier un courrier sans compte",
     "newTitle": "Ouvrir un dossier",
     "newLead": "Dites ce qui se passe, avec vos mots. Causius demandera ce dont il a besoin.",
     "situation": "Que se passe-t-il ?",
-    "situationPlaceholder": "Par exemple : j'ai reçu une taxation trop élevée et je veux faire réclamation. Ou : mon bailleur garde ma garantie de loyer.",
+    "situationPlaceholder": "Par exemple : une taxation fiscale que je veux contester, ou un bailleur qui garde ma garantie.",
     "where": "Où",
     "whereUnknown": "Je ne sais pas / Causius trouvera",
     "federal": "Suisse (fédéral)",
@@ -533,7 +512,7 @@
   "Entry": {
     "signUp": "Créer un compte",
     "signIn": "J'ai déjà un compte",
-    "cost": "Un compte OrangeCat pour Causius, OrangeCat, Solon et Loki. Un e-mail et un mot de passe, un code par e-mail, Google ou GitHub : comme vous voulez. Un pseudonyme est possible. Aucun portefeuille nécessaire."
+    "cost": "Un compte OrangeCat ouvre Causius, Solon et Loki. Un pseudonyme suffit."
   },
   "Capabilities": {
     "status": {
@@ -543,113 +522,114 @@
     },
     "letters": {
       "name": "Lire une lettre officielle",
-      "body": "Collez-la ou photographiez-la : ce qu'elle dit, ce qu'elle vous demande, le délai avec la phrase d'où il vient, une traduction et un projet de réponse. Sans compte ; les noms sont d'abord retirés dans votre navigateur."
+      "body": "Collez-la ou photographiez-la : ce qu'elle demande, le délai avec la phrase d'où il vient, une traduction, un projet de réponse. Sans compte."
     },
     "matters": {
       "name": "Traiter un dossier avec un agent",
-      "body": "Un espace de travail par dossier : la conversation, des recherches aux sources numérotées, les délais, les tâches, les projets et les documents, derrière votre compte."
+      "body": "Un espace par dossier : conversation, recherches sourcées, délais, tâches, projets, documents."
     },
     "approvals": {
       "name": "Rien ne part sans votre accord",
-      "body": "Envoyer, déposer, signer, partager et payer sont des propositions qui attendent votre décision, consignée dans le dossier."
+      "body": "Envoyer, déposer, signer, partager et payer attendent votre décision."
     },
     "models": {
       "name": "N'importe quel modèle, y compris le vôtre",
-      "body": "Des modèles gratuits partagés par défaut, ou votre propre clé chez l'un de dix fournisseurs, dont OpenAI, Anthropic, Google et Mistral. La clé reste dans votre navigateur."
+      "body": "Des modèles gratuits partagés, ou votre propre clé chez l'un de dix fournisseurs. La clé reste dans votre navigateur."
     },
     "domains": {
       "name": "Vérifier un nom avant de fonder dessus",
-      "body": "L'agent demande aux registres de noms de domaine eux-mêmes si un nom est enregistré, pour tout domaine de premier niveau, avant de le recommander."
+      "body": "L'agent demande aux registres de domaines si un nom est pris."
     },
     "marketplace": {
       "name": "Assistants juridiques et avocats",
-      "body": "Une place de marché où des avocats admis et des assistants juridiques sous pseudonyme proposent leur travail, rivalisent de prix et de qualité, et sont payés via OrangeCat."
+      "body": "Des avocats admis et des assistants sous pseudonyme proposent leur travail et sont payés via OrangeCat."
     },
     "formation": {
       "name": "Fonder et enregistrer",
-      "body": "Sociétés, associations et inscriptions au registre, préparées de bout en bout par l'agent et déposées avec votre accord."
+      "body": "Sociétés et associations préparées par l'agent, déposées avec votre accord."
     },
     "contracts": {
       "name": "Des contrats qui se tiennent seuls",
-      "body": "Des accords rédigés ici et signés par les parties, chaque obligation suivie et, si les parties le veulent, l'argent tenu en séquestre jusqu'à ce qu'elle soit remplie."
+      "body": "Accords signés par les parties, obligations suivies, paiement tenu en séquestre si elles le veulent."
     },
     "law": {
       "name": "Le droit en données, depuis Solon",
-      "body": "Lois, procédures et ordres juridiques sous forme de données versionnées et citables, pour que chaque réponse renvoie à la règle exacte qu'elle a appliquée."
+      "body": "Lois et procédures en données citables, pour que chaque réponse renvoie à sa règle."
     },
     "firms": {
       "name": "Des études sur leurs propres modèles",
-      "body": "Les études d'avocats font tourner Causius avec des modèles à l'intérieur de leurs murs, et les données des clients ne quittent jamais l'étude."
+      "body": "Les études font tourner Causius avec des modèles à l'intérieur de leurs murs."
     }
   },
   "Platform": {
     "metaTitle": "Comment Causius est construit",
-    "metaDescription": "L'architecture de Causius : un agent qui fait le travail juridique sur un dossier chiffré, chaque donnée personnelle cachée aux modèles qu'il utilise.",
+    "metaDescription": "L'architecture de Causius : un agent qui fait le travail juridique sur un dossier scellé, sans que les modèles voient aucun détail personnel.",
     "kicker": "Plateforme",
     "title": "Comment Causius est construit, et pourquoi",
-    "lede": "L'aide juridique coûte cher parce que le travail juridique est lent, et il est lent parce qu'il se fait à la main. Causius est un agent qui fait le travail et une personne qui décide, construit pour que ce qu'il traite reste privé et que ce qu'il affirme soit vérifiable.",
+    "lede": "Le travail juridique est lent parce qu'il se fait à la main. Causius est un agent qui fait le travail et une personne qui décide, construit pour que ce qu'il traite reste privé et que ce qu'il affirme soit vérifiable.",
     "why": {
       "title": "Pourquoi le construire",
-      "p1": "La plupart des problèmes juridiques ne voient jamais un tribunal. C'est une lettre avec un délai, un formulaire, une réclamation, un contrat, une inscription : un travail aux règles claires, facturé à l'heure parce que personne ne l'a automatisé.",
-      "p2": "Les modèles de langage savent désormais faire une grande partie de ce travail, mais une fenêtre de discussion n'en est pas la bonne forme. Elle oublie le délai, ne tient aucun dossier et envoie tout ce que vous tapez à l'exploitant du modèle.",
-      "p3": "Causius a donc la forme d'un dossier auquel est attaché un agent, pas celle d'une discussion. Les avocats restent là où la loi les place ; tout le reste est fait."
+      "p1": "La plupart des ennuis juridiques sont une lettre avec un délai, un formulaire ou un contrat : un travail aux règles claires, facturé à l'heure parce que personne ne l'a automatisé.",
+      "p3": "Causius est donc un dossier auquel est attaché un agent, pas une discussion. Les avocats restent là où la loi les place ; tout le reste est fait."
+    },
+    "capabilities": {
+      "title": "Ce qui est réel aujourd'hui",
+      "lede": "Chaque ligne dit si cela fonctionne. La feuille de route et le journal sont publics.",
+      "roadmap": "Feuille de route",
+      "changelog": "Journal des modifications"
+    },
+    "identity": {
+      "problem": "Le problème",
+      "solution": "Ce que Causius y fait",
+      "mission": "Mission",
+      "vision": "Vision"
     },
     "architecture": {
       "kicker": "Architecture",
       "title": "Cinq couches, une tâche chacune",
       "intake": {
         "title": "La saisie, dans votre navigateur",
-        "body": "La vérification rapide lit lettres et photos sur votre propre appareil. Noms, adresses et numéros sont remplacés par des marqueurs avant tout envoi, et les photos peuvent d'abord être noircies à la main."
+        "body": "Lettres et photos sont lues sur votre appareil. Noms, adresses et numéros deviennent des marqueurs avant tout envoi."
       },
       "matter": {
         "title": "Le dossier",
-        "body": "Un enregistrement par dossier : conversation, faits, délais, tâches, décisions et documents. Un seul schéma, partagé par l'analyse, le stockage et l'export, et scellé avec sa propre clé."
+        "body": "Un enregistrement scellé par dossier : conversation, faits, délais, tâches, décisions, documents."
       },
       "agent": {
         "title": "L'agent",
-        "body": "Une boucle d'outils : chercher et lire des sources sur le web, inscrire délais, tâches et faits, rédiger des documents, vérifier des noms de domaine, demander une autorisation. Il peut modifier le dossier librement ; tout ce qui agit sur le monde, il ne peut que le proposer."
+        "body": "Une boucle d'outils qui cherche, inscrit délais et faits, et rédige. Il peut modifier le dossier ; tout ce qui agit sur le monde, il ne peut que le proposer."
       },
       "models": {
         "title": "Les modèles",
-        "body": "Indépendant du modèle grâce au kit de la flotte : une chaîne de modèles gratuits avec suivi de leur état, ou votre propre clé chez l'un de dix fournisseurs. Aucun SDK de fournisseur ni modèle figé : un meilleur modèle est un réglage, pas une réécriture."
+        "body": "Indépendant du modèle : une chaîne de modèles gratuits, ou votre propre clé chez l'un de dix fournisseurs. Un meilleur modèle est un réglage, pas une réécriture."
       },
       "identity": {
         "title": "Identité et argent",
-        "body": "La connexion passe par OrangeCat, en OpenID Connect avec PKCE. Causius ne tient ni table d'utilisateurs ni mot de passe, seulement un identifiant de compte. Le paiement des aides, avec séquestre, passera aussi par OrangeCat."
+        "body": "La connexion passe par OrangeCat, en OpenID Connect. Causius ne tient ni table d'utilisateurs ni mot de passe, seulement un identifiant de compte. Le paiement des aides passera aussi par OrangeCat."
       }
-    },
-    "turn": {
-      "title": "Un tour, du début à la fin",
-      "lede": "Ce qui se passe entre votre message et la réponse.",
-      "s1": "Vous écrivez, ou ajoutez un document. Seul son texte est conservé, scellé.",
-      "s2": "Le dossier est ouvert avec sa propre clé et rassemblé : faits, délais ouverts, décisions en attente, documents.",
-      "s3": "Chaque donnée personnelle qu'il contient devient un marqueur. Le modèle lit [NAME-1], jamais le nom.",
-      "s4": "Le modèle travaille avec des outils, jusqu'à six tours : chercher, lire, inscrire des délais, rédiger. Les arguments sont rétablis sur le serveur juste avant qu'un outil ne s'exécute.",
-      "s5": "Tout ce qui quitterait le dossier devient une proposition qui vous attend.",
-      "s6": "La réponse est rétablie, ses sources numérotées, et le tour scellé dans le dossier."
     },
     "principles": {
       "title": "Principes",
       "human": {
         "title": "Une personne approuve ce qui compte",
-        "body": "L'agent fait le travail ; une personne décide de ce qui sort. Cette seule règle permet de le laisser faire tout le reste sans risque."
+        "body": "L'agent fait le travail ; une personne décide de ce qui sort."
       },
       "honest": {
         "title": "Rien d'affirmé qui ne soit vrai",
-        "body": "Aucune loi, aucun délai, aucune aide, aucune note ni aucun témoignage inventés. Causius donne de l'information juridique, pas de conseil : qui peut conseiller, c'est la loi qui le fixe, pas nous."
+        "body": "Aucune loi, aucun délai, aucune aide ni aucun témoignage inventés. Causius donne de l'information juridique, pas de conseil."
       },
       "open": {
         "title": "Open source",
-        "body": "Chaque ligne est publique, sous licence MIT. Chacun peut lire comment une lettre est traitée, vérifier les affirmations de ce site dans le code et le faire tourner lui-même."
+        "body": "Chaque ligne est publique, sous licence MIT."
       },
       "shared": {
         "title": "Construit à partir de pièces communes",
-        "body": "Design, connexion, discussion, modèles, limites de débit et journal public viennent de paquets que toute la flotte utilise : une correction faite une fois atteint chaque produit."
+        "body": "Design, connexion, discussion, modèles et journal public viennent de paquets que toute la flotte utilise."
       }
     },
     "stack": {
       "title": "La pile technique",
-      "lede": "Ennuyeuse là où c'est possible, partagée dès que deux produits ont besoin de la même chose.",
+      "lede": "Sobre là où c'est possible.",
       "framework": {
         "label": "Framework",
         "value": "Next.js 16 · React 19 · TypeScript, strict"
@@ -667,7 +647,7 @@
         "value": "@bitbaum/accountkit · OrangeCat OpenID Connect"
       },
       "chat": {
-        "label": "Conversation",
+        "label": "Discussion",
         "value": "@bitbaum/chatkit"
       },
       "design": {
@@ -688,13 +668,13 @@
       },
       "tests": {
         "label": "Tests",
-        "value": "Vitest · PGlite, un vrai PostgreSQL dans le processus"
+        "value": "Vitest · PGlite, un vrai PostgreSQL en processus"
       }
     },
     "next": {
       "kicker": "Où cela va",
       "title": "De la lettre à l'existence juridique",
-      "lede": "Causius porte le travail juridique : les dossiers, les fondations et inscriptions, et le respect des contrats. Le droit lui-même (lois, ordres juridiques, procédures) appartient à Solon, sous forme de données que chaque produit peut citer. Vient ensuite la place de marché des avocats et assistants juridiques, payés via OrangeCat.",
+      "lede": "Causius porte le travail juridique : dossiers, fondations et inscriptions, contrats. Le droit lui-même appartient à Solon, sous forme de données que chaque produit peut citer. Vient ensuite la place de marché des avocats et assistants juridiques, payés via OrangeCat.",
       "roadmap": "Lire la feuille de route",
       "ecosystem": "Voir l'écosystème",
       "source": "Lire le code source"
@@ -702,52 +682,52 @@
   },
   "Security": {
     "metaTitle": "Sécurité",
-    "metaDescription": "Comment Causius garde les dossiers juridiques privés : anonymisation avant tout modèle, chiffrement par dossier, un navigateur verrouillé et des autorisations que seul le propriétaire donne.",
+    "metaDescription": "Comment Causius garde les affaires juridiques privées : anonymisation avant tout modèle, chiffrement par dossier au repos, un navigateur verrouillé et des approbations que seul le propriétaire peut donner.",
     "kicker": "Sécurité",
     "title": "Privé par construction",
-    "lede": "Causius traite des lettres officielles : noms, adresses, séjour, argent. Chaque garantie ci-dessous est une propriété du code, qui est public. Aucune ne vous demande de nous faire confiance.",
+    "lede": "Causius traite des lettres officielles. Chaque garantie ci-dessous est une propriété du code public. Aucune ne demande de nous faire confiance.",
     "anon": {
-      "title": "Les modèles ne sont pas informés de qui il s'agit",
-      "body": "Avant qu'un texte ne parte vers un modèle, les données personnelles sont remplacées par des marqueurs, et ne sont remises en place qu'au retour de la réponse. La détection automatique est bonne, pas parfaite : vérifiez ce qui est masqué avant d'envoyer.",
-      "d1": "Détectés automatiquement : noms dans les formules d'appel et les blocs d'adresse, adresses, codes postaux, e-mails, numéros de téléphone, IBAN, numéros AVS, références et dates de naissance.",
-      "d2": "Vos propres mots à cacher sont toujours ajoutés, tout comme le nom de votre compte.",
-      "d3": "Dans la vérification rapide, cela se fait dans votre navigateur, avant que la lettre ne quitte votre appareil.",
-      "d4": "Ce que l'agent cherche sur le web part aussi avec les marqueurs : un moteur de recherche ne voit jamais le nom.",
-      "d5": "La seule exception est votre voix. Si vous parlez au lieu d'écrire, l'enregistrement est envoyé à un service de reconnaissance vocale pour être transformé en texte, et une voix ne peut pas être masquée au préalable. Causius ne la conserve pas, vous pouvez modifier le texte avant l'envoi, et en écrivant elle n'intervient jamais."
+      "title": "Les modèles ne savent pas qui",
+      "body": "Avant qu'un texte parte vers un modèle, les détails personnels deviennent des marqueurs, remis en place seulement après la réponse. La détection est bonne, pas parfaite : vérifiez ce qui est masqué.",
+      "d1": "Trouvés automatiquement : noms, adresses, codes postaux, e-mails, numéros de téléphone, IBAN, numéros AVS, références, dates de naissance.",
+      "d2": "Vos propres mots à masquer sont toujours ajoutés.",
+      "d3": "Dans la vérification rapide, cela se passe dans votre navigateur.",
+      "d4": "Les recherches web partent aussi avec des marqueurs.",
+      "d5": "L'exception est votre voix : l'enregistrement va à un service de reconnaissance vocale et ne peut pas être masqué d'abord. Causius ne le conserve pas, et la saisie au clavier ne l'implique jamais."
     },
     "sealed": {
       "title": "Scellé au repos",
-      "body": "Chaque dossier a sa propre clé de données, elle-même scellée par une clé maîtresse qui n'est jamais stockée dans la base de données.",
-      "d1": "AES-256-GCM, un nonce neuf pour chaque valeur, chacune liée à son dossier et à son usage pour qu'elle ne puisse être déplacée dans un autre.",
-      "d2": "Titres, messages, faits, délais, décisions et texte des documents sont scellés. Seul ce dont le tri et l'acheminement ont besoin est en clair : dates, statuts, le code de l'ordre juridique, tailles.",
+      "body": "Chaque dossier a sa propre clé de données, scellée par une clé maîtresse qui n'est jamais dans la base de données.",
+      "d1": "AES-256-GCM, un nonce neuf par valeur, lié à son dossier et à son usage.",
+      "d2": "Titres, messages, faits, délais, décisions et texte des documents sont scellés ; seuls les dates, statuts, tailles et le code de l'ordre juridique sont en clair.",
       "d3": "Sans la clé maîtresse, une copie de la base de données n'est que du bruit."
     },
     "minimal": {
       "title": "Rien de gardé qui ne soit nécessaire",
-      "body": "Un fichier téléversé est réduit à son texte et le fichier lui-même est écarté. Une lettre vérifiée sans compte n'est pas stockée du tout.",
-      "d1": "Ni table d'utilisateurs ni mots de passe : la connexion appartient à OrangeCat, Causius ne garde qu'un identifiant de compte.",
-      "d2": "Les journaux notent quel modèle a servi un tour, jamais ce qui a été dit. Aucune analytique. Le seul script en plus est le widget de retour optionnel ; il n'envoie que ce que vous y écrivez."
+      "body": "Un fichier téléversé est réduit à son texte. Une lettre vérifiée sans compte n'est pas stockée.",
+      "d1": "Ni table d'utilisateurs ni mots de passe : seulement un identifiant de compte OrangeCat.",
+      "d2": "Les journaux notent quel modèle a servi un tour, jamais ce qui a été dit. Aucune analytique. Le seul script en plus est le widget de retour optionnel."
     },
     "browser": {
       "title": "Un navigateur verrouillé",
-      "body": "Chaque page est servie avec une politique de sécurité du contenu stricte.",
-      "d1": "Les scripts ne s'exécutent qu'avec un nonce créé pour cette seule requête, et une page ne peut parler qu'à Causius.",
-      "d2": "Aucun encadrement par un autre site, aucun référent, HSTS et une origine isolée.",
+      "body": "Chaque page porte une politique de sécurité du contenu stricte.",
+      "d1": "Les scripts ne s'exécutent qu'avec un nonce par requête, et une page ne peut parler qu'à Causius.",
+      "d2": "Aucun encadrement, aucun référent, HSTS.",
       "d3": "Les réponses de l'API ne sont jamais mises en cache."
     },
     "access": {
       "title": "Vous seul décidez",
-      "body": "Un dossier ne s'ouvre que pour ses participants. Tous les autres reçoivent la même réponse que pour un dossier qui n'existe pas.",
-      "d1": "Les actions qui quittent le dossier sont des propositions que seul son propriétaire peut approuver, et une décision est définitive.",
-      "d2": "Des limites par compte empêchent d'épuiser les modèles partagés.",
-      "d3": "Supprimer un dossier supprime tout : messages, délais, décisions et documents."
+      "body": "Un dossier ne s'ouvre que pour ses participants. Tous les autres reçoivent la réponse que reçoit un dossier inexistant.",
+      "d1": "Les actions qui quittent le dossier sont des propositions que seul son propriétaire peut approuver.",
+      "d2": "Des limites par compte protègent les modèles partagés.",
+      "d3": "Supprimer un dossier supprime tout ce qu'il contient."
     },
     "breach": {
       "title": "Si cela tournait mal",
-      "lede": "Ce que chaque partie détiendrait si le pire lui arrivait.",
+      "lede": "Ce que chaque partie détiendrait si le pire arrivait.",
       "database": {
         "title": "Une base de données volée",
-        "body": "Du texte chiffré, des identifiants de compte et des dates. Aucun nom, aucune lettre. Seules les dates d'échéance restent lisibles."
+        "body": "Du texte chiffré, des identifiants de compte et des dates. Aucun nom, aucune lettre. Les dates d'échéance sont lisibles."
       },
       "provider": {
         "title": "Les journaux d'un fournisseur de modèles",

@@ -4,6 +4,23 @@ What changed for the people who use Causius, newest first. Every entry comes
 from a change merged into this repository; where there is a number in
 brackets, it is the pull request to read for the detail.
 
+## 2026-10-14
+
+### Changed
+
+- **A look of its own: ink on paper.** Causius is light by default, deep
+  ink-indigo on warm paper, with headlines set like an inscription; dark mode
+  follows your device or the switch in the header, and your choice is kept in
+  this browser. Amber and red stay for deadlines and problems only. {#look}
+- **Much less to read.** The home page went from about a thousand words to
+  about two hundred and forty: what it is, how it works, why it is private, who
+  can help. What is real today and the identity statement moved to the
+  platform page; the quick check, the case page, the helpers page and the
+  security page were cut by a quarter to a third. {#less-to-read}
+- **Header and footer are easier to hit.** Language, theme and footer links
+  are all at least 44 by 44 pixels, and nothing runs off the edge of a phone.
+  {#nav-contract}
+
 ## 2026-10-12
 
 ### Added

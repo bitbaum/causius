@@ -25,22 +25,23 @@ html {
 }
 
 @layer components {
-  /* Headlines are the sans, heavy and tight. `.headline` is sentence case for
-     app screens; `.headline-caps` is the short statement a section makes.
-     Both may break inside a word: «Verfahrensbeistand» is wider than a phone. */
+  /* How a headline is set is decided in theme.css (--theme-headline-*): face,
+     weight, case and tracking. These classes only say "this is a headline".
+     `.headline-caps` is the short statement a section makes; `.headline` is
+     for app screens. Both may break inside a word: «Verfahrensbeistand» is
+     wider than a phone. */
   .headline,
+  .headline-caps,
   .bp-development h1 {
-    @apply font-sans font-bold tracking-tight text-fg-primary;
-    line-height: 1.05;
+    font-family: var(--theme-headline-font);
+    font-weight: var(--theme-headline-weight);
+    text-transform: var(--theme-headline-case);
+    letter-spacing: var(--theme-headline-tracking);
+    line-height: var(--theme-headline-leading);
+    text-wrap: balance;
     overflow-wrap: break-word;
     hyphens: auto;
-  }
-  .headline-caps {
-    @apply font-sans font-bold uppercase text-fg-primary;
-    letter-spacing: 0.01em;
-    line-height: 1;
-    overflow-wrap: break-word;
-    hyphens: auto;
+    @apply text-fg-primary;
   }
   /* The small uppercase label above a headline. */
   .kicker,
@@ -54,9 +55,13 @@ html {
   .btn-secondary {
     @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-control border border-border bg-surface-base px-4 text-sm font-semibold text-fg-primary transition-colors hover:bg-surface-raised disabled:cursor-not-allowed disabled:opacity-50;
   }
-  /* The call to action of a full-width section: square, framed, uppercase. */
+  /* The call to action of a full-width section, framed. Case, weight and
+     corners come from theme.css. */
   .btn-frame {
-    @apply inline-flex min-h-12 items-center justify-center gap-3 px-7 text-xs font-bold uppercase tracking-caps transition-colors;
+    @apply inline-flex min-h-12 items-center justify-center gap-3 rounded-control px-7 text-xs transition-colors;
+    font-weight: var(--theme-action-weight);
+    text-transform: var(--theme-action-case);
+    letter-spacing: var(--theme-action-tracking);
     color: hsl(var(--text-primary));
     border: 2px solid hsl(var(--text-primary));
   }
@@ -65,7 +70,10 @@ html {
     background-color: hsl(var(--text-primary));
   }
   .btn-frame-accent {
-    @apply inline-flex min-h-12 items-center justify-center gap-3 bg-accent px-7 text-xs font-bold uppercase tracking-caps text-on-accent transition-colors hover:bg-accent-hover;
+    @apply inline-flex min-h-12 items-center justify-center gap-3 rounded-control bg-accent px-7 text-xs text-on-accent transition-colors hover:bg-accent-hover;
+    font-weight: var(--theme-action-weight);
+    text-transform: var(--theme-action-case);
+    letter-spacing: var(--theme-action-tracking);
     border: 2px solid transparent;
   }
 
@@ -88,7 +96,7 @@ html {
   /* bip-kit renders the roadmap and changelog; its neutral theme reads every
      colour and face from a --bp-* variable, pointed at the shared tokens here
      exactly as Solon does, so those pages wear the same clothes. */
-  html.dark .bp-development {
+  .bp-development {
     --bp-font-sans: var(--font-sans);
     --bp-font-mono: var(--font-mono);
     --bp-radius: var(--radius-surface);
