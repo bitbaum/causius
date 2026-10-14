@@ -189,14 +189,32 @@ model's output and an imported file go through it.
 
 ## Design
 
-Every colour, face, radius and measure comes from `@bitbaum/design-tokens`,
-imported in the layout before `app/globals.css`, with its Tailwind preset loaded
-through `tailwind.config.js`. The page is pinned dark, like Solon's public
-surface. `globals.css` defines no token: only the few shapes Causius repeats,
-under the same names Solon uses (`kicker`, `headline`, `headline-caps`,
-`btn-primary`, `btn-frame`, `field`), and the mapping of accountkit's,
-chatkit's and bip-kit's variables onto the tokens. A colour that is missing
-belongs in the token package, so all products get it.
+Every colour, face, radius and measure starts in `@bitbaum/design-tokens`,
+imported in the layout before `app/theme.css` and `app/globals.css`. **The look
+is decided in one file, `app/theme.css`**, which overrides the token package's
+knobs: the colours (light and dark), the faces, the corner radius and how a
+headline and a call to action are set. "Make it red", "make it more gothic" (a
+blackletter `--theme-headline-font`, other case and tracking) and "a different
+typeface" are edits to that file and nothing else. `globals.css` defines no
+token: only the few shapes Causius repeats, under the same names Solon uses
+(`kicker`, `headline`, `headline-caps`, `btn-primary`, `btn-frame`, `field`),
+which read those knobs, and the mapping of accountkit's, chatkit's and
+bip-kit's variables onto the tokens.
+
+Light by default, dark when the device asks or the reader chooses (the switch in
+the header; `lib/theme.ts` sets the class before first paint, with the response's
+CSP nonce). `lib/theme.test.ts` reads `theme.css` and fails if a change makes
+text, the accent, the label on it or a status colour unreadable (WCAG AA, 4.5:1)
+on any surface in either mode, so a look can be tried freely.
+`lib/copy-budget.test.ts` holds each page to a word budget (Home is about 240
+words): to add copy, cut copy.
+
+It deliberately differs from OrangeCat, Loki and Solon, which are black with one
+orange accent: this is for someone holding a letter with a deadline in it, so it
+is warm paper, a deep ink-indigo and near-square corners, the look of a document
+to be taken seriously. Amber and red are kept clear for a deadline or a problem.
+The structure, the tokens and the primitives are the same, so the products still
+sit together.
 
 What a capability page says is real is decided in one file,
 `lib/capabilities.ts`; pages name capabilities and never state a status.

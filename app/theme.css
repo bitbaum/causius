@@ -1,0 +1,137 @@
+/**
+ * Causius's look. This is the ONE file that decides it.
+ *
+ * Everything visual — colour, faces, corner radius, whether a headline is a
+ * serif in capitals or a sans in sentence case — is a value here, read by the
+ * shared token package (@bitbaum/design-tokens) and by the few shapes in
+ * globals.css. No component sets a colour, a face or a radius of its own, so
+ * changing the look is editing this file and nothing else:
+ *
+ *   "make it red and white"   → change --public-accent (and its dark twin)
+ *   "make it more gothic"     → --theme-headline-font (a blackletter face),
+ *                                 --theme-headline-case, tracking and weight
+ *   "a different typeface"    → --font-display / --font-sans
+ *   "warmer / cooler greys"   → the hue (first number) of the hsl() triples
+ *   "rounder"                 → --radius-control / --radius-surface
+ *
+ * The values are HSL triples without the hsl() wrapper, because the token
+ * package composes alpha onto them (`bg-surface-raised/50`).
+ *
+ * `lib/theme.test.ts` reads this file and fails if a change makes text
+ * unreadable (WCAG AA, 4.5:1) in either mode, so a look can be tried freely.
+ *
+ * Why it differs from OrangeCat, Loki and Solon: they are tools for people
+ * who build, black with one orange accent. This is for someone holding a
+ * letter that has a deadline in it, so it is the look of a document that
+ * deserves to be taken seriously: warm paper, a deep ink-indigo, headlines
+ * set like an inscription. Light by default, dark when they ask or their
+ * device does. Amber and red are kept clear for flagging a deadline or a
+ * problem, so the brand never competes with them. The structure, the tokens
+ * and the primitives are the same as the fleet's, so the products still sit
+ * together.
+ */
+
+:root {
+  /* — Faces. The display face is for headlines of 1.5rem and up only. ——— */
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* — How a headline is set. Read by .headline and .headline-caps. ————— */
+  --theme-headline-font: var(--font-display);
+  --theme-headline-weight: var(--font-display-weight);
+  --theme-headline-case: uppercase;
+  --theme-headline-tracking: 0.03em;
+  --theme-headline-leading: 1.05;
+  /* Calls to action: square and capitalised, or soft and sentence case. */
+  --theme-action-case: uppercase;
+  --theme-action-tracking: 0.08em;
+  --theme-action-weight: 700;
+
+  /* — Geometry. Near-square: a document, not an app. ——————————————— */
+  --radius-control: 0.1875rem;
+  --radius-surface: 0.25rem;
+  --radius-pill: 9999px;
+
+  /* — Light. Ink-indigo on warm paper. ——————————————————————————————— */
+  --public-accent: #2b3a67;
+  --on-accent: 0 0% 100%;
+  --accent-hover: #1e2a50;
+  --accent-muted: 223 41% 28% / 0.08;
+  --accent-text: 223 41% 24%;
+
+  --surface-public: 42 30% 94%; /* the marketing band; paper here */
+  --surface-page: 42 30% 96.5%;
+  --surface-base: 42 38% 99%;
+  --surface-raised: 40 24% 93%;
+  --surface-overlay: 40 20% 90%;
+  --surface-modal: 42 38% 99%;
+  --surface-drawer: 42 30% 96.5%;
+  --surface-hover: 40 20% 91.5%;
+
+  --text-primary: 230 28% 12%;
+  --text-secondary: 228 12% 30%;
+  --text-tertiary: 228 9% 38%;
+  --text-muted: 228 7% 60%;
+  --text-inverted: 42 38% 99%;
+
+  --border-subtle: 38 18% 87%;
+  --border-default: 38 14% 79%;
+  --border-strong: 36 11% 67%;
+  --border-interactive: 228 12% 30%;
+
+  --status-positive: 150 60% 26%;
+  --status-positive-subtle: 150 60% 26% / 0.08;
+  --status-warning: 28 90% 30%;
+  --status-warning-subtle: 28 90% 30% / 0.1;
+  --status-negative: 0 68% 42%;
+  --status-negative-subtle: 0 68% 42% / 0.08;
+  --status-neutral: 228 9% 38%;
+}
+
+/* — Dark. Only what differs from light. ——————————————————————————————— */
+.dark {
+  --public-accent: #a3b2e8;
+  --on-accent: 228 34% 10%;
+  --accent-hover: #c0cbf2;
+  --accent-muted: 227 62% 76% / 0.13;
+  --accent-text: 227 62% 82%;
+
+  --surface-public: 228 24% 8%;
+  --surface-page: 228 22% 9.5%;
+  --surface-base: 228 20% 12.5%;
+  --surface-raised: 228 18% 15.5%;
+  --surface-overlay: 228 16% 19%;
+  --surface-modal: 228 20% 12.5%;
+  --surface-drawer: 228 22% 10.5%;
+  --surface-hover: 228 16% 17%;
+
+  --text-primary: 40 25% 92%;
+  --text-secondary: 228 12% 72%;
+  --text-tertiary: 228 10% 64%;
+  --text-muted: 228 8% 40%;
+  --text-inverted: 228 28% 9%;
+
+  --border-subtle: 228 14% 17%;
+  --border-default: 228 12% 24%;
+  --border-strong: 228 10% 31%;
+  --border-interactive: 228 14% 66%;
+
+  --status-positive: 150 55% 52%;
+  --status-positive-subtle: 150 55% 52% / 0.12;
+  --status-warning: 38 92% 60%;
+  --status-warning-subtle: 38 92% 60% / 0.12;
+  --status-negative: 0 80% 70%;
+  --status-negative-subtle: 0 80% 70% / 0.12;
+  --status-neutral: 228 10% 64%;
+}
+
+/* The glow and the grid over the marketing band, in the accent's own hue. */
+.public-backdrop {
+  --public-glow-accent: hsl(223 41% 28% / 0.08);
+  --public-grid-stroke: hsl(228 20% 30% / 0.05);
+}
+.dark .public-backdrop {
+  --public-glow-accent: hsl(227 62% 76% / 0.1);
+  --public-grid-stroke: hsl(40 25% 92% / 0.04);
+}

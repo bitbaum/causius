@@ -32,7 +32,7 @@ const SECTIONS = [
   },
 ] as const;
 
-const linkClass = "inline-flex min-h-11 items-center transition-colors hover:text-fg-primary";
+const linkClass = "inline-flex min-h-11 min-w-11 items-center transition-colors hover:text-fg-primary";
 
 export async function SiteFooter() {
   const t = await getTranslations("Footer");
@@ -102,7 +102,10 @@ export async function SiteFooter() {
             <ul aria-label={t("fleet")} className="flex flex-wrap gap-x-6">
               {siblings.map((p) => (
                 <li key={p.slug}>
-                  <a href={p.url!} className="inline-flex min-h-11 items-center transition-colors hover:text-fg-primary">
+                  <a
+                    href={p.url!}
+                    className="inline-flex min-h-11 min-w-11 items-center justify-center px-2 transition-colors hover:text-fg-primary"
+                  >
                     {p.name}
                   </a>
                 </li>

@@ -39,8 +39,15 @@ Repo-only notes live below this line.
 - **This repository is public and the product handles legal letters.** No real
   person's letter, name, address or reference number goes into the code, the
   tests, the sample case or a commit message. `lib/sample.ts` is invented.
-- Design is `@bitbaum/design-tokens`; `app/globals.css` defines no token (see
-  README "Design"). Whether a capability works today is decided only in
+- Design starts in `@bitbaum/design-tokens`; **the look is decided only in
+  `app/theme.css`** (colours light and dark, faces, radius, headline and action
+  case), so "red and white" or "more gothic" stays a one-file edit; keep it so.
+  `lib/theme.test.ts` keeps any theme readable (WCAG AA). `app/globals.css`
+  defines no token (see README "Design").
+- **Words are a cost.** `lib/copy-budget.test.ts` holds Home, the quick check,
+  the case page, Helpers, Platform and Security to a word budget, and depth
+  lives one click away. Before adding a sentence, ask who reads it and what they
+  do next; if nobody does, cut it. Whether a capability works today is decided only in
   `lib/capabilities.ts`.
 - Matters (`lib/matters/`) are sealed per matter (`lib/crypto.ts`). Nothing
   readable about a person goes into a clear column: the participant alias is a

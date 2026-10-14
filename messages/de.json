@@ -17,7 +17,8 @@
     "security": "Sicherheit",
     "ecosystem": "Ökosystem",
     "menu": "Menü",
-    "skip": "Zum Inhalt springen"
+    "skip": "Zum Inhalt springen",
+    "dark": "Dunkler Modus"
   },
   "Footer": {
     "tagline": "Die Rechtsebene der Flotte: ein Agent, der die juristische Arbeit macht, und ein Mensch, der entscheidet.",
@@ -46,38 +47,11 @@
     "fleet": "Die Flotte"
   },
   "Home": {
-    "tiersTitle": "Drei Arten von Hilfe und eine ehrliche Grenze dazwischen",
-    "tiersLead": "Die meisten Rechtsprobleme beginnen als Papierkram, und für den meisten Papierkram braucht es keine Anwältin und keinen Anwalt. Für manchen schon. Causius hält den Unterschied sichtbar.",
-    "tiers": {
-      "ai": {
-        "name": "Causius KI",
-        "can": "Liest, übersetzt, listet auf, was verlangt wird, und entwirft eine Antwort.",
-        "limit": "Nur Rechtsinformation. Sie berät und vertritt Sie nicht."
-      },
-      "assistant": {
-        "name": "Rechtshelferinnen und Rechtshelfer",
-        "can": "Menschen, die den Papierkram kennen: Belege sammeln, Formulare, Einreichen, Übersetzen. Sie dürfen unter einem Pseudonym arbeiten.",
-        "limit": "Keine Anwältinnen und Anwälte. Sie helfen Ihnen bei der Erledigung; Rechtsberatung geben sie nicht."
-      },
-      "lawyer": {
-        "name": "Zugelassene Anwältinnen und Anwälte",
-        "can": "Am Ort Ihres Falls zugelassen; die Zulassung wird geprüft. Sie beraten und können Sie vertreten, und sie können unter einem Pseudonym auftreten, bis Sie sie beauftragen.",
-        "limit": "Die Zulassung gilt pro Rechtsordnung: Wer in einem Land zugelassen ist, darf nicht zum Recht eines anderen beraten."
-      },
-      "kicker": "Wer was macht"
-    },
-    "marketplaceLink": "Wie der Marktplatz funktioniert und wie man mitmacht",
-    "identity": {
-      "problem": "Das Problem",
-      "solution": "Was Causius dagegen tut",
-      "mission": "Auftrag",
-      "vision": "Vision"
-    },
     "hero": {
       "kicker": "Juristische Arbeit, Sie entscheiden",
       "line1": "Ihre Angelegenheit.",
       "line2": "Durchgearbeitet.",
-      "lede": "Causius ist ein KI-Arbeitsplatz für Rechtliches. Sagen Sie, was los ist, oder bringen Sie den Brief: Es findet, was gilt, und belegt es, hält Ihre Fristen, entwirft, was zu schreiben ist, und fragt Sie, bevor etwas Ihre Hände verlässt.",
+      "lede": "Sagen Sie, was los ist, oder bringen Sie den Brief. Causius findet die Regeln, hält Ihre Fristen und entwirft die Antwort. Nichts geht ohne Sie hinaus.",
       "open": "Angelegenheit eröffnen",
       "quick": "Brief prüfen, ohne Konto"
     },
@@ -86,69 +60,74 @@
       "title": "Einsprache gegen eine Steuerveranlagung",
       "s1": {
         "tool": "gesucht",
-        "text": "Einsprachefrist bei einer kantonalen Steuerveranlagung"
+        "text": "Einsprachefrist"
       },
       "s2": {
         "tool": "Frist",
-        "text": "Einsprache innert 30 Tagen ab Zustellung, zitiert aus dem Brief"
+        "text": "30 Tage ab Zustellung"
       },
       "s3": {
         "tool": "entworfen",
-        "text": "Einsprache mit Begründung, bereit zum Unterschreiben"
+        "text": "Einsprache, bereit zum Unterschreiben"
       },
       "s4": {
         "tool": "Ihr Entscheid",
         "text": "Eingeschrieben senden?"
-      },
-      "dueLabel": "Fällig",
-      "due": "2. Nov. 2026",
-      "waitLabel": "Wartet auf Sie",
-      "wait": "Senden freigeben"
+      }
     },
     "how": {
-      "kicker": "So funktioniert es",
       "title": "Sie entscheiden. Es macht die Arbeit.",
       "describe": {
         "title": "Sagen Sie, was los ist",
-        "body": "In Ihren eigenen Worten, auf Deutsch, Englisch oder Französisch. Fügen Sie den Brief, den Vertrag oder ein anderes Dokument hinzu; nur dessen Text wird aufbewahrt, verschlüsselt."
+        "body": "In Ihren eigenen Worten. Fügen Sie den Brief hinzu, wenn Sie ihn haben."
       },
       "work": {
-        "title": "Causius bearbeitet die Angelegenheit",
-        "body": "Es findet die Regeln, die gelten, und belegt sie, berechnet und erfasst die Fristen und entwirft die Einsprache, die Antwort oder den Vertrag, fertig zum Gebrauch."
+        "title": "Es bearbeitet die Angelegenheit",
+        "body": "Findet und belegt die Regeln, erfasst Fristen, entwirft die Antwort."
       },
       "approve": {
         "title": "Nichts geht ohne Sie hinaus",
-        "body": "Senden, Einreichen, Unterschreiben, Teilen und Bezahlen sind Vorschläge, die Sie freigeben oder ablehnen. Wo das Gesetz einen Schritt der Anwaltschaft vorbehält, sagt es das."
+        "body": "Senden, Einreichen, Unterschreiben und Bezahlen warten auf Ihre Freigabe."
       }
     },
     "privacy": {
-      "kicker": "Privat durch Bauweise",
       "title": "So gebaut, dass niemand Ihre Angelegenheit liest",
       "cta": "Wie die Sicherheit funktioniert",
       "redact": {
         "title": "Anonymisiert vor jedem Modell",
-        "body": "Namen, Adressen, Nummern und alle Wörter, die Sie hinzufügen, werden zu Platzhaltern, bevor ein Modell etwas gefragt wird, und erst auf unserem Server oder in Ihrem Browser wieder eingesetzt."
+        "body": "Namen, Adressen und Nummern werden zuerst zu Platzhaltern."
       },
       "sealed": {
         "title": "Verschlüsselt gespeichert",
-        "body": "Jede Angelegenheit hat ihren eigenen Schlüssel. Titel, Nachrichten, Fristen und Dokumente werden verschlüsselt gespeichert; die Datenbank allein nennt niemanden."
+        "body": "Jede Angelegenheit hat ihren eigenen Schlüssel."
       },
       "pseudonymous": {
-        "title": "Pseudonym auf allen Seiten",
-        "body": "Klienten, Rechtsassistenz und Anwälte können unter Pseudonym arbeiten. Die Zulassung einer Anwältin wird vertraulich geprüft und ihr Name dem Klienten bei der Mandatierung offengelegt."
+        "title": "Pseudonym möglich",
+        "body": "Alle dürfen unter Pseudonym auftreten."
       }
     },
-    "capabilities": {
-      "kicker": "Was heute echt ist",
-      "title": "Was es kann, und was als Nächstes kommt",
-      "lede": "Jede Zeile sagt, ob es heute funktioniert. Die Roadmap ist öffentlich, ebenso das Protokoll dessen, was ausgeliefert wurde.",
-      "roadmap": "Roadmap",
-      "changelog": "Änderungen"
+    "tiersTitle": "Drei Arten von Hilfe",
+    "tiers": {
+      "ai": {
+        "name": "Causius KI",
+        "can": "Liest, übersetzt, entwirft eine Antwort.",
+        "limit": "Information, keine Beratung."
+      },
+      "assistant": {
+        "name": "Rechtshelferinnen und Rechtshelfer",
+        "can": "Kennen den Papierkram: Belege, Formulare, Einreichen.",
+        "limit": "Keine Anwältinnen und Anwälte."
+      },
+      "lawyer": {
+        "name": "Zugelassene Anwältinnen und Anwälte",
+        "can": "Am Ort Ihres Falls zugelassen. Sie beraten und vertreten.",
+        "limit": "Die Zulassung gilt pro Land."
+      }
     },
+    "marketplaceLink": "Wie Helfende arbeiten",
     "fleet": {
-      "kicker": "Ein Konto, die ganze Flotte",
-      "title": "Die Rechtsebene eines grösseren Systems",
-      "lede": "Mit Ihrem OrangeCat-Konto melden Sie sich hier an, und dasselbe Konto öffnet OrangeCat, Solon und Loki. Jedes Produkt macht eine Sache; zusammen erlauben sie einer Person, was früher eine Kanzlei, eine Bank und ein Register brauchte.",
+      "title": "Ein Konto, die ganze Flotte",
+      "lede": "Mit Ihrem OrangeCat-Konto melden Sie sich hier an und öffnen OrangeCat, Solon und Loki.",
       "more": "Wie die Produkte zusammenpassen",
       "signedIn": "Zu Ihren Angelegenheiten"
     }
@@ -167,17 +146,17 @@
   },
   "NewCase": {
     "title": "Neuer Fall",
-    "lead": "Geben Sie Causius den Brief. Er geht zum Lesen an einen Anbieter von KI-Modellen und wird von Causius nicht gespeichert; das Ergebnis bleibt nur in diesem Browser.",
+    "lead": "Der Brief geht zum Lesen an ein KI-Modell. Causius speichert ihn nicht; das Ergebnis bleibt nur in diesem Browser.",
     "modelOwn": "Gelesen von Ihrem eigenen Modell, {model}.",
-    "modelFree": "Gelesen von kostenlosen, geteilten Modellen. Sie wechseln und haben ein kleines Tagesbudget.",
-    "modelFreeNoPhoto": "Gelesen von kostenlosen, geteilten Modellen. Sie wechseln und haben ein kleines Tagesbudget. Im Moment lesen sie eingefügten Text, aber keine Fotos.",
-    "modelOff": "Die kostenlosen, geteilten Modelle sind im Moment nicht eingeschaltet. Verbinden Sie Ihr eigenes Modell, um einen Brief zu analysieren, oder erfassen Sie ihn unten von Hand.",
+    "modelFree": "Kostenlose, geteilte Modelle, kleines Tagesbudget.",
+    "modelFreeNoPhoto": "Kostenlose, geteilte Modelle. Im Moment lesen sie eingefügten Text, keine Fotos.",
+    "modelOff": "Die kostenlosen, geteilten Modelle sind im Moment aus. Verbinden Sie Ihr eigenes Modell oder erfassen Sie den Brief unten von Hand.",
     "change": "Ändern",
     "useOwn": "Eigenes Modell verwenden",
     "textLabel": "Der Text des Briefs",
     "textPlaceholder": "Hier einfügen, in jeder Sprache.",
     "photoLabel": "Oder Fotos der Seiten",
-    "photoHint": "Bis zu {max} Seiten, in der richtigen Reihenfolge. JPEG, PNG oder WebP. Fotos werden in Ihrem Browser verkleinert, bevor sie gesendet werden.",
+    "photoHint": "Bis zu {max} Seiten, in der richtigen Reihenfolge. JPEG, PNG oder WebP.",
     "pages": "{count, plural, one {# Seite hinzugefügt} other {# Seiten hinzugefügt}}",
     "page": "Seite {n}",
     "removePage": "Seite {n} entfernen",
@@ -193,7 +172,7 @@
     "openSettings": "Modelleinstellungen öffnen",
     "byHand": {
       "title": "Von Hand erfassen",
-      "body": "Keine Analyse, aber der Brief und seine Frist bleiben beisammen, und die Falldatei kann einer helfenden Person übergeben werden. Sie haben schon eine Falldatei?",
+      "body": "Keine Analyse; der Brief und seine Frist bleiben beisammen. Sie haben schon eine Falldatei?",
       "import": "Importieren",
       "about": "Worum geht es?",
       "sender": "Wer hat ihn geschickt?",
@@ -202,17 +181,17 @@
       "original": "Original"
     },
     "errors": {
-      "not_configured": "Die kostenlosen, geteilten Modelle sind für diese Website im Moment nicht eingeschaltet. Sie können Ihr eigenes Modell verbinden oder den Brief von Hand erfassen und seine Frist im Blick behalten.",
-      "busy": "Kein Modell hat geantwortet. Das kostenlose, geteilte Budget für heute ist vielleicht aufgebraucht, oder ein Anbieter ist ausgefallen. Ihr eigenes Modell ist vom geteilten Budget nicht betroffen.",
-      "busy_own": "Ihr Modell hat nicht geantwortet. Vielleicht ist das Guthaben des Schlüssels aufgebraucht oder der Schlüssel wurde widerrufen. Prüfen Sie ihn in den Einstellungen oder entfernen Sie ihn, um die kostenlosen, geteilten Modelle zu verwenden.",
-      "no_vision": "Keines der im Moment verfügbaren Modelle kann ein Foto lesen. Fügen Sie stattdessen den Text des Briefs ein oder verbinden Sie ein eigenes Modell, das Bilder lesen kann.",
-      "rate_limited": "Das sind viele Briefe in kurzer Zeit. Die kostenlosen, geteilten Modelle erlauben einige pro Stunde, Ihr eigenes Modell viel mehr.",
+      "not_configured": "Die kostenlosen, geteilten Modelle sind im Moment aus. Verbinden Sie Ihr eigenes Modell oder erfassen Sie den Brief von Hand.",
+      "busy": "Kein Modell hat geantwortet. Das kostenlose Tagesbudget ist vielleicht aufgebraucht. Ihr eigenes Modell ist nicht betroffen.",
+      "busy_own": "Ihr Modell hat nicht geantwortet. Prüfen Sie den Schlüssel in den Einstellungen.",
+      "no_vision": "Kein verfügbares Modell kann ein Foto lesen. Fügen Sie den Text ein oder verbinden Sie ein Modell, das Bilder liest.",
+      "rate_limited": "Zu viele Briefe in kurzer Zeit. Ihr eigenes Modell erlaubt viel mehr.",
       "bad_own_model": "Ihre gespeicherten Modelleinstellungen konnten nicht verwendet werden. Richten Sie sie neu ein.",
-      "unreadable_analysis": "Das Modell hat geantwortet, aber nicht in einer Form, aus der Causius einen Fall machen konnte. Versuchen Sie es noch einmal; ein stärkeres Modell schafft das zuverlässiger.",
-      "empty": "Fügen Sie den Text des Briefs ein oder fügen Sie ein Foto davon hinzu.",
-      "bad_image": "Diese Datei konnte nicht als Foto verwendet werden. Senden Sie ein Bild im Format JPEG, PNG oder WebP.",
-      "too_many_pages": "Das sind mehr als {max} Seiten. Fügen Sie die Seiten hinzu, auf denen die Forderung und die Frist stehen.",
-      "offline": "Causius ist nicht erreichbar. Prüfen Sie Ihre Verbindung und versuchen Sie es noch einmal.",
+      "unreadable_analysis": "Aus der Antwort liess sich kein Fall machen. Versuchen Sie es noch einmal.",
+      "empty": "Fügen Sie den Text ein oder ein Foto hinzu.",
+      "bad_image": "Senden Sie ein Bild im Format JPEG, PNG oder WebP.",
+      "too_many_pages": "Mehr als {max} Seiten. Fügen Sie die Seiten mit der Forderung und der Frist hinzu.",
+      "offline": "Causius ist nicht erreichbar. Prüfen Sie Ihre Verbindung.",
       "unknown": "Die Analyse ist nicht durchgegangen. Versuchen Sie es in einer Minute noch einmal."
     }
   },
@@ -223,8 +202,8 @@
     "dueToday": "Heute fällig",
     "passed": "{days, plural, one {Seit # Tag abgelaufen} other {Seit # Tagen abgelaufen}}",
     "deadlineSource": "Im Brief steht:",
-    "checkDeadline": "Vergleichen Sie dieses Datum mit Ihrem Brief, bevor Sie sich darauf verlassen.",
-    "noDeadline": "Im Brief wurde kein Antwortdatum gefunden. Suchen Sie selbst nach einer Frist.",
+    "checkDeadline": "Vergleichen Sie es mit Ihrem Brief.",
+    "noDeadline": "Kein Antwortdatum gefunden. Suchen Sie im Brief selbst danach.",
     "ifNothing": "Wenn Sie nichts tun:",
     "facts": {
       "from": "Von",
@@ -238,7 +217,7 @@
     "letterTitle": "Der Brief",
     "language": "Sprache",
     "draftTitle": "Antwortentwurf",
-    "draftHint": "Ein Ausgangspunkt, nichts zum unveränderten Absenden. Füllen Sie jede [Klammer] mit Ihren eigenen, wahren Angaben.",
+    "draftHint": "Ein Ausgangspunkt. Füllen Sie jede [Klammer] mit Ihren eigenen, wahren Angaben.",
     "copy": "Kopieren",
     "copied": "Kopiert",
     "notesTitle": "Gut zu wissen",
@@ -249,14 +228,14 @@
       "lawyer": "Zugelassene Anwältin oder zugelassener Anwalt"
     },
     "findHelper": "Hilfe finden",
-    "aiNotice": "Von einem KI-Modell geschrieben. Es kann sich irren: Massgebend ist der Brief selbst.",
+    "aiNotice": "Von einem KI-Modell geschrieben; es kann sich irren. Massgebend ist der Brief.",
     "export": "Vollständige Falldatei exportieren",
     "saveCopy": "Kopie in meinen Fällen speichern",
     "delete": "Fall löschen",
     "deleteConfirm": "Diesen Fall aus diesem Browser löschen? Das lässt sich nicht rückgängig machen.",
-    "sampleBanner": "Beispiel. Person, Daten und Referenznummer sind erfunden.",
+    "sampleBanner": "Beispiel. Alle Angaben sind erfunden.",
     "notHereTitle": "Dieser Fall ist nicht auf diesem Gerät",
-    "notHereBody": "Fälle bleiben in dem Browser, in dem sie erstellt wurden. Haben Sie die exportierte Datei, können Sie sie importieren.",
+    "notHereBody": "Fälle bleiben in dem Browser, der sie erstellt hat. Importieren Sie stattdessen eine exportierte Datei.",
     "goCases": "Zu meinen Fällen",
     "exportAnon": "Für Helfende exportieren (anonymisiert)"
   },
@@ -265,49 +244,49 @@
     "metaDescription": "Der Marktplatz von Causius: Rechtshelferinnen und Rechtshelfer für den Papierkram, zugelassene Anwältinnen und Anwälte für Beratung und Vertretung.",
     "eyebrow": "Marktplatz",
     "title": "Menschen, die helfen, wenn die KI nicht reicht",
-    "lead": "Zwei Arten von Menschen arbeiten an Causius-Fällen. Was sie unterscheidet, ist nicht Preis oder Rang, sondern das, was das Gesetz ihnen jeweils erlaubt. Keine von ihnen muss wissen, wer Sie sind, und Sie müssen nicht wissen, wer sie sind, bis Sie jemanden beauftragen.",
+    "lead": "Zwei Arten von Menschen helfen. Was sie unterscheidet, ist das, was das Gesetz ihnen jeweils erlaubt.",
     "noneTitle": "Es ist noch niemand aufgeführt.",
-    "noneBody": "Causius vermittelt und prüft noch niemanden. Bis dahin nutzen Sie die Falldatei bei einer Anwältin, einem Anwalt oder einer Beratungsstelle, die Sie selbst finden: Sie ist zum Weitergeben gemacht.",
+    "noneBody": "Causius vermittelt und prüft noch niemanden. Geben Sie die Falldatei bis dahin einer Anwältin, einem Anwalt oder einer Beratungsstelle, die Sie selbst finden.",
     "listedUnder": "Aufgeführt unter: {identity}",
     "assistant": {
       "name": "Rechtshelferin oder Rechtshelfer",
       "identity": "Name oder Pseudonym",
-      "does1": "Erklärt das Verfahren und was ein Amt üblicherweise erwartet",
-      "does2": "Hilft, Belege zu sammeln und zu ordnen",
-      "does3": "Füllt mit Ihnen Formulare aus, übersetzt, bereitet die Eingabe vor",
-      "doesNot": "Gibt keine Rechtsberatung, nimmt zu Ihrem Fall nicht Stellung und vertritt Sie nicht.",
-      "checks": "Geplant: Ein Ruf, der durch abgeschlossene Fälle entsteht, bestätigt von der Person, der geholfen wurde. Ein Pseudonym behält seine Geschichte und lässt sich deshalb nicht abstreifen."
+      "does1": "Erklärt das Verfahren",
+      "does2": "Hilft, Belege zu sammeln",
+      "does3": "Füllt Formulare aus, übersetzt, bereitet die Eingabe vor",
+      "doesNot": "Gibt keine Rechtsberatung und vertritt Sie nicht.",
+      "checks": "Geplant: ein Ruf, der durch abgeschlossene Fälle entsteht."
     },
     "lawyer": {
       "name": "Zugelassene Anwältin oder zugelassener Anwalt",
       "identity": "Name oder Pseudonym; Zulassung vertraulich geprüft",
       "does1": "Berät Sie zu Ihren Rechten und Möglichkeiten",
       "does2": "Prüft oder schreibt, was Sie einreichen",
-      "does3": "Vertritt Sie vor der Behörde oder dem Gericht",
-      "doesNot": "Nur für die Rechtsordnungen, in denen sie zugelassen sind; diese stehen im Profil.",
-      "checks": "Geplant: Die Zulassung wird vertraulich im öffentlichen Anwaltsregister der jeweiligen Rechtsordnung geprüft, bevor ein Profil diese Bezeichnung trägt, und danach erneut. Eine Anwältin oder ein Anwalt kann unter einem Pseudonym auftreten; den Namen erfahren Sie, wenn Sie den Auftrag erteilen, weil das Gesetz die Berufspflichten an den Namen knüpft."
+      "does3": "Vertritt Sie vor Behörde und Gericht",
+      "doesNot": "Nur dort, wo zugelassen; das steht im Profil.",
+      "checks": "Geplant: Die Zulassung wird im öffentlichen Anwaltsregister geprüft."
     },
     "wantTitle": "Möchten Sie helfen?",
-    "wantBody": "Helfende sind keine Causius-Konten. Sie bieten Ihre Hilfe als Dienstleistung auf OrangeCat an, unter Ihrem Namen oder einem Pseudonym, und werden dort direkt von der Person bezahlt, der Sie geholfen haben. Eine Dienstleistung können Sie schon heute eintragen. Causius übernimmt diese Einträge noch nicht, kennzeichnet sie nicht und prüft keine Anwaltszulassung; das ist der nächste Schritt auf der Roadmap.",
+    "wantBody": "Bieten Sie Ihre Hilfe als Dienstleistung auf OrangeCat an, unter Ihrem Namen oder einem Pseudonym, und werden Sie dort direkt bezahlt. Causius führt, kennzeichnet und prüft diese Einträge noch nicht; das ist der nächste Schritt auf der Roadmap.",
     "offer": "Dienstleistung auf OrangeCat anbieten",
     "seeRoadmap": "Roadmap ansehen",
     "rulesTitle": "Die Regeln",
     "rules": {
       "label": {
         "title": "Die Bezeichnung ist das Gesetz",
-        "body": "Wer Rechtsberatung geben darf, legt jedes Land selbst fest, und fast überall ist sie zugelassenen Anwältinnen und Anwälten vorbehalten. Die Bezeichnung einer helfenden Person sagt, auf welcher Seite dieser Grenze sie steht, und darüber hinaus darf sie nicht arbeiten."
+        "body": "Wer Rechtsberatung geben darf, legt jedes Land fest, fast immer ist sie Anwältinnen und Anwälten vorbehalten. Die Bezeichnung sagt, auf welcher Seite eine helfende Person steht."
       },
       "pseudonym": {
         "title": "Pseudonym auf allen Seiten",
-        "body": "Hilfesuchende, Rechtshelfende sowie Anwältinnen und Anwälte können alle unter einem Pseudonym auftreten. Causius prüft vertraulich, was stimmen muss – dass eine Anwältin oder ein Anwalt zugelassen ist –, und zeigt nur, was nötig ist. Viele, die ein System am besten kennen, haben es selbst durchlaufen und möchten dafür nicht mit ihrem Namen einstehen."
+        "body": "Alle dürfen unter Pseudonym auftreten; Causius prüft vertraulich nur, was stimmen muss."
       },
       "share": {
         "title": "Sie bestimmen, was eine helfende Person sieht",
-        "body": "Eine helfende Person bekommt die Falldatei, die Sie ihr geben, und sonst nichts – und diese Datei ist standardmässig anonymisiert: der Fall, die Frist und der Brief, mit ersetztem Namen, ersetzter Adresse und ersetzten Nummern. Ob und wann Sie mehr sagen, entscheiden Sie."
+        "body": "Sie bekommt nur die Falldatei, die Sie übergeben, standardmässig anonymisiert."
       },
       "place": {
-        "title": "Jede Rechtsordnung, eine nach der anderen",
-        "body": "Ein Fall nennt seinen Ort. Helfende werden nach diesem Ort, dem Rechtsgebiet und einer gemeinsamen Sprache zugeordnet."
+        "title": "Eine Rechtsordnung nach der anderen",
+        "body": "Helfende werden nach Ort, Rechtsgebiet und gemeinsamer Sprache zugeordnet."
       }
     },
     "start": "Fall eröffnen"
@@ -397,16 +376,16 @@
   },
   "Matters": {
     "title": "Fälle",
-    "lead": "Ein Fall ist alles Rechtliche, das erledigt werden muss: ein Brief, ein Vertrag, ein Streit, eine Firma, die gegründet werden soll. Causius bearbeitet ihn mit Ihnen, hält jede Frist im Blick und fragt, bevor etwas den Fall verlässt.",
+    "lead": "Ein Fall ist alles Rechtliche, das erledigt werden muss. Causius bearbeitet ihn mit Ihnen, hält jede Frist im Blick und fragt, bevor etwas den Fall verlässt.",
     "signInTitle": "Anmelden, um Fälle zu behalten",
-    "signInLead": "Fälle werden auf dem Server gespeichert, jeder mit einem eigenen Schlüssel verschlüsselt, damit Sie von jedem Gerät aus weiterarbeiten können. Sie melden sich mit OrangeCat an und können dort ein Pseudonym sein.",
+    "signInLead": "Fälle werden versiegelt mit eigenem Schlüssel gespeichert, damit Sie von jedem Gerät zurückkehren können. Melden Sie sich mit OrangeCat an; ein Pseudonym genügt.",
     "signIn": "Mit OrangeCat anmelden",
     "signInOff": "Die Anmeldung ist für diese Website noch nicht eingeschaltet.",
     "quickCheckSignedOut": "Oder einen Brief ohne Konto prüfen",
     "newTitle": "Einen Fall eröffnen",
     "newLead": "Sagen Sie in eigenen Worten, worum es geht. Causius fragt nach, was es braucht.",
     "situation": "Worum geht es?",
-    "situationPlaceholder": "Zum Beispiel: Ich habe eine zu hohe Steuerveranlagung erhalten und will Einsprache erheben. Oder: Mein Vermieter behält die Kaution.",
+    "situationPlaceholder": "Zum Beispiel: eine Steuerveranlagung, gegen die ich Einsprache erheben will, oder ein Vermieter, der die Kaution behält.",
     "where": "Wo",
     "whereUnknown": "Unklar / Causius soll es herausfinden",
     "federal": "Schweiz (Bund)",
@@ -533,7 +512,7 @@
   "Entry": {
     "signUp": "Konto erstellen",
     "signIn": "Ich habe schon ein Konto",
-    "cost": "Ein OrangeCat-Konto für Causius, OrangeCat, Solon und Loki. E-Mail und Passwort, ein Code per E-Mail, Google oder GitHub: wie Sie möchten. Ein Pseudonym ist möglich. Keine Wallet nötig."
+    "cost": "Ein OrangeCat-Konto öffnet Causius, Solon und Loki. Ein Pseudonym genügt."
   },
   "Capabilities": {
     "status": {
@@ -543,116 +522,117 @@
     },
     "letters": {
       "name": "Einen amtlichen Brief lesen",
-      "body": "Einfügen oder fotografieren: was er sagt, was er von Ihnen verlangt, die Frist samt dem Satz, aus dem sie stammt, eine Übersetzung und ein Antwortentwurf. Ohne Konto; Namen werden zuerst in Ihrem Browser entfernt."
+      "body": "Einfügen oder fotografieren: was er verlangt, die Frist mit dem Satz, aus dem sie stammt, eine Übersetzung, ein Antwortentwurf. Ohne Konto."
     },
     "matters": {
       "name": "Eine Angelegenheit mit einem Agenten bearbeiten",
-      "body": "Ein Arbeitsbereich pro Angelegenheit: das Gespräch, Recherche mit nummerierten Quellen, Fristen, Aufgaben, Entwürfe und Dokumente, hinter Ihrem Konto."
+      "body": "Ein Arbeitsbereich pro Angelegenheit: Gespräch, belegte Recherche, Fristen, Aufgaben, Entwürfe, Dokumente."
     },
     "approvals": {
       "name": "Nichts geht ohne Ihre Zustimmung hinaus",
-      "body": "Senden, Einreichen, Unterschreiben, Teilen und Bezahlen sind Vorschläge, die auf Ihren Entscheid warten, festgehalten in der Angelegenheit."
+      "body": "Senden, Einreichen, Unterschreiben, Teilen und Bezahlen warten auf Ihren Entscheid."
     },
     "models": {
       "name": "Jedes Modell, auch Ihr eigenes",
-      "body": "Standardmässig freie, geteilte Modelle, oder Ihr eigener Schlüssel bei einem von zehn Anbietern, darunter OpenAI, Anthropic, Google und Mistral. Der Schlüssel bleibt in Ihrem Browser."
+      "body": "Freie, geteilte Modelle, oder Ihr eigener Schlüssel bei einem von zehn Anbietern. Der Schlüssel bleibt in Ihrem Browser."
     },
     "domains": {
       "name": "Einen Namen prüfen, bevor Sie darauf gründen",
-      "body": "Der Agent fragt die Domain-Registries selbst, ob ein Name registriert ist, für jede Top-Level-Domain, bevor er ihn empfiehlt."
+      "body": "Der Agent fragt die Domain-Registries, ob ein Name vergeben ist."
     },
     "marketplace": {
       "name": "Rechtsassistenz und Anwälte",
-      "body": "Ein Marktplatz, auf dem zugelassene Anwältinnen und Anwälte und pseudonyme Rechtsassistenten ihre Arbeit anbieten, über Preis und Qualität konkurrieren und über OrangeCat bezahlt werden."
+      "body": "Zugelassene Anwältinnen und Anwälte und pseudonyme Rechtsassistenten bieten ihre Arbeit an und werden über OrangeCat bezahlt."
     },
     "formation": {
       "name": "Gründen und eintragen",
-      "body": "Firmen, Vereine und Registereinträge, vom Agenten durchgehend vorbereitet und mit Ihrer Zustimmung eingereicht."
+      "body": "Firmen und Vereine, vom Agenten vorbereitet und mit Ihrer Zustimmung eingereicht."
     },
     "contracts": {
       "name": "Verträge, die sich selbst einhalten",
-      "body": "Hier entworfene, von den Parteien unterschriebene Verträge, jede Pflicht verfolgt und, wo die Parteien es wollen, das Geld treuhänderisch gehalten, bis sie erfüllt ist."
+      "body": "Von den Parteien unterschriebene Verträge, Pflichten verfolgt, auf Wunsch das Geld treuhänderisch gehalten."
     },
     "law": {
       "name": "Recht als Daten, aus Solon",
-      "body": "Gesetze, Verfahren und Rechtsordnungen als versionierte, zitierbare Daten, sodass jede Antwort auf die genaue Regel zeigt, die sie angewandt hat."
+      "body": "Gesetze und Verfahren als zitierbare Daten, sodass jede Antwort auf ihre Regel zeigt."
     },
     "firms": {
       "name": "Kanzleien mit eigenen Modellen",
-      "body": "Kanzleien betreiben Causius mit Modellen innerhalb ihrer eigenen Mauern, sodass Mandantendaten die Kanzlei nie verlassen."
+      "body": "Kanzleien betreiben Causius mit Modellen innerhalb ihrer eigenen Mauern."
     }
   },
   "Platform": {
     "metaTitle": "Wie Causius gebaut ist",
-    "metaDescription": "Die Architektur von Causius: ein Agent, der juristische Arbeit an einem verschlüsselten Dossier macht, während jede persönliche Angabe vor den Modellen verborgen bleibt.",
+    "metaDescription": "Die Architektur von Causius: ein Agent, der juristische Arbeit an einer versiegelten Falldatei erledigt, ohne dass die Modelle persönliche Angaben sehen.",
     "kicker": "Plattform",
     "title": "Wie Causius gebaut ist, und warum",
-    "lede": "Rechtshilfe ist teuer, weil juristische Arbeit langsam ist, und langsam ist sie, weil sie von Hand gemacht wird. Causius ist ein Agent, der die Arbeit macht, und ein Mensch, der entscheidet, so gebaut, dass privat bleibt, was es bearbeitet, und überprüfbar, was es behauptet.",
+    "lede": "Juristische Arbeit ist langsam, weil sie von Hand gemacht wird. Causius ist ein Agent, der die Arbeit macht, und ein Mensch, der entscheidet, so gebaut, dass privat bleibt, was es bearbeitet, und überprüfbar, was es behauptet.",
     "why": {
       "title": "Warum es das braucht",
-      "p1": "Die meisten Rechtsprobleme kommen nie vor Gericht. Es ist ein Brief mit einer Frist, ein Formular, eine Einsprache, ein Vertrag, ein Registereintrag: Arbeit mit klaren Regeln, die nach Stunden verrechnet wird, weil niemand sie automatisiert hat.",
-      "p2": "Sprachmodelle können vieles davon heute erledigen, aber ein Chatfenster ist die falsche Form dafür. Es vergisst die Frist, führt kein Dossier und schickt alles, was Sie tippen, an den Betreiber des Modells.",
-      "p3": "Darum hat Causius die Form eines Dossiers mit einem Agenten daran, nicht die eines Chats. Anwälte bleiben, wo das Gesetz sie hinstellt; alles andere wird erledigt."
+      "p1": "Die meisten Rechtsprobleme sind ein Brief mit einer Frist, ein Formular oder ein Vertrag: Arbeit mit klaren Regeln, nach Stunden verrechnet, weil niemand sie automatisiert hat.",
+      "p3": "Darum ist Causius eine Falldatei mit einem Agenten daran, kein Chat. Anwälte bleiben, wo das Gesetz sie hinstellt; alles andere wird erledigt."
+    },
+    "capabilities": {
+      "title": "Was heute echt ist",
+      "lede": "Jede Zeile sagt, ob es funktioniert. Roadmap und Änderungsprotokoll sind öffentlich.",
+      "roadmap": "Roadmap",
+      "changelog": "Änderungen"
+    },
+    "identity": {
+      "problem": "Das Problem",
+      "solution": "Was Causius dagegen tut",
+      "mission": "Auftrag",
+      "vision": "Vision"
     },
     "architecture": {
       "kicker": "Architektur",
       "title": "Fünf Ebenen, jede mit einer Aufgabe",
       "intake": {
         "title": "Erfassung, in Ihrem Browser",
-        "body": "Die Schnellprüfung liest Briefe und Fotos auf Ihrem eigenen Gerät. Namen, Adressen und Nummern werden durch Platzhalter ersetzt, bevor etwas gesendet wird, und Fotos lassen sich vorher von Hand schwärzen."
+        "body": "Briefe und Fotos werden auf Ihrem Gerät gelesen. Namen, Adressen und Nummern werden zu Platzhaltern, bevor etwas gesendet wird."
       },
       "matter": {
         "title": "Die Angelegenheit",
-        "body": "Ein Datensatz pro Angelegenheit: Gespräch, Fakten, Fristen, Aufgaben, Entscheide und Dokumente. Ein Schema, gemeinsam für Analyse, Speicher und Export, und versiegelt mit einem eigenen Schlüssel."
+        "body": "Ein versiegelter Datensatz pro Angelegenheit: Gespräch, Fakten, Fristen, Aufgaben, Entscheide, Dokumente."
       },
       "agent": {
         "title": "Der Agent",
-        "body": "Eine Schleife von Werkzeugen: im Web nach Quellen suchen und sie lesen, Fristen, Aufgaben und Fakten erfassen, Dokumente entwerfen, Domainnamen prüfen, um Zustimmung bitten. Die Angelegenheit darf er frei ändern; alles, was auf die Welt wirkt, kann er nur vorschlagen."
+        "body": "Eine Schleife von Werkzeugen, die sucht, Fristen und Fakten erfasst und entwirft. Die Angelegenheit darf er ändern; alles, was auf die Welt wirkt, kann er nur vorschlagen."
       },
       "models": {
         "title": "Modelle",
-        "body": "Modellunabhängig über das Modell-Kit der Flotte: eine Kette freier Modelle mit Zustandsüberwachung oder Ihr eigener Schlüssel bei einem von zehn Anbietern. Kein Hersteller-SDK und kein festes Modell, also ist ein besseres Modell eine Einstellung, kein Umbau."
+        "body": "Modellunabhängig: eine Kette freier Modelle oder Ihr eigener Schlüssel bei einem von zehn Anbietern. Ein besseres Modell ist eine Einstellung, kein Umbau."
       },
       "identity": {
         "title": "Identität und Geld",
-        "body": "Die Anmeldung läuft über OrangeCat, mit OpenID Connect und PKCE. Causius führt keine Benutzertabelle und kein Passwort, nur eine Konto-ID. Auch das Bezahlen von Helfern, mit Treuhand, wird über OrangeCat laufen."
+        "body": "Die Anmeldung läuft über OrangeCat, mit OpenID Connect. Causius führt keine Benutzertabelle und kein Passwort, nur eine Konto-ID. Auch das Bezahlen von Helfenden wird über OrangeCat laufen."
       }
-    },
-    "turn": {
-      "title": "Ein Durchgang, von Anfang bis Ende",
-      "lede": "Was zwischen Ihrer Nachricht und der Antwort geschieht.",
-      "s1": "Sie schreiben oder fügen ein Dokument hinzu. Nur dessen Text wird aufbewahrt, versiegelt.",
-      "s2": "Die Angelegenheit wird mit ihrem eigenen Schlüssel geöffnet und zusammengestellt: Fakten, offene Fristen, wartende Entscheide, Dokumente.",
-      "s3": "Jede persönliche Angabe darin wird zum Platzhalter. Das Modell liest [NAME-1], nie den Namen.",
-      "s4": "Das Modell arbeitet mit Werkzeugen, bis zu sechs Runden: suchen, lesen, Fristen erfassen, entwerfen. Die Argumente werden auf dem Server wieder eingesetzt, kurz bevor ein Werkzeug läuft.",
-      "s5": "Was die Angelegenheit verlassen würde, wird zu einem Vorschlag, der auf Sie wartet.",
-      "s6": "Die Antwort wird wiederhergestellt, ihre Quellen nummeriert und der Durchgang in der Angelegenheit versiegelt."
     },
     "principles": {
       "title": "Grundsätze",
       "human": {
         "title": "Ein Mensch gibt frei, was zählt",
-        "body": "Der Agent macht die Arbeit; ein Mensch entscheidet, was hinausgeht. Diese eine Regel macht es sicher, ihn alles andere tun zu lassen."
+        "body": "Der Agent macht die Arbeit; ein Mensch entscheidet, was hinausgeht."
       },
       "honest": {
         "title": "Nichts behauptet, was nicht stimmt",
-        "body": "Kein erfundenes Gesetz, keine erfundene Frist, kein Helfer, keine Bewertung, kein Erfahrungsbericht. Causius gibt rechtliche Informationen, keine Beratung: Wer beraten darf, bestimmt das Gesetz, nicht wir."
+        "body": "Kein erfundenes Gesetz, keine erfundene Frist, keine erfundenen Helfenden oder Erfahrungsberichte. Causius gibt rechtliche Informationen, keine Beratung."
       },
       "open": {
         "title": "Open Source",
-        "body": "Jede Zeile ist öffentlich, unter der MIT-Lizenz. Alle können nachlesen, wie ein Brief behandelt wird, die Aussagen dieser Seite am Code prüfen und es selbst betreiben."
+        "body": "Jede Zeile ist öffentlich, unter der MIT-Lizenz."
       },
       "shared": {
         "title": "Aus gemeinsamen Teilen gebaut",
-        "body": "Design, Anmeldung, Chat, Modelle, Ratenbegrenzung und das öffentliche Protokoll stammen aus Paketen, die die ganze Flotte nutzt. Eine Korrektur, einmal gemacht, erreicht jedes Produkt."
+        "body": "Design, Anmeldung, Chat, Modelle und das öffentliche Protokoll stammen aus Paketen, die die ganze Flotte nutzt."
       }
     },
     "stack": {
       "title": "Der Stack",
-      "lede": "Langweilig, wo es geht, geteilt, wo zwei Produkte dasselbe brauchen.",
+      "lede": "Langweilig, wo es geht.",
       "framework": {
         "label": "Framework",
-        "value": "Next.js 16 · React 19 · TypeScript, strikt"
+        "value": "Next.js 16 · React 19 · TypeScript, strict"
       },
       "data": {
         "label": "Daten",
@@ -694,7 +674,7 @@
     "next": {
       "kicker": "Wohin es geht",
       "title": "Vom Brief zur rechtlichen Existenz",
-      "lede": "Causius trägt die juristische Arbeit: Angelegenheiten, Gründungen und Registereinträge, und das Einhalten von Verträgen. Das Recht selbst (Gesetze, Rechtsordnungen, Verfahren) gehört in Solon, als Daten, die jedes Produkt zitieren kann. Als Nächstes kommt der Marktplatz für Anwälte und Rechtsassistenz, bezahlt über OrangeCat.",
+      "lede": "Causius trägt die juristische Arbeit: Angelegenheiten, Gründungen und Registereinträge, Verträge. Das Recht selbst gehört in Solon, als Daten, die jedes Produkt zitieren kann. Als Nächstes kommt der Marktplatz für Anwälte und Rechtsassistenz, bezahlt über OrangeCat.",
       "roadmap": "Zur Roadmap",
       "ecosystem": "Zum Ökosystem",
       "source": "Zum Quellcode"
@@ -705,49 +685,49 @@
     "metaDescription": "Wie Causius Rechtsangelegenheiten privat hält: Anonymisierung vor jedem Modell, Verschlüsselung pro Angelegenheit, ein abgeriegelter Browser und Freigaben, die nur der Eigentümer erteilt.",
     "kicker": "Sicherheit",
     "title": "Privat durch Bauweise",
-    "lede": "Causius bearbeitet amtliche Briefe: Namen, Adressen, Aufenthalt, Geld. Jede Garantie unten ist eine Eigenschaft des Codes, und der ist öffentlich. Keine verlangt, dass Sie uns vertrauen.",
+    "lede": "Causius bearbeitet amtliche Briefe. Jede Garantie unten ist eine Eigenschaft des öffentlichen Codes. Keine verlangt, dass Sie uns vertrauen.",
     "anon": {
       "title": "Modelle erfahren nicht, um wen es geht",
-      "body": "Bevor ein Text an ein Modell geht, werden persönliche Angaben durch Platzhalter ersetzt und erst nach der Antwort wieder eingesetzt. Die automatische Erkennung ist gut, aber nicht lückenlos: Prüfen Sie vor dem Senden, was verborgen wird.",
-      "d1": "Automatisch erkannt: Namen in Anreden und Adressblöcken, Strassenadressen, Postleitzahlen, E-Mail-Adressen, Telefonnummern, IBAN, AHV-Nummern, Referenzen und Geburtsdaten.",
-      "d2": "Ihre eigenen Wörter zum Verbergen kommen immer dazu, ebenso der Name auf Ihrem Konto.",
-      "d3": "Bei der Schnellprüfung geschieht das in Ihrem Browser, bevor der Brief Ihr Gerät verlässt.",
-      "d4": "Auch was der Agent im Web sucht, geht mit den Platzhaltern hinaus: Eine Suchmaschine sieht den Namen nie.",
-      "d5": "Die einzige Ausnahme ist Ihre Stimme. Wenn Sie sprechen statt tippen, geht die Aufnahme an einen Spracherkennungsdienst, der sie in Text umwandelt; eine Stimme lässt sich nicht vorher verbergen. Causius speichert sie nicht, Sie können den Text vor dem Senden ändern, und beim Tippen kommt sie nie ins Spiel."
+      "body": "Bevor ein Text an ein Modell geht, werden persönliche Angaben zu Platzhaltern und erst nach der Antwort wieder eingesetzt. Die Erkennung ist gut, aber nicht lückenlos: Prüfen Sie, was verborgen wird.",
+      "d1": "Automatisch erkannt: Namen, Adressen, Postleitzahlen, E-Mail-Adressen, Telefonnummern, IBAN, AHV-Nummern, Referenzen, Geburtsdaten.",
+      "d2": "Ihre eigenen Wörter zum Verbergen kommen immer dazu.",
+      "d3": "Bei der Schnellprüfung geschieht das in Ihrem Browser.",
+      "d4": "Auch Websuchen gehen mit Platzhaltern hinaus.",
+      "d5": "Die Ausnahme ist Ihre Stimme: Die Aufnahme geht an einen Spracherkennungsdienst und lässt sich nicht vorher verbergen. Causius speichert sie nicht, und beim Tippen kommt sie nie ins Spiel."
     },
     "sealed": {
       "title": "Verschlüsselt gespeichert",
-      "body": "Jede Angelegenheit hat ihren eigenen Datenschlüssel, selbst versiegelt mit einem Hauptschlüssel, der nie in der Datenbank liegt.",
-      "d1": "AES-256-GCM, für jeden Wert eine neue Nonce, jeder an seine Angelegenheit und seinen Zweck gebunden, sodass er sich nicht in eine andere verschieben lässt.",
-      "d2": "Titel, Nachrichten, Fakten, Fristen, Entscheide und Dokumenttext sind versiegelt. Im Klartext steht nur, was Sortieren und Zuordnen brauchen: Daten, Status, das Kürzel der Rechtsordnung, Grössen.",
+      "body": "Jede Angelegenheit hat ihren eigenen Datenschlüssel, versiegelt mit einem Hauptschlüssel, der nie in der Datenbank liegt.",
+      "d1": "AES-256-GCM, für jeden Wert eine neue Nonce, gebunden an Angelegenheit und Zweck.",
+      "d2": "Titel, Nachrichten, Fakten, Fristen, Entscheide und Dokumenttext sind versiegelt; im Klartext stehen nur Daten, Status, Grössen und das Kürzel der Rechtsordnung.",
       "d3": "Ohne den Hauptschlüssel ist eine Kopie der Datenbank Rauschen."
     },
     "minimal": {
       "title": "Nichts behalten, was nicht nötig ist",
-      "body": "Ein Upload wird auf seinen Text reduziert und die Datei selbst verworfen. Ein ohne Konto geprüfter Brief wird gar nicht gespeichert.",
-      "d1": "Keine Benutzertabelle, keine Passwörter: Die Anmeldung gehört OrangeCat, Causius behält nur eine Konto-ID.",
-      "d2": "Protokolle halten fest, welches Modell einen Durchgang bedient hat, nie was gesagt wurde. Keine Analytik. Das einzige zusätzliche Skript ist das optionale Feedback-Widget; es sendet nur, was Sie hineinschreiben."
+      "body": "Ein Upload wird auf seinen Text reduziert. Ein ohne Konto geprüfter Brief wird nicht gespeichert.",
+      "d1": "Keine Benutzertabelle, keine Passwörter: nur eine OrangeCat-Konto-ID.",
+      "d2": "Protokolle halten fest, welches Modell einen Durchgang bedient hat, nie was gesagt wurde. Keine Analytik. Das einzige zusätzliche Skript ist das optionale Feedback-Widget."
     },
     "browser": {
       "title": "Ein abgeriegelter Browser",
-      "body": "Jede Seite wird mit einer strengen Content Security Policy ausgeliefert.",
-      "d1": "Skripte laufen nur mit einer Nonce, die für genau diese eine Anfrage erzeugt wurde, und eine Seite darf mit Causius sprechen und mit nichts sonst.",
-      "d2": "Kein Einbetten in fremde Seiten, kein Referrer, HSTS und ein isolierter Ursprung.",
+      "body": "Jede Seite trägt eine strenge Content Security Policy.",
+      "d1": "Skripte laufen nur mit einer Nonce pro Anfrage, und eine Seite darf mit Causius sprechen und mit nichts sonst.",
+      "d2": "Kein Einbetten, kein Referrer, HSTS.",
       "d3": "Antworten der API werden nie zwischengespeichert."
     },
     "access": {
       "title": "Nur Sie entscheiden",
-      "body": "Eine Angelegenheit öffnet sich nur für die Beteiligten. Alle anderen erhalten dieselbe Antwort wie bei einer Angelegenheit, die es nicht gibt.",
-      "d1": "Handlungen, die die Angelegenheit verlassen, sind Vorschläge, die nur ihr Eigentümer freigeben kann, und ein Entscheid ist endgültig.",
-      "d2": "Grenzen pro Konto verhindern, dass die geteilten Modelle leergesaugt werden.",
-      "d3": "Wer eine Angelegenheit löscht, löscht alles darin: Nachrichten, Fristen, Entscheide und Dokumente."
+      "body": "Eine Angelegenheit öffnet sich nur für die Beteiligten. Alle anderen erhalten die Antwort, die es für eine fehlende Angelegenheit gibt.",
+      "d1": "Handlungen, die die Angelegenheit verlassen, sind Vorschläge, die nur ihr Eigentümer freigeben kann.",
+      "d2": "Grenzen pro Konto schützen die geteilten Modelle.",
+      "d3": "Wer eine Angelegenheit löscht, löscht alles darin."
     },
     "breach": {
       "title": "Wenn etwas schiefginge",
-      "lede": "Was jede Seite in der Hand hätte, wenn ihr das Schlimmste passierte.",
+      "lede": "Was jede Seite in der Hand hätte, wenn das Schlimmste passierte.",
       "database": {
         "title": "Eine gestohlene Datenbank",
-        "body": "Chiffretext, Konto-IDs und Daten. Keine Namen, keine Briefe. Lesbar bleiben nur Fristdaten."
+        "body": "Chiffretext, Konto-IDs und Daten. Keine Namen, keine Briefe. Fristdaten sind lesbar."
       },
       "provider": {
         "title": "Die Protokolle eines Modellanbieters",

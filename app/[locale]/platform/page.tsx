@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { CapabilityList } from "@/components/site/CapabilityList";
 import { Link } from "@/i18n/navigation";
 import { toLocale } from "@/i18n/routing";
+import { CAPABILITY_KEYS } from "@/lib/capabilities";
+import { loadFleetPresence } from "@/lib/fleet";
 import { EXTERNAL, ROUTES } from "@/lib/routes";
 
 type Params = { params: Promise<{ locale: string }> };
@@ -12,7 +15,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 const LAYERS = ["intake", "matter", "agent", "models", "identity"] as const;
-const TURN = ["s1", "s2", "s3", "s4", "s5", "s6"] as const;
+/** The order a reader is owed it in: what hurts, what we built, why, where it goes. */
+const IDENTITY = ["problem", "solution", "mission", "vision"] as const;
 const PRINCIPLES = ["human", "honest", "open", "shared"] as const;
 const STACK = ["framework", "data", "models", "signin", "chat", "design", "record", "limits", "languages", "tests"] as const;
 
@@ -24,6 +28,10 @@ const STACK = ["framework", "data", "models", "signin", "chat", "design", "recor
 export default async function PlatformPage({ params }: Params) {
   setRequestLocale(toLocale((await params).locale));
   const t = await getTranslations("Platform");
+  const { identity } = await loadFleetPresence();
+  // Rendered from the Loki project profile, never authored here (fleet
+  // AGENTS.md, "The identity contract"). Written once, in English, so marked so.
+  const stated = IDENTITY.filter((key) => identity[key]);
 
   return (
     <main>
@@ -37,7 +45,6 @@ export default async function PlatformPage({ params }: Params) {
         <h2 className="headline-caps text-3xl sm:text-4xl">{t("why.title")}</h2>
         <div className="grid max-w-copy gap-5 text-lg leading-relaxed text-fg-secondary">
           <p>{t("why.p1")}</p>
-          <p>{t("why.p2")}</p>
           <p className="text-fg-primary">{t("why.p3")}</p>
         </div>
       </section>
@@ -61,17 +68,18 @@ export default async function PlatformPage({ params }: Params) {
       <section className="section-shell py-section">
         <div className="grid gap-12 lg:grid-cols-[1fr_2fr] lg:gap-20">
           <div>
-            <h2 className="headline-caps text-3xl sm:text-4xl">{t("turn.title")}</h2>
-            <p className="mt-5 text-lg text-fg-secondary">{t("turn.lede")}</p>
+            <h2 className="headline-caps text-3xl sm:text-4xl">{t("capabilities.title")}</h2>
+            <p className="mt-5 text-fg-secondary">{t("capabilities.lede")}</p>
+            <div className="mt-6 flex flex-wrap gap-x-6 text-sm">
+              <Link href={ROUTES.roadmap} className="text-link inline-flex min-h-11 items-center">
+                {t("capabilities.roadmap")}
+              </Link>
+              <Link href={ROUTES.changelog} className="text-link inline-flex min-h-11 items-center">
+                {t("capabilities.changelog")}
+              </Link>
+            </div>
           </div>
-          <ol className="divide-y divide-border-subtle border-y border-border-subtle">
-            {TURN.map((s, i) => (
-              <li key={s} className="flex gap-6 py-6">
-                <span className="font-mono text-sm text-fg-tertiary">0{i + 1}</span>
-                <span className="text-fg-primary">{t(`turn.${s}`)}</span>
-              </li>
-            ))}
-          </ol>
+          <CapabilityList items={CAPABILITY_KEYS} />
         </div>
       </section>
 
@@ -105,6 +113,21 @@ export default async function PlatformPage({ params }: Params) {
           </dl>
         </div>
       </section>
+
+      {stated.length > 0 && (
+        <section className="border-t border-border-subtle py-section-tight">
+          <dl className="section-shell grid gap-x-16 gap-y-12 sm:grid-cols-2">
+            {stated.map((key) => (
+              <div key={key}>
+                <dt className="kicker">{t(`identity.${key}`)}</dt>
+                <dd lang="en" className="mt-4 max-w-copy text-lg leading-relaxed text-fg-primary">
+                  {identity[key]}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
 
       <section className="public-backdrop border-t border-border-subtle py-section">
         <div className="section-shell max-w-4xl">
