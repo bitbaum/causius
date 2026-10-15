@@ -1,11 +1,15 @@
+// Accounts: the same tables in every fleet product (@bitbaum/accountkit/auth).
+export * from "@bitbaum/accountkit/auth/schema";
 import { bigserial, date, index, integer, pgTable, primaryKey, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 /**
  * Causius's database. Postgres on the box, through Drizzle (fleet STACK.md).
  *
- * NO USERS TABLE. A person is the OrangeCat actor id from the signed id_token
- * (`sub`), and nothing else about them is kept here — fleet AGENTS.md,
- * "Identity". Where a column says `*_sub`, it holds that id.
+ * A person is a row in `users` (the shared account tables, re-exported below):
+ * email and password, a link, a passkey, or OrangeCat, all optional. Where a
+ * column says `*_sub`, it holds that user's id. Before accounts moved here it
+ * held the OrangeCat actor id; lib/auth/legacy.ts re-keys those rows when the
+ * same person signs in again.
  *
  * WHAT IS PLAIN AND WHAT IS SEALED. Every column named `sealed*` holds
  * ciphertext under the matter's own key (lib/crypto.ts): titles, facts,

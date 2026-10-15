@@ -1,43 +1,40 @@
-import { orangecatClient, orangecatProvider, syncOcSession } from "@bitbaum/accountkit/orangecat";
-import NextAuth from "next-auth";
+import { createAuthRuntime } from "@bitbaum/accountkit/auth/next";
+import { dbConfigured, getDb } from "../db";
+import { mailConfigured, sendAuthMail } from "../mail";
+import { SITE } from "../site";
+import { adoptLegacyMatters } from "./legacy";
 
 /**
- * "Sign in with OrangeCat" — the only login Causius has.
- *
- * NO USERS TABLE, no password, no reset flow, no session table: the JWT
- * carries the OrangeCat actor id (`id_token.sub`) and nothing else is kept.
- * A person can be a pseudonym at OrangeCat and is the same pseudonym here.
- * Provider, refresh and their contract tests live once, in
- * @bitbaum/accountkit/orangecat (client_secret_post, PKCE, no email in the
- * profile, a session that ends when OrangeCat revokes the grant).
+ * Accounts for Causius: the same account system as every fleet product
+ * (@bitbaum/accountkit/auth) — email and password, a link, a passkey, two-step
+ * codes, and, where configured, the shared bitbaum sign-in and OrangeCat. A
+ * person does not need an OrangeCat account; with one, it is one click.
  */
-const orangecat = orangecatClient();
-
-/** False until the OrangeCat client is configured; the UI then hides sign-in. */
-export const authEnabled = orangecat !== null;
-
-export const { handlers, auth, signIn, signOut } = NextAuth({
-  // Behind Caddy the app never sees its public URL; AUTH_URL is pinned in the
-  // box env as well (fleet nextauth-origin-audit).
-  trustHost: true,
-  session: { strategy: "jwt" },
-  pages: { error: "/en/auth/error" },
-  // The session cookie is HttpOnly, Secure and SameSite=Lax by Auth.js default.
-  providers: orangecat ? [orangecatProvider(orangecat)] : [],
-  callbacks: {
-    jwt({ token, profile, account }) {
-      return syncOcSession({ token, profile, account }, orangecat);
+export const { GET, POST, getSession, requireUser, authStatus, getAuth } =
+  createAuthRuntime({
+    site: SITE,
+    mail: { configured: mailConfigured(), send: sendAuthMail },
+    isDatabaseConfigured: () => dbConfigured(),
+    getDatabase: () => getDb(),
+    // Matters made while OrangeCat was the only way in belong to the same person.
+    onAccountCreated: async ({ userId, providerId, accountId }) => {
+      if (providerId === "orangecat")
+        await adoptLegacyMatters(getDb(), accountId, userId);
     },
-    session({ session, token }) {
-      if (typeof token.actorId === "string") session.actorId = token.actorId;
-      return session;
-    },
-  },
-});
+  });
 
-declare module "next-auth" {
-  interface Session {
-    /** OrangeCat actor id (id_token.sub). The only identity Causius knows. */
-    actorId?: string;
-  }
+/**
+ * The signed-in person as the rest of the app reads them: `actorId` is the
+ * account's id, kept under the name every call site already uses.
+ */
+export async function auth(): Promise<{
+  actorId: string;
+  user: { name: string; image: string | null };
+} | null> {
+  const session = await getSession();
+  if (!session) return null;
+  return {
+    actorId: session.user.id,
+    user: { name: session.user.name, image: session.user.image ?? null },
+  };
 }

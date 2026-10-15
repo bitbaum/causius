@@ -4,7 +4,7 @@ import { MattersHome } from "@/components/matters/MattersHome";
 import { card, link, shell } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { toLocale } from "@/i18n/routing";
-import { auth, authEnabled } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 import { EntryLinks } from "@/components/site/EntryLinks";
 import { ROUTES } from "@/lib/routes";
 
@@ -33,11 +33,7 @@ export default async function MattersPage({ params }: Params) {
           <div className={`${card} grid gap-4 sm:p-8`}>
             <h2 className="text-2xl font-semibold tracking-tight">{t("signInTitle")}</h2>
             <p className="max-w-prose text-sm leading-relaxed text-fg-secondary">{t("signInLead")}</p>
-            {authEnabled ? (
-              <EntryLinks from={ROUTES.matters} />
-            ) : (
-              <p className="text-sm">{t("signInOff")}</p>
-            )}
+            <EntryLinks from={ROUTES.matters} />
             <p className="text-sm">
               <Link href={ROUTES.newCase} className={`${link} inline-flex min-h-11 items-center`}>
                 {t("quickCheckSignedOut")}

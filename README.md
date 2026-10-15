@@ -30,11 +30,11 @@ Causius is one product on three planes, like everything else in the fleet
   from the fleet map (`lib/fleet.ts`) and does not author them. `ROADMAP.md` and
   `CHANGELOG.md` in this repository are the public record: Loki ingests them and
   `/roadmap` and `/changelog` read the map back through `bip-kit`.
-- **OrangeCat** is its economy and its identity. Sign-in is OrangeCat over
-  OpenID Connect (`@bitbaum/accountkit`); Causius keeps no users table, only
-  the actor id. `/sign-up` opens OrangeCat's screen on "Create an account", and
-  that one account opens OrangeCat, Solon and Loki too. Helpers will offer
-  their work as OrangeCat services and be paid there.
+- **OrangeCat** is its economy, and one way in. Causius has its own accounts
+  (`@bitbaum/accountkit/auth`, better-auth): email and password, a sign-in
+  link, passkeys, two-step codes — no OrangeCat account needed. "Sign in with
+  OrangeCat" is one button among them for people who have one. Helpers will
+  offer their work as OrangeCat services and be paid there.
 - **Solon** is its governance. Who is admitted as a helper and how a dispute is
   settled are decisions to be taken there.
 
@@ -53,7 +53,7 @@ The blessed column of fleet `STACK.md`, nothing else:
 | Rate limiting | `limitkit` |
 | Roadmap and changelog | `bip-kit`, from the fleet map |
 | i18n | `next-intl`: English (`/en`), German (`/de`), French (`/fr`) |
-| Sign-in | `@bitbaum/accountkit` + `next-auth`, OrangeCat OIDC with PKCE |
+| Accounts | `@bitbaum/accountkit/auth` (better-auth on Drizzle): password, link, passkeys, 2FA, OrangeCat OIDC with PKCE |
 | Conversation | `@bitbaum/chatkit` |
 | Design | `@bitbaum/design-tokens` (tokens.css + the Tailwind preset via `@config`) |
 | Data | Postgres on the host, Drizzle (`lib/db/schema.ts`, `drizzle/`), envelope encryption in `lib/crypto.ts` |
@@ -70,7 +70,7 @@ does, in the grammar Solon uses (`kicker`, `headline-caps`, `btn-frame`).
   protects a matter; `/ecosystem` the fleet, read from the fleet map
 - `/matters` a signed-in person's matters; `/matters/[id]` the workspace: the
   conversation with the agent, deadlines, decisions waiting, documents, privacy
-- `/sign-in`, `/sign-up` straight to OrangeCat's one sign-in screen
+- `/sign-in`, `/sign-up`, `/account` Causius's own accounts: password, link, passkey, two-step codes, OrangeCat
 - `/cases/new` intake: paste a letter or photograph up to four pages, pick translation languages
 - `/cases/[id]` the case: deadline, checklist of what is asked, the letter in each
   language, a draft reply, who should look at it, export
@@ -124,7 +124,8 @@ Matters need all of these; without them `/api/matters` answers `503`:
 | `DATABASE_URL` | Postgres. `DATABASE_POOL_MAX` (default 10) caps the pool; a single-connection test Postgres needs 1. |
 | `CAUSIUS_MASTER_KEY` | 32 random bytes, base64. Seals every matter's data key. Losing it loses every matter; never rotate it by replacing it. |
 | `ORANGECAT_OAUTH_CLIENT_ID`, `ORANGECAT_OAUTH_CLIENT_SECRET`, `ORANGECAT_OAUTH_ISSUER` | Sign-in (accountkit). |
-| `AUTH_SECRET`, `AUTH_URL` | Auth.js session encryption and the public origin. |
+| `BETTER_AUTH_SECRET` | 32+ characters. Signs sessions and seals two-step secrets. Without it accounts answer 503. |
+| `RESEND_API_KEY`, `RESEND_FROM` | Optional. With both, addresses are verified and sign-in links work (`@bitbaum/mail-kit`). |
 
 After setting a key on the host, check it end to end:
 
