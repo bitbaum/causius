@@ -3,7 +3,7 @@ import "@bitbaum/accountkit/styles.css";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { shell } from "@/components/ui";
 import { toLocale } from "@/i18n/routing";
-import { signInWithOrangecat } from "@/lib/auth/actions";
+import { redirect } from "@/i18n/navigation";
 import { ROUTES } from "@/lib/routes";
 
 /**
@@ -25,7 +25,10 @@ export default async function AuthErrorPage({
     <main className={`${shell} py-16`}>
       <SignInError
         error={error ?? null}
-        retry={signInWithOrangecat.bind(null, `/${locale}${ROUTES.matters}`)}
+        retry={async () => {
+          "use server";
+          redirect({ href: ROUTES.signIn, locale });
+        }}
         home={`/${locale}`}
         labels={{
           kicker: t("kicker"),

@@ -21,6 +21,16 @@ brackets, it is the pull request to read for the detail.
   are all at least 44 by 44 pixels, and nothing runs off the edge of a phone.
   {#nav-contract}
 
+## 2026-10-15
+
+### Added
+
+- **Accounts of your own.** You no longer need an OrangeCat account to use
+  Causius. Register with an email address and a password, a sign-in link or a
+  passkey; add two-step codes if you like. "Sign in with OrangeCat" stays as
+  one button for people who have an account there, and matters you started
+  that way are still yours. {#accounts}
+
 ## 2026-10-12
 
 ### Added

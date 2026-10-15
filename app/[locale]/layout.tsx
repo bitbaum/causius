@@ -19,7 +19,7 @@ import { Logo } from "@/components/site/Logo";
 import { SiteNav } from "@/components/SiteNav";
 import { Link } from "@/i18n/navigation";
 import { routing, toLocale } from "@/i18n/routing";
-import { auth, authEnabled } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 import { signOutOfCausius } from "@/lib/auth/actions";
 import { entryHref } from "@/lib/auth/entry";
 import { FLEET_SLUG, loadFleetPresence } from "@/lib/fleet";
@@ -95,14 +95,12 @@ export default async function LocaleLayout({
               <div className="flex items-center gap-1 sm:gap-2">
                 <SiteNav />
                 <ThemeToggle />
-                {authEnabled && (
-                  <AccountControl
-                    user={session?.actorId ? { name: session.user?.name } : null}
-                    signInHref={entryHref("sign-in", locale, ROUTES.matters)}
-                    signOutAction={signOutOfCausius.bind(null, locale)}
-                    fleet={fleet}
-                  />
-                )}
+                <AccountControl
+                  user={session?.actorId ? { name: session.user?.name } : null}
+                  signInHref={entryHref("sign-in", locale, ROUTES.matters)}
+                  signOutAction={signOutOfCausius.bind(null, locale)}
+                  fleet={fleet}
+                />
               </div>
             </div>
           </header>

@@ -364,15 +364,53 @@
     }
   },
   "Account": {
+    "title": "Dein Konto",
+    "profile": "Profil",
+    "noEmail": "keine — füge eine Passwort-Anmeldung hinzu, um E-Mail zu nutzen",
+    "unverified": "noch nicht bestätigt",
+    "role": "Rolle",
+    "roles": {
+      "customer": "Kundin oder Kunde",
+      "helper": "Helferin oder Helfer",
+      "professional": "Fachperson",
+      "staff": "Team",
+      "admin": "Administration"
+    },
+    "save": "Speichern",
+    "saved": "Gespeichert.",
+    "methods": "Wege zur Anmeldung",
+    "methodPassword": "E-Mail und Passwort",
+    "link": "{method} hinzufügen",
+    "passkeys": "Passkeys",
+    "passkeysLede": "Melde dich mit Fingerabdruck, Gesicht oder Geräte-PIN statt mit einem Passwort an.",
+    "passkeyDefaultName": "Passkey",
+    "remove": "Entfernen",
+    "addPasskey": "Passkey hinzufügen",
+    "twoFactor": "Zwei-Faktor-Anmeldung",
+    "twoFactorOn": "Ein. Bei der Anmeldung wird ein Code aus deiner Authenticator-App verlangt.",
+    "twoFactorOff": "Aus. Schalte sie ein, damit bei jeder Anmeldung ein Code aus einer Authenticator-App verlangt wird.",
+    "currentPassword": "Aktuelles Passwort",
+    "currentPasswordHint": "Nötig, wenn dein Konto ein Passwort hat. Ohne Passwort melde dich zuerst nochmals an.",
+    "scan": "Füge dieses Konto deiner Authenticator-App hinzu und gib dann den angezeigten Code ein.",
+    "openAuthenticator": "In der Authenticator-App öffnen",
+    "backupCodes": "Bewahre diese Backup-Codes sicher auf. Jeder funktioniert einmal, falls du dein Telefon verlierst.",
+    "turnOn": "Einschalten",
+    "turnOff": "Ausschalten",
+    "setUp": "Einrichten",
+    "leave": "Abmelden oder gehen",
+    "signOut": "Abmelden",
+    "deleteConfirm": "Um dein Konto mit allem darin zu löschen, tippe {word}",
+    "deleteWord": "löschen",
+    "delete": "Mein Konto löschen",
     "signIn": "Anmelden",
     "matters": "Meine Fälle",
     "settings": "Einstellungen",
     "trigger": "Konto: {name}",
     "menu": "Konto",
-    "signOut": "Abmelden",
     "signingOut": "Abmelden…",
     "signOutFailed": "Die Abmeldung hat nicht geklappt. Versuchen Sie es noch einmal.",
-    "openIn": "{name} öffnen"
+    "openIn": "{name} öffnen",
+    "account": "Konto"
   },
   "Matters": {
     "title": "Fälle",
@@ -512,7 +550,7 @@
   "Entry": {
     "signUp": "Konto erstellen",
     "signIn": "Ich habe schon ein Konto",
-    "cost": "Ein OrangeCat-Konto öffnet Causius, Solon und Loki. Ein Pseudonym genügt."
+    "cost": "Kein OrangeCat-Konto nötig: E-Mail und Passwort oder ein Anmeldelink genügen."
   },
   "Capabilities": {
     "status": {
@@ -848,5 +886,74 @@
     "s1": "Ich habe einen Brief erhalten und weiss nicht, was er von mir will.",
     "s2": "Ich möchte gegen einen Entscheid Einsprache erheben.",
     "s3": "Mein Vermieter oder Arbeitgeber hält sich nicht an den Vertrag."
+  },
+  "Auth": {
+    "signIn": "Anmelden",
+    "signInTitle": "Anmelden",
+    "signUpTitle": "Konto erstellen",
+    "signUpLede": "Kein echter Name nötig. Wähle den Weg hinein, der dir passt; weitere kannst du später hinzufügen.",
+    "createAccount": "Konto erstellen",
+    "withSignin": "Weiter mit Google, Apple, GitHub, X oder Facebook",
+    "withOrangecat": "Weiter mit OrangeCat",
+    "withPasskey": "Mit Passkey anmelden",
+    "withLink": "Stattdessen einen Anmeldelink per E-Mail schicken",
+    "signUpWithLink": "Stattdessen mit einem Link per E-Mail registrieren",
+    "orEmail": "oder mit E-Mail",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "passwordHint": "Mindestens 12 Zeichen. Ein langer Satz ist leichter zu merken als Sonderzeichen.",
+    "displayName": "Anzeigename",
+    "displayNameHint": "Freiwillig. Irgendetwas — es muss nicht dein echter Name sein.",
+    "checkInbox": "Wir haben einen Link an {email} geschickt. Öffne ihn auf diesem Gerät, um weiterzumachen. Er gilt 10 Minuten.",
+    "confirmInbox": "Wir haben einen Link an {email} geschickt. Öffne ihn, um deine Adresse zu bestätigen und dein Konto fertig zu erstellen.",
+    "back": "Zurück",
+    "backHome": "Zurück zur Startseite",
+    "totpPrompt": "Gib den 6-stelligen Code aus deiner Authenticator-App ein.",
+    "backupPrompt": "Gib einen der Backup-Codes ein, die du beim Einrichten der Zwei-Faktor-Anmeldung gespeichert hast.",
+    "totpCode": "Code",
+    "backupCode": "Backup-Code",
+    "trustDevice": "Diesem Gerät 30 Tage lang vertrauen",
+    "verify": "Bestätigen",
+    "useTotp": "Stattdessen die Authenticator-App verwenden",
+    "useBackup": "Stattdessen einen Backup-Code verwenden",
+    "resendVerification": "Bestätigungslink nochmals senden",
+    "noAccount": "Noch kein Konto?",
+    "haveAccount": "Schon ein Konto?",
+    "unavailable": "Konten sind auf dieser Website noch nicht eingeschaltet. Alles, was kein Konto braucht, funktioniert trotzdem.",
+    "errors": {
+      "rateLimited": "Zu viele Versuche. Warte ein paar Minuten und versuch es dann nochmals.",
+      "unavailable": "Konten sind gerade nicht verfügbar. Versuch es in einer Weile nochmals.",
+      "generic": "Das hat nicht geklappt. Versuch es nochmals oder wähle einen anderen Weg zur Anmeldung.",
+      "emailFirst": "Gib zuerst deine E-Mail-Adresse ein.",
+      "INVALID_EMAIL_OR_PASSWORD": "E-Mail und Passwort passen nicht zusammen. Prüfe beides oder melde dich stattdessen mit einem Link an.",
+      "EMAIL_NOT_VERIFIED": "Bestätige zuerst deine E-Mail-Adresse — der Link ist in deinem Posteingang.",
+      "USER_ALREADY_EXISTS": "Mit dieser Adresse gibt es schon ein Konto. Melde dich stattdessen an.",
+      "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "Mit dieser Adresse gibt es schon ein Konto. Melde dich stattdessen an.",
+      "PASSWORD_TOO_SHORT": "Das Passwort braucht mindestens 12 Zeichen.",
+      "PASSWORD_TOO_LONG": "Das Passwort darf höchstens 128 Zeichen haben.",
+      "INVALID_EMAIL": "Das sieht nicht wie eine E-Mail-Adresse aus.",
+      "INVALID_CODE": "Dieser Code stimmt nicht oder ist abgelaufen. Versuch den neusten.",
+      "INVALID_TWO_FACTOR_CODE": "Dieser Code stimmt nicht oder ist abgelaufen. Versuch den neusten.",
+      "SESSION_EXPIRED": "Zu deiner Sicherheit: Melde dich nochmals an, bevor du das änderst.",
+      "INVALID_PASSWORD": "Dieses Passwort stimmt nicht."
+    }
+  },
+  "Mail": {
+    "verify": {
+      "subject": "Bestätige deine E-Mail für {site}",
+      "lead": "Bestätige diese Adresse, um dein Konto bei {site} fertig zu erstellen.",
+      "action": "E-Mail bestätigen"
+    },
+    "magicLink": {
+      "subject": "Dein Anmeldelink für {site}",
+      "lead": "Mit diesem Link meldest du dich bei {site} an. Er funktioniert einmal, 10 Minuten lang.",
+      "action": "Anmelden"
+    },
+    "reset": {
+      "subject": "Passwort für {site} zurücksetzen",
+      "lead": "Jemand möchte das Passwort deines Kontos bei {site} zurücksetzen.",
+      "action": "Neues Passwort wählen"
+    },
+    "ignore": "Wenn du das nicht warst, ignoriere diese E-Mail — es ändert sich nichts."
   }
 }

@@ -39,6 +39,7 @@ export function AccountControl({
           id: "places",
           items: [
             { id: "matters", label: t("matters"), href: ROUTES.matters },
+            { id: "account", label: t("account"), href: ROUTES.account },
             { id: "settings", label: t("settings"), href: ROUTES.settings },
           ],
         },

@@ -124,6 +124,8 @@ jobs:
           has DATABASE_URL || set_env DATABASE_URL "$DBURL"
           has CAUSIUS_MASTER_KEY || set_env CAUSIUS_MASTER_KEY "$(openssl rand -base64 32)"
           has AUTH_SECRET || set_env AUTH_SECRET "$(openssl rand -base64 33)"
+          # Accounts (better-auth): signs sessions and seals two-step secrets. 32+ characters.
+          has BETTER_AUTH_SECRET || set_env BETTER_AUTH_SECRET "$(openssl rand -base64 48)"
           has AUTH_URL || set_env AUTH_URL "https://causius.orangecat.ch"
           has AUTH_TRUST_HOST || set_env AUTH_TRUST_HOST "true"
           has ORANGECAT_OAUTH_ISSUER || set_env ORANGECAT_OAUTH_ISSUER "https://orangecat.ch"

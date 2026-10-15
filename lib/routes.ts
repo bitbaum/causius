@@ -16,12 +16,29 @@ export const ROUTES = {
   platform: "/platform",
   security: "/security",
   ecosystem: "/ecosystem",
+  account: "/account",
   signIn: "/sign-in",
   signUp: "/sign-up",
   authError: "/auth/error",
   roadmap: "/roadmap",
   changelog: "/changelog",
 } as const;
+
+/**
+ * Where to go after signing in. Anything that is not a path on this site goes
+ * to the matters page: a sign-in link must never be an open redirect.
+ */
+export function safeNext(value: string | null | undefined): string {
+  if (
+    !value ||
+    !value.startsWith("/") ||
+    value.startsWith("//") ||
+    value.includes("\\")
+  ) {
+    return ROUTES.matters;
+  }
+  return value;
+}
 
 export const API = {
   analyze: "/api/analyze",

@@ -64,22 +64,14 @@ jobs:
           code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 https://causius.orangecat.ch/api/matters)
           echo "::notice::/api/matters signed out → $code"
           [ "$code" = "401" ] || { echo "::error::matters are not configured (expected 401, got $code)"; fail=1; }
-          # Sign-up hands straight to OrangeCat's authorize endpoint for this client.
-          loc=$(curl -s -o /dev/null -w '%{redirect_url}' --max-time 20 "https://causius.orangecat.ch/en/sign-up?from=/matters")
-          echo "::notice::/en/sign-up → ${loc%%\?*}"
-          case "$loc" in
-            https://orangecat.ch/*client_id=causius*prompt=create*|https://orangecat.ch/*prompt=create*client_id=causius*) ;;
-            *) echo "::error::sign-up does not reach OrangeCat as the causius client"; fail=1;;
-          esac
-          # And OrangeCat accepts it: a registered client and redirect URI get
-          # the sign-in screen (or a redirect to it), never invalid_client.
-          if [ -n "$loc" ]; then
-            res=$(curl -s -L --max-redirs 3 -o page.html -w '%{http_code} %{url_effective}' --max-time 20 "$loc")
-            echo "::notice::authorize → ${res%%\?*}"
-            if [ "${res%% *}" -ge 400 ] || grep -qiE 'invalid_client|unknown client|invalid redirect' page.html; then
-              echo "::error::OrangeCat refused the causius client"; fail=1
-            fi
-          fi
+          # Accounts are Causius's own: the sign-up page offers a password, and the
+          # account endpoint answers (503 would mean no database or no secret).
+          up=$(curl -s -o signup.html -w '%{http_code}' --max-time 20 "https://causius.orangecat.ch/en/sign-up")
+          echo "::notice::/en/sign-up → $up"
+          { [ "$up" = "200" ] && grep -q 'type="password"' signup.html; } || { echo "::error::sign-up does not offer an account (status $up)"; fail=1; }
+          sess=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 https://causius.orangecat.ch/api/auth/get-session)
+          echo "::notice::/api/auth/get-session signed out → $sess"
+          [ "$sess" = "200" ] || { echo "::error::accounts are not switched on (expected 200, got $sess)"; fail=1; }
           exit $fail
 
       # Only when run by hand: it spends a free-tier completion. The letter is
