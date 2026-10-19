@@ -55,7 +55,7 @@ rendered here, never written twice.
 A matter is anything legal to be handled. The agent researches, records
 deadlines, drafts, and proposes anything outward for the owner to approve.
 
-- [x] Sign in with OrangeCat; one account across the fleet {#sign-in}
+- [x] Causius accounts of its own (password, sign-in link, passkey, two-step codes); Sign in with OrangeCat as one way in {#sign-in}
 - [x] Matters stored on our host, each sealed with its own key (AES-256-GCM) {#sealed-matters}
 - [x] The agent: web research with sources, deadlines, tasks, facts, drafts, approvals {#agent}
 - [x] Every personal detail, and the account name, hidden from the model {#agent-privacy}

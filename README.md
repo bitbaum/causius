@@ -82,8 +82,10 @@ does, in the grammar Solon uses (`kicker`, `headline-caps`, `btn-frame`).
 - `POST /api/analyze` letter in, case file out
 - `POST /api/model/check` does this key work, and which models can it use
 - `GET /api/health` is the site up, and can it analyse text and photos without a reader's key
+- `POST /api/transcribe` a spoken take to text; `GET /api/models` the free
+  models the picker may offer (both signed in)
 - `/api/matters/…` create, read, work (`messages`, one agent turn), documents,
-  items and approvals; every route answers 401 signed out and 404 to anyone
+  photographed `pages`, items and approvals; every route answers 401 signed out and 404 to anyone
   who is not in the matter
 
 Every page exists in English (`/en/…`), German (`/de/…`) and French (`/fr/…`);
@@ -117,14 +119,15 @@ and the intake page offers your own model or filing by hand.
 Limits (per hour, in memory): 8 free analyses per visitor, 60 on your own key;
 30 agent turns per account on the free chain, 200 on your own key.
 
-Matters need all of these; without them `/api/matters` answers `503`:
+Matters need the first two; without them `/api/matters` answers `503`.
+Accounts need `BETTER_AUTH_SECRET` and the database. The rest is optional:
 
 | Variable | Effect |
 | --- | --- |
 | `DATABASE_URL` | Postgres. `DATABASE_POOL_MAX` (default 10) caps the pool; a single-connection test Postgres needs 1. |
 | `CAUSIUS_MASTER_KEY` | 32 random bytes, base64. Seals every matter's data key. Losing it loses every matter; never rotate it by replacing it. |
-| `ORANGECAT_OAUTH_CLIENT_ID`, `ORANGECAT_OAUTH_CLIENT_SECRET`, `ORANGECAT_OAUTH_ISSUER` | Sign-in (accountkit). |
 | `BETTER_AUTH_SECRET` | 32+ characters. Signs sessions and seals two-step secrets. Without it accounts answer 503. |
+| `ORANGECAT_OAUTH_CLIENT_ID`, `ORANGECAT_OAUTH_CLIENT_SECRET`, `ORANGECAT_OAUTH_ISSUER` | Optional. Adds the "Sign in with OrangeCat" button (accountkit). Causius accounts work without it. |
 | `RESEND_API_KEY`, `RESEND_FROM` | Optional. With both, addresses are verified and sign-in links work (`@bitbaum/mail-kit`). |
 
 After setting a key on the host, check it end to end:
@@ -227,6 +230,7 @@ pnpm install
 pnpm dev
 pnpm run verify          # type-check, lint and tests; CI also builds
 pnpm run check:analyze   # needs a vendor key: the sample letter through a real model
+pnpm run check:agent     # needs a vendor key: one matter worked by the real agent
 ```
 
 Merging to `main` deploys: CI must pass, then the shared deploy workflow builds on the box, health-checks and rolls back on failure.
