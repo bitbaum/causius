@@ -2,13 +2,14 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { card, field, link } from "@/components/ui";
+import { card, chip, field, link } from "@/components/ui";
 import { Link, useRouter } from "@/i18n/navigation";
 import { formatDate } from "@/lib/case";
 import { CANTONS, COUNTRIES, jurisdictionLabel } from "@/lib/jurisdictions";
 import type { MatterSummary } from "@/lib/matters/store";
 import { API, ROUTES } from "@/lib/routes";
 import { useOwnWords } from "@/lib/store";
+import { WORKFLOWS, type WorkflowId } from "@/lib/workflows";
 import { IntakeComposer, uploadErrorKey } from "./IntakeComposer";
 import { useModelChoice } from "./ModelPicker";
 import { uploadStaged, type Staged } from "./staging";
@@ -26,6 +27,8 @@ export function MattersHome() {
   const chat = useTranslations("Chat");
   const choice = useModelChoice();
   const [jurisdiction, setJurisdiction] = useState("");
+  const w = useTranslations("Workflows");
+  const [workflow, setWorkflow] = useState<WorkflowId | null>(null);
 
   useEffect(() => {
     let stale = false;
@@ -54,7 +57,7 @@ export function MattersHome() {
         const r = await fetch(API.matters, {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ jurisdiction: jurisdiction || undefined, hide: ownWords }),
+          body: JSON.stringify({ jurisdiction: jurisdiction || undefined, hide: ownWords, workflow: workflow ?? undefined }),
         });
         const body = (await r.json().catch(() => ({}))) as { id?: string; error?: string };
         if (!r.ok || !body.id) {
@@ -96,8 +99,25 @@ export function MattersHome() {
         <IntakeComposer
           onSend={start}
           sending={false}
-          placeholder={t("situationPlaceholder")}
+          placeholder={workflow ? w(`items.${workflow}.ready`) : t("situationPlaceholder")}
           above={
+            <>
+            <fieldset className="mb-4">
+              <legend className="mb-2 text-sm font-medium">{w("pick")}</legend>
+              <div className="flex flex-wrap gap-2">
+                {WORKFLOWS.map((x) => (
+                  <button
+                    key={x.id}
+                    type="button"
+                    aria-pressed={workflow === x.id}
+                    onClick={() => setWorkflow((cur) => (cur === x.id ? null : x.id))}
+                    className={chip}
+                  >
+                    {w(`items.${x.id}.name`)}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
             <label className="mb-3 grid max-w-md gap-2">
               <span className="text-sm font-medium">{t("where")}</span>
               <select value={jurisdiction} onChange={(e) => setJurisdiction(e.target.value)} className={field}>
@@ -119,6 +139,7 @@ export function MattersHome() {
                 </optgroup>
               </select>
             </label>
+            </>
           }
         />
         {(failed || startError) && (

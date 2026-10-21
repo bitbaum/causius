@@ -1171,5 +1171,34 @@
     "youSeeAnonymised": "Sie sehen ihn ohne die Personendaten der Klientin oder des Klienten.",
     "leave": "Diesen Fall verlassen",
     "checkYourself": "Selbst prüfen"
+  },
+  "Workflows": {
+    "pick": "Mit einem häufigen Problem beginnen oder Ihres beschreiben",
+    "items": {
+      "debt-collection": {
+        "name": "Zahlungsbefehl",
+        "ready": "Fotografieren Sie den Zahlungsbefehl und sagen Sie, wann er Ihnen zugestellt wurde und ob Sie den Betrag schulden."
+      },
+      "rent-increase": {
+        "name": "Mietzinserhöhung",
+        "ready": "Hängen Sie die Mitteilung der Vermieterschaft und Ihren Mietvertrag an und sagen Sie, wann die Mitteilung kam."
+      },
+      "tax-assessment": {
+        "name": "Steuerveranlagung",
+        "ready": "Hängen Sie die Veranlagung und Ihre Steuererklärung an und sagen Sie, was Ihrer Meinung nach falsch ist."
+      },
+      "dismissal": {
+        "name": "Kündigung am Arbeitsplatz",
+        "ready": "Sagen Sie, seit wann Sie angestellt sind, wann und wie Ihnen gekündigt wurde, und hängen Sie Vertrag und Kündigung an."
+      },
+      "insurance-refusal": {
+        "name": "Versicherung lehnt ab",
+        "ready": "Hängen Sie den Entscheid der Versicherung an und sagen Sie, was Sie beantragt hatten."
+      },
+      "association": {
+        "name": "Verein gründen",
+        "ready": "Nennen Sie Name, Zweck, Sitz und die Gründungsmitglieder."
+      }
+    }
   }
 }

@@ -8,6 +8,13 @@ brackets, it is the pull request to read for the detail.
 
 ### Added
 
+- **Start from a common problem.** Debt collection notice, rent increase, tax
+  assessment, dismissal, insurance refused, founding an association: one tap
+  tells the agent what has to be established and what to draft, and tells you
+  what to have ready. No law is written into them: the agent finds and cites
+  the rule and its deadline each time. "Find a helper" from such a matter opens
+  the directory on its area. {#workflows}
+
 - **Helpers you can find and ask.** A directory of legal assistants, licensed
   lawyers and AI services, with Causius AI first. Search forgives a typo;
   filter by kind, country, language and area. Nobody is invented: every

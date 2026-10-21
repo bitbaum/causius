@@ -17,6 +17,7 @@ import {
   participants,
 } from "../db/schema";
 import { applyRedactions, assignTokens, findPersonalData } from "../redact";
+import { WORKFLOW_IDS } from "../workflows";
 import { anonymiseView, anonymiser, maskParticipants } from "./anonymise";
 
 /**
@@ -41,6 +42,8 @@ export const MatterCore = z.object({
   facts: z.array(z.string().trim().min(1).max(1000)).max(200).default([]),
   /** Words the owner wants kept from any model: their name, their employer. */
   hide: z.array(z.string().trim().min(2).max(120)).max(100).default([]),
+  /** The common problem this matter started from (lib/workflows.ts), if any. */
+  workflow: z.enum(WORKFLOW_IDS).optional(),
 });
 export type MatterCore = z.infer<typeof MatterCore>;
 

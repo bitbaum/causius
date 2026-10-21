@@ -28,6 +28,8 @@ const BUDGETS: { page: string; namespaces: string[]; budget: number }[] = [
   { page: "Home", namespaces: ["Home", "Entry"], budget: 240 },
   // The place matters are started from: short by construction.
   { page: "Matters", namespaces: ["Matters"], budget: 190 },
+  // The common problems offered on the same page: a name and one line each.
+  { page: "Workflows", namespaces: ["Workflows"], budget: 160 },
   // A form: every line is something someone must read to proceed, and the
   // error lines are what they read when it goes wrong.
   { page: "NewCase (quick check)", namespaces: ["NewCase"], budget: 310 },
