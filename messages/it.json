@@ -700,7 +700,7 @@
       "lede": "Noioso dove può esserlo.",
       "framework": {
         "label": "Framework",
-        "value": "Next.js 16 · React 19 · TypeScript, strict"
+        "value": "Next.js 16 · React 19 · TypeScript in modalità strict"
       },
       "data": {
         "label": "Dati",
@@ -732,7 +732,7 @@
       },
       "languages": {
         "label": "Lingue",
-        "value": "next-intl · inglese · tedesco · francese"
+        "value": "next-intl · inglese · tedesco · francese · italiano · spagnolo"
       },
       "tests": {
         "label": "Test",
