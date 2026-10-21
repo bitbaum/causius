@@ -49,7 +49,6 @@
   },
   "Home": {
     "hero": {
-      "kicker": "Switzerland · Liechtenstein · United States",
       "title": "Your legal matter,",
       "titleEm": "handled.",
       "lede": "Bring the letter or say what happened. Causius finds the rule and its source, keeps the deadline and drafts the reply. Nothing leaves without your yes.",
@@ -158,12 +157,14 @@
     },
     "where": {
       "title": "Where it works",
-      "ch": "Cantonal and federal law",
-      "li": "Its own legal order",
-      "us": "State and federal law",
       "languages": "Answers in your language; translates a letter into {count} languages.",
-      "cantons": "{count, plural, one {# canton} other {# cantons}}",
-      "states": "{count, plural, one {# state} other {# states}} and DC"
+      "CH": {
+        "law": "Federal and cantonal law",
+        "regions": "{count, plural, one {# canton} other {# cantons}}"
+      },
+      "LI": {
+        "law": "Its own legal order"
+      }
     },
     "problems": {
       "title": "Start from what happened"
@@ -732,7 +733,7 @@
       },
       "languages": {
         "label": "Languages",
-        "value": "next-intl · English · German · French · Italian · Spanish"
+        "value": "next-intl · English · German · French · Italian"
       },
       "tests": {
         "label": "Tests",

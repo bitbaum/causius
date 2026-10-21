@@ -49,7 +49,6 @@
   },
   "Home": {
     "hero": {
-      "kicker": "Schweiz · Liechtenstein · Vereinigte Staaten",
       "title": "Ihr Rechtsfall,",
       "titleEm": "erledigt.",
       "lede": "Bringen Sie den Brief oder sagen Sie, was passiert ist. Causius findet die Regel und ihre Quelle, hält die Frist im Blick und entwirft die Antwort. Nichts geht hinaus ohne Ihr Ja.",
@@ -158,12 +157,14 @@
     },
     "where": {
       "title": "Wo es funktioniert",
-      "ch": "Kantonales und Bundesrecht",
-      "li": "Eine eigene Rechtsordnung",
-      "us": "Recht der Bundesstaaten und Bundesrecht",
       "languages": "Antwortet in Ihrer Sprache und übersetzt einen Brief in {count} Sprachen.",
-      "cantons": "{count, plural, one {# Kanton} other {# Kantone}}",
-      "states": "{count, plural, one {# Bundesstaat} other {# Bundesstaaten}} und DC"
+      "CH": {
+        "law": "Bundesrecht und kantonales Recht",
+        "regions": "{count, plural, one {# Kanton} other {# Kantone}}"
+      },
+      "LI": {
+        "law": "Eine eigene Rechtsordnung"
+      }
     },
     "problems": {
       "title": "Beginnen Sie mit dem, was passiert ist"
@@ -732,7 +733,7 @@
       },
       "languages": {
         "label": "Sprachen",
-        "value": "next-intl · Englisch · Deutsch · Französisch · Italienisch · Spanisch"
+        "value": "next-intl · Englisch · Deutsch · Französisch · Italienisch"
       },
       "tests": {
         "label": "Tests",

@@ -1,4 +1,4 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getLocale, getTranslations, setRequestLocale } from "next-intl/server";
 import { Compare } from "@/components/home/Compare";
 import { MatterDemo } from "@/components/home/MatterDemo";
 import { Markets } from "@/components/home/Markets";
@@ -11,6 +11,7 @@ import { toLocale } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
 import { ROUTES } from "@/lib/routes";
 import { WORKFLOWS } from "@/lib/workflows";
+import { jurisdictionLabel, MARKETS } from "@/lib/jurisdictions";
 
 /**
  * The front door. Each section shows one true thing rather than telling it:
@@ -27,6 +28,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const t = await getTranslations("Home");
   const w = await getTranslations("Workflows");
   const session = await auth();
+  const locale = await getLocale();
   const headline = (key: string) => (
     <>
       {t(`${key}.title`)} <em>{t(`${key}.titleEm`)}</em>
@@ -38,7 +40,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="public-backdrop border-b border-border-subtle">
         <div className="section-shell grid gap-12 py-section-tight lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-16">
           <div className="rise">
-            <p className="kicker">{t("hero.kicker")}</p>
+            <p className="kicker">{MARKETS.map((m) => jurisdictionLabel(m.code, locale)).join(" · ")}</p>
             <h1 className="headline mt-5 text-5xl sm:text-6xl lg:text-7xl">{headline("hero")}</h1>
             <p className="mt-7 max-w-lede text-lg text-fg-primary sm:text-xl">{t("hero.lede")}</p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">

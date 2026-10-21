@@ -49,7 +49,6 @@
   },
   "Home": {
     "hero": {
-      "kicker": "Suisse · Liechtenstein · États-Unis",
       "title": "Votre dossier juridique,",
       "titleEm": "pris en main.",
       "lede": "Apportez la lettre ou dites ce qui s'est passé. Causius trouve la règle et sa source, tient le délai et rédige la réponse. Rien ne part sans votre accord.",
@@ -158,12 +157,14 @@
     },
     "where": {
       "title": "Où il fonctionne",
-      "ch": "Droit cantonal et fédéral",
-      "li": "Son propre ordre juridique",
-      "us": "Droit des États et droit fédéral",
       "languages": "Répond dans votre langue et traduit une lettre en {count} langues.",
-      "cantons": "{count, plural, one {# canton} other {# cantons}}",
-      "states": "{count, plural, one {# État} other {# États}} et DC"
+      "CH": {
+        "law": "Droit fédéral et cantonal",
+        "regions": "{count, plural, one {# canton} other {# cantons}}"
+      },
+      "LI": {
+        "law": "Un ordre juridique propre"
+      }
     },
     "problems": {
       "title": "Partez de ce qui s'est passé"
@@ -732,7 +733,7 @@
       },
       "languages": {
         "label": "Langues",
-        "value": "next-intl · anglais · allemand · français · italien · espagnol"
+        "value": "next-intl · anglais · allemand · français · italien"
       },
       "tests": {
         "label": "Tests",

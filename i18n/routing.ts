@@ -9,15 +9,16 @@ import { defineRouting } from "next-intl/routing";
  * Switzerland.
  */
 /*
- * WHY THESE FIVE. Causius serves Switzerland, Liechtenstein and the United
- * States first: German, French and Italian are Switzerland's official
- * languages (and German Liechtenstein's), English and Spanish the United
- * States'. Every other language is the agent's job, not the interface's: it
- * answers, and translates a letter, in whatever language the person writes.
- * A language is added here when the people who need it arrive, translated
- * whole, never half (i18n/parity.test.ts).
+ * WHY THESE FOUR. Causius serves Switzerland and Liechtenstein (MARKETS in
+ * lib/jurisdictions.ts): German, French and Italian are Switzerland's official
+ * languages and German Liechtenstein's; English is the source and the common
+ * second language. Every other language is the agent's job, not the
+ * interface's: it answers, and translates a letter, in whatever language the
+ * person writes. A language is added here when a market needs it, translated
+ * whole, never half (i18n/parity.test.ts). A Spanish interface existed briefly
+ * for a planned US market (git history, 2026-10-21) and was set aside with it.
  */
-export const locales = ["en", "de", "fr", "it", "es"] as const;
+export const locales = ["en", "de", "fr", "it"] as const;
 export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = "en";
@@ -33,7 +34,6 @@ export const localeNames: Record<Locale, string> = {
   de: "Deutsch",
   fr: "Français",
   it: "Italiano",
-  es: "Español",
 };
 
 /** Each language named in English, for the instruction the model is given. */
@@ -42,7 +42,6 @@ export const localeEnglishNames = {
   de: "German",
   fr: "French",
   it: "Italian",
-  es: "Spanish",
 } as const satisfies Record<Locale, string>;
 
 export const routing = defineRouting({

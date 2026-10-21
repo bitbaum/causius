@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import de from "../messages/de.json";
 import en from "../messages/en.json";
-import es from "../messages/es.json";
 import fr from "../messages/fr.json";
 import it_ from "../messages/it.json";
 
@@ -70,7 +69,6 @@ describe.each([
   ["de", leaves(de)],
   ["fr", leaves(fr)],
   ["it", leaves(it_)],
-  ["es", leaves(es)],
 ])("messages/%s.json", (_locale, translated) => {
   it("has exactly the keys English has", () => {
     expect([...translated.keys()].toSorted()).toEqual([...source.keys()].toSorted());

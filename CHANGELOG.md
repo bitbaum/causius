@@ -13,12 +13,12 @@ brackets, it is the pull request to read for the detail.
   draft, your decision), the days a letter usually costs against the minutes
   here, the anonymisation drawn as it happens, and an honest comparison with
   a general chatbot and a lawyer. Headlines are set in sentence case. {#front-page}
-- **Italian and Spanish.** The whole site, the account screens and the emails
-  are now also in Italian and Spanish. A letter can be translated into
-  nineteen languages, from Albanian to Tigrinya. {#more-languages}
-- **Switzerland, Liechtenstein and the United States.** Matters and helper
-  profiles can be set in Liechtenstein and in any of the fifty states, and the
-  agent keeps state, federal and cantonal law apart. {#markets}
+- **Italian.** The whole site, the account screens and the emails are now
+  also in Italian. A letter can be translated into nineteen languages, from
+  Albanian to Tigrinya. {#more-languages}
+- **Switzerland and Liechtenstein.** Matters and helper profiles can be set in
+  Liechtenstein as well as in any canton, and the agent is told what is
+  particular to each legal order. {#markets}
 - **Choose on sign-up whether you need help or give it.** Both are the same
   account. {#sign-up-role}
 

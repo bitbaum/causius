@@ -23,7 +23,7 @@ Repo-only notes live below this line.
   `pnpm run check:agent` call a real model; they need a vendor key and are not
   in CI.
 - Every string a reader sees lives in `messages/<locale>.json` for each
-  locale in `i18n/routing.ts` (en, de, fr, it, es); the parity test fails on a
+  locale in `i18n/routing.ts` (en, de, fr, it); the parity test fails on a
   missing key. English is the source.
   German uses Swiss spelling (ss, never ß). Link with `@/i18n/navigation`,
   never `next/link`, so a reader on `/de` stays on `/de`. Every page is under

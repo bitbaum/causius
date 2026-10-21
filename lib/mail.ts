@@ -2,7 +2,6 @@ import { isMailConfigured, sendMail } from "@bitbaum/mail-kit";
 import { createTranslator } from "next-intl";
 import de from "../messages/de.json";
 import en from "../messages/en.json";
-import es from "../messages/es.json";
 import fr from "../messages/fr.json";
 import it from "../messages/it.json";
 import { withFallback } from "../i18n/request";
@@ -24,7 +23,6 @@ const MESSAGES: Record<Locale, Messages> = {
   de: withFallback(en, de) as Messages,
   fr: withFallback(en, fr) as Messages,
   it: withFallback(en, it) as Messages,
-  es: withFallback(en, es) as Messages,
 };
 
 export function mailConfigured(): boolean {

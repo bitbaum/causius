@@ -49,7 +49,6 @@
   },
   "Home": {
     "hero": {
-      "kicker": "Svizzera · Liechtenstein · Stati Uniti",
       "title": "La sua pratica giuridica,",
       "titleEm": "sbrigata.",
       "lede": "Porti la lettera o racconti che cosa è successo. Causius trova la norma e la sua fonte, tiene d'occhio il termine e redige la risposta. Nulla parte senza il suo sì.",
@@ -158,12 +157,14 @@
     },
     "where": {
       "title": "Dove funziona",
-      "ch": "Diritto cantonale e federale",
-      "li": "Un proprio ordinamento giuridico",
-      "us": "Diritto statale e federale",
       "languages": "Risponde nella sua lingua e traduce una lettera in {count} lingue.",
-      "cantons": "{count, plural, one {# Cantone} other {# Cantoni}}",
-      "states": "{count, plural, one {# stato} other {# stati}} e DC"
+      "CH": {
+        "law": "Diritto federale e cantonale",
+        "regions": "{count, plural, one {# Cantone} other {# Cantoni}}"
+      },
+      "LI": {
+        "law": "Un ordinamento giuridico proprio"
+      }
     },
     "problems": {
       "title": "Partire da ciò che è successo"
@@ -732,7 +733,7 @@
       },
       "languages": {
         "label": "Lingue",
-        "value": "next-intl · inglese · tedesco · francese · italiano · spagnolo"
+        "value": "next-intl · inglese · tedesco · francese · italiano"
       },
       "tests": {
         "label": "Test",
