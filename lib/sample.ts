@@ -255,6 +255,98 @@ const TOLD: Record<Locale, Told> = {
     tierReason:
       "Les réponses décident du maintien d'une autorisation de séjour. Une avocate ou un avocat inscrit au barreau devrait lire l'explication des séjours à l'étranger avant son envoi.",
   },
+  it: {
+    title: "L'Ufficio della migrazione chiede prove dei soggiorni all'estero",
+    jurisdiction: "Svizzera · Cantone di Zurigo",
+    area: "Diritto della migrazione · permesso di dimora",
+    authority: "Ufficio cantonale della migrazione",
+    reference: "ZH 0.000.000 (esempio)",
+    summary:
+      "In seguito a una domanda relativa a un soggiorno all'estero, l'Ufficio della migrazione chiede prove di quanto tempo la richiedente trascorre all'estero e in Svizzera, estratti conto bancari, una spiegazione del motivo per cui non lavora in Svizzera e una copia completa del passaporto.",
+    consequence:
+      "Se entro il termine non arriva nulla, l'Ufficio decide sulla base degli atti di cui dispone. La richiedente ha un obbligo legale di collaborare (art. 90 della legge federale sugli stranieri e la loro integrazione).",
+    asks: [
+      {
+        text: "Con quale frequenza e per quanto tempo si trova all'estero per la sua attività indipendente? Lo provi.",
+        evidence: ["Biglietti aerei", "Timbri sul passaporto", "Conferme di prenotazione"],
+      },
+      {
+        text: "Provi la sua presenza in Svizzera.",
+        evidence: [
+          "Conteggi salariali",
+          "Attestati di corsi",
+          "Certificati medici",
+          "Fatture del telefono cellulare",
+          "Abbonamenti dei trasporti pubblici",
+        ],
+      },
+      {
+        text: "Estratti conto bancari che mostrino i movimenti dei suoi conti.",
+        evidence: ["Estratti di tutti i conti che usa, per mesi completi"],
+      },
+      {
+        text: "Spieghi in dettaglio perché non lavora in Svizzera.",
+        evidence: ["Una dichiarazione scritta con parole sue", "Tutto ciò che la sostiene"],
+      },
+      {
+        text: "Copia completa del suo passaporto, tutte le pagine.",
+        evidence: ["Tutte le pagine, anche quelle vuote"],
+      },
+    ],
+    notes: [
+      "Invii la risposta per raccomandata o la consegni contro ricevuta, e conservi una copia di tutto.",
+      "Se non riesce a raccogliere tutto in tempo, chieda per scritto una proroga del termine prima della scadenza, indicandone il motivo.",
+      "Tutto ciò che dichiara deve essere vero e coerente con la sua domanda. Se i suoi soggiorni all'estero sono lunghi, può essere in gioco il permesso stesso.",
+    ],
+    tierReason:
+      "Le risposte decidono se un permesso di dimora viene mantenuto. Un'avvocata o un avvocato abilitato dovrebbe leggere la spiegazione dei soggiorni all'estero prima che venga inviata.",
+  },
+  es: {
+    title: "La oficina de migración pide pruebas de estancias en el extranjero",
+    jurisdiction: "Suiza · Cantón de Zúrich",
+    area: "Migración · permiso de residencia",
+    authority: "Oficina cantonal de migración",
+    reference: "ZH 0.000.000 (ejemplo)",
+    summary:
+      "Después de una solicitud relacionada con una estancia en el extranjero, la oficina de migración pide pruebas de cuánto tiempo pasa la solicitante en el extranjero y en Suiza, estados de cuenta bancarios, una explicación de por qué no trabaja en Suiza y una copia completa del pasaporte.",
+    consequence:
+      "Si no se envía nada antes del plazo, la oficina decide con los documentos que ya tiene. La solicitante tiene la obligación legal de cooperar (art. 90 de la Ley de Extranjería e Integración).",
+    asks: [
+      {
+        text: "¿Con qué frecuencia y por cuánto tiempo está usted en el extranjero por su trabajo independiente? Demuéstrelo.",
+        evidence: ["Boletos de avión", "Sellos en el pasaporte", "Confirmaciones de reserva"],
+      },
+      {
+        text: "Demuestre su presencia en Suiza.",
+        evidence: [
+          "Recibos de sueldo",
+          "Constancias de cursos",
+          "Certificados médicos",
+          "Facturas del teléfono celular",
+          "Abonos de transporte público",
+        ],
+      },
+      {
+        text: "Estados de cuenta bancarios que muestren los movimientos de sus cuentas.",
+        evidence: ["Estados de todas las cuentas que usa, por meses completos"],
+      },
+      {
+        text: "Explique en detalle por qué no trabaja en Suiza.",
+        evidence: ["Una declaración escrita con sus propias palabras", "Todo lo que la respalde"],
+      },
+      {
+        text: "Copia completa de su pasaporte, todas las páginas.",
+        evidence: ["Todas las páginas, incluidas las vacías"],
+      },
+    ],
+    notes: [
+      "Envíe la respuesta por correo certificado o entréguela a cambio de un recibo, y guarde una copia de todo.",
+      "Si no puede reunir todo a tiempo, pida por escrito a la oficina una prórroga antes de que venza el plazo, y explique por qué.",
+      "Todo lo que declare debe ser verdadero y coherente con su solicitud. Si sus estancias en el extranjero son largas, el permiso mismo puede estar en juego.",
+    ],
+    tierReason:
+      "Las respuestas deciden si se mantiene un permiso de residencia. Una abogada o un abogado con licencia debería leer la explicación de las estancias en el extranjero antes de enviarla.",
+  },
 };
 
 const ORIGINAL = { lang: "de", label: "Deutsch (Original)", text: SAMPLE_LETTER };
