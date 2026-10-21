@@ -49,87 +49,135 @@
   },
   "Home": {
     "hero": {
-      "kicker": "Le travail juridique, c'est vous qui décidez",
-      "line1": "Votre dossier.",
-      "line2": "Traité de bout en bout.",
-      "lede": "Dites ce qui se passe, ou apportez la lettre. Causius trouve les règles, tient vos délais et rédige la réponse. Rien ne part sans vous.",
+      "kicker": "Suisse · Liechtenstein · États-Unis",
+      "title": "Votre dossier juridique,",
+      "titleEm": "pris en main.",
+      "lede": "Apportez la lettre ou dites ce qui s'est passé. Causius trouve la règle et sa source, tient le délai et rédige la réponse. Rien ne part sans votre accord.",
+      "quick": "Lire ma lettre, gratuitement",
       "open": "Ouvrir un dossier",
-      "quick": "Vérifier une lettre, sans compte"
+      "noAccount": "Pas besoin de compte pour lire une lettre."
     },
-    "example": {
-      "label": "Exemple",
-      "title": "Réclamation contre une taxation fiscale",
-      "s1": {
-        "tool": "cherché",
-        "text": "Délai de réclamation"
+    "demo": {
+      "label": "Exemple fictif",
+      "letter": "Lettre de l'administration fiscale",
+      "line1": "Madame <name>Erika Muster</name>,",
+      "line2": "veuillez trouver ci-joint votre taxation 2025. Une réclamation peut être formée dans les 30 jours.",
+      "hidden": "Masqué au modèle",
+      "deadline": "Délai",
+      "deadlineValue": "14 novembre",
+      "source": "d'après : « dans les 30 jours »",
+      "draft": "Réclamation rédigée, sources citées",
+      "approve": "L'envoyer ?",
+      "yes": "Approuver",
+      "no": "Pas encore"
+    },
+    "time": {
+      "title": "Des jours d'inquiétude, ou",
+      "titleEm": "quelques minutes.",
+      "without": "Sans",
+      "with": "Avec Causius",
+      "w1": {
+        "when": "Jour 1",
+        "what": "Une lettre à moitié comprise"
       },
-      "s2": {
-        "tool": "délai",
-        "text": "30 jours dès la notification"
+      "w2": {
+        "when": "Jour 3",
+        "what": "Des forums qui se contredisent"
       },
-      "s3": {
-        "tool": "rédigé",
-        "text": "Réclamation, prête à signer"
+      "w3": {
+        "when": "Jour 8",
+        "what": "L'attente d'un rendez-vous"
       },
-      "s4": {
-        "tool": "votre décision",
-        "text": "L'envoyer en recommandé ?"
+      "w4": {
+        "when": "Jour 12",
+        "what": "Le délai, c'était hier ?"
+      },
+      "c1": {
+        "when": "Minute 1",
+        "what": "Photographiée, votre nom masqué"
+      },
+      "c2": {
+        "when": "Minute 2",
+        "what": "Le délai, et la phrase d'où il vient"
+      },
+      "c3": {
+        "when": "Minute 5",
+        "what": "Une réponse rédigée, chaque règle citée"
+      },
+      "c4": {
+        "when": "Ensuite",
+        "what": "Vous décidez : envoyer, modifier ou consulter un avocat ou une avocate"
       }
     },
-    "how": {
-      "title": "Vous décidez. Il fait le travail.",
-      "describe": {
-        "title": "Dites ce qui se passe",
-        "body": "Avec vos mots. Ajoutez la lettre si vous l'avez."
-      },
-      "work": {
-        "title": "Il traite le dossier",
-        "body": "Trouve et cite les règles, suit les délais, rédige la réponse."
-      },
-      "approve": {
-        "title": "Rien ne part sans vous",
-        "body": "Envoyer, déposer, signer et payer attendent votre accord."
+    "compare": {
+      "title": "Honnête sur ce qu'il est",
+      "chatbot": "Chatbot généraliste",
+      "causius": "Causius",
+      "lawyer": "Avocat ou avocate",
+      "rows": {
+        "deadline": {
+          "label": "Trouve le délai dans votre lettre",
+          "chatbot": "Parfois",
+          "causius": "Avec sa source",
+          "lawyer": "Oui"
+        },
+        "cites": {
+          "label": "Cite le droit sur lequel il s'appuie",
+          "chatbot": "Rarement vérifiable",
+          "causius": "Chaque règle",
+          "lawyer": "Oui"
+        },
+        "private": {
+          "label": "Cache votre nom à l'IA",
+          "chatbot": "Non",
+          "causius": "Oui",
+          "lawyer": "—"
+        },
+        "advice": {
+          "label": "Vous conseille et vous représente",
+          "chatbot": "Non",
+          "causius": "Non, et il le dit",
+          "lawyer": "Oui"
+        },
+        "cost": {
+          "label": "Pour commencer",
+          "chatbot": "Gratuit",
+          "causius": "Gratuit",
+          "lawyer": "À l'heure"
+        }
       }
     },
     "privacy": {
-      "title": "Conçu pour que personne ne lise votre dossier",
-      "cta": "Comment fonctionne la sécurité",
-      "redact": {
-        "title": "Anonymisé avant tout modèle",
-        "body": "Noms, adresses et numéros deviennent d'abord des marqueurs."
-      },
-      "sealed": {
-        "title": "Scellé au repos",
-        "body": "Chaque dossier a sa propre clé."
-      },
-      "pseudonymous": {
-        "title": "Pseudonyme possible",
-        "body": "Chacun peut agir sous pseudonyme."
-      }
+      "title": "Le modèle ne sait jamais",
+      "titleEm": "qui vous êtes.",
+      "you": "Dans votre navigateur",
+      "model": "Ce que lit le modèle",
+      "back": "De retour chez vous",
+      "sealed": "Chaque dossier est scellé avec sa propre clé. Les pseudonymes sont les bienvenus.",
+      "cta": "Comment fonctionne la sécurité"
     },
-    "tiersTitle": "Trois formes d'aide",
-    "tiers": {
-      "ai": {
-        "name": "L'IA de Causius",
-        "can": "Lit, traduit, rédige un projet de réponse.",
-        "limit": "De l'information, pas du conseil."
-      },
-      "assistant": {
-        "name": "Assistantes et assistants juridiques",
-        "can": "Connaissent la paperasse : preuves, formulaires, dépôt.",
-        "limit": "Pas des avocats."
-      },
-      "lawyer": {
-        "name": "Avocates et avocats inscrits au barreau",
-        "can": "Autorisés là où se trouve votre dossier. Ils conseillent et représentent.",
-        "limit": "L'autorisation vaut par pays."
-      }
+    "where": {
+      "title": "Où il fonctionne",
+      "ch": "Droit cantonal et fédéral",
+      "li": "Son propre ordre juridique",
+      "us": "Droit des États et droit fédéral",
+      "languages": "Répond dans votre langue et traduit une lettre en {count} langues.",
+      "cantons": "{count, plural, one {# canton} other {# cantons}}",
+      "states": "{count, plural, one {# État} other {# États}} et DC"
     },
-    "marketplaceLink": "Comment fonctionnent les aidants",
-    "fleet": {
-      "title": "Un compte, toute la flotte",
-      "lede": "Votre compte OrangeCat vous connecte ici et ouvre OrangeCat, Solon et Loki.",
-      "more": "Comment les produits s'assemblent",
+    "problems": {
+      "title": "Partez de ce qui s'est passé"
+    },
+    "help": {
+      "title": "Quand il vous faut une personne",
+      "assistant": "Les assistantes et assistants juridiques aident pour les formulaires, les preuves et le dépôt.",
+      "lawyer": "Les avocates et avocats inscrits conseillent et représentent. Leur inscription est vérifiée dans le registre, et ils restent sous pseudonyme jusqu'à ce que vous les mandatiez.",
+      "find": "Trouver de l'aide",
+      "offer": "Aider les autres"
+    },
+    "end": {
+      "title": "Commencez par la lettre",
+      "titleEm": "que vous avez sous les yeux.",
       "signedIn": "Aller à vos dossiers"
     }
   },
@@ -162,11 +210,6 @@
     "page": "Page {n}",
     "removePage": "Retirer la page {n}",
     "languagesLegend": "Traduire en",
-    "lang": {
-      "English": "anglais",
-      "German": "allemand",
-      "French": "français"
-    },
     "submit": "Analyser le courrier",
     "busy": "Lecture du courrier…",
     "byHandLink": "Le saisir à la main",
@@ -406,9 +449,7 @@
     "title": "Dossiers",
     "lead": "Un dossier, c'est tout ce qui est juridique et doit être réglé. Causius le traite avec vous, tient chaque délai et demande avant que quoi que ce soit parte.",
     "signInTitle": "Se connecter pour garder ses dossiers",
-    "signInLead": "Les dossiers sont stockés scellés, chacun avec sa clé, pour que vous puissiez revenir depuis n'importe quel appareil. Connectez-vous avec OrangeCat ; un pseudonyme suffit.",
-    "signIn": "Se connecter avec OrangeCat",
-    "signInOff": "La connexion n'est pas encore activée pour ce site.",
+    "signInLead": "Les dossiers sont conservés scellés, chacun avec sa propre clé, pour que vous puissiez revenir depuis n'importe quel appareil. Un pseudonyme suffit.",
     "quickCheckSignedOut": "Ou vérifier un courrier sans compte",
     "newTitle": "Ouvrir un dossier",
     "newLead": "Dites ce qui se passe, avec vos mots. Causius demandera ce dont il a besoin.",
@@ -416,8 +457,6 @@
     "situationPlaceholder": "Par exemple : une taxation fiscale que je veux contester, ou un bailleur qui garde ma garantie.",
     "where": "Où",
     "whereUnknown": "Je ne sais pas / Causius trouvera",
-    "federal": "Suisse (fédéral)",
-    "elsewhere": "Ailleurs",
     "open": "Ouvrir",
     "opening": "Ouverture…",
     "quickCheck": "Juste vérifier un courrier, sans enregistrer",
@@ -541,7 +580,7 @@
   "Entry": {
     "signUp": "Créer un compte",
     "signIn": "J'ai déjà un compte",
-    "cost": "Aucun compte OrangeCat requis : e-mail et mot de passe, ou un lien de connexion, suffisent."
+    "cost": "E-mail et mot de passe, ou une clé d'accès. Aucun vrai nom requis."
   },
   "Capabilities": {
     "status": {
@@ -693,7 +732,7 @@
       },
       "languages": {
         "label": "Langues",
-        "value": "next-intl · anglais · allemand · français"
+        "value": "next-intl · anglais · allemand · français · italien · espagnol"
       },
       "tests": {
         "label": "Tests",
@@ -1093,8 +1132,9 @@
       "not_configured": "Les profils d'aidant ne sont pas encore activés pour ce site.",
       "unknown": "Cela n'a pas marché. Réessayez."
     },
-    "signUpLine": "Vous offrez de l'aide plutôt que d'en chercher ?",
-    "signUpCta": "Créer un compte d'aidant"
+    "roleLegend": "À quoi sert ce compte ?",
+    "forClient": "J'ai besoin d'aide pour une affaire juridique",
+    "forHelper": "J'aide les autres"
   },
   "Review": {
     "metaTitle": "Vérification",
@@ -1200,5 +1240,9 @@
         "ready": "Donnez son nom, son but, son siège et ses membres fondateurs."
       }
     }
+  },
+  "Places": {
+    "whole": "{country}, tout le pays",
+    "elsewhere": "Ailleurs"
   }
 }

@@ -23,9 +23,12 @@ function words(tree: string | Tree, top = true): number {
 }
 
 const BUDGETS: { page: string; namespaces: string[]; budget: number }[] = [
-  // What a first visit reads: one screen of essentials and a few lines more,
-  // plus the sign-in lines under it.
-  { page: "Home", namespaces: ["Home", "Entry"], budget: 240 },
+  // What a first visit reads. Raised from 240 on 2026-10-21 for the redesign,
+  // knowingly: the prose sentences went DOWN, and most of these words are now
+  // labels inside pictures (the worked letter, the two calendars, the
+  // comparison table, the anonymisation drawn), which are read at a glance.
+  // Do not spend the headroom on sentences.
+  { page: "Home", namespaces: ["Home", "Entry"], budget: 360 },
   // The place matters are started from: short by construction.
   { page: "Matters", namespaces: ["Matters"], budget: 190 },
   // The common problems offered on the same page: a name and one line each.

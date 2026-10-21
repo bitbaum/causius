@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { locales } from "@/i18n/routing";
 import { callerKey, limits, tooMany } from "@/lib/limits";
 import { runTurn, type TurnError } from "@/lib/matters/agent";
 import { body, context, json } from "@/lib/matters/http";
@@ -16,7 +17,7 @@ const Message = z.object({
   /** A free model the reader picked; honoured only if this deployment offers it. */
   model: z.string().max(120).optional(),
   /** The language of the reader's interface: the agent answers in it. */
-  locale: z.enum(["en", "de", "fr"]).optional(),
+  locale: z.enum(locales).optional(),
 });
 
 const STATUS: Record<TurnError, number> = {

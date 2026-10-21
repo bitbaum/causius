@@ -1,13 +1,7 @@
 import { jurisdictionLabel } from "@/lib/jurisdictions";
+import { languageName } from "@/lib/languages";
 
-/** A language's name in the reader's language, from the browser's own tables. */
-export function languageName(code: string, locale: string): string {
-  try {
-    return new Intl.DisplayNames([locale], { type: "language" }).of(code) ?? code;
-  } catch {
-    return code;
-  }
-}
+export { languageName } from "@/lib/languages";
 
 export const placeList = (codes: readonly string[], locale: string) =>
   codes.map((c) => jurisdictionLabel(c, locale)).join(" · ");

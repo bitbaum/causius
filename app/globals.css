@@ -58,7 +58,7 @@ html {
   /* The call to action of a full-width section, framed. Case, weight and
      corners come from theme.css. */
   .btn-frame {
-    @apply inline-flex min-h-12 items-center justify-center gap-3 rounded-control px-7 text-xs transition-colors;
+    @apply inline-flex min-h-12 items-center justify-center gap-3 rounded-control px-7 text-sm transition-colors;
     font-weight: var(--theme-action-weight);
     text-transform: var(--theme-action-case);
     letter-spacing: var(--theme-action-tracking);
@@ -70,7 +70,7 @@ html {
     background-color: hsl(var(--text-primary));
   }
   .btn-frame-accent {
-    @apply inline-flex min-h-12 items-center justify-center gap-3 rounded-control bg-accent px-7 text-xs text-on-accent transition-colors hover:bg-accent-hover;
+    @apply inline-flex min-h-12 items-center justify-center gap-3 rounded-control bg-accent px-7 text-sm text-on-accent transition-colors hover:bg-accent-hover;
     font-weight: var(--theme-action-weight);
     text-transform: var(--theme-action-case);
     letter-spacing: var(--theme-action-tracking);
@@ -185,5 +185,46 @@ html {
       opacity: 1;
       transform: none;
     }
+  }
+}
+
+/*
+ * The home page's worked example plays once through, then holds, then begins
+ * again: the name is hidden, the deadline appears with its source, the draft,
+ * then the question to the person. One 14-second loop; each step has its own
+ * moment in it. With reduced motion everything is simply shown, name hidden.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .demo-step {
+    animation: 14s ease-out infinite both;
+  }
+  .demo-step[data-step="1"] { animation-name: demo-1; }
+  .demo-step[data-step="2"] { animation-name: demo-2; }
+  .demo-step[data-step="3"] { animation-name: demo-3; }
+  .demo-step[data-step="4"] { animation-name: demo-4; }
+  .demo-real { animation: demo-real 14s ease-out infinite both; }
+  .demo-token { animation: demo-token 14s ease-out infinite both; }
+
+  @keyframes demo-1 { 0%, 10% { opacity: 0; transform: translateY(6px); } 16%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+  @keyframes demo-2 { 0%, 26% { opacity: 0; transform: translateY(6px); } 32%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+  @keyframes demo-3 { 0%, 44% { opacity: 0; transform: translateY(6px); } 50%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+  @keyframes demo-4 { 0%, 60% { opacity: 0; transform: translateY(6px); } 66%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+  @keyframes demo-real { 0%, 12% { opacity: 1; } 18%, 94% { opacity: 0; } 100% { opacity: 1; } }
+  @keyframes demo-token { 0%, 12% { opacity: 0; } 18%, 94% { opacity: 1; } 100% { opacity: 0; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-real { display: none; }
+}
+
+@layer components {
+  /* A placeholder where a personal detail was: the mark the whole product turns on. */
+  .token {
+    @apply rounded-control bg-accent/10 px-1 font-mono text-[0.85em] text-accent;
+  }
+  /* A headline's emphasised words: the display face's italic, in the accent. */
+  .headline em,
+  .headline-caps em {
+    font-style: italic;
+    color: var(--public-accent);
   }
 }

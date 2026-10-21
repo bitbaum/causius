@@ -5,11 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { card, chip, field, link } from "@/components/ui";
 import { Link, useRouter } from "@/i18n/navigation";
 import { formatDate } from "@/lib/case";
-import { CANTONS, COUNTRIES, jurisdictionLabel } from "@/lib/jurisdictions";
+import { jurisdictionLabel } from "@/lib/jurisdictions";
+import { JurisdictionOptions } from "@/components/JurisdictionOptions";
 import type { MatterSummary } from "@/lib/matters/store";
 import { API, ROUTES } from "@/lib/routes";
 import { useOwnWords } from "@/lib/store";
-import { WORKFLOWS, type WorkflowId } from "@/lib/workflows";
+import { workflowById, WORKFLOWS, type WorkflowId } from "@/lib/workflows";
 import { IntakeComposer, uploadErrorKey } from "./IntakeComposer";
 import { useModelChoice } from "./ModelPicker";
 import { uploadStaged, type Staged } from "./staging";
@@ -17,7 +18,7 @@ import { uploadStaged, type Staged } from "./staging";
 /** A first message carried from this page to the new matter's page. */
 export const FIRST_MESSAGE_KEY = (id: string) => `causius.first.${id}`;
 
-export function MattersHome() {
+export function MattersHome({ workflow: chosen }: { workflow?: string } = {}) {
   const t = useTranslations("Matters");
   const locale = useLocale();
   const router = useRouter();
@@ -28,7 +29,8 @@ export function MattersHome() {
   const choice = useModelChoice();
   const [jurisdiction, setJurisdiction] = useState("");
   const w = useTranslations("Workflows");
-  const [workflow, setWorkflow] = useState<WorkflowId | null>(null);
+  // A problem picked on the home page arrives in the link, already chosen.
+  const [workflow, setWorkflow] = useState<WorkflowId | null>(workflowById(chosen)?.id ?? null);
 
   useEffect(() => {
     let stale = false;
@@ -122,21 +124,7 @@ export function MattersHome() {
               <span className="text-sm font-medium">{t("where")}</span>
               <select value={jurisdiction} onChange={(e) => setJurisdiction(e.target.value)} className={field}>
                 <option value="">{t("whereUnknown")}</option>
-                <optgroup label={jurisdictionLabel("CH", locale)}>
-                  <option value="CH">{t("federal")}</option>
-                  {Object.keys(CANTONS).map((code) => (
-                    <option key={code} value={code}>
-                      {jurisdictionLabel(code, locale)}
-                    </option>
-                  ))}
-                </optgroup>
-                <optgroup label={t("elsewhere")}>
-                  {COUNTRIES.filter((c) => c !== "CH").map((c) => (
-                    <option key={c} value={c}>
-                      {jurisdictionLabel(c, locale)}
-                    </option>
-                  ))}
-                </optgroup>
+                <JurisdictionOptions />
               </select>
             </label>
             </>

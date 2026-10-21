@@ -19,7 +19,7 @@ translation and a draft reply.
 - [x] Cases kept in the browser, with export and import {#export}
 - [x] Analysis through the fleet's shared model chain, with a rate limit {#shared-models}
 - [x] Your own model: connect a key, checked, strongest model preselected {#own-model}
-- [x] The interface and the analysis in English, German and French {#languages}
+- [x] The interface and the analysis in English, German, French, Italian and Spanish; letters translated into nineteen languages {#languages}
 - [x] Letters of several pages, photographed in order {#pages}
 - [x] The deadline shown with the sentence of the letter it was read from {#deadline-source}
 - [ ] Shared model keys set on the host, and the first real letter analysed there

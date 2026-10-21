@@ -6,6 +6,22 @@ brackets, it is the pull request to read for the detail.
 
 ## 2026-10-21
 
+### Changed
+
+- **A new front page.** It shows instead of telling: an invented letter
+  worked through (the name hidden, the deadline found with its source, a
+  draft, your decision), the days a letter usually costs against the minutes
+  here, the anonymisation drawn as it happens, and an honest comparison with
+  a general chatbot and a lawyer. Headlines are set in sentence case. {#front-page}
+- **Italian and Spanish.** The whole site, the account screens and the emails
+  are now also in Italian and Spanish. A letter can be translated into
+  nineteen languages, from Albanian to Tigrinya. {#more-languages}
+- **Switzerland, Liechtenstein and the United States.** Matters and helper
+  profiles can be set in Liechtenstein and in any of the fifty states, and the
+  agent keeps state, federal and cantonal law apart. {#markets}
+- **Choose on sign-up whether you need help or give it.** Both are the same
+  account. {#sign-up-role}
+
 ### Added
 
 - **Start from a common problem.** Debt collection notice, rent increase, tax

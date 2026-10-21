@@ -29,6 +29,7 @@ export default async function SignUpPage({ params, searchParams }: Props) {
   const t = await getTranslations("Auth");
   const h = await getTranslations("HelperDesk");
   const query = await searchParams;
+  const asHelper = safeNext(query.next ?? query.from) === ROUTES.helperDesk;
 
   if (await getSession())
     redirect({ href: safeNext(query.next ?? query.from), locale });
@@ -38,6 +39,27 @@ export default async function SignUpPage({ params, searchParams }: Props) {
       <div className={`${card} mx-auto max-w-md`}>
         <h1 className="mb-2 text-2xl font-semibold">{t("signUpTitle")}</h1>
         <p className="mb-6 text-fg-secondary">{t("signUpLede")}</p>
+        {/* Who is signing up decides where they land; both are the same account. */}
+        <nav aria-label={h("roleLegend")} className="mb-6 grid grid-cols-2 gap-2">
+          {(
+            [
+              { key: "forClient", next: ROUTES.matters },
+              { key: "forHelper", next: ROUTES.helperDesk },
+            ] as const
+          ).map((r) => {
+            const on = asHelper === (r.next === ROUTES.helperDesk);
+            return (
+              <Link
+                key={r.key}
+                href={{ pathname: ROUTES.signUp, query: { next: r.next } }}
+                aria-current={on ? "true" : undefined}
+                className="flex min-h-14 items-center justify-center rounded-control border border-border px-3 py-2 text-center text-sm font-medium aria-[current=true]:border-accent aria-[current=true]:bg-accent/10"
+              >
+                {h(r.key)}
+              </Link>
+            );
+          })}
+        </nav>
         {authStatus().ready ? (
           <SignUpForm
             methods={signInMethods(process.env, mailConfigured())}
@@ -49,14 +71,6 @@ export default async function SignUpPage({ params, searchParams }: Props) {
           />
         ) : (
           <AccountsUnavailable />
-        )}
-        {safeNext(query.next ?? query.from) !== ROUTES.helperDesk && (
-          <p className="mt-6 border-t border-border-subtle pt-4 text-sm text-fg-secondary">
-            {h("signUpLine")}{" "}
-            <Link href={{ pathname: ROUTES.signUp, query: { next: ROUTES.helperDesk } }} className="text-link">
-              {h("signUpCta")}
-            </Link>
-          </p>
         )}
       </div>
     </div>
