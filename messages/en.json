@@ -161,7 +161,7 @@
       "ch": "Cantonal and federal law",
       "li": "Its own legal order",
       "us": "State and federal law",
-      "languages": "Answers in your language, and translates a letter into {count} languages.",
+      "languages": "Answers in your language; translates a letter into {count} languages.",
       "cantons": "{count, plural, one {# canton} other {# cantons}}",
       "states": "{count, plural, one {# state} other {# states}} and DC"
     },

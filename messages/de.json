@@ -49,88 +49,136 @@
   },
   "Home": {
     "hero": {
-      "kicker": "Juristische Arbeit, Sie entscheiden",
-      "line1": "Ihre Angelegenheit.",
-      "line2": "Durchgearbeitet.",
-      "lede": "Sagen Sie, was los ist, oder bringen Sie den Brief. Causius findet die Regeln, hält Ihre Fristen und entwirft die Antwort. Nichts geht ohne Sie hinaus.",
+      "kicker": "Schweiz · Liechtenstein · Vereinigte Staaten",
+      "title": "Ihr Rechtsfall,",
+      "titleEm": "erledigt.",
+      "lede": "Bringen Sie den Brief oder sagen Sie, was passiert ist. Causius findet die Regel und ihre Quelle, hält die Frist im Blick und entwirft die Antwort. Nichts geht hinaus ohne Ihr Ja.",
+      "quick": "Meinen Brief lesen, kostenlos",
       "open": "Angelegenheit eröffnen",
-      "quick": "Brief prüfen, ohne Konto"
+      "noAccount": "Um einen Brief zu lesen, braucht es kein Konto."
     },
-    "example": {
-      "label": "Beispiel",
-      "title": "Einsprache gegen eine Steuerveranlagung",
-      "s1": {
-        "tool": "gesucht",
-        "text": "Einsprachefrist"
+    "demo": {
+      "label": "Beispiel, erfunden",
+      "letter": "Brief vom Steueramt",
+      "line1": "Sehr geehrte Frau <name>Erika Muster</name>,",
+      "line2": "beiliegend erhalten Sie Ihre Veranlagung 2025. Dagegen kann innert 30 Tagen Einsprache erhoben werden.",
+      "hidden": "Vor dem Modell verborgen",
+      "deadline": "Frist",
+      "deadlineValue": "14. November",
+      "source": "aus: «innert 30 Tagen»",
+      "draft": "Einsprache entworfen, Quellen belegt",
+      "approve": "Absenden?",
+      "yes": "Freigeben",
+      "no": "Noch nicht"
+    },
+    "time": {
+      "title": "Tagelange Sorgen oder",
+      "titleEm": "ein paar Minuten.",
+      "without": "Ohne",
+      "with": "Mit Causius",
+      "w1": {
+        "when": "Tag 1",
+        "what": "Ein Brief, den Sie halb verstehen"
       },
-      "s2": {
-        "tool": "Frist",
-        "text": "30 Tage ab Zustellung"
+      "w2": {
+        "when": "Tag 3",
+        "what": "Foren, die sich widersprechen"
       },
-      "s3": {
-        "tool": "entworfen",
-        "text": "Einsprache, bereit zum Unterschreiben"
+      "w3": {
+        "when": "Tag 8",
+        "what": "Warten auf einen Termin"
       },
-      "s4": {
-        "tool": "Ihr Entscheid",
-        "text": "Eingeschrieben senden?"
+      "w4": {
+        "when": "Tag 12",
+        "what": "War die Frist gestern?"
+      },
+      "c1": {
+        "when": "Minute 1",
+        "what": "Fotografiert, Ihr Name verborgen"
+      },
+      "c2": {
+        "when": "Minute 2",
+        "what": "Die Frist und der Satz, aus dem sie stammt"
+      },
+      "c3": {
+        "when": "Minute 5",
+        "what": "Eine Antwort entworfen, jede Regel belegt"
+      },
+      "c4": {
+        "when": "Danach",
+        "what": "Sie entscheiden: senden, ändern oder eine Anwältin oder einen Anwalt fragen"
       }
     },
-    "how": {
-      "title": "Sie entscheiden. Es macht die Arbeit.",
-      "describe": {
-        "title": "Sagen Sie, was los ist",
-        "body": "In Ihren eigenen Worten. Fügen Sie den Brief hinzu, wenn Sie ihn haben."
-      },
-      "work": {
-        "title": "Es bearbeitet die Angelegenheit",
-        "body": "Findet und belegt die Regeln, erfasst Fristen, entwirft die Antwort."
-      },
-      "approve": {
-        "title": "Nichts geht ohne Sie hinaus",
-        "body": "Senden, Einreichen, Unterschreiben und Bezahlen warten auf Ihre Freigabe."
+    "compare": {
+      "title": "Ehrlich darüber, was es ist",
+      "chatbot": "Allgemeiner Chatbot",
+      "causius": "Causius",
+      "lawyer": "Anwältin oder Anwalt",
+      "rows": {
+        "deadline": {
+          "label": "Findet die Frist in Ihrem Brief",
+          "chatbot": "Manchmal",
+          "causius": "Mit Quelle",
+          "lawyer": "Ja"
+        },
+        "cites": {
+          "label": "Belegt das Recht, auf das es sich stützt",
+          "chatbot": "Selten überprüfbar",
+          "causius": "Jede Regel",
+          "lawyer": "Ja"
+        },
+        "private": {
+          "label": "Hält Ihren Namen von der KI fern",
+          "chatbot": "Nein",
+          "causius": "Ja",
+          "lawyer": "—"
+        },
+        "advice": {
+          "label": "Berät und vertritt Sie",
+          "chatbot": "Nein",
+          "causius": "Nein, und sagt das auch",
+          "lawyer": "Ja"
+        },
+        "cost": {
+          "label": "Zum Start",
+          "chatbot": "Kostenlos",
+          "causius": "Kostenlos",
+          "lawyer": "Nach Stunden"
+        }
       }
     },
     "privacy": {
-      "title": "So gebaut, dass niemand Ihre Angelegenheit liest",
-      "cta": "Wie die Sicherheit funktioniert",
-      "redact": {
-        "title": "Anonymisiert vor jedem Modell",
-        "body": "Namen, Adressen und Nummern werden zuerst zu Platzhaltern."
-      },
-      "sealed": {
-        "title": "Verschlüsselt gespeichert",
-        "body": "Jede Angelegenheit hat ihren eigenen Schlüssel."
-      },
-      "pseudonymous": {
-        "title": "Pseudonym möglich",
-        "body": "Alle dürfen unter Pseudonym auftreten."
-      }
+      "title": "Das Modell erfährt nie,",
+      "titleEm": "wer Sie sind.",
+      "you": "In Ihrem Browser",
+      "model": "Was das Modell liest",
+      "back": "Zurück bei Ihnen",
+      "sealed": "Jeder Fall ist mit eigenem Schlüssel versiegelt. Pseudonyme sind willkommen.",
+      "cta": "Wie die Sicherheit funktioniert"
     },
-    "tiersTitle": "Drei Arten von Hilfe",
-    "tiers": {
-      "ai": {
-        "name": "Causius KI",
-        "can": "Liest, übersetzt, entwirft eine Antwort.",
-        "limit": "Information, keine Beratung."
-      },
-      "assistant": {
-        "name": "Rechtshelferinnen und Rechtshelfer",
-        "can": "Kennen den Papierkram: Belege, Formulare, Einreichen.",
-        "limit": "Keine Anwältinnen und Anwälte."
-      },
-      "lawyer": {
-        "name": "Zugelassene Anwältinnen und Anwälte",
-        "can": "Am Ort Ihres Falls zugelassen. Sie beraten und vertreten.",
-        "limit": "Die Zulassung gilt pro Land."
-      }
+    "where": {
+      "title": "Wo es funktioniert",
+      "ch": "Kantonales und Bundesrecht",
+      "li": "Eine eigene Rechtsordnung",
+      "us": "Recht der Bundesstaaten und Bundesrecht",
+      "languages": "Antwortet in Ihrer Sprache und übersetzt einen Brief in {count} Sprachen.",
+      "cantons": "{count, plural, one {# Kanton} other {# Kantone}}",
+      "states": "{count, plural, one {# Bundesstaat} other {# Bundesstaaten}} und DC"
     },
-    "marketplaceLink": "Wie Helfende arbeiten",
-    "fleet": {
-      "title": "Ein Konto, die ganze Flotte",
-      "lede": "Mit Ihrem OrangeCat-Konto melden Sie sich hier an und öffnen OrangeCat, Solon und Loki.",
-      "more": "Wie die Produkte zusammenpassen",
-      "signedIn": "Zu Ihren Angelegenheiten"
+    "problems": {
+      "title": "Beginnen Sie mit dem, was passiert ist"
+    },
+    "help": {
+      "title": "Wenn Sie einen Menschen brauchen",
+      "assistant": "Die Rechtsassistenz hilft bei Formularen, Belegen und beim Einreichen.",
+      "lawyer": "Zugelassene Anwältinnen und Anwälte beraten und vertreten. Ihre Zulassung ist im Register geprüft, und sie bleiben pseudonym, bis Sie sie beauftragen.",
+      "find": "Hilfe finden",
+      "offer": "Anderen helfen"
+    },
+    "end": {
+      "title": "Beginnen Sie mit dem Brief,",
+      "titleEm": "der vor Ihnen liegt.",
+      "signedIn": "Zu Ihren Fällen"
     }
   },
   "Cases": {
@@ -401,7 +449,7 @@
     "title": "Fälle",
     "lead": "Ein Fall ist alles Rechtliche, das erledigt werden muss. Causius bearbeitet ihn mit Ihnen, hält jede Frist im Blick und fragt, bevor etwas den Fall verlässt.",
     "signInTitle": "Anmelden, um Fälle zu behalten",
-    "signInLead": "Fälle werden versiegelt mit eigenem Schlüssel gespeichert, damit Sie von jedem Gerät zurückkehren können. Melden Sie sich mit OrangeCat an; ein Pseudonym genügt.",
+    "signInLead": "Fälle werden versiegelt aufbewahrt, jeder mit eigenem Schlüssel, damit Sie von jedem Gerät aus zurückkehren können. Ein Pseudonym genügt.",
     "quickCheckSignedOut": "Oder einen Brief ohne Konto prüfen",
     "newTitle": "Einen Fall eröffnen",
     "newLead": "Sagen Sie in eigenen Worten, worum es geht. Causius fragt nach, was es braucht.",
@@ -532,7 +580,7 @@
   "Entry": {
     "signUp": "Konto erstellen",
     "signIn": "Ich habe schon ein Konto",
-    "cost": "Kein OrangeCat-Konto nötig: E-Mail und Passwort oder ein Anmeldelink genügen."
+    "cost": "E-Mail und Passwort oder ein Passkey. Kein echter Name nötig."
   },
   "Capabilities": {
     "status": {
