@@ -2,8 +2,8 @@
  * Languages a letter can be translated into, as BCP 47 codes. Wider than the
  * interface (i18n/routing.ts) on purpose: the people who most need a letter
  * explained are often the ones who do not read the language it is written in.
- * The interface's five come first, then the languages most spoken by people who
- * moved to Switzerland or the United States.
+ * The interface's languages come first, then the languages most spoken by
+ * people who moved to Switzerland and Liechtenstein.
  */
 export const TRANSLATION_LANGUAGES = [
   "en", "de", "fr", "it", "es",

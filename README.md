@@ -96,13 +96,13 @@ does, in the grammar Solon uses (`kicker`, `headline-caps`, `btn-frame`).
   photographed `pages`, items and approvals; every route answers 401 signed out and 404 to anyone
   who is not in the matter
 
-Every page exists in English, German, French, Italian and Spanish (`/en/…`,
-`/de/…`, `/fr/…`, `/it/…`, `/es/…`; the list is `i18n/routing.ts`, with why);
+Every page exists in English, German, French and Italian (`/en/…`, `/de/…`,
+`/fr/…`, `/it/…`; the list is `i18n/routing.ts`, with why);
 `/` opens in the browser's language. An analysis is written in the reader's
 language, and a letter can be translated into any of the languages in
-`lib/languages.ts`. Causius serves Switzerland, Liechtenstein and the United
-States first (`MARKETS` in `lib/jurisdictions.ts`, with cantons and states);
-the agent researches anywhere.
+`lib/languages.ts`. Causius serves Switzerland and Liechtenstein
+(`MARKETS` in `lib/jurisdictions.ts`: one record per country, so adding one is
+one record and its words); the agent researches anywhere.
 
 ## What does not exist yet
 

@@ -27,7 +27,7 @@ jobs:
         run: |
           set -uo pipefail
           fail=0
-          for path in /en /de /fr /it /es /it/helpers /es/matters /en/verify /de/helper /.well-known/jwks.json /en/platform /de/security /fr/ecosystem /en/matters /en/cases/new /de/cases/sample /fr/helpers /en/settings /en/roadmap; do
+          for path in /en /de /fr /it /it/helpers /it/matters /en/verify /de/helper /.well-known/jwks.json /en/platform /de/security /fr/ecosystem /en/matters /en/cases/new /de/cases/sample /fr/helpers /en/settings /en/roadmap; do
             code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "https://causius.orangecat.ch$path")
             echo "::notice::$path → $code"
             [ "$code" = "200" ] || fail=1

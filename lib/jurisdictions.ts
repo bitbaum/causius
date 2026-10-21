@@ -1,3 +1,5 @@
+import type { Locale } from "../i18n/routing";
+
 /**
  * The places a matter can be set in, for the picker. Switzerland first, by
  * canton, then neighbours and the rest. A matter without one is fine: the
@@ -35,51 +37,70 @@ export const CANTONS: Record<string, string> = {
   "CH-JU": "Jura",
 };
 
-/** The states of the United States (and DC), by USPS code. Proper names, the same in every language here. */
-export const US_STATES: Record<string, string> = {
-  "US-AL": "Alabama", "US-AK": "Alaska", "US-AZ": "Arizona", "US-AR": "Arkansas", "US-CA": "California",
-  "US-CO": "Colorado", "US-CT": "Connecticut", "US-DE": "Delaware", "US-DC": "District of Columbia",
-  "US-FL": "Florida", "US-GA": "Georgia", "US-HI": "Hawaii", "US-ID": "Idaho", "US-IL": "Illinois",
-  "US-IN": "Indiana", "US-IA": "Iowa", "US-KS": "Kansas", "US-KY": "Kentucky", "US-LA": "Louisiana",
-  "US-ME": "Maine", "US-MD": "Maryland", "US-MA": "Massachusetts", "US-MI": "Michigan", "US-MN": "Minnesota",
-  "US-MS": "Mississippi", "US-MO": "Missouri", "US-MT": "Montana", "US-NE": "Nebraska", "US-NV": "Nevada",
-  "US-NH": "New Hampshire", "US-NJ": "New Jersey", "US-NM": "New Mexico", "US-NY": "New York",
-  "US-NC": "North Carolina", "US-ND": "North Dakota", "US-OH": "Ohio", "US-OK": "Oklahoma", "US-OR": "Oregon",
-  "US-PA": "Pennsylvania", "US-RI": "Rhode Island", "US-SC": "South Carolina", "US-SD": "South Dakota",
-  "US-TN": "Tennessee", "US-TX": "Texas", "US-UT": "Utah", "US-VT": "Vermont", "US-VA": "Virginia",
-  "US-WA": "Washington", "US-WV": "West Virginia", "US-WI": "Wisconsin", "US-WY": "Wyoming",
+/**
+ * WHERE CAUSIUS WORKS: one record per country, and nothing else to change.
+ * Adding a country is adding its record here, its words under
+ * `Home.where.<code>` in each messages file, and listing its code in
+ * `MARKETS`: the pickers, the front page and the agent's notes follow. The
+ * agent still researches anywhere; a market is where it is offered, tested and
+ * staffed with helpers.
+ */
+export interface Market {
+  /** ISO 3166 country code. */
+  code: string;
+  /** Subdivisions with law of their own, by ISO 3166-2 code. Empty when the country's law is one. */
+  regions: Record<string, string>;
+  /** The interface languages people there read. */
+  languages: readonly Locale[];
+  /** What the agent must keep in mind about this legal order. Written for the model, in English. */
+  agentNote: string;
+}
+
+const SWITZERLAND: Market = {
+  code: "CH",
+  regions: CANTONS,
+  languages: ["de", "fr", "it"],
+  agentNote:
+    "Switzerland: federal law and the law of the 26 cantons differ; a cantonal tax, permit or procedure is governed by the canton's law, not only by the federal act. Official texts are on fedlex.admin.ch and on each canton's own collection.",
 };
 
-/**
- * Where Causius works first: Switzerland, Liechtenstein, the United States.
- * The agent researches any jurisdiction, but these are the ones the pickers
- * lead with and the helpers are recruited for.
- */
-export const MARKETS = ["CH", "LI", "US"] as const;
+const LIECHTENSTEIN: Market = {
+  code: "LI",
+  regions: {},
+  languages: ["de"],
+  agentNote:
+    "Liechtenstein has its own legal order (official texts on gesetze.li), close to Swiss and Austrian law in places and part of the EEA: do not apply Swiss or Austrian law there unless a Liechtenstein source says it applies.",
+};
 
-/** Other places a person may still pick: neighbours and where people move from. */
-export const COUNTRIES = ["DE", "AT", "FR", "IT", "GB", "ES", "PT", "NL", "BE", "TR", "IN"] as const;
+/** The markets that are switched on, in the order they are shown. */
+export const MARKETS: readonly Market[] = [SWITZERLAND, LIECHTENSTEIN];
 
-const SUBDIVISIONS: Record<string, Record<string, string>> = { CH: CANTONS, US: US_STATES };
+/** Other places a person may still pick: neighbours, and where people move from and to. */
+export const COUNTRIES = ["DE", "AT", "FR", "IT", "GB", "US", "ES", "PT", "NL", "BE", "TR", "IN"] as const;
+
+export function marketOf(code: string | null | undefined): Market | undefined {
+  const country = code?.split("-")[0];
+  return MARKETS.find((m) => m.code === country);
+}
 
 export interface JurisdictionGroup {
-  /** "CH", "LI", "US", or "elsewhere". */
+  /** A market's country code, or "elsewhere". */
   key: string;
-  /** The country itself first (federal level), then its subdivisions. */
+  /** The country itself first (its national level), then its regions. */
   codes: string[];
 }
 
-/** Every picker's options, in one order: each market with its cantons or states, then elsewhere. */
+/** Every picker's options, in one order: each market with its regions, then elsewhere. */
 export const JURISDICTION_GROUPS: JurisdictionGroup[] = [
-  ...MARKETS.map((c) => ({ key: c, codes: [c, ...Object.keys(SUBDIVISIONS[c] ?? {})] })),
+  ...MARKETS.map((m) => ({ key: m.code, codes: [m.code, ...Object.keys(m.regions)] })),
   { key: "elsewhere", codes: [...COUNTRIES] },
 ];
 
-/** "CH-ZH" → "Zürich, Switzerland" in the reader's language; "US-CA" → "California, United States". */
+/** "CH-ZH" → "Zürich, Switzerland" in the reader's language; "LI" → "Liechtenstein". */
 export function jurisdictionLabel(code: string | null | undefined, locale: string): string {
   if (!code) return "";
   const region = new Intl.DisplayNames([locale], { type: "region" });
   const [country, sub] = code.split("-");
   const countryName = region.of(country!) ?? country!;
-  return sub ? `${SUBDIVISIONS[country!]?.[code] ?? sub}, ${countryName}` : countryName;
+  return sub ? `${marketOf(code)?.regions[code] ?? sub}, ${countryName}` : countryName;
 }
