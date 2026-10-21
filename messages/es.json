@@ -1,0 +1,1248 @@
+{
+  "Meta": {
+    "title": "Causius — understand and answer legal letters",
+    "description": "Causius reads an official letter with you: what it says, what it asks for and by when. When you need a person, it hands the case to a legal assistant or a licensed lawyer."
+  },
+  "Nav": {
+    "main": "Main",
+    "cases": "My cases",
+    "helpers": "Helpers",
+    "settings": "Settings",
+    "newCase": "New case",
+    "beta": "Beta",
+    "language": "Language",
+    "matters": "Matters",
+    "quick": "Quick check",
+    "platform": "Platform",
+    "security": "Security",
+    "ecosystem": "Ecosystem",
+    "menu": "Menu",
+    "skip": "Skip to content",
+    "dark": "Dark mode",
+    "helperDesk": "Help others"
+  },
+  "Footer": {
+    "tagline": "The legal layer of the fleet: an agent that does the legal work, and a person who decides.",
+    "sections": {
+      "product": "Product",
+      "platform": "Platform",
+      "open": "In the open"
+    },
+    "links": {
+      "matters": "Matters",
+      "quick": "Quick letter check",
+      "helpers": "Helpers",
+      "settings": "Settings",
+      "platform": "How it is built",
+      "security": "Security",
+      "ecosystem": "Ecosystem",
+      "roadmap": "Roadmap",
+      "changelog": "Changelog",
+      "source": "Source code",
+      "license": "MIT licence",
+      "orangecat": "Causius on OrangeCat",
+      "solon": "Causius on Solon"
+    },
+    "disclaimer": "Beta: running, not released. Causius gives legal information, not legal advice. Only a lawyer admitted where your matter is may advise you on it or represent you.",
+    "openSource": "Open source under the MIT licence. Built in Zürich.",
+    "fleet": "The fleet"
+  },
+  "Home": {
+    "hero": {
+      "kicker": "Switzerland · Liechtenstein · United States",
+      "title": "Your legal matter,",
+      "titleEm": "handled.",
+      "lede": "Bring the letter or say what happened. Causius finds the rule and its source, keeps the deadline and drafts the reply. Nothing leaves without your yes.",
+      "quick": "Read my letter, free",
+      "open": "Open a matter",
+      "noAccount": "No account needed to read a letter."
+    },
+    "demo": {
+      "label": "Example, invented",
+      "letter": "Letter from the tax office",
+      "line1": "Dear Ms <name>Erika Muster</name>,",
+      "line2": "your 2025 assessment is enclosed. An objection may be lodged within 30 days.",
+      "hidden": "Hidden from the model",
+      "deadline": "Deadline",
+      "deadlineValue": "14 November",
+      "source": "from: «within 30 days»",
+      "draft": "Objection drafted, sources cited",
+      "approve": "Send it?",
+      "yes": "Approve",
+      "no": "Not yet"
+    },
+    "time": {
+      "title": "Days of worry, or",
+      "titleEm": "a few minutes.",
+      "without": "Without",
+      "with": "With Causius",
+      "w1": {
+        "when": "Day 1",
+        "what": "A letter you half understand"
+      },
+      "w2": {
+        "when": "Day 3",
+        "what": "Forums, contradicting each other"
+      },
+      "w3": {
+        "when": "Day 8",
+        "what": "Waiting for an appointment"
+      },
+      "w4": {
+        "when": "Day 12",
+        "what": "Was the deadline yesterday?"
+      },
+      "c1": {
+        "when": "Minute 1",
+        "what": "Photographed, your name hidden"
+      },
+      "c2": {
+        "when": "Minute 2",
+        "what": "The deadline, and the sentence it comes from"
+      },
+      "c3": {
+        "when": "Minute 5",
+        "what": "A reply drafted, every rule cited"
+      },
+      "c4": {
+        "when": "Then",
+        "what": "You decide: send, change, or ask a lawyer"
+      }
+    },
+    "compare": {
+      "title": "Honest about what it is",
+      "chatbot": "General chatbot",
+      "causius": "Causius",
+      "lawyer": "A lawyer",
+      "rows": {
+        "deadline": {
+          "label": "Finds the deadline in your letter",
+          "chatbot": "Sometimes",
+          "causius": "With its source",
+          "lawyer": "Yes"
+        },
+        "cites": {
+          "label": "Cites the law it relies on",
+          "chatbot": "Rarely checkable",
+          "causius": "Every rule",
+          "lawyer": "Yes"
+        },
+        "private": {
+          "label": "Keeps your name from the AI",
+          "chatbot": "No",
+          "causius": "Yes",
+          "lawyer": "—"
+        },
+        "advice": {
+          "label": "Advises and represents you",
+          "chatbot": "No",
+          "causius": "No, and says so",
+          "lawyer": "Yes"
+        },
+        "cost": {
+          "label": "To start",
+          "chatbot": "Free",
+          "causius": "Free",
+          "lawyer": "By the hour"
+        }
+      }
+    },
+    "privacy": {
+      "title": "The model never learns",
+      "titleEm": "who you are.",
+      "you": "In your browser",
+      "model": "What the model reads",
+      "back": "Back with you",
+      "sealed": "Each matter is sealed with its own key. Pseudonyms are welcome.",
+      "cta": "How security works"
+    },
+    "where": {
+      "title": "Where it works",
+      "ch": "Cantonal and federal law",
+      "li": "Its own legal order",
+      "us": "State and federal law",
+      "languages": "Answers in your language, and translates a letter into {count} languages.",
+      "cantons": "{count, plural, one {# canton} other {# cantons}}",
+      "states": "{count, plural, one {# state} other {# states}} and DC"
+    },
+    "problems": {
+      "title": "Start from what happened"
+    },
+    "help": {
+      "title": "When you need a person",
+      "assistant": "Legal assistants help with forms, evidence and filing.",
+      "lawyer": "Licensed lawyers advise and represent, checked against the register, pseudonymous until you engage them.",
+      "find": "Find a helper",
+      "offer": "Help others"
+    },
+    "end": {
+      "title": "Start with the letter",
+      "titleEm": "in front of you.",
+      "signedIn": "Go to your matters"
+    }
+  },
+  "Cases": {
+    "title": "My cases",
+    "subtitle": "Kept in this browser, on this device.",
+    "import": "Import case file",
+    "new": "New case",
+    "importError": "That file is not a Causius case file.",
+    "emptyTitle": "No cases yet",
+    "emptyBody": "Start with a letter you need to answer, or look at a worked example first.",
+    "example": "See the worked example",
+    "replyBy": "Reply by {date}",
+    "ready": "{done} of {total} ready"
+  },
+  "NewCase": {
+    "title": "New case",
+    "lead": "The letter goes to an AI model to be read. Causius does not store it; the result stays in this browser.",
+    "modelOwn": "Read by your own model, {model}.",
+    "modelFree": "Free shared models, small daily budget.",
+    "modelFreeNoPhoto": "Free shared models. Right now they read pasted text, not photos.",
+    "modelOff": "Free shared models are off right now. Connect your own model, or file the letter by hand below.",
+    "change": "Change",
+    "useOwn": "Use your own model",
+    "textLabel": "The letter's text",
+    "textPlaceholder": "Paste it here, in any language.",
+    "photoLabel": "Or photos of its pages",
+    "photoHint": "Up to {max} pages, in order. JPEG, PNG or WebP.",
+    "pages": "{count, plural, one {# page added} other {# pages added}}",
+    "page": "Page {n}",
+    "removePage": "Remove page {n}",
+    "languagesLegend": "Translate it into",
+    "submit": "Analyse the letter",
+    "busy": "Reading the letter…",
+    "byHandLink": "File it by hand instead",
+    "openSettings": "Open model settings",
+    "byHand": {
+      "title": "File it by hand",
+      "body": "No analysis; the letter and its deadline stay together. Already have a case file?",
+      "import": "Import it",
+      "about": "What is it about?",
+      "sender": "Who sent it?",
+      "deadline": "Reply by",
+      "save": "Save case",
+      "original": "Original"
+    },
+    "errors": {
+      "not_configured": "Free shared models are off for now. Connect your own model, or file the letter by hand.",
+      "busy": "No model answered. The free daily budget may be used up. Your own model is not affected.",
+      "busy_own": "Your model did not answer. Check its key in the settings.",
+      "no_vision": "No available model can read a photo. Paste the text, or connect a model that reads images.",
+      "rate_limited": "Too many letters in a short time. Your own model allows many more.",
+      "bad_own_model": "Your saved model settings could not be used. Set them up again.",
+      "unreadable_analysis": "The answer could not be turned into a case. Try again.",
+      "empty": "Paste the text or add a photo.",
+      "bad_image": "Send a JPEG, PNG or WebP image.",
+      "too_many_pages": "More than {max} pages. Add the pages with the request and the deadline.",
+      "offline": "Causius could not be reached. Check your connection.",
+      "unknown": "The analysis did not go through. Try again in a minute."
+    }
+  },
+  "Case": {
+    "replyBy": "Reply by",
+    "daysLeft": "{days, plural, one {# day left} other {# days left}}",
+    "dueTomorrow": "Due tomorrow",
+    "dueToday": "Due today",
+    "passed": "{days, plural, one {Passed # day ago} other {Passed # days ago}}",
+    "deadlineSource": "The letter says:",
+    "checkDeadline": "Check it against your letter.",
+    "noDeadline": "No reply date found. Read the letter for one.",
+    "ifNothing": "If you do nothing:",
+    "facts": {
+      "from": "From",
+      "where": "Where",
+      "area": "Area",
+      "reference": "Reference",
+      "dated": "Dated"
+    },
+    "asksTitle": "What you are asked for",
+    "ready": "{done} of {total} ready",
+    "letterTitle": "The letter",
+    "language": "Language",
+    "draftTitle": "Draft reply",
+    "draftHint": "A starting point. Fill every [bracket] with your own true facts.",
+    "copy": "Copy",
+    "copied": "Copied",
+    "notesTitle": "Worth knowing",
+    "whoEyebrow": "Who should look at this",
+    "tier": {
+      "ai": "Causius AI",
+      "assistant": "Legal assistant",
+      "lawyer": "Licensed lawyer"
+    },
+    "findHelper": "Find a helper",
+    "aiNotice": "Written by an AI model; it can be wrong. The letter is what counts.",
+    "export": "Export full case file",
+    "saveCopy": "Save a copy to my cases",
+    "delete": "Delete case",
+    "deleteConfirm": "Delete this case from this browser? This cannot be undone.",
+    "sampleBanner": "Worked example. All details are invented.",
+    "notHereTitle": "This case is not on this device",
+    "notHereBody": "Cases stay in the browser that made them. Import an exported file instead.",
+    "goCases": "Go to my cases",
+    "exportAnon": "Export for a helper (anonymised)"
+  },
+  "Helpers": {
+    "metaTitle": "Helpers",
+    "metaDescription": "Find help with a legal matter: Causius AI, legal assistants and licensed lawyers whose admission Causius checked, under a name or a pseudonym.",
+    "eyebrow": "Helpers",
+    "title": "Who can help, and what each may do",
+    "lead": "Anyone may use a pseudonym. A lawyer is listed only where Causius checked their admission.",
+    "search": "Search by name or what they do",
+    "filters": {
+      "kind": "Kind",
+      "place": "Country",
+      "lang": "Language",
+      "area": "Area"
+    },
+    "count": "{count, plural, =0 {No one matches} one {# helper} other {# helpers}}",
+    "clear": "Clear filters",
+    "noneYet": "No one is listed yet.",
+    "unavailable": "The directory cannot be read right now.",
+    "verifiedIn": "Admission checked: {places}",
+    "offerTitle": "Help others",
+    "offerBody": "List yourself as a legal assistant, a lawyer or an AI service you run.",
+    "offerCta": "Become a helper",
+    "ai": {
+      "line": "Reads, researches, drafts and keeps deadlines, on a sealed matter. Free.",
+      "start": "Start a matter"
+    },
+    "rulesTitle": "The rules",
+    "rules": {
+      "label": {
+        "title": "The label is the law",
+        "body": "Only an admitted lawyer may advise or represent. A label says which side a helper is on."
+      },
+      "pseudonym": {
+        "title": "Pseudonymous, and still checked",
+        "body": "A lawyer's name and register number stay sealed. The public sees a signed statement that the admission was checked; a client sees the name when the lawyer takes their matter."
+      },
+      "share": {
+        "title": "You choose what a helper sees",
+        "body": "Without your personal details by default; you can end their access at any time."
+      }
+    }
+  },
+  "Settings": {
+    "metaTitle": "Settings",
+    "metaDescription": "Use your own AI model for Causius analyses.",
+    "title": "Settings",
+    "ownTitle": "Your own model",
+    "p1": "Without a key, Causius reads letters with free shared models. They have a small daily budget that every visitor draws on, and they are not the strongest available.",
+    "p2": "A legal letter deserves the best reading you can give it. Connect an API key from a provider below and your analyses run on the strongest model that key can use, on your own budget. The key is kept in this browser only: it is sent with each analysis to reach your provider and is never stored by Causius.",
+    "p3": "Use an API key, ideally one with a spending cap. Causius never asks for a subscription login such as Claude Pro or ChatGPT Plus.",
+    "using": "Using your own model: {label}",
+    "keyKept": "Key {hint}, kept in this browser only",
+    "remove": "Remove key",
+    "provider": "Provider",
+    "keyLabel": "{vendor} API key",
+    "getKey": "Get a key from {vendor}",
+    "checking": "Checking the key…",
+    "notWrong": "This does not mean the key is wrong.",
+    "model": "Model",
+    "strongest": "strongest this key can use",
+    "use": "Use this model",
+    "saved": "Saved in this browser. New analyses use it.",
+    "tooMany": "Too many checks in a short time. Wait a few minutes and try again.",
+    "unreachable": "Could not reach Causius to check the key. Check your connection."
+  },
+  "Records": {
+    "roadmap": "Roadmap",
+    "changelog": "Changelog",
+    "home": "Back to the product",
+    "profile": "Full development profile",
+    "beta": "Beta — running, not released",
+    "source": "These records come from the canonical project profile. Planned work is not a delivery promise.",
+    "unavailable": "Development records are temporarily unavailable. Please try again shortly.",
+    "emptyRoadmap": "No roadmap items have been recorded yet.",
+    "emptyChangelog": "No changes have been recorded yet.",
+    "progress": "recorded progress",
+    "target": "Target",
+    "englishOnly": ""
+  },
+  "Redact": {
+    "title": "Anonymise before sending",
+    "lead": "Names, addresses and numbers that identify you are replaced with placeholders in your browser before the letter is sent. The model never sees them; your browser puts them back into the result.",
+    "toggle": "Anonymise",
+    "ownWords": "Also hide these words",
+    "ownWordsPlaceholder": "Your name, your employer, a family member…",
+    "ownWordsHint": "Separate with commas. Kept in this browser for your next letters.",
+    "found": "{count, plural, =0 {Nothing will be hidden} one {# detail will be hidden} other {# details will be hidden}}. Tap one to send it after all.",
+    "foundNone": "No personal details found in the text. Add your name above if it appears.",
+    "sendThis": "Send this after all",
+    "hideThis": "Hide this",
+    "preview": "Show exactly what the model receives",
+    "photosWarning": "Photos are sent as they are. Cover your name, address and numbers on each page before sending.",
+    "offWarning": "Anonymising is off: the letter is sent with every personal detail in it.",
+    "cover": "Cover details",
+    "coveredCount": "{count, plural, one {# area covered} other {# areas covered}}",
+    "notCovered": "nothing covered yet",
+    "photoTitle": "Cover details on {label}",
+    "photoHint": "Drag a box over your name, address, and any number that identifies you. What is under a box is removed from the photo.",
+    "undo": "Undo",
+    "cancel": "Cancel",
+    "done": "{count, plural, =0 {Done} one {Cover # area} other {Cover # areas}}",
+    "canvas": "The page. Drag to cover an area.",
+    "kind": {
+      "NAME": "Name",
+      "ADDRESS": "Address",
+      "POSTCODE": "Town",
+      "EMAIL": "E-mail",
+      "PHONE": "Phone",
+      "IBAN": "IBAN",
+      "AHV": "AHV no.",
+      "REF": "Reference",
+      "BIRTHDATE": "Born"
+    }
+  },
+  "Account": {
+    "title": "Your account",
+    "profile": "Profile",
+    "noEmail": "none — add a password sign-in to use email",
+    "unverified": "not confirmed yet",
+    "role": "Role",
+    "roles": {
+      "customer": "Customer",
+      "helper": "Helper",
+      "professional": "Professional",
+      "staff": "Staff",
+      "admin": "Administrator"
+    },
+    "save": "Save",
+    "saved": "Saved.",
+    "methods": "Ways to sign in",
+    "methodPassword": "Email and password",
+    "link": "Add {method}",
+    "passkeys": "Passkeys",
+    "passkeysLede": "Sign in with your fingerprint, face or device PIN instead of a password.",
+    "passkeyDefaultName": "Passkey",
+    "remove": "Remove",
+    "addPasskey": "Add a passkey",
+    "twoFactor": "Two-factor sign-in",
+    "twoFactorOn": "On. Signing in asks for a code from your authenticator app.",
+    "twoFactorOff": "Off. Turn it on to ask for a code from an authenticator app at every sign-in.",
+    "currentPassword": "Current password",
+    "currentPasswordHint": "Needed if your account has a password. Without one, sign in again first.",
+    "scan": "Add this account to your authenticator app, then enter the code it shows.",
+    "openAuthenticator": "Open in your authenticator app",
+    "backupCodes": "Keep these backup codes somewhere safe. Each one works once if you lose your phone.",
+    "turnOn": "Turn on",
+    "turnOff": "Turn off",
+    "setUp": "Set up",
+    "leave": "Sign out or leave",
+    "signOut": "Sign out",
+    "deleteConfirm": "To delete your account and everything in it, type {word}",
+    "deleteWord": "delete",
+    "delete": "Delete my account",
+    "signIn": "Sign in",
+    "matters": "My matters",
+    "settings": "Settings",
+    "trigger": "Account: {name}",
+    "menu": "Account",
+    "signingOut": "Signing out…",
+    "signOutFailed": "Sign-out did not complete. Try again.",
+    "openIn": "Open {name}",
+    "account": "Account"
+  },
+  "Matters": {
+    "title": "Matters",
+    "lead": "A matter is anything legal you need handled. Causius works it with you, keeps every deadline and asks before anything leaves.",
+    "signInTitle": "Sign in to keep matters",
+    "signInLead": "Matters are kept sealed, each with its own key, so you can come back from any device. A pseudonym is fine.",
+    "quickCheckSignedOut": "Or check a letter without an account",
+    "newTitle": "Start a matter",
+    "newLead": "Say what is going on, in your own words. Causius will ask what it needs.",
+    "situation": "What's going on?",
+    "situationPlaceholder": "For example: a tax assessment I want to object to, or a landlord keeping my deposit.",
+    "where": "Where",
+    "whereUnknown": "Not sure / let Causius find out",
+    "open": "Start",
+    "opening": "Starting…",
+    "quickCheck": "Just check a letter, without saving",
+    "mine": "Your matters",
+    "loading": "Loading…",
+    "none": "No matters yet.",
+    "nextDue": "{label}: {date}",
+    "waiting": "{count, plural, one {# decision waiting} other {# decisions waiting}}",
+    "errors": {
+      "not_configured": "Matters are not switched on for this site yet.",
+      "sign_in": "Please sign in again.",
+      "rate_limited": "Too many new matters in a short time. Wait a little.",
+      "offline": "Causius could not be reached. Check your connection.",
+      "unknown": "That did not work. Try again."
+    },
+    "kicker": "Your matters",
+    "helping": "You help"
+  },
+  "Matter": {
+    "pageTitle": "Matter",
+    "loading": "Opening the matter…",
+    "load": {
+      "not_found": "This matter does not exist, or you do not take part in it.",
+      "failed": "The matter could not be opened."
+    },
+    "backToMatters": "Back to your matters",
+    "newMatter": "New matter",
+    "agentName": "Causius",
+    "stepsCount": "{count, plural, one {# step} other {# steps}} Causius took",
+    "tool": {
+      "web_search": "searched",
+      "read_page": "read",
+      "record_deadline": "deadline",
+      "add_task": "task",
+      "note_fact": "noted",
+      "update_matter": "updated",
+      "draft_document": "drafted",
+      "request_approval": "asked you",
+      "error": "error",
+      "other": "step",
+      "check_domain": "domains",
+      "read_document": "read"
+    },
+    "emptyThread": "Write what is going on. Causius will start working.",
+    "composer": "Write to Causius…",
+    "modelOwn": "Working with your own model, {model}.",
+    "modelFree": "Working with free shared models.",
+    "change": "Change",
+    "openSettings": "Model settings",
+    "working": {
+      "reading": "Reading the matter…",
+      "researching": "Looking up what applies…",
+      "drafting": "Working on it…",
+      "checking": "Checking the details…"
+    },
+    "errors": {
+      "not_configured": "No model is switched on for this site. Connect your own model to continue.",
+      "busy": "No model answered. The free shared budget may be used up; your own model is not affected.",
+      "busy_own": "Your model did not answer. Check its key in the settings.",
+      "rate_limited": "That is a lot in a short time. Wait a little, or use your own model.",
+      "bad_own_model": "Your saved model settings could not be used.",
+      "offline": "Causius could not be reached. Your message was not lost: send it again.",
+      "not_allowed": "You can read this matter but not write to it.",
+      "unknown": "That turn did not complete. Try again.",
+      "stopped": "Stopped. Nothing from that turn was saved. Send it again to retry."
+    },
+    "panel": "The matter",
+    "due": "Due",
+    "nothingDue": "Nothing due yet.",
+    "daysLeft": "{days, plural, one {# day left} other {# days left}}",
+    "tomorrow": "tomorrow",
+    "today": "today",
+    "overdue": "{days, plural, one {# day overdue} other {# days overdue}}",
+    "decisions": "Waiting for you",
+    "noDecisions": "Nothing waits for your decision.",
+    "action": {
+      "send": "Send",
+      "file": "File",
+      "sign": "Sign",
+      "share": "Share",
+      "pay": "Pay",
+      "other": "Action"
+    },
+    "approve": "Approve",
+    "decline": "Decline",
+    "approveNote": "Approving records your decision. Sending or filing is still done by you, with the document.",
+    "documents": "Documents",
+    "draft": "draft",
+    "uploaded": "yours",
+    "upload": "Add a document",
+    "uploading": "Adding…",
+    "uploadHint": "PDF or text, up to 10 MB. Only the text is kept, encrypted.",
+    "uploadErrors": {
+      "too_large": "That file is larger than 10 MB.",
+      "unsupported_type": "Only PDF and text files for now.",
+      "scanned_pdf": "That PDF is a scan without text. Use the quick check to read a photo of it.",
+      "unreadable": "That PDF could not be read.",
+      "rate_limited": "Too many uploads in a short time.",
+      "unknown": "The document could not be added."
+    },
+    "privacy": "Privacy",
+    "privacyLead": "Before anything goes to a model, names, addresses and numbers are replaced with placeholders. Add any other words to keep out.",
+    "hideWords": "Words to keep from models",
+    "hidePlaceholder": "Your name, your employer…",
+    "save": "Save",
+    "saved": "Saved.",
+    "delete": "Delete this matter",
+    "deleteConfirm": "Delete this matter and everything in it? This cannot be undone."
+  },
+  "AuthError": {
+    "kicker": "Sign-in",
+    "failedTitle": "Sign-in did not complete",
+    "failedBody": "Something went wrong between Causius and OrangeCat. Trying again usually works.",
+    "deniedTitle": "Sign-in was cancelled",
+    "deniedBody": "You did not allow Causius to sign you in. Nothing was shared.",
+    "configurationTitle": "Sign-in is not set up correctly",
+    "configurationBody": "This is a problem on our side, not yours.",
+    "tryAgain": "Try again",
+    "home": "Home"
+  },
+  "Entry": {
+    "signUp": "Create an account",
+    "signIn": "I already have an account",
+    "cost": "Email and password, or a passkey. No real name needed."
+  },
+  "Capabilities": {
+    "status": {
+      "available": "Works today",
+      "inDevelopment": "In development",
+      "planned": "Planned"
+    },
+    "letters": {
+      "name": "Read an official letter",
+      "body": "Paste or photograph it: what it asks, the deadline with its source sentence, a translation, a draft reply. No account."
+    },
+    "matters": {
+      "name": "Work a matter with an agent",
+      "body": "One workspace per matter: conversation, sourced research, deadlines, tasks, drafts, documents."
+    },
+    "approvals": {
+      "name": "Nothing leaves without your approval",
+      "body": "Sending, filing, signing, sharing and paying wait for your decision."
+    },
+    "models": {
+      "name": "Any model, including your own",
+      "body": "Free shared models, or your own key with one of ten providers. The key stays in your browser."
+    },
+    "domains": {
+      "name": "Check a name before you found on it",
+      "body": "The agent asks the domain registries whether a name is taken."
+    },
+    "marketplace": {
+      "name": "Legal assistants and lawyers",
+      "body": "Assistants, lawyers and AI services list themselves under a name or pseudonym; a lawyer only where Causius checked the admission."
+    },
+    "formation": {
+      "name": "Found and register",
+      "body": "Companies and associations prepared by the agent, filed on your approval."
+    },
+    "contracts": {
+      "name": "Contracts that keep themselves",
+      "body": "Agreements signed by the parties, obligations tracked, payment held in escrow if they choose."
+    },
+    "law": {
+      "name": "Law as data, from Solon",
+      "body": "Statutes and procedures as citable data, so every answer points at its rule."
+    },
+    "firms": {
+      "name": "Firms on their own models",
+      "body": "Law firms run Causius on models inside their own walls."
+    }
+  },
+  "Platform": {
+    "metaTitle": "How Causius is built",
+    "metaDescription": "The architecture of Causius: an agent that does legal work on a sealed case file, with every personal detail hidden from the models it uses.",
+    "kicker": "Platform",
+    "title": "How Causius is built, and why",
+    "lede": "Legal work is slow because it is done by hand. Causius is an agent that does the work and a person who decides, built so what it handles stays private and what it claims can be checked.",
+    "why": {
+      "title": "Why build it",
+      "p1": "Most legal trouble is a letter with a deadline, a form or a contract: work with clear rules, billed by the hour because nobody automated it.",
+      "p3": "So Causius is a case file with an agent attached, not a chat. Lawyers stay where the law puts them; the rest gets done."
+    },
+    "capabilities": {
+      "title": "What is real today",
+      "lede": "Each line says whether it works. The roadmap and changelog are public.",
+      "roadmap": "Roadmap",
+      "changelog": "Changelog"
+    },
+    "identity": {
+      "problem": "The problem",
+      "solution": "What Causius does about it",
+      "mission": "Mission",
+      "vision": "Vision"
+    },
+    "architecture": {
+      "kicker": "Architecture",
+      "title": "Five layers, one job each",
+      "intake": {
+        "title": "Intake, in your browser",
+        "body": "Letters and photos are read on your device. Names, addresses and numbers become placeholders before anything is sent."
+      },
+      "matter": {
+        "title": "The matter",
+        "body": "One sealed record per matter: conversation, facts, deadlines, tasks, decisions, documents."
+      },
+      "agent": {
+        "title": "The agent",
+        "body": "A loop of tools that searches, records deadlines and facts, and drafts. It may change the matter; anything that acts on the world it can only propose."
+      },
+      "models": {
+        "title": "Models",
+        "body": "Model-agnostic: a chain of free models, or your own key with one of ten providers. A better model is a setting, not a rewrite."
+      },
+      "identity": {
+        "title": "Identity and money",
+        "body": "Causius keeps its own accounts (password, link, passkey, two-step codes) and lets OrangeCat sign you in. A lawyer's admission is published as a signed attestation that names the place, not the person."
+      }
+    },
+    "principles": {
+      "title": "Principles",
+      "human": {
+        "title": "A person approves what matters",
+        "body": "The agent does the work; a person decides what leaves."
+      },
+      "honest": {
+        "title": "Nothing claimed that is not true",
+        "body": "No invented statute, deadline, helper or testimonial. Causius gives legal information, not advice."
+      },
+      "open": {
+        "title": "Open source",
+        "body": "Every line is public under the MIT licence."
+      },
+      "shared": {
+        "title": "Built from shared parts",
+        "body": "Design, sign-in, chat, models and the public record come from packages the whole fleet uses."
+      }
+    },
+    "stack": {
+      "title": "The stack",
+      "lede": "Boring where it can be.",
+      "framework": {
+        "label": "Framework",
+        "value": "Next.js 16 · React 19 · TypeScript, strict"
+      },
+      "data": {
+        "label": "Data",
+        "value": "PostgreSQL · Drizzle · AES-256-GCM per matter"
+      },
+      "models": {
+        "label": "Models",
+        "value": "@bitbaum/ai-kit · free chain · own keys · web search"
+      },
+      "signin": {
+        "label": "Sign-in",
+        "value": "@bitbaum/accountkit · OrangeCat OpenID Connect"
+      },
+      "chat": {
+        "label": "Conversation",
+        "value": "@bitbaum/chatkit"
+      },
+      "design": {
+        "label": "Design",
+        "value": "@bitbaum/design-tokens"
+      },
+      "record": {
+        "label": "Public record",
+        "value": "bip-kit · ROADMAP.md · CHANGELOG.md"
+      },
+      "limits": {
+        "label": "Rate limits",
+        "value": "limitkit"
+      },
+      "languages": {
+        "label": "Languages",
+        "value": "next-intl · English · German · French"
+      },
+      "tests": {
+        "label": "Tests",
+        "value": "Vitest · PGlite, a real PostgreSQL in process"
+      }
+    },
+    "next": {
+      "kicker": "Where it is going",
+      "title": "From letters to legal existence",
+      "lede": "Causius holds legal work: matters, founding and registering, contracts. The law itself belongs in Solon, as data every product can cite. Next, helpers are paid through OrangeCat.",
+      "roadmap": "Read the roadmap",
+      "ecosystem": "See the ecosystem",
+      "source": "Read the source"
+    }
+  },
+  "Security": {
+    "metaTitle": "Security",
+    "metaDescription": "How Causius keeps legal matters private: anonymisation before any model, per-matter encryption at rest, a locked-down browser and approvals only the owner can give.",
+    "kicker": "Security",
+    "title": "Private by construction",
+    "lede": "Causius handles legal letters. Each guarantee below is a property of the public code. None asks you to trust us.",
+    "anon": {
+      "title": "Models are not told who",
+      "body": "Before text goes to a model, personal details become placeholders, restored only after the answer returns. Detection is good, not perfect: check what is hidden.",
+      "d1": "Found automatically: names, addresses, postcodes, emails, phone numbers, IBANs, AHV numbers, references, birth dates.",
+      "d2": "Your own words to hide are always added.",
+      "d3": "In the quick check this happens in your browser.",
+      "d4": "Web searches go out with placeholders too.",
+      "d5": "The exception is your voice: a recording goes to a speech service and cannot be hidden first. Causius does not store it, and typing never involves it."
+    },
+    "sealed": {
+      "title": "Sealed at rest",
+      "body": "Each matter has its own data key, sealed by a master key that is never in the database.",
+      "d1": "AES-256-GCM, a fresh nonce per value, bound to its matter and purpose.",
+      "d2": "Titles, messages, facts, deadlines, decisions and document text are sealed; only dates, statuses, sizes and the jurisdiction code are clear.",
+      "d3": "Without the master key, a copy of the database is noise."
+    },
+    "minimal": {
+      "title": "Nothing kept that is not needed",
+      "body": "An upload is reduced to its text. A letter checked without an account is not stored.",
+      "d1": "No users table, no passwords: only an OrangeCat account id.",
+      "d2": "Logs record which model served a turn, never what was said. No analytics. The only extra script is the optional feedback widget."
+    },
+    "browser": {
+      "title": "A locked-down browser",
+      "body": "Every page carries a strict content security policy.",
+      "d1": "Scripts run only with a per-request nonce, and a page may talk to Causius and nothing else.",
+      "d2": "No framing, no referrer, HSTS.",
+      "d3": "API answers are never cached."
+    },
+    "access": {
+      "title": "Only you decide",
+      "body": "A matter opens only for the people in it. Anyone else gets the answer a missing matter gets.",
+      "d1": "Actions that leave the matter are proposals only its owner can approve.",
+      "d2": "Limits per account protect the shared models.",
+      "d3": "Deleting a matter deletes all of it."
+    },
+    "breach": {
+      "title": "If it went wrong",
+      "lede": "What each party would hold if the worst happened.",
+      "database": {
+        "title": "A stolen database",
+        "body": "Ciphertext, account ids and dates. No names, no letters. Deadline dates are readable."
+      },
+      "provider": {
+        "title": "A model provider's logs",
+        "body": "Placeholders where the people were: [NAME-1], living at [ADDRESS-1]."
+      },
+      "operator": {
+        "title": "Us, the operator",
+        "body": "We run the server holding the master key, so we could be compelled. Keys only you hold are on the roadmap; until then, that is the honest limit."
+      }
+    },
+    "links": {
+      "source": "Read the code",
+      "platform": "How it is built"
+    }
+  },
+  "Ecosystem": {
+    "metaTitle": "Ecosystem",
+    "metaDescription": "Causius is the legal layer of a fleet of products — OrangeCat, Loki and Solon — that one OrangeCat account opens.",
+    "kicker": "Ecosystem",
+    "title": "One person, a whole fleet",
+    "lede": "Causius is one product in a fleet built to give a single person what used to take an institution. Each product does one job, and one OrangeCat account opens them all.",
+    "layer": "{layer, select, economic {Economy} execution {Execution} governance {Governance} other {{layer}}}",
+    "open": "Open {name}",
+    "unavailable": "The list of products could not be loaded just now. Try again in a minute.",
+    "layerTitle": "The legal layer",
+    "layerBody": "OrangeCat moves value, Loki gets the work done and Solon governs. Causius is the legal layer on top: the matters, registrations and contracts through which a person or an organisation exists in law and keeps its word. Solon holds the law as data; Causius does the legal work with it.",
+    "seams": {
+      "account": {
+        "title": "Sign in once",
+        "body": "A Causius account, or your OrangeCat one, under a pseudonym if you like."
+      },
+      "pay": {
+        "title": "Pay and be paid",
+        "body": "Lawyers and legal assistants will be paid through OrangeCat, with the money held until the work is accepted."
+      },
+      "build": {
+        "title": "Built and shipped by Loki",
+        "body": "Loki's agents build Causius, and its deploy pipeline ships every change to this site."
+      },
+      "law": {
+        "title": "The law, from Solon",
+        "body": "Solon keeps rules as versioned data and decisions as signed votes. Causius will cite the law from it, rule by rule."
+      }
+    },
+    "account": {
+      "kicker": "Your account",
+      "title": "One account for all of it",
+      "body": "Create it once at OrangeCat and use it for Causius, OrangeCat, Solon and Loki.",
+      "signedIn": "Go to your matters"
+    }
+  },
+  "Chat": {
+    "send": "Send",
+    "stop": "Stop",
+    "voice": "Speak instead of typing",
+    "voiceStop": "Stop and use what I said",
+    "cancelRecording": "Cancel the recording",
+    "confirmRecording": "Use the recording",
+    "listening": "Listening…",
+    "transcribing": "Writing it down…",
+    "attach": "Add a photo or file",
+    "attachTitle": "Add to your message",
+    "close": "Close",
+    "camera": "Camera",
+    "photos": "Photos",
+    "files": "Files",
+    "queue": "Write the next message…",
+    "remove": "Remove {name}",
+    "dismiss": "Dismiss",
+    "retryTake": "Try this recording again",
+    "dictMic": "The microphone is blocked. Allow it for this site, or type instead.",
+    "dictSilence": "Nothing was heard. Try again, closer to the microphone.",
+    "dictUnavailable": "Speaking is not available right now. You can type instead.",
+    "dictFileTooLarge": "That recording is too long. Keep it under two minutes.",
+    "noteWrongType": "{name}: Causius reads photos, PDFs and text files.",
+    "noteImageTooLarge": "{name} is too large (over {mb} MB).",
+    "noteTooMany": "At most {max} files at a time.",
+    "noteUnreadable": "{name} could not be read.",
+    "copy": "Copy",
+    "copied": "Copied",
+    "retry": "Try again",
+    "working": "Working…",
+    "stopped": "Stopped. Send it again to retry.",
+    "jump": "Latest",
+    "failed": "That did not work.",
+    "loading": "Loading the conversation…",
+    "replies": "Suggested replies",
+    "attachedOnly": "(see the attached pages and files)",
+    "voiceNote": "Speaking sends your voice to a speech service. A voice cannot be hidden first, so say names only if you are fine with that.",
+    "voiceWhy": "Why",
+    "modelAuto": "Automatic",
+    "modelPicker": "Choose the model",
+    "modelYours": "Your own model",
+    "modelYoursNote": "Your own key. Your vendor bills you.",
+    "modelNote": "A choice is where Causius starts; if that model is busy it moves on.",
+    "modelCannotSee": "cannot read photos",
+    "modelCanSee": "reads photos",
+    "modelUseOwn": "Use your own model",
+    "modelLoadFailed": "The list could not be loaded. Automatic still works.",
+    "page": "Page {n}",
+    "covered": "{count, plural, one {# area covered} other {# areas covered}}",
+    "notCovered": "Nothing covered yet",
+    "cover": "Cover details",
+    "coverMore": "Cover more",
+    "coverHint": "Cover your name, address and numbers before the photo leaves your device.",
+    "sendUncovered": "Nothing is covered on {count, plural, one {# photo} other {# photos}}. Cover them, or send as they are.",
+    "sendAnyway": "Send as they are",
+    "fileStaged": "File",
+    "uploading": "Reading your pages…",
+    "errScanned": "This PDF is a scan with no text. Photograph its pages instead, and cover your details.",
+    "errNoVision": "No free model can read a photo right now. Paste the text instead, or use your own model.",
+    "errUnreadable": "Nothing could be read from that. Try a sharper photo.",
+    "errUpload": "The file could not be added.",
+    "errTooLarge": "That file is too large (over 10 MB).",
+    "errUnsupported": "Causius reads photos, PDFs and text files.",
+    "errRate": "Too many uploads in a short time. Wait a little.",
+    "starterTitle": "Not sure what to say? Start with one of these.",
+    "s1": "I got a letter and don't know what it asks of me.",
+    "s2": "I want to object to a decision.",
+    "s3": "My landlord or employer is not following the contract."
+  },
+  "Auth": {
+    "signIn": "Sign in",
+    "signInTitle": "Sign in",
+    "signUpTitle": "Create an account",
+    "signUpLede": "No real name needed. Choose whatever way in suits you; you can add more later.",
+    "createAccount": "Create an account",
+    "withSignin": "Continue with Google, Apple, GitHub, X or Facebook",
+    "withOrangecat": "Continue with OrangeCat",
+    "withPasskey": "Sign in with a passkey",
+    "withLink": "Email me a sign-in link instead",
+    "signUpWithLink": "Sign up with a link by email instead",
+    "orEmail": "or with email",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least 12 characters. A long phrase is easier to remember than symbols.",
+    "displayName": "Display name",
+    "displayNameHint": "Optional. Anything you like — it does not have to be your real name.",
+    "checkInbox": "We sent a link to {email}. Open it on this device to continue. It works for 10 minutes.",
+    "confirmInbox": "We sent a link to {email}. Open it to confirm your address and finish creating your account.",
+    "back": "Back",
+    "backHome": "Back to the home page",
+    "totpPrompt": "Enter the 6-digit code from your authenticator app.",
+    "backupPrompt": "Enter one of the backup codes you saved when you set up two-factor sign-in.",
+    "totpCode": "Code",
+    "backupCode": "Backup code",
+    "trustDevice": "Trust this device for 30 days",
+    "verify": "Verify",
+    "useTotp": "Use the authenticator app instead",
+    "useBackup": "Use a backup code instead",
+    "resendVerification": "Send the confirmation link again",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "unavailable": "Accounts are not switched on for this site yet. Everything that does not need an account still works.",
+    "errors": {
+      "rateLimited": "Too many attempts. Wait a few minutes, then try again.",
+      "unavailable": "Accounts are not available right now. Try again in a little while.",
+      "generic": "That did not work. Try again, or choose another way to sign in.",
+      "emailFirst": "Enter your email address first.",
+      "INVALID_EMAIL_OR_PASSWORD": "That email and password do not match. Check both, or sign in with a link instead.",
+      "EMAIL_NOT_VERIFIED": "Confirm your email address first — the link is in your inbox.",
+      "USER_ALREADY_EXISTS": "There is already an account with this address. Sign in instead.",
+      "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "There is already an account with this address. Sign in instead.",
+      "PASSWORD_TOO_SHORT": "The password needs at least 12 characters.",
+      "PASSWORD_TOO_LONG": "The password can have at most 128 characters.",
+      "INVALID_EMAIL": "That does not look like an email address.",
+      "INVALID_CODE": "That code is not right, or it has expired. Try the newest one.",
+      "INVALID_TWO_FACTOR_CODE": "That code is not right, or it has expired. Try the newest one.",
+      "SESSION_EXPIRED": "For your safety, sign in again before changing this.",
+      "INVALID_PASSWORD": "That password is not right."
+    }
+  },
+  "Mail": {
+    "verify": {
+      "subject": "Confirm your email for {site}",
+      "lead": "Confirm this address to finish creating your account at {site}.",
+      "action": "Confirm my email"
+    },
+    "magicLink": {
+      "subject": "Your sign-in link for {site}",
+      "lead": "Use this link to sign in to {site}. It works once, for 10 minutes.",
+      "action": "Sign in"
+    },
+    "reset": {
+      "subject": "Reset your password for {site}",
+      "lead": "Someone asked to reset the password of your account at {site}.",
+      "action": "Choose a new password"
+    },
+    "ignore": "If this was not you, ignore this email — nothing changes."
+  },
+  "Professions": {
+    "kinds": {
+      "ai": {
+        "name": "AI service",
+        "does": "Information and paperwork, run by its operator. Not legal advice."
+      },
+      "assistant": {
+        "name": "Legal assistant",
+        "does": "Procedure, evidence, forms, filing, translation. Not legal advice."
+      },
+      "lawyer": {
+        "name": "Licensed lawyer",
+        "does": "Advises and represents, where admitted."
+      }
+    },
+    "causius": "Causius AI",
+    "areas": {
+      "tenancy": "Tenancy",
+      "employment": "Employment",
+      "migration": "Migration",
+      "family": "Family",
+      "debt": "Debt",
+      "social": "Social security",
+      "tax": "Tax",
+      "company": "Companies",
+      "contracts": "Contracts",
+      "criminal": "Criminal",
+      "administrative": "Authorities",
+      "other": "Other"
+    }
+  },
+  "Helper": {
+    "metaTitle": "{name} · Helper",
+    "places": "Where",
+    "languages": "Languages",
+    "areas": "Areas",
+    "paid": "Paid at {host}",
+    "checkedTitle": "Admission checked by Causius",
+    "checkedBody": "Causius read the public register for {place} on {date}. The statement below is signed and names the place, not the person.",
+    "checkIt": "Check the signature",
+    "valid": "Valid until {date}",
+    "notLawyer": "Not a lawyer: does not give legal advice or represent.",
+    "back": "All helpers",
+    "ask": {
+      "title": "Ask for help",
+      "matter": "Your matter",
+      "message": "What you need",
+      "placeholder": "For example: can you check my objection before I send it?",
+      "sees": "What they will see",
+      "anonymised": "Without my personal details",
+      "full": "Everything, with names",
+      "send": "Send request",
+      "sending": "Sending…",
+      "sent": "Sent. Their answer appears in the matter.",
+      "openMatter": "Open the matter",
+      "noMatters": "Start a matter first; then ask from here.",
+      "start": "Start a matter",
+      "signIn": "Sign in to ask for help",
+      "errors": {
+        "already_asked": "You already asked them about this matter.",
+        "own_profile": "That is your own profile.",
+        "helper_unavailable": "This helper is not available any more.",
+        "rate_limited": "Too many requests in a short time. Wait a little.",
+        "not_configured": "Requests are not switched on for this site yet.",
+        "unknown": "That did not work. Try again."
+      },
+      "preview": "Your request, as they will read it",
+      "alsoHide": "A name or word to hide too",
+      "hide": "Hide"
+    }
+  },
+  "HelperDesk": {
+    "metaTitle": "Your helper profile",
+    "title": "Help others",
+    "lead": "List yourself under your name or a pseudonym. People find you in the directory and ask you about their matter.",
+    "signIn": "Sign in to become a helper",
+    "public": "Everything in this section is public.",
+    "kind": "I am",
+    "name": "Public name",
+    "nameHint": "A pseudonym is fine.",
+    "headline": "One line about what you do",
+    "bio": "More about you",
+    "places": "Where you help",
+    "placesHint": "A lawyer is shown only where their admission was checked.",
+    "addPlace": "Add",
+    "remove": "Remove {item}",
+    "areas": "Areas",
+    "languages": "Languages",
+    "serviceUrl": "Where you are paid (optional)",
+    "serviceHint": "An OrangeCat service or your own page, https only.",
+    "status": {
+      "draft": "Hidden",
+      "listed": "Listed",
+      "paused": "Paused"
+    },
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Saved.",
+    "visible": "You are in the directory.",
+    "viewPublic": "See your public profile",
+    "waiting": {
+      "listing": "Hidden. Choose Listed to appear.",
+      "language": "Add at least one language to appear.",
+      "verification": "You appear once your admission is checked. Submit it below."
+    },
+    "delete": "Delete my helper profile",
+    "deleteConfirm": "Delete your helper profile? Your requests and checked admissions go with it. Your own matters stay.",
+    "credential": {
+      "title": "Your admission",
+      "lead": "Causius checks it in the public register and publishes only a signed statement that you are admitted there. Your name and number stay sealed until you take a client's matter.",
+      "place": "Admitted in",
+      "legalName": "Legal name, as in the register",
+      "registerNumber": "Register number",
+      "registerUrl": "Link to your entry in the public register",
+      "note": "Note for the reviewer (optional)",
+      "submit": "Submit for checking",
+      "status": {
+        "pending": "Being checked",
+        "verified": "Checked",
+        "rejected": "Not confirmed",
+        "revoked": "Withdrawn"
+      },
+      "withdraw": "Withdraw",
+      "reason": "Reviewer: {note}"
+    },
+    "requests": {
+      "title": "Requests",
+      "none": "No requests yet.",
+      "anonymised": "Shared without personal details",
+      "full": "Shared with names",
+      "accept": "Accept",
+      "decline": "Decline",
+      "open": "Open the matter",
+      "accepted": "You work on this matter."
+    },
+    "errors": {
+      "bad_request": "Check the fields marked above.",
+      "already_submitted": "You already submitted this place.",
+      "not_needed": "Only a lawyer submits an admission.",
+      "no_profile": "Save your profile first.",
+      "needs_verification": "Your admission must be checked before you can take a matter.",
+      "already_answered": "This request was already answered.",
+      "rate_limited": "Too many changes in a short time. Wait a little.",
+      "not_configured": "Helper profiles are not switched on for this site yet.",
+      "unknown": "That did not work. Try again."
+    },
+    "roleLegend": "Who is this account for?",
+    "forClient": "I need help with a legal matter",
+    "forHelper": "I help others"
+  },
+  "Review": {
+    "metaTitle": "Review",
+    "title": "Admissions to check",
+    "lead": "Open the register link, compare name, number and place, then decide. Nobody reviews their own.",
+    "notAllowed": "Only Causius staff review admissions.",
+    "none": "Nothing waits for a decision.",
+    "submitted": "Submitted {date}",
+    "evidence": {
+      "legalName": "Legal name",
+      "registerNumber": "Register number",
+      "registerUrl": "Register entry",
+      "note": "Note"
+    },
+    "noteLabel": "Reason, shown to the lawyer (needed to reject)",
+    "verify": "Verified: issue the attestation",
+    "reject": "Not confirmed",
+    "done": "Decided.",
+    "errors": {
+      "own_credential": "You cannot review your own admission.",
+      "already_decided": "Someone already decided this one.",
+      "unknown": "That did not work. Try again."
+    }
+  },
+  "Verify": {
+    "metaTitle": "Check an attestation",
+    "title": "Check an attestation",
+    "lead": "Paste a Causius attestation. With the disclosures a lawyer gave you, it also shows whether the name you were told is the one Causius checked.",
+    "token": "Attestation",
+    "disclosures": "Disclosures (optional, one per line)",
+    "check": "Check",
+    "checking": "Checking…",
+    "ok": "Signed by Causius: admitted in {place}, valid until {date}.",
+    "revoked": "The signature is valid, but this admission was withdrawn.",
+    "disclosed": "Verified {claim}: {value}",
+    "claims": {
+      "legal_name": "name",
+      "register_number": "register number"
+    },
+    "keys": "The public key, to check it without Causius",
+    "how": "It is an SD-JWT signed with Ed25519. The name is in it only as a salted digest, so it cannot be guessed; it is not a zero-knowledge proof: it says Causius checked the register.",
+    "reasons": {
+      "malformed": "This is not a Causius attestation.",
+      "unknown_key": "Not signed with Causius's key.",
+      "bad_signature": "The signature does not match: it was changed.",
+      "expired": "It has expired.",
+      "wrong_issuer": "Not issued by Causius.",
+      "bad_disclosure": "A disclosure does not belong to this attestation: that is not the name Causius checked.",
+      "rate_limited": "Too many checks in a short time. Wait a little.",
+      "not_configured": "Checking is not switched on for this site yet.",
+      "unknown": "That did not work. Try again."
+    }
+  },
+  "MatterHelpers": {
+    "title": "Helpers",
+    "find": "Find a helper",
+    "none": "Only you and Causius work on this matter.",
+    "status": {
+      "requested": "Asked",
+      "accepted": "Working on it",
+      "declined": "Declined",
+      "withdrawn": "Withdrawn",
+      "ended": "Ended"
+    },
+    "sees": {
+      "anonymised": "sees no personal details",
+      "full": "sees everything"
+    },
+    "verifiedName": "Name checked by Causius: {name}",
+    "nameMismatch": "The name could not be matched to Causius's check.",
+    "end": "End",
+    "withdraw": "Withdraw",
+    "youHelp": "You help on this matter as {alias}.",
+    "youSeeAnonymised": "You see it without the client's personal details.",
+    "leave": "Leave this matter",
+    "checkYourself": "Check it yourself"
+  },
+  "Workflows": {
+    "pick": "Start from a common problem, or just describe yours",
+    "items": {
+      "debt-collection": {
+        "name": "Debt collection notice",
+        "ready": "Photograph the notice and say the date it reached you, and whether you owe the amount."
+      },
+      "rent-increase": {
+        "name": "Rent increase",
+        "ready": "Attach the landlord's notice and your lease, and say when the notice arrived."
+      },
+      "tax-assessment": {
+        "name": "Tax assessment",
+        "ready": "Attach the assessment and your return, and say what you think is wrong."
+      },
+      "dismissal": {
+        "name": "Dismissal at work",
+        "ready": "Say when you started, when you were told and how, and attach the contract and the letter."
+      },
+      "insurance-refusal": {
+        "name": "Insurance refused",
+        "ready": "Attach the insurer's decision and say what you asked for."
+      },
+      "association": {
+        "name": "Found an association",
+        "ready": "Say its name, what it is for, where it is based and who founds it."
+      }
+    }
+  },
+  "Places": {
+    "whole": "{country}, whole country",
+    "elsewhere": "Elsewhere"
+  }
+}

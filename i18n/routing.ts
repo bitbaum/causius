@@ -8,7 +8,16 @@ import { defineRouting } from "next-intl/routing";
  * German follows Swiss spelling (ss, never ß) — the first readers are in
  * Switzerland.
  */
-export const locales = ["en", "de", "fr"] as const;
+/*
+ * WHY THESE FIVE. Causius serves Switzerland, Liechtenstein and the United
+ * States first: German, French and Italian are Switzerland's official
+ * languages (and German Liechtenstein's), English and Spanish the United
+ * States'. Every other language is the agent's job, not the interface's: it
+ * answers, and translates a letter, in whatever language the person writes.
+ * A language is added here when the people who need it arrive, translated
+ * whole, never half (i18n/parity.test.ts).
+ */
+export const locales = ["en", "de", "fr", "it", "es"] as const;
 export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = "en";
@@ -23,6 +32,8 @@ export const localeNames: Record<Locale, string> = {
   en: "English",
   de: "Deutsch",
   fr: "Français",
+  it: "Italiano",
+  es: "Español",
 };
 
 /** Each language named in English, for the instruction the model is given. */
@@ -30,6 +41,8 @@ export const localeEnglishNames = {
   en: "English",
   de: "German",
   fr: "French",
+  it: "Italian",
+  es: "Spanish",
 } as const satisfies Record<Locale, string>;
 
 export const routing = defineRouting({

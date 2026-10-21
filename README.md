@@ -96,9 +96,13 @@ does, in the grammar Solon uses (`kicker`, `headline-caps`, `btn-frame`).
   photographed `pages`, items and approvals; every route answers 401 signed out and 404 to anyone
   who is not in the matter
 
-Every page exists in English (`/en/…`), German (`/de/…`) and French (`/fr/…`);
+Every page exists in English, German, French, Italian and Spanish (`/en/…`,
+`/de/…`, `/fr/…`, `/it/…`, `/es/…`; the list is `i18n/routing.ts`, with why);
 `/` opens in the browser's language. An analysis is written in the reader's
-language.
+language, and a letter can be translated into any of the languages in
+`lib/languages.ts`. Causius serves Switzerland, Liechtenstein and the United
+States first (`MARKETS` in `lib/jurisdictions.ts`, with cantons and states);
+the agent researches anywhere.
 
 ## What does not exist yet
 
@@ -146,7 +150,7 @@ After setting a key on the host, check it end to end:
 
 ```sh
 curl -s https://causius.orangecat.ch/api/health   # {"ok":true,"analysis":{"text":true,"photo":…}}
-pnpm run check:analyze                            # the sample letter through a real model, in all three languages
+pnpm run check:analyze                            # the sample letter through a real model, in every interface language
 ```
 
 `check:analyze` asserts the deadline and its source sentence and prints the rest

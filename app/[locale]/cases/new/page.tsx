@@ -6,7 +6,8 @@ import { useEffect, useMemo, useState } from "react";
 import { PhotoRedactor } from "@/components/PhotoRedactor";
 import { btnPrimary, btnQuiet, card, field, link, shell } from "@/components/ui";
 import { Link, useRouter } from "@/i18n/navigation";
-import { localeEnglishNames, toLocale } from "@/i18n/routing";
+import { toLocale } from "@/i18n/routing";
+import { languageName, MAX_TRANSLATIONS, TRANSLATION_LANGUAGES, type TranslationLanguage } from "@/lib/languages";
 import { MAX_PAGES } from "@/lib/analyze-limits";
 import { newId, type CaseFile } from "@/lib/case";
 import { API, ROUTES } from "@/lib/routes";
@@ -21,8 +22,6 @@ import {
 import { saveCase, saveOwnWords, useHydrated, useOwnModel, useOwnWords } from "@/lib/store";
 
 /** Sent to the model by English name; shown to the reader in their language. */
-const LANGUAGES = ["English", "German", "French"] as const;
-type Language = (typeof LANGUAGES)[number];
 
 /**
  * What each failure offers as a way past it. Fleet rule "no dead ends":
@@ -67,7 +66,7 @@ export default function NewCasePage() {
   const [text, setText] = useState("");
   const [pages, setPages] = useState<Page[]>([]);
   // The reader's own language is always asked for; this is what else they want.
-  const [languages, setLanguages] = useState<Language[]>([localeEnglishNames[locale]]);
+  const [languages, setLanguages] = useState<TranslationLanguage[]>([locale]);
   const [busy, setBusy] = useState(false);
   const [failure, setFailure] = useState<ErrorCode | null>(null);
   const [manual, setManual] = useState(false);
@@ -146,7 +145,8 @@ export default function NewCasePage() {
         body: JSON.stringify({
           // Only the anonymised text leaves the browser.
           text: sentText,
-          languages,
+          // The model is told languages by their English names.
+          languages: languages.map((l) => languageName(l, "en")),
           locale,
           byok: ownModel ?? undefined,
           images: pages.map(({ mediaType, data }) => ({ mediaType, data })),
@@ -407,8 +407,9 @@ export default function NewCasePage() {
         <fieldset>
           <legend className="text-sm font-medium">{t("languagesLegend")}</legend>
           <div className="mt-2 flex flex-wrap gap-2">
-            {LANGUAGES.map((l) => {
+            {TRANSLATION_LANGUAGES.map((l) => {
               const on = languages.includes(l);
+              const full = !on && languages.length >= MAX_TRANSLATIONS;
               return (
                 <label
                   key={l}
@@ -419,12 +420,13 @@ export default function NewCasePage() {
                   <input
                     type="checkbox"
                     checked={on}
+                    disabled={full}
                     onChange={() =>
                       setLanguages(on ? languages.filter((x) => x !== l) : [...languages, l])
                     }
                     className="accent-[var(--color-accent)]"
                   />
-                  {t(`lang.${l}`)}
+                  {languageName(l, locale)}
                 </label>
               );
             })}

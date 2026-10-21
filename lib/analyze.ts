@@ -17,6 +17,7 @@ import { z } from "zod";
 import { MAX_IMAGE_B64, MAX_PAGES, MAX_TEXT } from "./analyze-limits";
 import { newId, parseCase, type CaseFile } from "./case";
 import { SITE } from "./site";
+import { localeEnglishNames, locales } from "../i18n/routing";
 
 /**
  * Letter in, case file out.
@@ -40,7 +41,6 @@ const health = createHealthTracker();
 
 const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"] as const;
 /** The languages the interface speaks; the analysis is written in the reader's. */
-const READER_LANGUAGES = { en: "English", de: "German", fr: "French" } as const;
 
 export const AnalyzeRequestSchema = z
   .object({
@@ -61,7 +61,7 @@ export const AnalyzeRequestSchema = z
       .max(4)
       .default([]),
     /** The reader's interface language: what the summary and checklist are written in. */
-    locale: z.enum(["en", "de", "fr"]).catch("en").default("en"),
+    locale: z.enum(locales).catch("en").default("en"),
     /** Validated separately by ai-kit's `isByokConfig` (closed vendor list). */
     byok: z.unknown().optional(),
   })
@@ -114,7 +114,7 @@ Recommend "lawyer" whenever status, liberty, custody, a permit, or a significant
 Otherwise recommend "assistant" for help gathering and filing paperwork; "ai" only for purely informational letters.`;
 
 export function buildMessages(request: AnalyzeRequest): ChatMessage[] {
-  const reader = READER_LANGUAGES[request.locale];
+  const reader = localeEnglishNames[request.locale];
   // The reader's language is always asked for; the system prompt tells the
   // model to skip a translation into the letter's own language.
   const targets = [...new Set([reader, ...request.languages])].join(", ");

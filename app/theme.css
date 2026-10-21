@@ -24,7 +24,7 @@
  * who build, black with one orange accent. This is for someone holding a
  * letter that has a deadline in it, so it is the look of a document that
  * deserves to be taken seriously: warm paper, a deep ink-indigo, headlines
- * set like an inscription. Light by default, dark when they ask or their
+ * set like a good book. Light by default, dark when they ask or their
  * device does. Amber and red are kept clear for flagging a deadline or a
  * problem, so the brand never competes with them. The structure, the tokens
  * and the primitives are the same as the fleet's, so the products still sit
@@ -40,13 +40,15 @@
   /* — How a headline is set. Read by .headline and .headline-caps. ————— */
   --theme-headline-font: var(--font-display);
   --theme-headline-weight: var(--font-display-weight);
-  --theme-headline-case: uppercase;
-  --theme-headline-tracking: 0.03em;
-  --theme-headline-leading: 1.05;
+  /* Sentence case, as an editor sets a serif: calmer than capitals, and the
+     italic of the same face carries the emphasis (`.headline em`). */
+  --theme-headline-case: none;
+  --theme-headline-tracking: -0.01em;
+  --theme-headline-leading: 1.02;
   /* Calls to action: square and capitalised, or soft and sentence case. */
-  --theme-action-case: uppercase;
-  --theme-action-tracking: 0.08em;
-  --theme-action-weight: 700;
+  --theme-action-case: none;
+  --theme-action-tracking: 0;
+  --theme-action-weight: 600;
 
   /* — Geometry. Near-square: a document, not an app. ——————————————— */
   --radius-control: 0.1875rem;

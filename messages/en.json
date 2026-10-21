@@ -49,87 +49,135 @@
   },
   "Home": {
     "hero": {
-      "kicker": "Legal work, with you in charge",
-      "line1": "Your matter.",
-      "line2": "Worked through.",
-      "lede": "Say what is happening, or bring the letter. Causius finds the rules, keeps your deadlines and drafts the reply. Nothing leaves without you.",
+      "kicker": "Switzerland · Liechtenstein · United States",
+      "title": "Your legal matter,",
+      "titleEm": "handled.",
+      "lede": "Bring the letter or say what happened. Causius finds the rule and its source, keeps the deadline and drafts the reply. Nothing leaves without your yes.",
+      "quick": "Read my letter, free",
       "open": "Open a matter",
-      "quick": "Check a letter, no account"
+      "noAccount": "No account needed to read a letter."
     },
-    "example": {
-      "label": "Example matter",
-      "title": "Objection to a tax assessment",
-      "s1": {
-        "tool": "searched",
-        "text": "Objection period"
+    "demo": {
+      "label": "Example, invented",
+      "letter": "Letter from the tax office",
+      "line1": "Dear Ms <name>Erika Muster</name>,",
+      "line2": "your 2025 assessment is enclosed. An objection may be lodged within 30 days.",
+      "hidden": "Hidden from the model",
+      "deadline": "Deadline",
+      "deadlineValue": "14 November",
+      "source": "from: «within 30 days»",
+      "draft": "Objection drafted, sources cited",
+      "approve": "Send it?",
+      "yes": "Approve",
+      "no": "Not yet"
+    },
+    "time": {
+      "title": "Days of worry, or",
+      "titleEm": "a few minutes.",
+      "without": "Without",
+      "with": "With Causius",
+      "w1": {
+        "when": "Day 1",
+        "what": "A letter you half understand"
       },
-      "s2": {
-        "tool": "deadline",
-        "text": "30 days from notification"
+      "w2": {
+        "when": "Day 3",
+        "what": "Forums, contradicting each other"
       },
-      "s3": {
-        "tool": "drafted",
-        "text": "Objection, ready to sign"
+      "w3": {
+        "when": "Day 8",
+        "what": "Waiting for an appointment"
       },
-      "s4": {
-        "tool": "asked you",
-        "text": "Send by registered post?"
+      "w4": {
+        "when": "Day 12",
+        "what": "Was the deadline yesterday?"
+      },
+      "c1": {
+        "when": "Minute 1",
+        "what": "Photographed, your name hidden"
+      },
+      "c2": {
+        "when": "Minute 2",
+        "what": "The deadline, and the sentence it comes from"
+      },
+      "c3": {
+        "when": "Minute 5",
+        "what": "A reply drafted, every rule cited"
+      },
+      "c4": {
+        "when": "Then",
+        "what": "You decide: send, change, or ask a lawyer"
       }
     },
-    "how": {
-      "title": "You decide. It does the work.",
-      "describe": {
-        "title": "Say what is going on",
-        "body": "In your own words. Add the letter if you have it."
-      },
-      "work": {
-        "title": "It works the matter",
-        "body": "Finds and cites the rules, tracks deadlines, drafts the reply."
-      },
-      "approve": {
-        "title": "Nothing leaves without you",
-        "body": "Sending, filing, signing and paying wait for your approval."
+    "compare": {
+      "title": "Honest about what it is",
+      "chatbot": "General chatbot",
+      "causius": "Causius",
+      "lawyer": "A lawyer",
+      "rows": {
+        "deadline": {
+          "label": "Finds the deadline in your letter",
+          "chatbot": "Sometimes",
+          "causius": "With its source",
+          "lawyer": "Yes"
+        },
+        "cites": {
+          "label": "Cites the law it relies on",
+          "chatbot": "Rarely checkable",
+          "causius": "Every rule",
+          "lawyer": "Yes"
+        },
+        "private": {
+          "label": "Keeps your name from the AI",
+          "chatbot": "No",
+          "causius": "Yes",
+          "lawyer": "—"
+        },
+        "advice": {
+          "label": "Advises and represents you",
+          "chatbot": "No",
+          "causius": "No, and says so",
+          "lawyer": "Yes"
+        },
+        "cost": {
+          "label": "To start",
+          "chatbot": "Free",
+          "causius": "Free",
+          "lawyer": "By the hour"
+        }
       }
     },
     "privacy": {
-      "title": "Built so nobody reads your matter",
-      "cta": "How security works",
-      "redact": {
-        "title": "Anonymised before any model",
-        "body": "Names, addresses and numbers become placeholders first."
-      },
-      "sealed": {
-        "title": "Sealed at rest",
-        "body": "Every matter has its own key."
-      },
-      "pseudonymous": {
-        "title": "Pseudonymous",
-        "body": "Everyone may use a pseudonym."
-      }
+      "title": "The model never learns",
+      "titleEm": "who you are.",
+      "you": "In your browser",
+      "model": "What the model reads",
+      "back": "Back with you",
+      "sealed": "Each matter is sealed with its own key. Pseudonyms are welcome.",
+      "cta": "How security works"
     },
-    "tiersTitle": "Three kinds of help",
-    "tiers": {
-      "ai": {
-        "name": "Causius AI",
-        "can": "Reads, translates, drafts a reply.",
-        "limit": "Information, not advice."
-      },
-      "assistant": {
-        "name": "Legal assistants",
-        "can": "Know the paperwork: evidence, forms, filing.",
-        "limit": "Not lawyers."
-      },
-      "lawyer": {
-        "name": "Licensed lawyers",
-        "can": "Admitted where your case is. They advise and represent.",
-        "limit": "Licensed per country."
-      }
+    "where": {
+      "title": "Where it works",
+      "ch": "Cantonal and federal law",
+      "li": "Its own legal order",
+      "us": "State and federal law",
+      "languages": "Answers in your language, and translates a letter into {count} languages.",
+      "cantons": "{count, plural, one {# canton} other {# cantons}}",
+      "states": "{count, plural, one {# state} other {# states}} and DC"
     },
-    "marketplaceLink": "How helpers work",
-    "fleet": {
-      "title": "One account, the whole fleet",
-      "lede": "Your OrangeCat account signs you in here and opens OrangeCat, Solon and Loki.",
-      "more": "How the products fit together",
+    "problems": {
+      "title": "Start from what happened"
+    },
+    "help": {
+      "title": "When you need a person",
+      "assistant": "Legal assistants help with forms, evidence and filing.",
+      "lawyer": "Licensed lawyers advise and represent, checked against the register, pseudonymous until you engage them.",
+      "find": "Find a helper",
+      "offer": "Help others"
+    },
+    "end": {
+      "title": "Start with the letter",
+      "titleEm": "in front of you.",
       "signedIn": "Go to your matters"
     }
   },
@@ -162,11 +210,6 @@
     "page": "Page {n}",
     "removePage": "Remove page {n}",
     "languagesLegend": "Translate it into",
-    "lang": {
-      "English": "English",
-      "German": "German",
-      "French": "French"
-    },
     "submit": "Analyse the letter",
     "busy": "Reading the letter…",
     "byHandLink": "File it by hand instead",
@@ -406,9 +449,7 @@
     "title": "Matters",
     "lead": "A matter is anything legal you need handled. Causius works it with you, keeps every deadline and asks before anything leaves.",
     "signInTitle": "Sign in to keep matters",
-    "signInLead": "Matters are stored sealed with their own key, so you can return from any device. Sign in with OrangeCat; a pseudonym is fine.",
-    "signIn": "Sign in with OrangeCat",
-    "signInOff": "Sign-in is not switched on for this site yet.",
+    "signInLead": "Matters are kept sealed, each with its own key, so you can come back from any device. A pseudonym is fine.",
     "quickCheckSignedOut": "Or check a letter without an account",
     "newTitle": "Start a matter",
     "newLead": "Say what is going on, in your own words. Causius will ask what it needs.",
@@ -416,8 +457,6 @@
     "situationPlaceholder": "For example: a tax assessment I want to object to, or a landlord keeping my deposit.",
     "where": "Where",
     "whereUnknown": "Not sure / let Causius find out",
-    "federal": "Switzerland (federal)",
-    "elsewhere": "Elsewhere",
     "open": "Start",
     "opening": "Starting…",
     "quickCheck": "Just check a letter, without saving",
@@ -541,7 +580,7 @@
   "Entry": {
     "signUp": "Create an account",
     "signIn": "I already have an account",
-    "cost": "No OrangeCat account needed: email and password, or a sign-in link, is enough."
+    "cost": "Email and password, or a passkey. No real name needed."
   },
   "Capabilities": {
     "status": {
@@ -1093,8 +1132,9 @@
       "not_configured": "Helper profiles are not switched on for this site yet.",
       "unknown": "That did not work. Try again."
     },
-    "signUpLine": "Offering help rather than looking for it?",
-    "signUpCta": "Create a helper account"
+    "roleLegend": "Who is this account for?",
+    "forClient": "I need help with a legal matter",
+    "forHelper": "I help others"
   },
   "Review": {
     "metaTitle": "Review",
@@ -1200,5 +1240,9 @@
         "ready": "Say its name, what it is for, where it is based and who founds it."
       }
     }
+  },
+  "Places": {
+    "whole": "{country}, whole country",
+    "elsewhere": "Elsewhere"
   }
 }

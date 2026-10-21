@@ -162,11 +162,6 @@
     "page": "Page {n}",
     "removePage": "Retirer la page {n}",
     "languagesLegend": "Traduire en",
-    "lang": {
-      "English": "anglais",
-      "German": "allemand",
-      "French": "français"
-    },
     "submit": "Analyser le courrier",
     "busy": "Lecture du courrier…",
     "byHandLink": "Le saisir à la main",
@@ -407,8 +402,6 @@
     "lead": "Un dossier, c'est tout ce qui est juridique et doit être réglé. Causius le traite avec vous, tient chaque délai et demande avant que quoi que ce soit parte.",
     "signInTitle": "Se connecter pour garder ses dossiers",
     "signInLead": "Les dossiers sont stockés scellés, chacun avec sa clé, pour que vous puissiez revenir depuis n'importe quel appareil. Connectez-vous avec OrangeCat ; un pseudonyme suffit.",
-    "signIn": "Se connecter avec OrangeCat",
-    "signInOff": "La connexion n'est pas encore activée pour ce site.",
     "quickCheckSignedOut": "Ou vérifier un courrier sans compte",
     "newTitle": "Ouvrir un dossier",
     "newLead": "Dites ce qui se passe, avec vos mots. Causius demandera ce dont il a besoin.",
@@ -416,8 +409,6 @@
     "situationPlaceholder": "Par exemple : une taxation fiscale que je veux contester, ou un bailleur qui garde ma garantie.",
     "where": "Où",
     "whereUnknown": "Je ne sais pas / Causius trouvera",
-    "federal": "Suisse (fédéral)",
-    "elsewhere": "Ailleurs",
     "open": "Ouvrir",
     "opening": "Ouverture…",
     "quickCheck": "Juste vérifier un courrier, sans enregistrer",
@@ -1093,8 +1084,9 @@
       "not_configured": "Les profils d'aidant ne sont pas encore activés pour ce site.",
       "unknown": "Cela n'a pas marché. Réessayez."
     },
-    "signUpLine": "Vous offrez de l'aide plutôt que d'en chercher ?",
-    "signUpCta": "Créer un compte d'aidant"
+    "roleLegend": "À quoi sert ce compte ?",
+    "forClient": "J'ai besoin d'aide pour une affaire juridique",
+    "forHelper": "J'aide les autres"
   },
   "Review": {
     "metaTitle": "Vérification",
@@ -1200,5 +1192,9 @@
         "ready": "Donnez son nom, son but, son siège et ses membres fondateurs."
       }
     }
+  },
+  "Places": {
+    "whole": "{country}, tout le pays",
+    "elsewhere": "Ailleurs"
   }
 }

@@ -1,3 +1,5 @@
+import { TRANSLATION_LANGUAGES } from "./languages";
+
 /**
  * Who may help, and what each kind may do. The one place this is decided.
  *
@@ -31,8 +33,8 @@ export const PROFESSIONS: Record<HelperKind, Profession> = {
   lawyer: { mayAdvise: true, requires: "bar_admission", operated: false },
 };
 
-/** Languages a helper may list, BCP 47 primary tags. A closed list, so a filter means something. */
-export const HELPER_LANGUAGES = ["de", "fr", "it", "en", "es", "pt", "tr", "sq", "sr", "ar", "uk", "ru", "fa", "ti"] as const;
+/** Languages a helper may list: the ones a letter can be translated into. A closed list, so a filter means something. */
+export const HELPER_LANGUAGES = TRANSLATION_LANGUAGES;
 
 /** Areas of law a helper may list. Closed for the same reason; "other" is the escape. */
 export const HELPER_AREAS = [

@@ -36,6 +36,7 @@ import {
   type MatterView,
 } from "./store";
 import { workflowById } from "../workflows";
+import { localeEnglishNames, type Locale } from "../../i18n/routing";
 
 /**
  * The agent that works a matter.
@@ -57,11 +58,6 @@ import { workflowById } from "../workflows";
  */
 
 const health = createHealthTracker();
-const LANGUAGE = {
-  en: "English",
-  de: "German (Swiss spelling)",
-  fr: "French",
-} as const;
 const MAX_ROUNDS = 6;
 const HISTORY = 30;
 const DOC_BUDGET = 24_000;
@@ -71,7 +67,8 @@ const SYSTEM = `You are Causius, a legal assistant working one matter for the pe
 How you work:
 - Be concrete and practical. Say what the person should do, in what order, by when.
 - Ground statements of law in sources. Use web_search and read_page to find the law, official guidance or decisions, and cite them as [n] using the numbers given in the search results. Every sentence that states a rule of law ends with its [n]; a rule you could not find a source for is marked as unverified. Prefer the official text (the statute, the authority's own page) over commentary. Never invent a statute, article, decision or deadline, and do not overstate how widely a rule applies. If you are unsure, say so and say how to find out.
-- Distinguish levels of law: a cantonal tax, permit or procedure is governed by the canton's law, not only by the federal act.
+- Distinguish levels of law: in Switzerland a cantonal tax, permit or procedure is governed by the canton's law, not only by the federal act; in the United States, state law and federal law differ, and a court's local rules matter. Liechtenstein has its own legal order: do not apply Swiss or Austrian law there unless a Liechtenstein source says it applies.
+- In the United States only a lawyer licensed in that state may give legal advice; give legal information, and point to a licensed lawyer where advice is needed.
 - Record every deadline you find or compute with record_deadline, quoting the text it comes from. If a deadline depends on a rule (e.g. "30 days from notification"), say which rule and what you assumed.
 - In your first turn on a new matter, call update_matter to give it a clear title, its area of law and its jurisdiction code. Record important facts with note_fact.
 - Write documents (letters, submissions, contracts, objections) with draft_document, complete and ready to use, with [square-bracket placeholders] only for facts you do not have.
@@ -499,7 +496,7 @@ async function runTurnLocked(input: {
   read?: typeof readPage;
   domains?: typeof checkDomains;
   /** The reader's interface language; the answer is written in it. */
-  locale?: "en" | "de" | "fr";
+  locale?: Locale;
 }): Promise<TurnOutcome> {
   const { db, master, matterId, sub } = input;
   const opened = await openMatter(db, master, matterId, sub);
@@ -553,7 +550,7 @@ async function runTurnLocked(input: {
   const conversation: ChatMessage[] = [
     {
       role: "system",
-      content: `${SYSTEM}${input.locale ? `\n- The person reads ${LANGUAGE[input.locale]}: write your answers in ${LANGUAGE[input.locale]}, whatever language a letter is in.` : ""}\n\n=== The matter ===\n${hide(context)}`,
+      content: `${SYSTEM}${input.locale ? `\n- The person reads ${localeEnglishNames[input.locale]}: write your answers in ${localeEnglishNames[input.locale]}, whatever language a letter is in.` : ""}\n\n=== The matter ===\n${hide(context)}`,
     },
     // Documents sit in the user turn, marked as data, never in the system prompt.
     ...(documents

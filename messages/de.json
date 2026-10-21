@@ -162,11 +162,6 @@
     "page": "Seite {n}",
     "removePage": "Seite {n} entfernen",
     "languagesLegend": "Übersetzen in",
-    "lang": {
-      "English": "Englisch",
-      "German": "Deutsch",
-      "French": "Französisch"
-    },
     "submit": "Brief analysieren",
     "busy": "Der Brief wird gelesen…",
     "byHandLink": "Stattdessen von Hand erfassen",
@@ -407,8 +402,6 @@
     "lead": "Ein Fall ist alles Rechtliche, das erledigt werden muss. Causius bearbeitet ihn mit Ihnen, hält jede Frist im Blick und fragt, bevor etwas den Fall verlässt.",
     "signInTitle": "Anmelden, um Fälle zu behalten",
     "signInLead": "Fälle werden versiegelt mit eigenem Schlüssel gespeichert, damit Sie von jedem Gerät zurückkehren können. Melden Sie sich mit OrangeCat an; ein Pseudonym genügt.",
-    "signIn": "Mit OrangeCat anmelden",
-    "signInOff": "Die Anmeldung ist für diese Website noch nicht eingeschaltet.",
     "quickCheckSignedOut": "Oder einen Brief ohne Konto prüfen",
     "newTitle": "Einen Fall eröffnen",
     "newLead": "Sagen Sie in eigenen Worten, worum es geht. Causius fragt nach, was es braucht.",
@@ -416,8 +409,6 @@
     "situationPlaceholder": "Zum Beispiel: eine Steuerveranlagung, gegen die ich Einsprache erheben will, oder ein Vermieter, der die Kaution behält.",
     "where": "Wo",
     "whereUnknown": "Unklar / Causius soll es herausfinden",
-    "federal": "Schweiz (Bund)",
-    "elsewhere": "Anderswo",
     "open": "Eröffnen",
     "opening": "Wird eröffnet…",
     "quickCheck": "Nur einen Brief prüfen, ohne Speichern",
@@ -1093,8 +1084,9 @@
       "not_configured": "Profile für Helfende sind für diese Website noch nicht eingeschaltet.",
       "unknown": "Das hat nicht geklappt. Versuchen Sie es noch einmal."
     },
-    "signUpLine": "Sie bieten Hilfe an, statt sie zu suchen?",
-    "signUpCta": "Konto als helfende Person erstellen"
+    "roleLegend": "Wofür ist dieses Konto?",
+    "forClient": "Ich brauche Hilfe in einer Rechtsfrage",
+    "forHelper": "Ich helfe anderen"
   },
   "Review": {
     "metaTitle": "Prüfung",
@@ -1200,5 +1192,9 @@
         "ready": "Nennen Sie Name, Zweck, Sitz und die Gründungsmitglieder."
       }
     }
+  },
+  "Places": {
+    "whole": "{country}, ganzes Land",
+    "elsewhere": "Anderswo"
   }
 }
