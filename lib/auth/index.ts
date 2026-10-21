@@ -1,3 +1,4 @@
+import { isStaff } from "@bitbaum/accountkit/auth";
 import { createAuthRuntime } from "@bitbaum/accountkit/auth/next";
 import { dbConfigured, getDb } from "../db";
 import { mailConfigured, sendAuthMail } from "../mail";
@@ -37,4 +38,14 @@ export async function auth(): Promise<{
     actorId: session.user.id,
     user: { name: session.user.name, image: session.user.image ?? null },
   };
+}
+
+/**
+ * The signed-in person if they may review credentials: staff or admin, the
+ * role only `pnpm run role:grant` (or the Grant role workflow) changes. Nobody
+ * reviews by holding an email address or by asking.
+ */
+export async function reviewer(): Promise<{ actorId: string } | null> {
+  const session = await getSession();
+  return session && isStaff(session.user.role) ? { actorId: session.user.id } : null;
 }

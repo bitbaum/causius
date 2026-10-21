@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { encryptionConfigured, masterKey } from "@/lib/crypto";
 import { dbConfigured, getDb, type Db } from "@/lib/db";
+import { Refused } from "../helpers/store";
 import { NotAllowed } from "./store";
 
 /**
@@ -29,6 +30,8 @@ export async function guarded(fn: () => Promise<Response>): Promise<Response> {
     return await fn();
   } catch (error) {
     if (error instanceof NotAllowed) return json({ error: "not_allowed" }, 403);
+    // A rule the request ran into (already asked, needs verification…): named, so the screen can say what to do next.
+    if (error instanceof Refused) return json({ error: error.code }, 409);
     throw error;
   }
 }

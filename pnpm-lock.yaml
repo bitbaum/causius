@@ -26,6 +26,9 @@ importers:
       '@bitbaum/mail-kit':
         specifier: ^0.1.1
         version: 0.1.1
+      '@bitbaum/searchkit':
+        specifier: github:bitbaum/searchkit#v0.2.2
+        version: https://codeload.github.com/bitbaum/searchkit/tar.gz/09532b1974c7cb92f38c98decaeed334f3ffea72(react@19.2.4)
       better-auth:
         specifier: ^1.7.7
         version: 1.7.7(drizzle-kit@0.31.11)(drizzle-orm@0.45.4(@electric-sql/pglite@0.5.8)(@types/pg@8.23.1)(kysely@0.29.6)(pg@8.23.1))(next@16.3.8(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@26.6.4)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pg@8.23.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vitest@4.1.11(@types/node@26.6.4)(vite@8.3.4(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)))
@@ -38,6 +41,9 @@ importers:
       limitkit:
         specifier: ^0.2.0
         version: 0.2.0
+      listkit:
+        specifier: github:bitbaum/listkit#v0.1.0
+        version: https://codeload.github.com/bitbaum/listkit/tar.gz/69cb4f4ef12d6a2a56b56db1bb4d4ac14aced525
       next:
         specifier: 16.3.8
         version: 16.3.8(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@26.6.4)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -303,6 +309,15 @@ packages:
   '@bitbaum/mail-kit@0.1.1':
     resolution: {integrity: sha512-3JfaeuwkI+8TVGeSDrr8/esaWkv2d7UAcNg1Xu5HHu6k3cBzuSaLGhuzHp0KlAJgGa2QEQIqtE7W1+PosKFOjw==}
     engines: {node: '>=20'}
+
+  '@bitbaum/searchkit@https://codeload.github.com/bitbaum/searchkit/tar.gz/09532b1974c7cb92f38c98decaeed334f3ffea72':
+    resolution: {gitHosted: true, integrity: sha512-zUU6UUFB8x2ZYzngjJgif2iyJHxNx7gBLrS4dufNAUyLlmRk9BQBuY8q1BuaK6xAEGSU2JPz23zbwoyLRlZHLg==, tarball: https://codeload.github.com/bitbaum/searchkit/tar.gz/09532b1974c7cb92f38c98decaeed334f3ffea72}
+    version: 0.2.2
+    peerDependencies:
+      react: '>=18'
+    peerDependenciesMeta:
+      react:
+        optional: true
 
   '@cacheable/memory@2.2.0':
     resolution: {integrity: sha512-CTLKqLItRCEixEAewD3/j9DB3/o96gpTPD4eJ1v+DGOlxZRZncRQkGYqqnAGCscYd6RNeXfGeiuCphsPtqyIfQ==}
@@ -2917,6 +2932,11 @@ packages:
     resolution: {integrity: sha512-x05857iOBGf04eRBAXWTtRTrGhRdBfW9fZa8rfJDx3rQNRBVQpwK2z9aiMYNWhRp71QoIjvA0rl4ZiL4+6O8rA==}
     engines: {node: '>=20'}
 
+  listkit@https://codeload.github.com/bitbaum/listkit/tar.gz/69cb4f4ef12d6a2a56b56db1bb4d4ac14aced525:
+    resolution: {gitHosted: true, integrity: sha512-7SPjMC6YEyKQ1pKE+hlaMtMjmwV8DMCheB3KaRUzSdQ065ZpIj5+BQFTUiv2gDu/d1xfuKDn+dwt4urcwwu9KA==, tarball: https://codeload.github.com/bitbaum/listkit/tar.gz/69cb4f4ef12d6a2a56b56db1bb4d4ac14aced525}
+    version: 0.1.0
+    engines: {node: '>=20'}
+
   locate-path@6.0.0:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
@@ -3844,6 +3864,10 @@ snapshots:
   '@bitbaum/design-tokens@1.1.0': {}
 
   '@bitbaum/mail-kit@0.1.1': {}
+
+  '@bitbaum/searchkit@https://codeload.github.com/bitbaum/searchkit/tar.gz/09532b1974c7cb92f38c98decaeed334f3ffea72(react@19.2.4)':
+    optionalDependencies:
+      react: 19.2.4
 
   '@cacheable/memory@2.2.0':
     dependencies:
@@ -6148,6 +6172,8 @@ snapshots:
       lightningcss-win32-x64-msvc: 1.33.0
 
   limitkit@0.2.0: {}
+
+  listkit@https://codeload.github.com/bitbaum/listkit/tar.gz/69cb4f4ef12d6a2a56b56db1bb4d4ac14aced525: {}
 
   locate-path@6.0.0:
     dependencies:

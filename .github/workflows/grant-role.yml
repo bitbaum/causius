@@ -1,0 +1,59 @@
+name: Grant role
+
+# By hand: give a Causius account a role. "staff" or "admin" may review
+# helpers' credentials at /review. Matches the account by its id or its email
+# address and prints only which account id changed.
+#
+# The role is the one input that decides who may verify a lawyer, so it is
+# changed here, on purpose and on the record (this run), never from a form.
+on:
+  workflow_dispatch:
+    inputs:
+      who:
+        description: "Account email address or id"
+        required: true
+      role:
+        description: "Role"
+        required: true
+        default: staff
+        type: choice
+        options: [customer, staff, admin]
+
+permissions:
+  contents: read
+
+jobs:
+  grant:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Grant on the box
+        env:
+          SSH_KEY: ${{ secrets.HETZNER_SSH_PRIVATE_KEY }}
+          WHO: ${{ inputs.who }}
+          ROLE: ${{ inputs.role }}
+        run: |
+          set -euo pipefail
+          IP=167.233.22.31
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id && chmod 600 ~/.ssh/id
+          ssh-keyscan -H "$IP" >> ~/.ssh/known_hosts 2>/dev/null
+          # The inputs travel as arguments, quoted for the remote shell; they
+          # are never pasted into the script text.
+          ssh -i ~/.ssh/id -o BatchMode=yes "ubuntu@$IP" "bash -s -- $(printf '%q %q' "$WHO" "$ROLE")" <<'REMOTE'
+          set -euo pipefail
+          WHO="$1"; ROLE="$2"
+          case "$ROLE" in customer|staff|admin) ;; *) echo "bad role"; exit 2 ;; esac
+          pass=$(grep '^causius|' ~/.db-credentials | head -1 | cut -d'|' -f2)
+          out=$(PGPASSWORD="$pass" psql -h 127.0.0.1 -U causius -d causius -v ON_ERROR_STOP=1 -qtA \
+            -v who="$WHO" -v role="$ROLE" <<'SQL'
+          with match as (select id from users where id = :'who' or lower(email) = lower(:'who'))
+          update users set role = :'role', updated_at = now()
+           where id in (select id from match) and (select count(*) from match) = 1
+          returning id;
+          SQL
+          )
+          n=$(printf '%s' "$out" | grep -c . || true)
+          if [ "$n" = "1" ]; then echo "account $out is now $ROLE"; else echo "matched $n accounts; nothing changed"; exit 1; fi
+          REMOTE
+          rm -f ~/.ssh/id

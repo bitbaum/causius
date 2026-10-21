@@ -18,7 +18,8 @@
     "ecosystem": "Ecosystem",
     "menu": "Menu",
     "skip": "Skip to content",
-    "dark": "Dark mode"
+    "dark": "Dark mode",
+    "helperDesk": "Help others"
   },
   "Footer": {
     "tagline": "The legal layer of the fleet: an agent that does the legal work, and a person who decides.",
@@ -241,55 +242,44 @@
   },
   "Helpers": {
     "metaTitle": "Helpers",
-    "metaDescription": "The Causius marketplace: legal assistants who help with paperwork, and licensed lawyers who can advise and represent you.",
-    "eyebrow": "Marketplace",
-    "title": "People who help when the AI is not enough",
-    "lead": "Two kinds of people help. What separates them is what the law lets each one do.",
-    "noneTitle": "No helpers are listed yet.",
-    "noneBody": "Causius does not match or verify anyone yet. Meanwhile, hand the case file to a lawyer or advice centre you find yourself.",
-    "listedUnder": "Listed under: {identity}",
-    "assistant": {
-      "name": "Legal assistant",
-      "identity": "Name or pseudonym",
-      "does1": "Explains procedure",
-      "does2": "Helps gather evidence",
-      "does3": "Fills in forms, translates, prepares the filing",
-      "doesNot": "Does not give legal advice or represent you.",
-      "checks": "Planned: reputation earned on completed cases."
+    "metaDescription": "Find help with a legal matter: Causius AI, legal assistants and licensed lawyers whose admission Causius checked, under a name or a pseudonym.",
+    "eyebrow": "Helpers",
+    "title": "Who can help, and what each may do",
+    "lead": "Anyone may use a pseudonym. A lawyer is listed only where Causius checked their admission.",
+    "search": "Search by name or what they do",
+    "filters": {
+      "kind": "Kind",
+      "place": "Country",
+      "lang": "Language",
+      "area": "Area"
     },
-    "lawyer": {
-      "name": "Licensed lawyer",
-      "identity": "Name or pseudonym; admission verified privately",
-      "does1": "Advises on your rights and options",
-      "does2": "Reviews or writes what you send",
-      "does3": "Represents you before authorities and courts",
-      "doesNot": "Only where admitted, shown on the profile.",
-      "checks": "Planned: admission checked against the public bar register."
+    "count": "{count, plural, =0 {No one matches} one {# helper} other {# helpers}}",
+    "clear": "Clear filters",
+    "noneYet": "No one is listed yet.",
+    "unavailable": "The directory cannot be read right now.",
+    "verifiedIn": "Admission checked: {places}",
+    "offerTitle": "Help others",
+    "offerBody": "List yourself as a legal assistant, a lawyer or an AI service you run.",
+    "offerCta": "Become a helper",
+    "ai": {
+      "line": "Reads, researches, drafts and keeps deadlines, on a sealed matter. Free.",
+      "start": "Start a matter"
     },
-    "wantTitle": "Want to help?",
-    "wantBody": "Offer your help as a service on OrangeCat, under your name or a pseudonym, and be paid there directly. Causius does not yet list, label or check these; that is next on the roadmap.",
-    "offer": "Offer a service on OrangeCat",
-    "seeRoadmap": "See the roadmap",
     "rulesTitle": "The rules",
     "rules": {
       "label": {
         "title": "The label is the law",
-        "body": "Who may give legal advice is set by each country, almost always reserved to lawyers. A label says which side a helper is on."
+        "body": "Only an admitted lawyer may advise or represent. A label says which side a helper is on."
       },
       "pseudonym": {
-        "title": "Pseudonymous on every side",
-        "body": "Everyone may use a pseudonym; Causius checks privately only what must be true."
+        "title": "Pseudonymous, and still checked",
+        "body": "A lawyer's name and register number stay sealed. The public sees a signed statement that the admission was checked; a client sees the name when the lawyer takes their matter."
       },
       "share": {
         "title": "You choose what a helper sees",
-        "body": "They get only the case file you hand over, anonymised by default."
-      },
-      "place": {
-        "title": "One jurisdiction at a time",
-        "body": "Helpers are matched on place, area of law and a shared language."
+        "body": "Without your personal details by default; you can end their access at any time."
       }
-    },
-    "start": "Start a case"
+    }
   },
   "Settings": {
     "metaTitle": "Settings",
@@ -443,7 +433,8 @@
       "offline": "Causius could not be reached. Check your connection.",
       "unknown": "That did not work. Try again."
     },
-    "kicker": "Your matters"
+    "kicker": "Your matters",
+    "helping": "You help"
   },
   "Matter": {
     "pageTitle": "Matter",
@@ -580,7 +571,7 @@
     },
     "marketplace": {
       "name": "Legal assistants and lawyers",
-      "body": "Admitted lawyers and pseudonymous assistants offer their work and are paid through OrangeCat."
+      "body": "Assistants, lawyers and AI services list themselves under a name or pseudonym; a lawyer only where Causius checked the admission."
     },
     "formation": {
       "name": "Found and register",
@@ -643,7 +634,7 @@
       },
       "identity": {
         "title": "Identity and money",
-        "body": "Sign-in is OrangeCat, over OpenID Connect. Causius keeps no users table and no password, only an account id. Paying helpers will run on OrangeCat too."
+        "body": "Causius keeps its own accounts (password, link, passkey, two-step codes) and lets OrangeCat sign you in. A lawyer's admission is published as a signed attestation that names the place, not the person."
       }
     },
     "principles": {
@@ -712,7 +703,7 @@
     "next": {
       "kicker": "Where it is going",
       "title": "From letters to legal existence",
-      "lede": "Causius holds legal work: matters, founding and registering, contracts. The law itself belongs in Solon, as data every product can cite. Next comes the marketplace of lawyers and legal assistants, paid through OrangeCat.",
+      "lede": "Causius holds legal work: matters, founding and registering, contracts. The law itself belongs in Solon, as data every product can cite. Next, helpers are paid through OrangeCat.",
       "roadmap": "Read the roadmap",
       "ecosystem": "See the ecosystem",
       "source": "Read the source"
@@ -795,7 +786,7 @@
     "seams": {
       "account": {
         "title": "Sign in once",
-        "body": "Your OrangeCat identity is your identity here, under a pseudonym if you like. Causius never sees your password."
+        "body": "A Causius account, or your OrangeCat one, under a pseudonym if you like."
       },
       "pay": {
         "title": "Pay and be paid",
@@ -955,5 +946,230 @@
       "action": "Choose a new password"
     },
     "ignore": "If this was not you, ignore this email — nothing changes."
+  },
+  "Professions": {
+    "kinds": {
+      "ai": {
+        "name": "AI service",
+        "does": "Information and paperwork, run by its operator. Not legal advice."
+      },
+      "assistant": {
+        "name": "Legal assistant",
+        "does": "Procedure, evidence, forms, filing, translation. Not legal advice."
+      },
+      "lawyer": {
+        "name": "Licensed lawyer",
+        "does": "Advises and represents, where admitted."
+      }
+    },
+    "causius": "Causius AI",
+    "areas": {
+      "tenancy": "Tenancy",
+      "employment": "Employment",
+      "migration": "Migration",
+      "family": "Family",
+      "debt": "Debt",
+      "social": "Social security",
+      "tax": "Tax",
+      "company": "Companies",
+      "contracts": "Contracts",
+      "criminal": "Criminal",
+      "administrative": "Authorities",
+      "other": "Other"
+    }
+  },
+  "Helper": {
+    "metaTitle": "{name} · Helper",
+    "places": "Where",
+    "languages": "Languages",
+    "areas": "Areas",
+    "paid": "Paid at {host}",
+    "checkedTitle": "Admission checked by Causius",
+    "checkedBody": "Causius read the public register for {place} on {date}. The statement below is signed and names the place, not the person.",
+    "checkIt": "Check the signature",
+    "valid": "Valid until {date}",
+    "notLawyer": "Not a lawyer: does not give legal advice or represent.",
+    "back": "All helpers",
+    "ask": {
+      "title": "Ask for help",
+      "matter": "Your matter",
+      "message": "What you need",
+      "placeholder": "For example: can you check my objection before I send it?",
+      "sees": "What they will see",
+      "anonymised": "Without my personal details",
+      "full": "Everything, with names",
+      "send": "Send request",
+      "sending": "Sending…",
+      "sent": "Sent. Their answer appears in the matter.",
+      "openMatter": "Open the matter",
+      "noMatters": "Start a matter first; then ask from here.",
+      "start": "Start a matter",
+      "signIn": "Sign in to ask for help",
+      "errors": {
+        "already_asked": "You already asked them about this matter.",
+        "own_profile": "That is your own profile.",
+        "helper_unavailable": "This helper is not available any more.",
+        "rate_limited": "Too many requests in a short time. Wait a little.",
+        "not_configured": "Requests are not switched on for this site yet.",
+        "unknown": "That did not work. Try again."
+      },
+      "preview": "Your request, as they will read it",
+      "alsoHide": "A name or word to hide too",
+      "hide": "Hide"
+    }
+  },
+  "HelperDesk": {
+    "metaTitle": "Your helper profile",
+    "title": "Help others",
+    "lead": "List yourself under your name or a pseudonym. People find you in the directory and ask you about their matter.",
+    "signIn": "Sign in to become a helper",
+    "public": "Everything in this section is public.",
+    "kind": "I am",
+    "name": "Public name",
+    "nameHint": "A pseudonym is fine.",
+    "headline": "One line about what you do",
+    "bio": "More about you",
+    "places": "Where you help",
+    "placesHint": "A lawyer is shown only where their admission was checked.",
+    "addPlace": "Add",
+    "remove": "Remove {item}",
+    "areas": "Areas",
+    "languages": "Languages",
+    "serviceUrl": "Where you are paid (optional)",
+    "serviceHint": "An OrangeCat service or your own page, https only.",
+    "status": {
+      "draft": "Hidden",
+      "listed": "Listed",
+      "paused": "Paused"
+    },
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Saved.",
+    "visible": "You are in the directory.",
+    "viewPublic": "See your public profile",
+    "waiting": {
+      "listing": "Hidden. Choose Listed to appear.",
+      "language": "Add at least one language to appear.",
+      "verification": "You appear once your admission is checked. Submit it below."
+    },
+    "delete": "Delete my helper profile",
+    "deleteConfirm": "Delete your helper profile? Your requests and checked admissions go with it. Your own matters stay.",
+    "credential": {
+      "title": "Your admission",
+      "lead": "Causius checks it in the public register and publishes only a signed statement that you are admitted there. Your name and number stay sealed until you take a client's matter.",
+      "place": "Admitted in",
+      "legalName": "Legal name, as in the register",
+      "registerNumber": "Register number",
+      "registerUrl": "Link to your entry in the public register",
+      "note": "Note for the reviewer (optional)",
+      "submit": "Submit for checking",
+      "status": {
+        "pending": "Being checked",
+        "verified": "Checked",
+        "rejected": "Not confirmed",
+        "revoked": "Withdrawn"
+      },
+      "withdraw": "Withdraw",
+      "reason": "Reviewer: {note}"
+    },
+    "requests": {
+      "title": "Requests",
+      "none": "No requests yet.",
+      "anonymised": "Shared without personal details",
+      "full": "Shared with names",
+      "accept": "Accept",
+      "decline": "Decline",
+      "open": "Open the matter",
+      "accepted": "You work on this matter."
+    },
+    "errors": {
+      "bad_request": "Check the fields marked above.",
+      "already_submitted": "You already submitted this place.",
+      "not_needed": "Only a lawyer submits an admission.",
+      "no_profile": "Save your profile first.",
+      "needs_verification": "Your admission must be checked before you can take a matter.",
+      "already_answered": "This request was already answered.",
+      "rate_limited": "Too many changes in a short time. Wait a little.",
+      "not_configured": "Helper profiles are not switched on for this site yet.",
+      "unknown": "That did not work. Try again."
+    },
+    "signUpLine": "Offering help rather than looking for it?",
+    "signUpCta": "Create a helper account"
+  },
+  "Review": {
+    "metaTitle": "Review",
+    "title": "Admissions to check",
+    "lead": "Open the register link, compare name, number and place, then decide. Nobody reviews their own.",
+    "notAllowed": "Only Causius staff review admissions.",
+    "none": "Nothing waits for a decision.",
+    "submitted": "Submitted {date}",
+    "evidence": {
+      "legalName": "Legal name",
+      "registerNumber": "Register number",
+      "registerUrl": "Register entry",
+      "note": "Note"
+    },
+    "noteLabel": "Reason, shown to the lawyer (needed to reject)",
+    "verify": "Verified: issue the attestation",
+    "reject": "Not confirmed",
+    "done": "Decided.",
+    "errors": {
+      "own_credential": "You cannot review your own admission.",
+      "already_decided": "Someone already decided this one.",
+      "unknown": "That did not work. Try again."
+    }
+  },
+  "Verify": {
+    "metaTitle": "Check an attestation",
+    "title": "Check an attestation",
+    "lead": "Paste a Causius attestation. With the disclosures a lawyer gave you, it also shows whether the name you were told is the one Causius checked.",
+    "token": "Attestation",
+    "disclosures": "Disclosures (optional, one per line)",
+    "check": "Check",
+    "checking": "Checking…",
+    "ok": "Signed by Causius: admitted in {place}, valid until {date}.",
+    "revoked": "The signature is valid, but this admission was withdrawn.",
+    "disclosed": "Verified {claim}: {value}",
+    "claims": {
+      "legal_name": "name",
+      "register_number": "register number"
+    },
+    "keys": "The public key, to check it without Causius",
+    "how": "It is an SD-JWT signed with Ed25519. The name is in it only as a salted digest, so it cannot be guessed; it is not a zero-knowledge proof: it says Causius checked the register.",
+    "reasons": {
+      "malformed": "This is not a Causius attestation.",
+      "unknown_key": "Not signed with Causius's key.",
+      "bad_signature": "The signature does not match: it was changed.",
+      "expired": "It has expired.",
+      "wrong_issuer": "Not issued by Causius.",
+      "bad_disclosure": "A disclosure does not belong to this attestation: that is not the name Causius checked.",
+      "rate_limited": "Too many checks in a short time. Wait a little.",
+      "not_configured": "Checking is not switched on for this site yet.",
+      "unknown": "That did not work. Try again."
+    }
+  },
+  "MatterHelpers": {
+    "title": "Helpers",
+    "find": "Find a helper",
+    "none": "Only you and Causius work on this matter.",
+    "status": {
+      "requested": "Asked",
+      "accepted": "Working on it",
+      "declined": "Declined",
+      "withdrawn": "Withdrawn",
+      "ended": "Ended"
+    },
+    "sees": {
+      "anonymised": "sees no personal details",
+      "full": "sees everything"
+    },
+    "verifiedName": "Name checked by Causius: {name}",
+    "nameMismatch": "The name could not be matched to Causius's check.",
+    "end": "End",
+    "withdraw": "Withdraw",
+    "youHelp": "You help on this matter as {alias}.",
+    "youSeeAnonymised": "You see it without the client's personal details.",
+    "leave": "Leave this matter",
+    "checkYourself": "Check it yourself"
   }
 }

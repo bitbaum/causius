@@ -18,7 +18,8 @@
     "ecosystem": "Écosystème",
     "menu": "Menu",
     "skip": "Aller au contenu",
-    "dark": "Mode sombre"
+    "dark": "Mode sombre",
+    "helperDesk": "Aider les autres"
   },
   "Footer": {
     "tagline": "La couche juridique de la flotte : un agent qui fait le travail juridique, et une personne qui décide.",
@@ -241,55 +242,44 @@
   },
   "Helpers": {
     "metaTitle": "Aidants",
-    "metaDescription": "La place de marché de Causius : des assistants juridiques pour la paperasse et des avocats inscrits qui peuvent vous conseiller et vous représenter.",
-    "eyebrow": "Place de marché",
-    "title": "Des personnes qui aident quand l'IA ne suffit pas",
-    "lead": "Deux sortes de personnes aident. Ce qui les distingue, c'est ce que la loi permet à chacune.",
-    "noneTitle": "Personne n'est encore listé.",
-    "noneBody": "Causius ne met encore personne en relation et ne vérifie personne. D'ici là, remettez le dossier à un avocat ou à un centre de conseil que vous trouvez vous-même.",
-    "listedUnder": "Listé sous : {identity}",
-    "assistant": {
-      "name": "Assistant juridique",
-      "identity": "Nom ou pseudonyme",
-      "does1": "Explique la procédure",
-      "does2": "Aide à réunir les preuves",
-      "does3": "Remplit les formulaires, traduit, prépare le dépôt",
-      "doesNot": "Ne donne pas de conseil juridique et ne vous représente pas.",
-      "checks": "Prévu : une réputation gagnée sur des dossiers terminés."
+    "metaDescription": "Trouver de l'aide pour une affaire juridique : Causius IA, des assistants juridiques et des avocats dont Causius a vérifié l'admission, sous un nom ou un pseudonyme.",
+    "eyebrow": "Aidants",
+    "title": "Qui peut aider, et ce que chacun peut faire",
+    "lead": "Chacun peut utiliser un pseudonyme. Un avocat n'est listé que là où Causius a vérifié son admission.",
+    "search": "Chercher par nom ou par activité",
+    "filters": {
+      "kind": "Type",
+      "place": "Pays",
+      "lang": "Langue",
+      "area": "Domaine"
     },
-    "lawyer": {
-      "name": "Avocat inscrit",
-      "identity": "Nom ou pseudonyme ; admission vérifiée en privé",
-      "does1": "Vous conseille sur vos droits et vos options",
-      "does2": "Relit ou rédige ce que vous envoyez",
-      "does3": "Vous représente devant les autorités et les tribunaux",
-      "doesNot": "Seulement là où il est admis, indiqué sur le profil.",
-      "checks": "Prévu : admission vérifiée dans le registre public du barreau."
+    "count": "{count, plural, =0 {Aucun résultat} one {# aidant} other {# aidants}}",
+    "clear": "Effacer les filtres",
+    "noneYet": "Personne n'est encore listé.",
+    "unavailable": "L'annuaire ne peut pas être lu pour le moment.",
+    "verifiedIn": "Admission vérifiée : {places}",
+    "offerTitle": "Aider les autres",
+    "offerBody": "Inscrivez-vous comme assistant juridique, comme avocat ou comme service d'IA que vous exploitez.",
+    "offerCta": "Devenir aidant",
+    "ai": {
+      "line": "Lit, recherche, rédige et tient les délais, dans un dossier scellé. Gratuit.",
+      "start": "Ouvrir un dossier"
     },
-    "wantTitle": "Envie d'aider ?",
-    "wantBody": "Proposez votre aide comme service sur OrangeCat, sous votre nom ou un pseudonyme, et soyez payé directement là-bas. Causius ne liste, n'étiquette ni ne vérifie encore ces offres ; c'est la prochaine étape de la feuille de route.",
-    "offer": "Proposer un service sur OrangeCat",
-    "seeRoadmap": "Voir la feuille de route",
     "rulesTitle": "Les règles",
     "rules": {
       "label": {
         "title": "L'étiquette, c'est la loi",
-        "body": "Qui peut donner un conseil juridique, chaque pays le fixe, presque toujours réservé aux avocats. L'étiquette dit de quel côté se trouve l'aidant."
+        "body": "Seul un avocat admis peut conseiller ou représenter. L'étiquette dit de quel côté se trouve l'aidant."
       },
       "pseudonym": {
-        "title": "Pseudonyme de tous les côtés",
-        "body": "Chacun peut agir sous pseudonyme ; Causius ne vérifie en privé que ce qui doit être vrai."
+        "title": "Sous pseudonyme, et pourtant vérifié",
+        "body": "Le nom et le numéro de registre d'un avocat restent scellés. Le public voit une déclaration signée attestant que l'admission a été vérifiée ; un client voit le nom quand l'avocat prend son dossier."
       },
       "share": {
         "title": "Vous choisissez ce que voit un aidant",
-        "body": "Il ne reçoit que le dossier que vous remettez, anonymisé par défaut."
-      },
-      "place": {
-        "title": "Un ordre juridique à la fois",
-        "body": "Les aidants sont appariés selon le lieu, le domaine du droit et une langue commune."
+        "body": "Sans vos données personnelles par défaut ; vous pouvez mettre fin à son accès à tout moment."
       }
-    },
-    "start": "Ouvrir un dossier"
+    }
   },
   "Settings": {
     "metaTitle": "Réglages",
@@ -443,7 +433,8 @@
       "offline": "Causius est injoignable. Vérifiez votre connexion.",
       "unknown": "Cela n'a pas fonctionné. Réessayez."
     },
-    "kicker": "Vos dossiers"
+    "kicker": "Vos dossiers",
+    "helping": "Vous aidez"
   },
   "Matter": {
     "pageTitle": "Dossier",
@@ -580,7 +571,7 @@
     },
     "marketplace": {
       "name": "Assistants juridiques et avocats",
-      "body": "Des avocats admis et des assistants sous pseudonyme proposent leur travail et sont payés via OrangeCat."
+      "body": "Assistants, avocats et services d'IA s'inscrivent sous un nom ou un pseudonyme ; un avocat seulement là où Causius a vérifié son admission."
     },
     "formation": {
       "name": "Fonder et enregistrer",
@@ -643,7 +634,7 @@
       },
       "identity": {
         "title": "Identité et argent",
-        "body": "La connexion passe par OrangeCat, en OpenID Connect. Causius ne tient ni table d'utilisateurs ni mot de passe, seulement un identifiant de compte. Le paiement des aides passera aussi par OrangeCat."
+        "body": "Causius tient ses propres comptes (mot de passe, lien, passkey, codes en deux étapes) et permet la connexion avec OrangeCat. L'admission d'un avocat est publiée sous forme d'attestation signée qui nomme le lieu, pas la personne."
       }
     },
     "principles": {
@@ -712,7 +703,7 @@
     "next": {
       "kicker": "Où cela va",
       "title": "De la lettre à l'existence juridique",
-      "lede": "Causius porte le travail juridique : dossiers, fondations et inscriptions, contrats. Le droit lui-même appartient à Solon, sous forme de données que chaque produit peut citer. Vient ensuite la place de marché des avocats et assistants juridiques, payés via OrangeCat.",
+      "lede": "Causius porte le travail juridique : dossiers, fondations et inscriptions, contrats. Le droit lui-même appartient à Solon, sous forme de données que chaque produit peut citer. Ensuite, les aidants seront payés via OrangeCat.",
       "roadmap": "Lire la feuille de route",
       "ecosystem": "Voir l'écosystème",
       "source": "Lire le code source"
@@ -795,7 +786,7 @@
     "seams": {
       "account": {
         "title": "Se connecter une fois",
-        "body": "Votre identité OrangeCat est votre identité ici, sous pseudonyme si vous le souhaitez. Causius ne voit jamais votre mot de passe."
+        "body": "Un compte Causius, ou votre compte OrangeCat, sous pseudonyme si vous le souhaitez."
       },
       "pay": {
         "title": "Payer et être payé",
@@ -955,5 +946,230 @@
       "action": "Choisir un nouveau mot de passe"
     },
     "ignore": "Si ce n’était pas vous, ignorez cet e-mail — rien ne change."
+  },
+  "Professions": {
+    "kinds": {
+      "ai": {
+        "name": "Service d'IA",
+        "does": "Information et paperasse, exploité par son opérateur. Pas de conseil juridique."
+      },
+      "assistant": {
+        "name": "Assistant juridique",
+        "does": "Procédure, preuves, formulaires, dépôt, traduction. Pas de conseil juridique."
+      },
+      "lawyer": {
+        "name": "Avocat inscrit",
+        "does": "Conseille et représente, là où il est admis."
+      }
+    },
+    "causius": "Causius IA",
+    "areas": {
+      "tenancy": "Bail",
+      "employment": "Travail",
+      "migration": "Migration",
+      "family": "Famille",
+      "debt": "Dettes",
+      "social": "Assurances sociales",
+      "tax": "Impôts",
+      "company": "Sociétés",
+      "contracts": "Contrats",
+      "criminal": "Pénal",
+      "administrative": "Autorités",
+      "other": "Autre"
+    }
+  },
+  "Helper": {
+    "metaTitle": "{name} · Aidant",
+    "places": "Où",
+    "languages": "Langues",
+    "areas": "Domaines",
+    "paid": "Payé sur {host}",
+    "checkedTitle": "Admission vérifiée par Causius",
+    "checkedBody": "Causius a lu le registre public de {place} le {date}. La déclaration ci-dessous est signée et nomme le lieu, pas la personne.",
+    "checkIt": "Vérifier la signature",
+    "valid": "Valable jusqu'au {date}",
+    "notLawyer": "Pas avocat : ne donne pas de conseil juridique et ne représente pas.",
+    "back": "Tous les aidants",
+    "ask": {
+      "title": "Demander de l'aide",
+      "matter": "Votre dossier",
+      "message": "Ce dont vous avez besoin",
+      "placeholder": "Par exemple : pouvez-vous relire ma réclamation avant que je l'envoie ?",
+      "sees": "Ce qu'il verra",
+      "anonymised": "Sans mes données personnelles",
+      "full": "Tout, avec les noms",
+      "send": "Envoyer la demande",
+      "sending": "Envoi…",
+      "sent": "Envoyé. La réponse apparaîtra dans le dossier.",
+      "openMatter": "Ouvrir le dossier",
+      "noMatters": "Ouvrez d'abord un dossier ; puis demandez depuis ici.",
+      "start": "Ouvrir un dossier",
+      "signIn": "Se connecter pour demander de l'aide",
+      "errors": {
+        "already_asked": "Vous lui avez déjà posé la question pour ce dossier.",
+        "own_profile": "C'est votre propre profil.",
+        "helper_unavailable": "Cet aidant n'est plus disponible.",
+        "rate_limited": "Trop de demandes en peu de temps. Attendez un peu.",
+        "not_configured": "Les demandes ne sont pas encore activées pour ce site.",
+        "unknown": "Cela n'a pas marché. Réessayez."
+      },
+      "preview": "Votre demande, telle qu'elle sera lue",
+      "alsoHide": "Un autre nom ou mot à masquer",
+      "hide": "Masquer"
+    }
+  },
+  "HelperDesk": {
+    "metaTitle": "Votre profil d'aidant",
+    "title": "Aider les autres",
+    "lead": "Inscrivez-vous sous votre nom ou un pseudonyme. On vous trouve dans l'annuaire et on vous sollicite pour un dossier.",
+    "signIn": "Se connecter pour devenir aidant",
+    "public": "Tout ce qui figure dans cette section est public.",
+    "kind": "Je suis",
+    "name": "Nom public",
+    "nameHint": "Un pseudonyme convient.",
+    "headline": "Une ligne sur ce que vous faites",
+    "bio": "Plus sur vous",
+    "places": "Où vous aidez",
+    "placesHint": "Un avocat n'est affiché que là où son admission a été vérifiée.",
+    "addPlace": "Ajouter",
+    "remove": "Retirer {item}",
+    "areas": "Domaines",
+    "languages": "Langues",
+    "serviceUrl": "Où vous êtes payé (facultatif)",
+    "serviceHint": "Un service OrangeCat ou votre propre page, en https uniquement.",
+    "status": {
+      "draft": "Masqué",
+      "listed": "Listé",
+      "paused": "En pause"
+    },
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Enregistré.",
+    "visible": "Vous figurez dans l'annuaire.",
+    "viewPublic": "Voir votre profil public",
+    "waiting": {
+      "listing": "Masqué. Choisissez « Listé » pour apparaître.",
+      "language": "Ajoutez au moins une langue pour apparaître.",
+      "verification": "Vous apparaîtrez une fois votre admission vérifiée. Soumettez-la ci-dessous."
+    },
+    "delete": "Supprimer mon profil d'aidant",
+    "deleteConfirm": "Supprimer votre profil d'aidant ? Vos demandes et vos admissions vérifiées disparaissent avec lui. Vos propres dossiers restent.",
+    "credential": {
+      "title": "Votre admission",
+      "lead": "Causius la vérifie dans le registre public et ne publie qu'une déclaration signée attestant que vous y êtes admis. Votre nom et votre numéro restent scellés jusqu'à ce que vous preniez le dossier d'un client.",
+      "place": "Admis dans",
+      "legalName": "Nom officiel, tel qu'au registre",
+      "registerNumber": "Numéro de registre",
+      "registerUrl": "Lien vers votre inscription au registre public",
+      "note": "Note pour la personne qui vérifie (facultatif)",
+      "submit": "Soumettre pour vérification",
+      "status": {
+        "pending": "En cours de vérification",
+        "verified": "Vérifiée",
+        "rejected": "Non confirmée",
+        "revoked": "Retirée"
+      },
+      "withdraw": "Retirer",
+      "reason": "Vérification : {note}"
+    },
+    "requests": {
+      "title": "Demandes",
+      "none": "Pas encore de demandes.",
+      "anonymised": "Partagé sans données personnelles",
+      "full": "Partagé avec les noms",
+      "accept": "Accepter",
+      "decline": "Refuser",
+      "open": "Ouvrir le dossier",
+      "accepted": "Vous travaillez sur ce dossier."
+    },
+    "errors": {
+      "bad_request": "Vérifiez les champs signalés ci-dessus.",
+      "already_submitted": "Vous avez déjà soumis ce lieu.",
+      "not_needed": "Seul un avocat soumet une admission.",
+      "no_profile": "Enregistrez d'abord votre profil.",
+      "needs_verification": "Votre admission doit être vérifiée avant que vous puissiez prendre un dossier.",
+      "already_answered": "Cette demande a déjà reçu une réponse.",
+      "rate_limited": "Trop de modifications en peu de temps. Attendez un peu.",
+      "not_configured": "Les profils d'aidant ne sont pas encore activés pour ce site.",
+      "unknown": "Cela n'a pas marché. Réessayez."
+    },
+    "signUpLine": "Vous offrez de l'aide plutôt que d'en chercher ?",
+    "signUpCta": "Créer un compte d'aidant"
+  },
+  "Review": {
+    "metaTitle": "Vérification",
+    "title": "Admissions à vérifier",
+    "lead": "Ouvrez le lien du registre, comparez nom, numéro et lieu, puis décidez. Personne ne vérifie la sienne.",
+    "notAllowed": "Seule l'équipe de Causius vérifie les admissions.",
+    "none": "Rien n'attend de décision.",
+    "submitted": "Soumis le {date}",
+    "evidence": {
+      "legalName": "Nom officiel",
+      "registerNumber": "Numéro de registre",
+      "registerUrl": "Inscription au registre",
+      "note": "Note"
+    },
+    "noteLabel": "Motif, montré à l'avocat (nécessaire pour refuser)",
+    "verify": "Vérifiée : émettre l'attestation",
+    "reject": "Non confirmée",
+    "done": "Décidé.",
+    "errors": {
+      "own_credential": "Vous ne pouvez pas vérifier votre propre admission.",
+      "already_decided": "Quelqu'un a déjà tranché.",
+      "unknown": "Cela n'a pas marché. Réessayez."
+    }
+  },
+  "Verify": {
+    "metaTitle": "Vérifier une attestation",
+    "title": "Vérifier une attestation",
+    "lead": "Collez une attestation Causius. Avec les divulgations qu'un avocat vous a remises, elle montre aussi si le nom qu'on vous a donné est celui que Causius a vérifié.",
+    "token": "Attestation",
+    "disclosures": "Divulgations (facultatif, une par ligne)",
+    "check": "Vérifier",
+    "checking": "Vérification…",
+    "ok": "Signée par Causius : admis en {place}, valable jusqu'au {date}.",
+    "revoked": "La signature est valable, mais cette admission a été retirée.",
+    "disclosed": "Vérifié – {claim} : {value}",
+    "claims": {
+      "legal_name": "nom",
+      "register_number": "numéro de registre"
+    },
+    "keys": "La clé publique, pour vérifier sans Causius",
+    "how": "C'est un SD-JWT signé avec Ed25519. Le nom n'y figure que sous forme d'empreinte salée, il ne peut donc pas être deviné ; ce n'est pas une preuve à divulgation nulle de connaissance : elle dit que Causius a vérifié le registre.",
+    "reasons": {
+      "malformed": "Ce n'est pas une attestation Causius.",
+      "unknown_key": "Non signée avec la clé de Causius.",
+      "bad_signature": "La signature ne correspond pas : elle a été modifiée.",
+      "expired": "Elle a expiré.",
+      "wrong_issuer": "Non émise par Causius.",
+      "bad_disclosure": "Une divulgation n'appartient pas à cette attestation : ce n'est pas le nom que Causius a vérifié.",
+      "rate_limited": "Trop de vérifications en peu de temps. Attendez un peu.",
+      "not_configured": "La vérification n'est pas encore activée pour ce site.",
+      "unknown": "Cela n'a pas marché. Réessayez."
+    }
+  },
+  "MatterHelpers": {
+    "title": "Aidants",
+    "find": "Trouver un aidant",
+    "none": "Seuls vous et Causius travaillez sur ce dossier.",
+    "status": {
+      "requested": "Demandé",
+      "accepted": "Y travaille",
+      "declined": "Refusé",
+      "withdrawn": "Retiré",
+      "ended": "Terminé"
+    },
+    "sees": {
+      "anonymised": "ne voit aucune donnée personnelle",
+      "full": "voit tout"
+    },
+    "verifiedName": "Nom vérifié par Causius : {name}",
+    "nameMismatch": "Le nom n'a pas pu être rapproché de la vérification de Causius.",
+    "end": "Terminer",
+    "withdraw": "Retirer",
+    "youHelp": "Vous aidez sur ce dossier en tant que {alias}.",
+    "youSeeAnonymised": "Vous le voyez sans les données personnelles du client.",
+    "leave": "Quitter ce dossier",
+    "checkYourself": "Vérifier vous-même"
   }
 }

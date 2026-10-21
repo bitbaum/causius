@@ -65,3 +65,21 @@ Repo-only notes live below this line.
 - `ROADMAP.md` and `CHANGELOG.md` are the public record; Loki's fleet map
   ingests them and the site reads the map back. A user-facing change adds a
   changelog line in the same pull request.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
+- Helpers (`lib/helpers/`): who may do what is `lib/professions.ts`, the only
+  domain-specific file in it; Diplodoctor changes that file, not the store. A
+  lawyer is listed only where a reviewer verified the admission. Reviewers are
+  accounts with the `staff` or `admin` role, granted only by the "Grant role"
+  workflow or `pnpm run role:grant`. An attestation never carries a legal name
+  in clear; keep `lib/helpers/attest.test.ts` proving it.
+- `pnpm dev` signs in on localhost only with `CAUSIUS_DEV_URL=http://localhost:3000`
+  (accounts pin their origin; ignored in production).

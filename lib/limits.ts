@@ -21,6 +21,11 @@ export const limits = {
   // A spoken take or a photographed page each cost a model call on the shared free tier.
   transcribe: slidingWindow({ limit: 40, windowMs: 10 * 60_000 }),
   pages: slidingWindow({ limit: 20, windowMs: 60 * 60_000 }),
+  // Profiles, credentials and requests to helpers: people writing, not a model.
+  helperWrite: slidingWindow({ limit: 60, windowMs: 60 * 60_000 }),
+  engage: slidingWindow({ limit: 20, windowMs: 60 * 60_000 }),
+  // Anyone may check an attestation; a script may not hammer it.
+  verify: slidingWindow({ limit: 60, windowMs: 10 * 60_000 }),
 };
 
 export function callerKey(request: Request, scope: string): string {

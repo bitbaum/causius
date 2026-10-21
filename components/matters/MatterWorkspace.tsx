@@ -12,6 +12,7 @@ import type { MatterEvent, MatterView } from "@/lib/matters/store";
 import { API, ROUTES } from "@/lib/routes";
 import { useToday } from "@/lib/store";
 import { IntakeComposer, uploadErrorKey, useChatLabels } from "./IntakeComposer";
+import { MatterHelpers } from "./MatterHelpers";
 import { FIRST_MESSAGE_KEY } from "./MattersHome";
 import { useModelChoice } from "./ModelPicker";
 import { uploadStaged, type Staged } from "./staging";
@@ -25,7 +26,7 @@ const WORKING_TICK_MS = 4000;
  * matter holds on the right — what is due, what waits for a decision, the
  * documents, and the words kept from any model.
  */
-export function MatterWorkspace({ id }: { id: string }) {
+export function MatterWorkspace({ id, me }: { id: string; me: string }) {
   const t = useTranslations("Matter");
   const locale = useLocale();
   const router = useRouter();
@@ -171,7 +172,7 @@ export function MatterWorkspace({ id }: { id: string }) {
 
   const m = load.matter;
   const isOwner = m.role === "owner";
-  const messages = toChat(m.events, t("agentName"));
+  const messages = toChat(m.events, t("agentName"), m, me);
   const stepsBefore = stepsByMessage(m.events);
   const openItems = m.items.filter((i) => i.status === "open");
   const doneItems = m.items.filter((i) => i.status === "done");
@@ -303,6 +304,8 @@ export function MatterWorkspace({ id }: { id: string }) {
           </ul>
         </Panel>
 
+        <MatterHelpers matter={m} me={me} onChange={refresh} />
+
         <Panel title={t("documents")}>
           <ul className="grid gap-1">
             {m.documents.map((d) => (
@@ -358,8 +361,14 @@ function relative(days: number, t: ReturnType<typeof useTranslations>): string {
   return t("overdue", { days: -days });
 }
 
-/** Messages for chatkit, with the sources an answer cited. */
-function toChat(events: MatterEvent[], agentName: string): ChatMessageData[] {
+/**
+ * Messages for chatkit, with the sources an answer cited. Once a helper works
+ * on the matter, a message from someone other than the reader carries the name
+ * they go by here: the owner is "Client", a helper their public name.
+ */
+function toChat(events: MatterEvent[], agentName: string, m: MatterView, me: string): ChatMessageData[] {
+  const alias = new Map(m.participants.map((p) => [p.sub, p.alias]));
+  const shared = m.participants.length > 1;
   return events.flatMap((e): ChatMessageData[] => {
     if (e.kind !== "message") return [];
     const citations = e.sources?.length
@@ -373,7 +382,12 @@ function toChat(events: MatterEvent[], agentName: string): ChatMessageData[] {
           ? `${e.text}\n\n${e.sources.map((s) => `[${s.id}] [${s.title}](${s.url})`).join("  \n")}`
           : e.text,
         citations,
-        speaker: e.role === "assistant" ? { name: agentName } : undefined,
+        speaker:
+          e.role === "assistant"
+            ? { name: agentName }
+            : shared && e.actor !== me && e.actor !== "me"
+              ? { name: alias.get(e.actor) ?? "" }
+              : undefined,
       },
     ];
   });

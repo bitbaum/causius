@@ -15,7 +15,7 @@ export const CAPABILITIES = {
   approvals: "available",
   models: "available",
   domains: "available",
-  marketplace: "inDevelopment",
+  marketplace: "available",
   formation: "planned",
   contracts: "planned",
   law: "planned",

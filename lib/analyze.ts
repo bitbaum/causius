@@ -16,6 +16,7 @@ import { byokChain, isByokConfig } from "@bitbaum/ai-kit/byok";
 import { z } from "zod";
 import { MAX_IMAGE_B64, MAX_PAGES, MAX_TEXT } from "./analyze-limits";
 import { newId, parseCase, type CaseFile } from "./case";
+import { SITE } from "./site";
 
 /**
  * Letter in, case file out.
@@ -33,7 +34,6 @@ import { newId, parseCase, type CaseFile } from "./case";
  */
 
 const ENV_PREFIX = "CAUSIUS";
-const SITE = { url: "https://causius.orangecat.ch", title: "Causius" };
 
 /** Health is per process, so a vendor that just failed is skipped for everyone. */
 const health = createHealthTracker();

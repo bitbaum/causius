@@ -9,6 +9,7 @@ import { byokChain, isByokConfig } from "@bitbaum/ai-kit/byok";
 import { z } from "zod";
 import { freeLinksFor } from "../analyze";
 import { MAX_IMAGE_B64, MAX_PAGES } from "../analyze-limits";
+import { SITE } from "../site";
 
 /** Photographed pages as the browser sends them: already shrunk and already covered. */
 export const PagesRequestSchema = z.object({
@@ -32,7 +33,6 @@ export type PagesOutcome =
   | { ok: false; error: PagesError };
 
 const health = createHealthTracker();
-const SITE = { url: "https://causius.orangecat.ch", title: "Causius" };
 
 const INSTRUCTION = `Transcribe the attached page images, in order, exactly as written, in the language they are written in.
 Keep paragraphs and line breaks. Copy every black box as the word [covered]. Do not summarise, translate, explain or add anything.

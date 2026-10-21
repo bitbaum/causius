@@ -14,6 +14,9 @@
 # Diplodoctor hit exactly this on 2026-09-10 and fixed it in its own repository.
 # The template is where it belongs, so the next site does not rediscover it.
 allowBuilds:
+  # listkit is git-hosted and builds on install; allowed by its exact commit.
+  listkit@git+https://github.com/bitbaum/listkit.git#69cb4f4ef12d6a2a56b56db1bb4d4ac14aced525: true
+  listkit@https://codeload.github.com/bitbaum/listkit/tar.gz/69cb4f4ef12d6a2a56b56db1bb4d4ac14aced525: true
   sharp: true
   unrs-resolver: true
   # Arrived with next-intl. Both ship prebuilt binaries, so their install

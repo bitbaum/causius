@@ -11,7 +11,8 @@
     "verify": "pnpm run type-check && pnpm run lint && pnpm run test",
     "test": "vitest run",
     "check:analyze": "vitest run --config vitest.live.config.mts live/analyze.live.ts",
-    "check:agent": "vitest run --config vitest.live.config.mts live/agent.live.ts"
+    "check:agent": "vitest run --config vitest.live.config.mts live/agent.live.ts",
+    "role:grant": "node scripts/grant-role.mjs"
   },
   "packageManager": "pnpm@11.25.0",
   "dependencies": {
@@ -21,10 +22,12 @@
     "@bitbaum/chatkit": "git+https://github.com/bitbaum/chatkit.git#b8b613d0c8984d7fdf902f3a8791fc9d84122b7f",
     "@bitbaum/design-tokens": "1.1.0",
     "@bitbaum/mail-kit": "^0.1.1",
+    "@bitbaum/searchkit": "github:bitbaum/searchkit#v0.2.2",
     "better-auth": "^1.7.7",
     "bip-kit": "^0.6.0",
     "drizzle-orm": "^0.45.4",
     "limitkit": "^0.2.0",
+    "listkit": "github:bitbaum/listkit#v0.1.0",
     "next": "16.3.8",
     "next-intl": "^4.14.9",
     "pg": "^8.23.1",

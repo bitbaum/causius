@@ -147,7 +147,7 @@ export function MattersHome() {
                 <span>
                   <span className="block text-xl font-semibold tracking-tight">{m.title}</span>
                   <span className="mt-1 block text-sm text-fg-secondary">
-                    {[m.area, jurisdictionLabel(m.jurisdiction, locale)].filter(Boolean).join(" · ")}
+                    {[m.role === "helper" ? t("helping") : "", m.area, jurisdictionLabel(m.jurisdiction, locale)].filter(Boolean).join(" · ")}
                   </span>
                 </span>
                 <span className="grid gap-0.5 text-sm sm:text-right">

@@ -500,14 +500,17 @@ async function runTurnLocked(input: {
   const opened = await openMatter(db, master, matterId, sub);
   if (!opened) return { ok: false, error: "not_found" };
   if (opened.role === "observer") return { ok: false, error: "not_allowed" };
-  const m = opened;
+  // The agent works on the matter as it is, whoever asked: it hides personal
+  // details from the model by its own rule below, and what it writes is
+  // anonymised again for a helper who may not see them.
+  const m = { ...opened, sees: "full" as const };
 
   const models = chainFor(input.byok, input.env, input.model);
   if (typeof models === "string") return { ok: false, error: models };
 
   await appendMessage(db, m, { actor: sub, role: "user", text: input.text });
 
-  const view = (await loadMatter(db, master, matterId, sub))!;
+  const view = (await loadMatter(db, master, matterId, sub, { raw: true }))!;
   const docTexts = new Map<string, string>();
   for (const d of view.documents) {
     const doc = await readDocument(db, m, d.id);

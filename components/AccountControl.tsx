@@ -62,7 +62,8 @@ export function AccountControl({
         )
       }
       labels={{
-        trigger: t("trigger"),
+        // A template: the menu fills {name} itself, so it is passed unformatted.
+        trigger: t.raw("trigger") as string,
         menu: t("menu"),
         signOut: t("signOut"),
         signingOut: t("signingOut"),
