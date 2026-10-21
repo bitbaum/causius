@@ -1171,5 +1171,34 @@
     "youSeeAnonymised": "Vous le voyez sans les données personnelles du client.",
     "leave": "Quitter ce dossier",
     "checkYourself": "Vérifier vous-même"
+  },
+  "Workflows": {
+    "pick": "Partir d'un problème courant, ou décrire le vôtre",
+    "items": {
+      "debt-collection": {
+        "name": "Commandement de payer",
+        "ready": "Photographiez le commandement de payer et dites quand il vous a été notifié et si vous devez le montant."
+      },
+      "rent-increase": {
+        "name": "Hausse de loyer",
+        "ready": "Joignez l'avis du bailleur et votre bail, et dites quand l'avis est arrivé."
+      },
+      "tax-assessment": {
+        "name": "Taxation fiscale",
+        "ready": "Joignez la taxation et votre déclaration, et dites ce qui vous semble faux."
+      },
+      "dismissal": {
+        "name": "Licenciement",
+        "ready": "Dites depuis quand vous êtes employé, quand et comment on vous a licencié, et joignez le contrat et la lettre."
+      },
+      "insurance-refusal": {
+        "name": "Refus d'assurance",
+        "ready": "Joignez la décision de l'assureur et dites ce que vous aviez demandé."
+      },
+      "association": {
+        "name": "Fonder une association",
+        "ready": "Donnez son nom, son but, son siège et ses membres fondateurs."
+      }
+    }
   }
 }

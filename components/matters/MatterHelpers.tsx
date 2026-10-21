@@ -7,6 +7,7 @@ import { Link, useRouter } from "@/i18n/navigation";
 import type { EngagementView } from "@/lib/helpers/engagements";
 import type { MatterView } from "@/lib/matters/store";
 import { API, ROUTES } from "@/lib/routes";
+import { workflowById } from "@/lib/workflows";
 
 /**
  * Who works on this matter besides the owner and Causius. The owner finds and
@@ -97,7 +98,7 @@ export function MatterHelpers({ matter, me, onChange }: { matter: MatterView; me
       </ul>
       {matter.role === "owner" && (
         <p>
-          <Link href={{ pathname: ROUTES.helpers, query: { from: matter.id } }} className={link}>
+          <Link href={{ pathname: ROUTES.helpers, query: { from: matter.id, ...(workflowById(matter.core.workflow) ? { area: workflowById(matter.core.workflow)!.area } : {}) } }} className={link}>
             {t("find")}
           </Link>
         </p>

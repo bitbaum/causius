@@ -1171,5 +1171,34 @@
     "youSeeAnonymised": "You see it without the client's personal details.",
     "leave": "Leave this matter",
     "checkYourself": "Check it yourself"
+  },
+  "Workflows": {
+    "pick": "Start from a common problem, or just describe yours",
+    "items": {
+      "debt-collection": {
+        "name": "Debt collection notice",
+        "ready": "Photograph the notice and say the date it reached you, and whether you owe the amount."
+      },
+      "rent-increase": {
+        "name": "Rent increase",
+        "ready": "Attach the landlord's notice and your lease, and say when the notice arrived."
+      },
+      "tax-assessment": {
+        "name": "Tax assessment",
+        "ready": "Attach the assessment and your return, and say what you think is wrong."
+      },
+      "dismissal": {
+        "name": "Dismissal at work",
+        "ready": "Say when you started, when you were told and how, and attach the contract and the letter."
+      },
+      "insurance-refusal": {
+        "name": "Insurance refused",
+        "ready": "Attach the insurer's decision and say what you asked for."
+      },
+      "association": {
+        "name": "Found an association",
+        "ready": "Say its name, what it is for, where it is based and who founds it."
+      }
+    }
   }
 }

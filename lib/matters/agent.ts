@@ -35,6 +35,7 @@ import {
   updateCore,
   type MatterView,
 } from "./store";
+import { workflowById } from "../workflows";
 
 /**
  * The agent that works a matter.
@@ -406,6 +407,10 @@ function matterContext(view: MatterView): string {
     `Jurisdiction: ${view.jurisdiction ?? "not set — ask or infer, then set it with update_matter"}`,
   );
   if (view.core.summary) lines.push(`Summary: ${view.core.summary}`);
+  const workflow = workflowById(view.core.workflow);
+  // Written by us, not by the person: it belongs with the instructions, and
+  // it names what to establish, never the law itself.
+  if (workflow) lines.push(`How to work this matter: ${workflow.brief}`);
   lines.push(`Today: ${swissToday()}`);
   if (view.core.facts.length)
     lines.push(`Facts:\n${view.core.facts.map((f) => `- ${f}`).join("\n")}`);
