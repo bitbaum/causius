@@ -1,721 +1,721 @@
 {
   "Meta": {
-    "title": "Causius — understand and answer legal letters",
-    "description": "Causius reads an official letter with you: what it says, what it asks for and by when. When you need a person, it hands the case to a legal assistant or a licensed lawyer."
+    "title": "Causius — capire le lettere giuridiche e rispondere",
+    "description": "Causius legge con lei una lettera ufficiale: che cosa dice, che cosa chiede e entro quando. Se le serve una persona, affida il caso a un'assistente o un assistente legale, oppure a un'avvocata o un avvocato abilitato."
   },
   "Nav": {
-    "main": "Main",
-    "cases": "My cases",
-    "helpers": "Helpers",
-    "settings": "Settings",
-    "newCase": "New case",
+    "main": "Principale",
+    "cases": "I miei casi",
+    "helpers": "Aiutanti",
+    "settings": "Impostazioni",
+    "newCase": "Nuovo caso",
     "beta": "Beta",
-    "language": "Language",
-    "matters": "Matters",
-    "quick": "Quick check",
-    "platform": "Platform",
-    "security": "Security",
-    "ecosystem": "Ecosystem",
+    "language": "Lingua",
+    "matters": "Pratiche",
+    "quick": "Verifica rapida",
+    "platform": "Piattaforma",
+    "security": "Sicurezza",
+    "ecosystem": "Ecosistema",
     "menu": "Menu",
-    "skip": "Skip to content",
-    "dark": "Dark mode",
-    "helperDesk": "Help others"
+    "skip": "Vai al contenuto",
+    "dark": "Modalità scura",
+    "helperDesk": "Aiutare altri"
   },
   "Footer": {
-    "tagline": "The legal layer of the fleet: an agent that does the legal work, and a person who decides.",
+    "tagline": "Il livello giuridico della flotta: un agente che svolge il lavoro giuridico, e una persona che decide.",
     "sections": {
-      "product": "Product",
-      "platform": "Platform",
-      "open": "In the open"
+      "product": "Prodotto",
+      "platform": "Piattaforma",
+      "open": "Allo scoperto"
     },
     "links": {
-      "matters": "Matters",
-      "quick": "Quick letter check",
-      "helpers": "Helpers",
-      "settings": "Settings",
-      "platform": "How it is built",
-      "security": "Security",
-      "ecosystem": "Ecosystem",
-      "roadmap": "Roadmap",
-      "changelog": "Changelog",
-      "source": "Source code",
-      "license": "MIT licence",
-      "orangecat": "Causius on OrangeCat",
-      "solon": "Causius on Solon"
+      "matters": "Pratiche",
+      "quick": "Verifica rapida di una lettera",
+      "helpers": "Aiutanti",
+      "settings": "Impostazioni",
+      "platform": "Come è costruito",
+      "security": "Sicurezza",
+      "ecosystem": "Ecosistema",
+      "roadmap": "Tabella di marcia",
+      "changelog": "Registro delle modifiche",
+      "source": "Codice sorgente",
+      "license": "Licenza MIT",
+      "orangecat": "Causius su OrangeCat",
+      "solon": "Causius su Solon"
     },
-    "disclaimer": "Beta: running, not released. Causius gives legal information, not legal advice. Only a lawyer admitted where your matter is may advise you on it or represent you.",
-    "openSource": "Open source under the MIT licence. Built in Zürich.",
-    "fleet": "The fleet"
+    "disclaimer": "Beta: in funzione, non ancora rilasciato. Causius fornisce informazioni giuridiche, non consulenza legale. Solo un avvocato abilitato dove si trova la sua pratica può consigliarla o rappresentarla.",
+    "openSource": "Open source con licenza MIT. Costruito a Zurigo.",
+    "fleet": "La flotta"
   },
   "Home": {
     "hero": {
-      "kicker": "Switzerland · Liechtenstein · United States",
-      "title": "Your legal matter,",
-      "titleEm": "handled.",
-      "lede": "Bring the letter or say what happened. Causius finds the rule and its source, keeps the deadline and drafts the reply. Nothing leaves without your yes.",
-      "quick": "Read my letter, free",
-      "open": "Open a matter",
-      "noAccount": "No account needed to read a letter."
+      "kicker": "Svizzera · Liechtenstein · Stati Uniti",
+      "title": "La sua pratica giuridica,",
+      "titleEm": "sbrigata.",
+      "lede": "Porti la lettera o racconti che cosa è successo. Causius trova la norma e la sua fonte, tiene d'occhio il termine e redige la risposta. Nulla parte senza il suo sì.",
+      "quick": "Leggere la mia lettera, gratis",
+      "open": "Aprire una pratica",
+      "noAccount": "Per leggere una lettera non serve un account."
     },
     "demo": {
-      "label": "Example, invented",
-      "letter": "Letter from the tax office",
-      "line1": "Dear Ms <name>Erika Muster</name>,",
-      "line2": "your 2025 assessment is enclosed. An objection may be lodged within 30 days.",
-      "hidden": "Hidden from the model",
-      "deadline": "Deadline",
-      "deadlineValue": "14 November",
-      "source": "from: «within 30 days»",
-      "draft": "Objection drafted, sources cited",
-      "approve": "Send it?",
-      "yes": "Approve",
-      "no": "Not yet"
+      "label": "Esempio, inventato",
+      "letter": "Lettera dell'ufficio di tassazione",
+      "line1": "Gentile signora <name>Erika Muster</name>,",
+      "line2": "le inviamo in allegato la decisione di tassazione 2025. Contro di essa può essere presentato reclamo entro 30 giorni.",
+      "hidden": "Nascosto al modello",
+      "deadline": "Termine",
+      "deadlineValue": "14 novembre",
+      "source": "da: «entro 30 giorni»",
+      "draft": "Reclamo redatto, fonti citate",
+      "approve": "Inviarlo?",
+      "yes": "Approvare",
+      "no": "Non ancora"
     },
     "time": {
-      "title": "Days of worry, or",
-      "titleEm": "a few minutes.",
-      "without": "Without",
-      "with": "With Causius",
+      "title": "Giorni di preoccupazione, oppure",
+      "titleEm": "pochi minuti.",
+      "without": "Senza",
+      "with": "Con Causius",
       "w1": {
-        "when": "Day 1",
-        "what": "A letter you half understand"
+        "when": "Giorno 1",
+        "what": "Una lettera che capisce a metà"
       },
       "w2": {
-        "when": "Day 3",
-        "what": "Forums, contradicting each other"
+        "when": "Giorno 3",
+        "what": "Forum che si contraddicono"
       },
       "w3": {
-        "when": "Day 8",
-        "what": "Waiting for an appointment"
+        "when": "Giorno 8",
+        "what": "In attesa di un appuntamento"
       },
       "w4": {
-        "when": "Day 12",
-        "what": "Was the deadline yesterday?"
+        "when": "Giorno 12",
+        "what": "Il termine scadeva ieri?"
       },
       "c1": {
-        "when": "Minute 1",
-        "what": "Photographed, your name hidden"
+        "when": "Minuto 1",
+        "what": "Fotografata, il suo nome nascosto"
       },
       "c2": {
-        "when": "Minute 2",
-        "what": "The deadline, and the sentence it comes from"
+        "when": "Minuto 2",
+        "what": "Il termine, e la frase da cui risulta"
       },
       "c3": {
-        "when": "Minute 5",
-        "what": "A reply drafted, every rule cited"
+        "when": "Minuto 5",
+        "what": "Una risposta redatta, ogni norma citata"
       },
       "c4": {
-        "when": "Then",
-        "what": "You decide: send, change, or ask a lawyer"
+        "when": "Poi",
+        "what": "Decide lei: inviare, modificare o chiedere a un avvocato"
       }
     },
     "compare": {
-      "title": "Honest about what it is",
-      "chatbot": "General chatbot",
+      "title": "Onesto su ciò che è",
+      "chatbot": "Chatbot generico",
       "causius": "Causius",
-      "lawyer": "A lawyer",
+      "lawyer": "Un avvocato",
       "rows": {
         "deadline": {
-          "label": "Finds the deadline in your letter",
-          "chatbot": "Sometimes",
-          "causius": "With its source",
-          "lawyer": "Yes"
+          "label": "Trova il termine nella sua lettera",
+          "chatbot": "A volte",
+          "causius": "Con la sua fonte",
+          "lawyer": "Sì"
         },
         "cites": {
-          "label": "Cites the law it relies on",
-          "chatbot": "Rarely checkable",
-          "causius": "Every rule",
-          "lawyer": "Yes"
+          "label": "Cita il diritto su cui si basa",
+          "chatbot": "Raramente verificabile",
+          "causius": "Ogni norma",
+          "lawyer": "Sì"
         },
         "private": {
-          "label": "Keeps your name from the AI",
+          "label": "Tiene il suo nome lontano dall'IA",
           "chatbot": "No",
-          "causius": "Yes",
+          "causius": "Sì",
           "lawyer": "—"
         },
         "advice": {
-          "label": "Advises and represents you",
+          "label": "La consiglia e la rappresenta",
           "chatbot": "No",
-          "causius": "No, and says so",
-          "lawyer": "Yes"
+          "causius": "No, e lo dice",
+          "lawyer": "Sì"
         },
         "cost": {
-          "label": "To start",
-          "chatbot": "Free",
-          "causius": "Free",
-          "lawyer": "By the hour"
+          "label": "Per iniziare",
+          "chatbot": "Gratis",
+          "causius": "Gratis",
+          "lawyer": "A ore"
         }
       }
     },
     "privacy": {
-      "title": "The model never learns",
-      "titleEm": "who you are.",
-      "you": "In your browser",
-      "model": "What the model reads",
-      "back": "Back with you",
-      "sealed": "Each matter is sealed with its own key. Pseudonyms are welcome.",
-      "cta": "How security works"
+      "title": "Il modello non viene mai a sapere",
+      "titleEm": "chi è lei.",
+      "you": "Nel suo browser",
+      "model": "Ciò che il modello legge",
+      "back": "Di nuovo da lei",
+      "sealed": "Ogni pratica è sigillata con una propria chiave. Gli pseudonimi sono benvenuti.",
+      "cta": "Come funziona la sicurezza"
     },
     "where": {
-      "title": "Where it works",
-      "ch": "Cantonal and federal law",
-      "li": "Its own legal order",
-      "us": "State and federal law",
-      "languages": "Answers in your language, and translates a letter into {count} languages.",
-      "cantons": "{count, plural, one {# canton} other {# cantons}}",
-      "states": "{count, plural, one {# state} other {# states}} and DC"
+      "title": "Dove funziona",
+      "ch": "Diritto cantonale e federale",
+      "li": "Un proprio ordinamento giuridico",
+      "us": "Diritto statale e federale",
+      "languages": "Risponde nella sua lingua e traduce una lettera in {count} lingue.",
+      "cantons": "{count, plural, one {# Cantone} other {# Cantoni}}",
+      "states": "{count, plural, one {# stato} other {# stati}} e DC"
     },
     "problems": {
-      "title": "Start from what happened"
+      "title": "Partire da ciò che è successo"
     },
     "help": {
-      "title": "When you need a person",
-      "assistant": "Legal assistants help with forms, evidence and filing.",
-      "lawyer": "Licensed lawyers advise and represent, checked against the register, pseudonymous until you engage them.",
-      "find": "Find a helper",
-      "offer": "Help others"
+      "title": "Quando le serve una persona",
+      "assistant": "Le assistenti e gli assistenti legali aiutano con moduli, prove e inoltri.",
+      "lawyer": "Le avvocate e gli avvocati abilitati consigliano e rappresentano: verificati nel registro, sotto pseudonimo finché non conferisce loro il mandato.",
+      "find": "Trovare un aiutante",
+      "offer": "Aiutare altri"
     },
     "end": {
-      "title": "Start with the letter",
-      "titleEm": "in front of you.",
-      "signedIn": "Go to your matters"
+      "title": "Cominci dalla lettera",
+      "titleEm": "che ha davanti.",
+      "signedIn": "Alle sue pratiche"
     }
   },
   "Cases": {
-    "title": "My cases",
-    "subtitle": "Kept in this browser, on this device.",
-    "import": "Import case file",
-    "new": "New case",
-    "importError": "That file is not a Causius case file.",
-    "emptyTitle": "No cases yet",
-    "emptyBody": "Start with a letter you need to answer, or look at a worked example first.",
-    "example": "See the worked example",
-    "replyBy": "Reply by {date}",
-    "ready": "{done} of {total} ready"
+    "title": "I miei casi",
+    "subtitle": "Conservati in questo browser, su questo dispositivo.",
+    "import": "Importare un fascicolo",
+    "new": "Nuovo caso",
+    "importError": "Questo file non è un fascicolo di Causius.",
+    "emptyTitle": "Ancora nessun caso",
+    "emptyBody": "Cominci con una lettera a cui deve rispondere, oppure guardi prima un esempio svolto.",
+    "example": "Vedere l'esempio svolto",
+    "replyBy": "Rispondere entro il {date}",
+    "ready": "{done} di {total} pronti"
   },
   "NewCase": {
-    "title": "New case",
-    "lead": "The letter goes to an AI model to be read. Causius does not store it; the result stays in this browser.",
-    "modelOwn": "Read by your own model, {model}.",
-    "modelFree": "Free shared models, small daily budget.",
-    "modelFreeNoPhoto": "Free shared models. Right now they read pasted text, not photos.",
-    "modelOff": "Free shared models are off right now. Connect your own model, or file the letter by hand below.",
-    "change": "Change",
-    "useOwn": "Use your own model",
-    "textLabel": "The letter's text",
-    "textPlaceholder": "Paste it here, in any language.",
-    "photoLabel": "Or photos of its pages",
-    "photoHint": "Up to {max} pages, in order. JPEG, PNG or WebP.",
-    "pages": "{count, plural, one {# page added} other {# pages added}}",
-    "page": "Page {n}",
-    "removePage": "Remove page {n}",
-    "languagesLegend": "Translate it into",
-    "submit": "Analyse the letter",
-    "busy": "Reading the letter…",
-    "byHandLink": "File it by hand instead",
-    "openSettings": "Open model settings",
+    "title": "Nuovo caso",
+    "lead": "La lettera viene letta da un modello di IA. Causius non la conserva; il risultato resta in questo browser.",
+    "modelOwn": "Letta dal suo modello, {model}.",
+    "modelFree": "Modelli condivisi gratuiti, piccolo budget giornaliero.",
+    "modelFreeNoPhoto": "Modelli condivisi gratuiti. Al momento leggono testo incollato, non foto.",
+    "modelOff": "I modelli condivisi gratuiti sono disattivati al momento. Colleghi il suo modello, oppure registri la lettera a mano qui sotto.",
+    "change": "Cambiare",
+    "useOwn": "Usare il proprio modello",
+    "textLabel": "Il testo della lettera",
+    "textPlaceholder": "Lo incolli qui, in qualsiasi lingua.",
+    "photoLabel": "Oppure foto delle sue pagine",
+    "photoHint": "Fino a {max} pagine, in ordine. JPEG, PNG o WebP.",
+    "pages": "{count, plural, one {# pagina aggiunta} other {# pagine aggiunte}}",
+    "page": "Pagina {n}",
+    "removePage": "Rimuovere la pagina {n}",
+    "languagesLegend": "Tradurla in",
+    "submit": "Analizzare la lettera",
+    "busy": "Lettura della lettera…",
+    "byHandLink": "Registrarla invece a mano",
+    "openSettings": "Aprire le impostazioni del modello",
     "byHand": {
-      "title": "File it by hand",
-      "body": "No analysis; the letter and its deadline stay together. Already have a case file?",
-      "import": "Import it",
-      "about": "What is it about?",
-      "sender": "Who sent it?",
-      "deadline": "Reply by",
-      "save": "Save case",
-      "original": "Original"
+      "title": "Registrarla a mano",
+      "body": "Nessuna analisi; la lettera e il suo termine restano insieme. Ha già un fascicolo?",
+      "import": "Importarlo",
+      "about": "Di che cosa si tratta?",
+      "sender": "Chi l'ha inviata?",
+      "deadline": "Rispondere entro",
+      "save": "Salvare il caso",
+      "original": "Originale"
     },
     "errors": {
-      "not_configured": "Free shared models are off for now. Connect your own model, or file the letter by hand.",
-      "busy": "No model answered. The free daily budget may be used up. Your own model is not affected.",
-      "busy_own": "Your model did not answer. Check its key in the settings.",
-      "no_vision": "No available model can read a photo. Paste the text, or connect a model that reads images.",
-      "rate_limited": "Too many letters in a short time. Your own model allows many more.",
-      "bad_own_model": "Your saved model settings could not be used. Set them up again.",
-      "unreadable_analysis": "The answer could not be turned into a case. Try again.",
-      "empty": "Paste the text or add a photo.",
-      "bad_image": "Send a JPEG, PNG or WebP image.",
-      "too_many_pages": "More than {max} pages. Add the pages with the request and the deadline.",
-      "offline": "Causius could not be reached. Check your connection.",
-      "unknown": "The analysis did not go through. Try again in a minute."
+      "not_configured": "I modelli condivisi gratuiti sono disattivati per ora. Colleghi il suo modello, oppure registri la lettera a mano.",
+      "busy": "Nessun modello ha risposto. Il budget giornaliero gratuito potrebbe essere esaurito. Il suo modello non ne è toccato.",
+      "busy_own": "Il suo modello non ha risposto. Controlli la sua chiave nelle impostazioni.",
+      "no_vision": "Nessun modello disponibile sa leggere una foto. Incolli il testo, oppure colleghi un modello che legge immagini.",
+      "rate_limited": "Troppe lettere in poco tempo. Il suo modello ne consente molte di più.",
+      "bad_own_model": "Le impostazioni del modello salvate non hanno potuto essere usate. Le configuri di nuovo.",
+      "unreadable_analysis": "Non è stato possibile trasformare la risposta in un caso. Riprovi.",
+      "empty": "Incolli il testo o aggiunga una foto.",
+      "bad_image": "Invii un'immagine JPEG, PNG o WebP.",
+      "too_many_pages": "Più di {max} pagine. Aggiunga le pagine con la richiesta e il termine.",
+      "offline": "Impossibile raggiungere Causius. Controlli la connessione.",
+      "unknown": "L'analisi non è riuscita. Riprovi tra un minuto."
     }
   },
   "Case": {
-    "replyBy": "Reply by",
-    "daysLeft": "{days, plural, one {# day left} other {# days left}}",
-    "dueTomorrow": "Due tomorrow",
-    "dueToday": "Due today",
-    "passed": "{days, plural, one {Passed # day ago} other {Passed # days ago}}",
-    "deadlineSource": "The letter says:",
-    "checkDeadline": "Check it against your letter.",
-    "noDeadline": "No reply date found. Read the letter for one.",
-    "ifNothing": "If you do nothing:",
+    "replyBy": "Rispondere entro",
+    "daysLeft": "{days, plural, one {Manca # giorno} other {Mancano # giorni}}",
+    "dueTomorrow": "Scade domani",
+    "dueToday": "Scade oggi",
+    "passed": "{days, plural, one {Scaduto da # giorno} other {Scaduto da # giorni}}",
+    "deadlineSource": "La lettera dice:",
+    "checkDeadline": "Lo verifichi sulla sua lettera.",
+    "noDeadline": "Nessuna data di risposta trovata. La cerchi nella lettera.",
+    "ifNothing": "Se non fa nulla:",
     "facts": {
-      "from": "From",
-      "where": "Where",
-      "area": "Area",
-      "reference": "Reference",
-      "dated": "Dated"
+      "from": "Da",
+      "where": "Dove",
+      "area": "Ambito",
+      "reference": "Riferimento",
+      "dated": "Datata"
     },
-    "asksTitle": "What you are asked for",
-    "ready": "{done} of {total} ready",
-    "letterTitle": "The letter",
-    "language": "Language",
-    "draftTitle": "Draft reply",
-    "draftHint": "A starting point. Fill every [bracket] with your own true facts.",
-    "copy": "Copy",
-    "copied": "Copied",
-    "notesTitle": "Worth knowing",
-    "whoEyebrow": "Who should look at this",
+    "asksTitle": "Che cosa le viene chiesto",
+    "ready": "{done} di {total} pronti",
+    "letterTitle": "La lettera",
+    "language": "Lingua",
+    "draftTitle": "Bozza di risposta",
+    "draftHint": "Un punto di partenza. Completi ogni [parentesi] con fatti suoi e veritieri.",
+    "copy": "Copiare",
+    "copied": "Copiato",
+    "notesTitle": "Buono a sapersi",
+    "whoEyebrow": "Chi dovrebbe esaminarlo",
     "tier": {
-      "ai": "Causius AI",
-      "assistant": "Legal assistant",
-      "lawyer": "Licensed lawyer"
+      "ai": "Causius IA",
+      "assistant": "Assistente legale",
+      "lawyer": "Avvocato abilitato"
     },
-    "findHelper": "Find a helper",
-    "aiNotice": "Written by an AI model; it can be wrong. The letter is what counts.",
-    "export": "Export full case file",
-    "saveCopy": "Save a copy to my cases",
-    "delete": "Delete case",
-    "deleteConfirm": "Delete this case from this browser? This cannot be undone.",
-    "sampleBanner": "Worked example. All details are invented.",
-    "notHereTitle": "This case is not on this device",
-    "notHereBody": "Cases stay in the browser that made them. Import an exported file instead.",
-    "goCases": "Go to my cases",
-    "exportAnon": "Export for a helper (anonymised)"
+    "findHelper": "Trovare un aiutante",
+    "aiNotice": "Scritto da un modello di IA; può sbagliare. Ciò che conta è la lettera.",
+    "export": "Esportare il fascicolo completo",
+    "saveCopy": "Salvare una copia nei miei casi",
+    "delete": "Eliminare il caso",
+    "deleteConfirm": "Eliminare questo caso da questo browser? L'operazione è irreversibile.",
+    "sampleBanner": "Esempio svolto. Tutti i dettagli sono inventati.",
+    "notHereTitle": "Questo caso non si trova su questo dispositivo",
+    "notHereBody": "I casi restano nel browser che li ha creati. Importi invece un file esportato.",
+    "goCases": "Ai miei casi",
+    "exportAnon": "Esportare per un aiutante (anonimizzato)"
   },
   "Helpers": {
-    "metaTitle": "Helpers",
-    "metaDescription": "Find help with a legal matter: Causius AI, legal assistants and licensed lawyers whose admission Causius checked, under a name or a pseudonym.",
-    "eyebrow": "Helpers",
-    "title": "Who can help, and what each may do",
-    "lead": "Anyone may use a pseudonym. A lawyer is listed only where Causius checked their admission.",
-    "search": "Search by name or what they do",
+    "metaTitle": "Aiutanti",
+    "metaDescription": "Trovare aiuto per una pratica giuridica: Causius IA, assistenti legali e avvocati abilitati la cui abilitazione è stata verificata da Causius, con il proprio nome o sotto pseudonimo.",
+    "eyebrow": "Aiutanti",
+    "title": "Chi può aiutare, e che cosa può fare ciascuno",
+    "lead": "Chiunque può usare uno pseudonimo. Un avvocato è elencato solo dove Causius ha verificato la sua abilitazione.",
+    "search": "Cercare per nome o per attività",
     "filters": {
-      "kind": "Kind",
-      "place": "Country",
-      "lang": "Language",
-      "area": "Area"
+      "kind": "Tipo",
+      "place": "Paese",
+      "lang": "Lingua",
+      "area": "Ambito"
     },
-    "count": "{count, plural, =0 {No one matches} one {# helper} other {# helpers}}",
-    "clear": "Clear filters",
-    "noneYet": "No one is listed yet.",
-    "unavailable": "The directory cannot be read right now.",
-    "verifiedIn": "Admission checked: {places}",
-    "offerTitle": "Help others",
-    "offerBody": "List yourself as a legal assistant, a lawyer or an AI service you run.",
-    "offerCta": "Become a helper",
+    "count": "{count, plural, =0 {Nessun risultato} one {# aiutante} other {# aiutanti}}",
+    "clear": "Azzerare i filtri",
+    "noneYet": "Non è ancora elencato nessuno.",
+    "unavailable": "Al momento non è possibile leggere l'elenco.",
+    "verifiedIn": "Abilitazione verificata: {places}",
+    "offerTitle": "Aiutare altri",
+    "offerBody": "Si iscriva come assistente legale, come avvocato o come servizio di IA che gestisce.",
+    "offerCta": "Diventare aiutante",
     "ai": {
-      "line": "Reads, researches, drafts and keeps deadlines, on a sealed matter. Free.",
-      "start": "Start a matter"
+      "line": "Legge, ricerca, redige e sorveglia i termini, su una pratica sigillata. Gratis.",
+      "start": "Aprire una pratica"
     },
-    "rulesTitle": "The rules",
+    "rulesTitle": "Le regole",
     "rules": {
       "label": {
-        "title": "The label is the law",
-        "body": "Only an admitted lawyer may advise or represent. A label says which side a helper is on."
+        "title": "L'etichetta è la legge",
+        "body": "Solo un avvocato abilitato può consigliare o rappresentare. L'etichetta dice da quale parte sta un aiutante."
       },
       "pseudonym": {
-        "title": "Pseudonymous, and still checked",
-        "body": "A lawyer's name and register number stay sealed. The public sees a signed statement that the admission was checked; a client sees the name when the lawyer takes their matter."
+        "title": "Sotto pseudonimo, e comunque verificati",
+        "body": "Il nome e il numero di registro di un avvocato restano sigillati. Il pubblico vede una dichiarazione firmata che l'abilitazione è stata verificata; un cliente vede il nome quando l'avvocato assume la sua pratica."
       },
       "share": {
-        "title": "You choose what a helper sees",
-        "body": "Without your personal details by default; you can end their access at any time."
+        "title": "Decide lei che cosa vede un aiutante",
+        "body": "Di norma senza i suoi dati personali; può revocargli l'accesso in qualsiasi momento."
       }
     }
   },
   "Settings": {
-    "metaTitle": "Settings",
-    "metaDescription": "Use your own AI model for Causius analyses.",
-    "title": "Settings",
-    "ownTitle": "Your own model",
-    "p1": "Without a key, Causius reads letters with free shared models. They have a small daily budget that every visitor draws on, and they are not the strongest available.",
-    "p2": "A legal letter deserves the best reading you can give it. Connect an API key from a provider below and your analyses run on the strongest model that key can use, on your own budget. The key is kept in this browser only: it is sent with each analysis to reach your provider and is never stored by Causius.",
-    "p3": "Use an API key, ideally one with a spending cap. Causius never asks for a subscription login such as Claude Pro or ChatGPT Plus.",
-    "using": "Using your own model: {label}",
-    "keyKept": "Key {hint}, kept in this browser only",
-    "remove": "Remove key",
-    "provider": "Provider",
-    "keyLabel": "{vendor} API key",
-    "getKey": "Get a key from {vendor}",
-    "checking": "Checking the key…",
-    "notWrong": "This does not mean the key is wrong.",
-    "model": "Model",
-    "strongest": "strongest this key can use",
-    "use": "Use this model",
-    "saved": "Saved in this browser. New analyses use it.",
-    "tooMany": "Too many checks in a short time. Wait a few minutes and try again.",
-    "unreachable": "Could not reach Causius to check the key. Check your connection."
+    "metaTitle": "Impostazioni",
+    "metaDescription": "Usare il proprio modello di IA per le analisi di Causius.",
+    "title": "Impostazioni",
+    "ownTitle": "Il suo modello",
+    "p1": "Senza una chiave, Causius legge le lettere con modelli condivisi gratuiti. Hanno un piccolo budget giornaliero a cui attingono tutti i visitatori, e non sono i più potenti disponibili.",
+    "p2": "Una lettera giuridica merita la lettura migliore che le può dare. Colleghi una chiave API di uno dei fornitori qui sotto e le sue analisi useranno il modello più potente accessibile con quella chiave, a sue spese. La chiave è conservata solo in questo browser: viene inviata con ogni analisi per raggiungere il suo fornitore e Causius non la memorizza mai.",
+    "p3": "Usi una chiave API, idealmente con un limite di spesa. Causius non chiede mai l'accesso a un abbonamento come Claude Pro o ChatGPT Plus.",
+    "using": "In uso il suo modello: {label}",
+    "keyKept": "Chiave {hint}, conservata solo in questo browser",
+    "remove": "Rimuovere la chiave",
+    "provider": "Fornitore",
+    "keyLabel": "Chiave API {vendor}",
+    "getKey": "Ottenere una chiave da {vendor}",
+    "checking": "Verifica della chiave…",
+    "notWrong": "Ciò non significa che la chiave sia sbagliata.",
+    "model": "Modello",
+    "strongest": "il più potente accessibile con questa chiave",
+    "use": "Usare questo modello",
+    "saved": "Salvato in questo browser. Le nuove analisi lo useranno.",
+    "tooMany": "Troppe verifiche in poco tempo. Attenda qualche minuto e riprovi.",
+    "unreachable": "Impossibile raggiungere Causius per verificare la chiave. Controlli la connessione."
   },
   "Records": {
-    "roadmap": "Roadmap",
-    "changelog": "Changelog",
-    "home": "Back to the product",
-    "profile": "Full development profile",
-    "beta": "Beta — running, not released",
-    "source": "These records come from the canonical project profile. Planned work is not a delivery promise.",
-    "unavailable": "Development records are temporarily unavailable. Please try again shortly.",
-    "emptyRoadmap": "No roadmap items have been recorded yet.",
-    "emptyChangelog": "No changes have been recorded yet.",
-    "progress": "recorded progress",
-    "target": "Target",
-    "englishOnly": ""
+    "roadmap": "Tabella di marcia",
+    "changelog": "Registro delle modifiche",
+    "home": "Tornare al prodotto",
+    "profile": "Profilo di sviluppo completo",
+    "beta": "Beta — in funzione, non ancora rilasciato",
+    "source": "Queste voci provengono dal profilo di progetto canonico. Il lavoro pianificato non è una promessa di consegna.",
+    "unavailable": "I dati di sviluppo non sono temporaneamente disponibili. Riprovi tra poco.",
+    "emptyRoadmap": "Non è stata ancora registrata nessuna voce della tabella di marcia.",
+    "emptyChangelog": "Non è stata ancora registrata nessuna modifica.",
+    "progress": "avanzamento registrato",
+    "target": "Obiettivo",
+    "englishOnly": "Queste voci sono redatte in inglese."
   },
   "Redact": {
-    "title": "Anonymise before sending",
-    "lead": "Names, addresses and numbers that identify you are replaced with placeholders in your browser before the letter is sent. The model never sees them; your browser puts them back into the result.",
-    "toggle": "Anonymise",
-    "ownWords": "Also hide these words",
-    "ownWordsPlaceholder": "Your name, your employer, a family member…",
-    "ownWordsHint": "Separate with commas. Kept in this browser for your next letters.",
-    "found": "{count, plural, =0 {Nothing will be hidden} one {# detail will be hidden} other {# details will be hidden}}. Tap one to send it after all.",
-    "foundNone": "No personal details found in the text. Add your name above if it appears.",
-    "sendThis": "Send this after all",
-    "hideThis": "Hide this",
-    "preview": "Show exactly what the model receives",
-    "photosWarning": "Photos are sent as they are. Cover your name, address and numbers on each page before sending.",
-    "offWarning": "Anonymising is off: the letter is sent with every personal detail in it.",
-    "cover": "Cover details",
-    "coveredCount": "{count, plural, one {# area covered} other {# areas covered}}",
-    "notCovered": "nothing covered yet",
-    "photoTitle": "Cover details on {label}",
-    "photoHint": "Drag a box over your name, address, and any number that identifies you. What is under a box is removed from the photo.",
-    "undo": "Undo",
-    "cancel": "Cancel",
-    "done": "{count, plural, =0 {Done} one {Cover # area} other {Cover # areas}}",
-    "canvas": "The page. Drag to cover an area.",
+    "title": "Anonimizzare prima dell'invio",
+    "lead": "Nomi, indirizzi e numeri che la identificano vengono sostituiti nel suo browser con segnaposto prima che la lettera venga inviata. Il modello non li vede mai; il suo browser li reinserisce nel risultato.",
+    "toggle": "Anonimizzare",
+    "ownWords": "Nascondere anche queste parole",
+    "ownWordsPlaceholder": "Il suo nome, il suo datore di lavoro, un familiare…",
+    "ownWordsHint": "Separi con virgole. Conservate in questo browser per le sue prossime lettere.",
+    "found": "{count, plural, =0 {Non verrà nascosto nulla} one {Verrà nascosto # dato} other {Verranno nascosti # dati}}. Tocchi un dato per inviarlo comunque.",
+    "foundNone": "Nel testo non sono stati trovati dati personali. Aggiunga sopra il suo nome, se compare.",
+    "sendThis": "Inviare comunque",
+    "hideThis": "Nascondere",
+    "preview": "Mostrare esattamente ciò che riceve il modello",
+    "photosWarning": "Le foto vengono inviate così come sono. Copra nome, indirizzo e numeri su ogni pagina prima dell'invio.",
+    "offWarning": "L'anonimizzazione è disattivata: la lettera viene inviata con tutti i dati personali che contiene.",
+    "cover": "Coprire i dati",
+    "coveredCount": "{count, plural, one {# area coperta} other {# aree coperte}}",
+    "notCovered": "ancora nulla di coperto",
+    "photoTitle": "Coprire i dati su {label}",
+    "photoHint": "Trascini un riquadro sopra il suo nome, l'indirizzo e ogni numero che la identifica. Ciò che si trova sotto un riquadro viene rimosso dalla foto.",
+    "undo": "Annullare l'ultimo riquadro",
+    "cancel": "Annullare",
+    "done": "{count, plural, =0 {Fatto} one {Coprire # area} other {Coprire # aree}}",
+    "canvas": "La pagina. Trascini per coprire un'area.",
     "kind": {
-      "NAME": "Name",
-      "ADDRESS": "Address",
-      "POSTCODE": "Town",
+      "NAME": "Nome",
+      "ADDRESS": "Indirizzo",
+      "POSTCODE": "Località",
       "EMAIL": "E-mail",
-      "PHONE": "Phone",
+      "PHONE": "Telefono",
       "IBAN": "IBAN",
-      "AHV": "AHV no.",
-      "REF": "Reference",
-      "BIRTHDATE": "Born"
+      "AHV": "N. AVS",
+      "REF": "Riferimento",
+      "BIRTHDATE": "Nato/a il"
     }
   },
   "Account": {
-    "title": "Your account",
-    "profile": "Profile",
-    "noEmail": "none — add a password sign-in to use email",
-    "unverified": "not confirmed yet",
-    "role": "Role",
+    "title": "Il suo account",
+    "profile": "Profilo",
+    "noEmail": "nessuna — aggiunga l'accesso con password per usare l'e-mail",
+    "unverified": "non ancora confermata",
+    "role": "Ruolo",
     "roles": {
-      "customer": "Customer",
-      "helper": "Helper",
-      "professional": "Professional",
-      "staff": "Staff",
-      "admin": "Administrator"
+      "customer": "Cliente",
+      "helper": "Aiutante",
+      "professional": "Professionista",
+      "staff": "Personale",
+      "admin": "Amministratore"
     },
-    "save": "Save",
-    "saved": "Saved.",
-    "methods": "Ways to sign in",
-    "methodPassword": "Email and password",
-    "link": "Add {method}",
-    "passkeys": "Passkeys",
-    "passkeysLede": "Sign in with your fingerprint, face or device PIN instead of a password.",
+    "save": "Salvare",
+    "saved": "Salvato.",
+    "methods": "Modi di accesso",
+    "methodPassword": "E-mail e password",
+    "link": "Aggiungere {method}",
+    "passkeys": "Passkey",
+    "passkeysLede": "Acceda con l'impronta digitale, il volto o il PIN del dispositivo invece che con una password.",
     "passkeyDefaultName": "Passkey",
-    "remove": "Remove",
-    "addPasskey": "Add a passkey",
-    "twoFactor": "Two-factor sign-in",
-    "twoFactorOn": "On. Signing in asks for a code from your authenticator app.",
-    "twoFactorOff": "Off. Turn it on to ask for a code from an authenticator app at every sign-in.",
-    "currentPassword": "Current password",
-    "currentPasswordHint": "Needed if your account has a password. Without one, sign in again first.",
-    "scan": "Add this account to your authenticator app, then enter the code it shows.",
-    "openAuthenticator": "Open in your authenticator app",
-    "backupCodes": "Keep these backup codes somewhere safe. Each one works once if you lose your phone.",
-    "turnOn": "Turn on",
-    "turnOff": "Turn off",
-    "setUp": "Set up",
-    "leave": "Sign out or leave",
-    "signOut": "Sign out",
-    "deleteConfirm": "To delete your account and everything in it, type {word}",
-    "deleteWord": "delete",
-    "delete": "Delete my account",
-    "signIn": "Sign in",
-    "matters": "My matters",
-    "settings": "Settings",
+    "remove": "Rimuovere",
+    "addPasskey": "Aggiungere una passkey",
+    "twoFactor": "Accesso a due fattori",
+    "twoFactorOn": "Attivo. All'accesso viene chiesto un codice della sua app di autenticazione.",
+    "twoFactorOff": "Disattivo. Lo attivi per farsi chiedere a ogni accesso un codice di un'app di autenticazione.",
+    "currentPassword": "Password attuale",
+    "currentPasswordHint": "Necessaria se il suo account ha una password. Se non ne ha, acceda prima di nuovo.",
+    "scan": "Aggiunga questo account alla sua app di autenticazione, poi inserisca il codice che mostra.",
+    "openAuthenticator": "Aprire nella sua app di autenticazione",
+    "backupCodes": "Conservi questi codici di riserva in un luogo sicuro. Ognuno funziona una sola volta, se perde il telefono.",
+    "turnOn": "Attivare",
+    "turnOff": "Disattivare",
+    "setUp": "Configurare",
+    "leave": "Uscire o lasciare",
+    "signOut": "Uscire",
+    "deleteConfirm": "Per eliminare il suo account e tutto ciò che contiene, digiti {word}",
+    "deleteWord": "elimina",
+    "delete": "Eliminare il mio account",
+    "signIn": "Accedere",
+    "matters": "Le mie pratiche",
+    "settings": "Impostazioni",
     "trigger": "Account: {name}",
     "menu": "Account",
-    "signingOut": "Signing out…",
-    "signOutFailed": "Sign-out did not complete. Try again.",
-    "openIn": "Open {name}",
+    "signingOut": "Uscita in corso…",
+    "signOutFailed": "L'uscita non è stata completata. Riprovi.",
+    "openIn": "Aprire {name}",
     "account": "Account"
   },
   "Matters": {
-    "title": "Matters",
-    "lead": "A matter is anything legal you need handled. Causius works it with you, keeps every deadline and asks before anything leaves.",
-    "signInTitle": "Sign in to keep matters",
-    "signInLead": "Matters are kept sealed, each with its own key, so you can come back from any device. A pseudonym is fine.",
-    "quickCheckSignedOut": "Or check a letter without an account",
-    "newTitle": "Start a matter",
-    "newLead": "Say what is going on, in your own words. Causius will ask what it needs.",
-    "situation": "What's going on?",
-    "situationPlaceholder": "For example: a tax assessment I want to object to, or a landlord keeping my deposit.",
-    "where": "Where",
-    "whereUnknown": "Not sure / let Causius find out",
-    "open": "Start",
-    "opening": "Starting…",
-    "quickCheck": "Just check a letter, without saving",
-    "mine": "Your matters",
-    "loading": "Loading…",
-    "none": "No matters yet.",
+    "title": "Pratiche",
+    "lead": "Una pratica è qualsiasi questione giuridica che le serve sbrigare. Causius la porta avanti con lei, sorveglia ogni termine e chiede prima che qualcosa parta.",
+    "signInTitle": "Accedere per conservare le pratiche",
+    "signInLead": "Le pratiche sono conservate sigillate, ognuna con la propria chiave, così può riprenderle da qualsiasi dispositivo. Va bene anche uno pseudonimo.",
+    "quickCheckSignedOut": "Oppure verificare una lettera senza account",
+    "newTitle": "Aprire una pratica",
+    "newLead": "Dica che cosa succede, con parole sue. Causius chiederà ciò di cui ha bisogno.",
+    "situation": "Che cosa succede?",
+    "situationPlaceholder": "Per esempio: una decisione di tassazione contro cui voglio presentare reclamo, o un locatore che trattiene il mio deposito di garanzia.",
+    "where": "Dove",
+    "whereUnknown": "Non so / lascio che lo scopra Causius",
+    "open": "Iniziare",
+    "opening": "Avvio…",
+    "quickCheck": "Verificare solo una lettera, senza salvare",
+    "mine": "Le sue pratiche",
+    "loading": "Caricamento…",
+    "none": "Ancora nessuna pratica.",
     "nextDue": "{label}: {date}",
-    "waiting": "{count, plural, one {# decision waiting} other {# decisions waiting}}",
+    "waiting": "{count, plural, one {# decisione in attesa} other {# decisioni in attesa}}",
     "errors": {
-      "not_configured": "Matters are not switched on for this site yet.",
-      "sign_in": "Please sign in again.",
-      "rate_limited": "Too many new matters in a short time. Wait a little.",
-      "offline": "Causius could not be reached. Check your connection.",
-      "unknown": "That did not work. Try again."
+      "not_configured": "Le pratiche non sono ancora attivate per questo sito.",
+      "sign_in": "Acceda di nuovo, per favore.",
+      "rate_limited": "Troppe nuove pratiche in poco tempo. Attenda un momento.",
+      "offline": "Impossibile raggiungere Causius. Controlli la connessione.",
+      "unknown": "Non ha funzionato. Riprovi."
     },
-    "kicker": "Your matters",
-    "helping": "You help"
+    "kicker": "Le sue pratiche",
+    "helping": "Lei aiuta"
   },
   "Matter": {
-    "pageTitle": "Matter",
-    "loading": "Opening the matter…",
+    "pageTitle": "Pratica",
+    "loading": "Apertura della pratica…",
     "load": {
-      "not_found": "This matter does not exist, or you do not take part in it.",
-      "failed": "The matter could not be opened."
+      "not_found": "Questa pratica non esiste, oppure lei non ne fa parte.",
+      "failed": "Non è stato possibile aprire la pratica."
     },
-    "backToMatters": "Back to your matters",
-    "newMatter": "New matter",
+    "backToMatters": "Tornare alle sue pratiche",
+    "newMatter": "Nuova pratica",
     "agentName": "Causius",
-    "stepsCount": "{count, plural, one {# step} other {# steps}} Causius took",
+    "stepsCount": "{count, plural, one {# passo} other {# passi}} compiuti da Causius",
     "tool": {
-      "web_search": "searched",
-      "read_page": "read",
-      "record_deadline": "deadline",
-      "add_task": "task",
-      "note_fact": "noted",
-      "update_matter": "updated",
-      "draft_document": "drafted",
-      "request_approval": "asked you",
-      "error": "error",
-      "other": "step",
-      "check_domain": "domains",
-      "read_document": "read"
+      "web_search": "ricerca",
+      "read_page": "lettura",
+      "record_deadline": "termine",
+      "add_task": "compito",
+      "note_fact": "annotazione",
+      "update_matter": "aggiornamento",
+      "draft_document": "bozza",
+      "request_approval": "domanda a lei",
+      "error": "errore",
+      "other": "passo",
+      "check_domain": "domini",
+      "read_document": "lettura"
     },
-    "emptyThread": "Write what is going on. Causius will start working.",
-    "composer": "Write to Causius…",
-    "modelOwn": "Working with your own model, {model}.",
-    "modelFree": "Working with free shared models.",
-    "change": "Change",
-    "openSettings": "Model settings",
+    "emptyThread": "Scriva che cosa succede. Causius si metterà al lavoro.",
+    "composer": "Scrivere a Causius…",
+    "modelOwn": "Al lavoro con il suo modello, {model}.",
+    "modelFree": "Al lavoro con modelli condivisi gratuiti.",
+    "change": "Cambiare",
+    "openSettings": "Impostazioni del modello",
     "working": {
-      "reading": "Reading the matter…",
-      "researching": "Looking up what applies…",
-      "drafting": "Working on it…",
-      "checking": "Checking the details…"
+      "reading": "Lettura della pratica…",
+      "researching": "Ricerca di ciò che si applica…",
+      "drafting": "Al lavoro…",
+      "checking": "Verifica dei dettagli…"
     },
     "errors": {
-      "not_configured": "No model is switched on for this site. Connect your own model to continue.",
-      "busy": "No model answered. The free shared budget may be used up; your own model is not affected.",
-      "busy_own": "Your model did not answer. Check its key in the settings.",
-      "rate_limited": "That is a lot in a short time. Wait a little, or use your own model.",
-      "bad_own_model": "Your saved model settings could not be used.",
-      "offline": "Causius could not be reached. Your message was not lost: send it again.",
-      "not_allowed": "You can read this matter but not write to it.",
-      "unknown": "That turn did not complete. Try again.",
-      "stopped": "Stopped. Nothing from that turn was saved. Send it again to retry."
+      "not_configured": "Per questo sito non è attivato nessun modello. Colleghi il suo modello per continuare.",
+      "busy": "Nessun modello ha risposto. Il budget condiviso gratuito potrebbe essere esaurito; il suo modello non ne è toccato.",
+      "busy_own": "Il suo modello non ha risposto. Controlli la sua chiave nelle impostazioni.",
+      "rate_limited": "Sono molte richieste in poco tempo. Attenda un momento, oppure usi il suo modello.",
+      "bad_own_model": "Le impostazioni del modello salvate non hanno potuto essere usate.",
+      "offline": "Impossibile raggiungere Causius. Il suo messaggio non è andato perso: lo invii di nuovo.",
+      "not_allowed": "Può leggere questa pratica ma non scriverci.",
+      "unknown": "Questo passaggio non è stato completato. Riprovi.",
+      "stopped": "Interrotto. Di questo passaggio non è stato salvato nulla. Lo invii di nuovo per riprovare."
     },
-    "panel": "The matter",
-    "due": "Due",
-    "nothingDue": "Nothing due yet.",
-    "daysLeft": "{days, plural, one {# day left} other {# days left}}",
-    "tomorrow": "tomorrow",
-    "today": "today",
-    "overdue": "{days, plural, one {# day overdue} other {# days overdue}}",
-    "decisions": "Waiting for you",
-    "noDecisions": "Nothing waits for your decision.",
+    "panel": "La pratica",
+    "due": "Scadenze",
+    "nothingDue": "Ancora nessuna scadenza.",
+    "daysLeft": "{days, plural, one {manca # giorno} other {mancano # giorni}}",
+    "tomorrow": "domani",
+    "today": "oggi",
+    "overdue": "{days, plural, one {scaduto da # giorno} other {scaduto da # giorni}}",
+    "decisions": "In attesa di lei",
+    "noDecisions": "Nulla attende una sua decisione.",
     "action": {
-      "send": "Send",
-      "file": "File",
-      "sign": "Sign",
-      "share": "Share",
-      "pay": "Pay",
-      "other": "Action"
+      "send": "Invio",
+      "file": "Deposito",
+      "sign": "Firma",
+      "share": "Condivisione",
+      "pay": "Pagamento",
+      "other": "Azione"
     },
-    "approve": "Approve",
-    "decline": "Decline",
-    "approveNote": "Approving records your decision. Sending or filing is still done by you, with the document.",
-    "documents": "Documents",
-    "draft": "draft",
-    "uploaded": "yours",
-    "upload": "Add a document",
-    "uploading": "Adding…",
-    "uploadHint": "PDF or text, up to 10 MB. Only the text is kept, encrypted.",
+    "approve": "Approvare",
+    "decline": "Rifiutare",
+    "approveNote": "Approvando registra la sua decisione. L'invio o il deposito restano a suo carico, con il documento.",
+    "documents": "Documenti",
+    "draft": "bozza",
+    "uploaded": "suo",
+    "upload": "Aggiungere un documento",
+    "uploading": "Aggiunta…",
+    "uploadHint": "PDF o testo, fino a 10 MB. Viene conservato solo il testo, cifrato.",
     "uploadErrors": {
-      "too_large": "That file is larger than 10 MB.",
-      "unsupported_type": "Only PDF and text files for now.",
-      "scanned_pdf": "That PDF is a scan without text. Use the quick check to read a photo of it.",
-      "unreadable": "That PDF could not be read.",
-      "rate_limited": "Too many uploads in a short time.",
-      "unknown": "The document could not be added."
+      "too_large": "Il file supera i 10 MB.",
+      "unsupported_type": "Per ora solo file PDF e di testo.",
+      "scanned_pdf": "Questo PDF è una scansione senza testo. Usi la verifica rapida per leggerne una foto.",
+      "unreadable": "Non è stato possibile leggere questo PDF.",
+      "rate_limited": "Troppi caricamenti in poco tempo.",
+      "unknown": "Non è stato possibile aggiungere il documento."
     },
-    "privacy": "Privacy",
-    "privacyLead": "Before anything goes to a model, names, addresses and numbers are replaced with placeholders. Add any other words to keep out.",
-    "hideWords": "Words to keep from models",
-    "hidePlaceholder": "Your name, your employer…",
-    "save": "Save",
-    "saved": "Saved.",
-    "delete": "Delete this matter",
-    "deleteConfirm": "Delete this matter and everything in it? This cannot be undone."
+    "privacy": "Riservatezza",
+    "privacyLead": "Prima che qualcosa vada a un modello, nomi, indirizzi e numeri vengono sostituiti con segnaposto. Aggiunga altre parole da tenere fuori.",
+    "hideWords": "Parole da nascondere ai modelli",
+    "hidePlaceholder": "Il suo nome, il suo datore di lavoro…",
+    "save": "Salvare",
+    "saved": "Salvato.",
+    "delete": "Eliminare questa pratica",
+    "deleteConfirm": "Eliminare questa pratica e tutto ciò che contiene? L'operazione è irreversibile."
   },
   "AuthError": {
-    "kicker": "Sign-in",
-    "failedTitle": "Sign-in did not complete",
-    "failedBody": "Something went wrong between Causius and OrangeCat. Trying again usually works.",
-    "deniedTitle": "Sign-in was cancelled",
-    "deniedBody": "You did not allow Causius to sign you in. Nothing was shared.",
-    "configurationTitle": "Sign-in is not set up correctly",
-    "configurationBody": "This is a problem on our side, not yours.",
-    "tryAgain": "Try again",
-    "home": "Home"
+    "kicker": "Accesso",
+    "failedTitle": "L'accesso non è stato completato",
+    "failedBody": "Qualcosa non ha funzionato tra Causius e OrangeCat. Di solito basta riprovare.",
+    "deniedTitle": "L'accesso è stato annullato",
+    "deniedBody": "Non ha autorizzato Causius a farla accedere. Non è stato condiviso nulla.",
+    "configurationTitle": "L'accesso non è configurato correttamente",
+    "configurationBody": "È un problema da parte nostra, non sua.",
+    "tryAgain": "Riprovare",
+    "home": "Pagina iniziale"
   },
   "Entry": {
-    "signUp": "Create an account",
-    "signIn": "I already have an account",
-    "cost": "Email and password, or a passkey. No real name needed."
+    "signUp": "Creare un account",
+    "signIn": "Ho già un account",
+    "cost": "E-mail e password, oppure una passkey. Non serve il nome vero."
   },
   "Capabilities": {
     "status": {
-      "available": "Works today",
-      "inDevelopment": "In development",
-      "planned": "Planned"
+      "available": "Funziona oggi",
+      "inDevelopment": "In sviluppo",
+      "planned": "Pianificato"
     },
     "letters": {
-      "name": "Read an official letter",
-      "body": "Paste or photograph it: what it asks, the deadline with its source sentence, a translation, a draft reply. No account."
+      "name": "Leggere una lettera ufficiale",
+      "body": "La incolli o la fotografi: che cosa chiede, il termine con la frase da cui risulta, una traduzione, una bozza di risposta. Senza account."
     },
     "matters": {
-      "name": "Work a matter with an agent",
-      "body": "One workspace per matter: conversation, sourced research, deadlines, tasks, drafts, documents."
+      "name": "Portare avanti una pratica con un agente",
+      "body": "Uno spazio di lavoro per pratica: conversazione, ricerche con fonti, termini, compiti, bozze, documenti."
     },
     "approvals": {
-      "name": "Nothing leaves without your approval",
-      "body": "Sending, filing, signing, sharing and paying wait for your decision."
+      "name": "Nulla parte senza la sua approvazione",
+      "body": "Invio, deposito, firma, condivisione e pagamento attendono la sua decisione."
     },
     "models": {
-      "name": "Any model, including your own",
-      "body": "Free shared models, or your own key with one of ten providers. The key stays in your browser."
+      "name": "Qualsiasi modello, anche il suo",
+      "body": "Modelli condivisi gratuiti, oppure la sua chiave con uno di dieci fornitori. La chiave resta nel suo browser."
     },
     "domains": {
-      "name": "Check a name before you found on it",
-      "body": "The agent asks the domain registries whether a name is taken."
+      "name": "Verificare un nome prima di fondarci sopra",
+      "body": "L'agente chiede ai registri dei domini se un nome è già preso."
     },
     "marketplace": {
-      "name": "Legal assistants and lawyers",
-      "body": "Assistants, lawyers and AI services list themselves under a name or pseudonym; a lawyer only where Causius checked the admission."
+      "name": "Assistenti legali e avvocati",
+      "body": "Assistenti, avvocati e servizi di IA si iscrivono con il proprio nome o sotto pseudonimo; un avvocato solo dove Causius ha verificato l'abilitazione."
     },
     "formation": {
-      "name": "Found and register",
-      "body": "Companies and associations prepared by the agent, filed on your approval."
+      "name": "Fondare e iscrivere",
+      "body": "Società e associazioni preparate dall'agente, depositate con la sua approvazione."
     },
     "contracts": {
-      "name": "Contracts that keep themselves",
-      "body": "Agreements signed by the parties, obligations tracked, payment held in escrow if they choose."
+      "name": "Contratti che si tengono da soli",
+      "body": "Accordi firmati dalle parti, obblighi sorvegliati, pagamento in deposito fiduciario se lo scelgono."
     },
     "law": {
-      "name": "Law as data, from Solon",
-      "body": "Statutes and procedures as citable data, so every answer points at its rule."
+      "name": "Il diritto come dati, da Solon",
+      "body": "Leggi e procedure come dati citabili, perché ogni risposta rimandi alla sua norma."
     },
     "firms": {
-      "name": "Firms on their own models",
-      "body": "Law firms run Causius on models inside their own walls."
+      "name": "Studi legali con i propri modelli",
+      "body": "Gli studi legali fanno funzionare Causius con modelli all'interno delle proprie mura."
     }
   },
   "Platform": {
-    "metaTitle": "How Causius is built",
-    "metaDescription": "The architecture of Causius: an agent that does legal work on a sealed case file, with every personal detail hidden from the models it uses.",
-    "kicker": "Platform",
-    "title": "How Causius is built, and why",
-    "lede": "Legal work is slow because it is done by hand. Causius is an agent that does the work and a person who decides, built so what it handles stays private and what it claims can be checked.",
+    "metaTitle": "Come è costruito Causius",
+    "metaDescription": "L'architettura di Causius: un agente che svolge lavoro giuridico su un fascicolo sigillato, con ogni dato personale nascosto ai modelli che usa.",
+    "kicker": "Piattaforma",
+    "title": "Come è costruito Causius, e perché",
+    "lede": "Il lavoro giuridico è lento perché si fa a mano. Causius è un agente che fa il lavoro e una persona che decide, costruito in modo che ciò che tratta resti riservato e ciò che afferma si possa verificare.",
     "why": {
-      "title": "Why build it",
-      "p1": "Most legal trouble is a letter with a deadline, a form or a contract: work with clear rules, billed by the hour because nobody automated it.",
-      "p3": "So Causius is a case file with an agent attached, not a chat. Lawyers stay where the law puts them; the rest gets done."
+      "title": "Perché costruirlo",
+      "p1": "La maggior parte dei problemi giuridici è una lettera con un termine, un modulo o un contratto: lavoro con regole chiare, fatturato a ore perché nessuno l'ha automatizzato.",
+      "p3": "Per questo Causius è un fascicolo con un agente collegato, non una chat. Gli avvocati restano dove li pone la legge; il resto viene fatto."
     },
     "capabilities": {
-      "title": "What is real today",
-      "lede": "Each line says whether it works. The roadmap and changelog are public.",
-      "roadmap": "Roadmap",
-      "changelog": "Changelog"
+      "title": "Che cosa è reale oggi",
+      "lede": "Ogni riga dice se funziona. La tabella di marcia e il registro delle modifiche sono pubblici.",
+      "roadmap": "Tabella di marcia",
+      "changelog": "Registro delle modifiche"
     },
     "identity": {
-      "problem": "The problem",
-      "solution": "What Causius does about it",
-      "mission": "Mission",
-      "vision": "Vision"
+      "problem": "Il problema",
+      "solution": "Che cosa fa Causius al riguardo",
+      "mission": "Missione",
+      "vision": "Visione"
     },
     "architecture": {
-      "kicker": "Architecture",
-      "title": "Five layers, one job each",
+      "kicker": "Architettura",
+      "title": "Cinque livelli, un compito ciascuno",
       "intake": {
-        "title": "Intake, in your browser",
-        "body": "Letters and photos are read on your device. Names, addresses and numbers become placeholders before anything is sent."
+        "title": "Acquisizione, nel suo browser",
+        "body": "Lettere e foto vengono lette sul suo dispositivo. Nomi, indirizzi e numeri diventano segnaposto prima che qualcosa venga inviato."
       },
       "matter": {
-        "title": "The matter",
-        "body": "One sealed record per matter: conversation, facts, deadlines, tasks, decisions, documents."
+        "title": "La pratica",
+        "body": "Un registro sigillato per pratica: conversazione, fatti, termini, compiti, decisioni, documenti."
       },
       "agent": {
-        "title": "The agent",
-        "body": "A loop of tools that searches, records deadlines and facts, and drafts. It may change the matter; anything that acts on the world it can only propose."
+        "title": "L'agente",
+        "body": "Un ciclo di strumenti che ricerca, registra termini e fatti, e redige. Può modificare la pratica; tutto ciò che agisce sul mondo può soltanto proporlo."
       },
       "models": {
-        "title": "Models",
-        "body": "Model-agnostic: a chain of free models, or your own key with one of ten providers. A better model is a setting, not a rewrite."
+        "title": "Modelli",
+        "body": "Indipendente dal modello: una catena di modelli gratuiti, oppure la sua chiave con uno di dieci fornitori. Un modello migliore è un'impostazione, non una riscrittura."
       },
       "identity": {
-        "title": "Identity and money",
-        "body": "Causius keeps its own accounts (password, link, passkey, two-step codes) and lets OrangeCat sign you in. A lawyer's admission is published as a signed attestation that names the place, not the person."
+        "title": "Identità e denaro",
+        "body": "Causius gestisce i propri account (password, link, passkey, codici a due fattori) e permette di accedere con OrangeCat. L'abilitazione di un avvocato è pubblicata come attestazione firmata che nomina il luogo, non la persona."
       }
     },
     "principles": {
-      "title": "Principles",
+      "title": "Principi",
       "human": {
-        "title": "A person approves what matters",
-        "body": "The agent does the work; a person decides what leaves."
+        "title": "Una persona approva ciò che conta",
+        "body": "L'agente fa il lavoro; una persona decide che cosa parte."
       },
       "honest": {
-        "title": "Nothing claimed that is not true",
-        "body": "No invented statute, deadline, helper or testimonial. Causius gives legal information, not advice."
+        "title": "Nulla di affermato che non sia vero",
+        "body": "Nessuna legge, termine, aiutante o testimonianza inventati. Causius fornisce informazioni giuridiche, non consulenza."
       },
       "open": {
         "title": "Open source",
-        "body": "Every line is public under the MIT licence."
+        "body": "Ogni riga è pubblica con licenza MIT."
       },
       "shared": {
-        "title": "Built from shared parts",
-        "body": "Design, sign-in, chat, models and the public record come from packages the whole fleet uses."
+        "title": "Costruito con parti condivise",
+        "body": "Design, accesso, chat, modelli e il registro pubblico provengono da pacchetti che usa tutta la flotta."
       }
     },
     "stack": {
-      "title": "The stack",
-      "lede": "Boring where it can be.",
+      "title": "Lo stack",
+      "lede": "Noioso dove può esserlo.",
       "framework": {
         "label": "Framework",
         "value": "Next.js 16 · React 19 · TypeScript, strict"
       },
       "data": {
-        "label": "Data",
-        "value": "PostgreSQL · Drizzle · AES-256-GCM per matter"
+        "label": "Dati",
+        "value": "PostgreSQL · Drizzle · AES-256-GCM per pratica"
       },
       "models": {
-        "label": "Models",
-        "value": "@bitbaum/ai-kit · free chain · own keys · web search"
+        "label": "Modelli",
+        "value": "@bitbaum/ai-kit · catena gratuita · chiavi proprie · ricerca web"
       },
       "signin": {
-        "label": "Sign-in",
+        "label": "Accesso",
         "value": "@bitbaum/accountkit · OrangeCat OpenID Connect"
       },
       "chat": {
-        "label": "Conversation",
+        "label": "Conversazione",
         "value": "@bitbaum/chatkit"
       },
       "design": {
@@ -723,526 +723,526 @@
         "value": "@bitbaum/design-tokens"
       },
       "record": {
-        "label": "Public record",
+        "label": "Registro pubblico",
         "value": "bip-kit · ROADMAP.md · CHANGELOG.md"
       },
       "limits": {
-        "label": "Rate limits",
+        "label": "Limiti di frequenza",
         "value": "limitkit"
       },
       "languages": {
-        "label": "Languages",
-        "value": "next-intl · English · German · French"
+        "label": "Lingue",
+        "value": "next-intl · inglese · tedesco · francese"
       },
       "tests": {
-        "label": "Tests",
-        "value": "Vitest · PGlite, a real PostgreSQL in process"
+        "label": "Test",
+        "value": "Vitest · PGlite, un vero PostgreSQL nel processo"
       }
     },
     "next": {
-      "kicker": "Where it is going",
-      "title": "From letters to legal existence",
-      "lede": "Causius holds legal work: matters, founding and registering, contracts. The law itself belongs in Solon, as data every product can cite. Next, helpers are paid through OrangeCat.",
-      "roadmap": "Read the roadmap",
-      "ecosystem": "See the ecosystem",
-      "source": "Read the source"
+      "kicker": "Dove sta andando",
+      "title": "Dalle lettere all'esistenza giuridica",
+      "lede": "Causius si occupa del lavoro giuridico: pratiche, fondazioni e iscrizioni, contratti. Il diritto stesso appartiene a Solon, come dati che ogni prodotto può citare. Prossimamente gli aiutanti saranno pagati tramite OrangeCat.",
+      "roadmap": "Leggere la tabella di marcia",
+      "ecosystem": "Vedere l'ecosistema",
+      "source": "Leggere il codice sorgente"
     }
   },
   "Security": {
-    "metaTitle": "Security",
-    "metaDescription": "How Causius keeps legal matters private: anonymisation before any model, per-matter encryption at rest, a locked-down browser and approvals only the owner can give.",
-    "kicker": "Security",
-    "title": "Private by construction",
-    "lede": "Causius handles legal letters. Each guarantee below is a property of the public code. None asks you to trust us.",
+    "metaTitle": "Sicurezza",
+    "metaDescription": "Come Causius mantiene riservate le pratiche giuridiche: anonimizzazione prima di qualsiasi modello, cifratura a riposo per ogni pratica, un browser blindato e approvazioni che solo il titolare può dare.",
+    "kicker": "Sicurezza",
+    "title": "Riservato per costruzione",
+    "lede": "Causius tratta lettere giuridiche. Ogni garanzia qui sotto è una proprietà del codice pubblico. Nessuna le chiede di fidarsi di noi.",
     "anon": {
-      "title": "Models are not told who",
-      "body": "Before text goes to a model, personal details become placeholders, restored only after the answer returns. Detection is good, not perfect: check what is hidden.",
-      "d1": "Found automatically: names, addresses, postcodes, emails, phone numbers, IBANs, AHV numbers, references, birth dates.",
-      "d2": "Your own words to hide are always added.",
-      "d3": "In the quick check this happens in your browser.",
-      "d4": "Web searches go out with placeholders too.",
-      "d5": "The exception is your voice: a recording goes to a speech service and cannot be hidden first. Causius does not store it, and typing never involves it."
+      "title": "Ai modelli non viene detto chi",
+      "body": "Prima che un testo vada a un modello, i dati personali diventano segnaposto, ripristinati solo dopo il ritorno della risposta. Il riconoscimento è buono, non perfetto: controlli che cosa viene nascosto.",
+      "d1": "Trovati automaticamente: nomi, indirizzi, numeri postali, e-mail, numeri di telefono, IBAN, numeri AVS, riferimenti, date di nascita.",
+      "d2": "Le parole che lei vuole nascondere vengono sempre aggiunte.",
+      "d3": "Nella verifica rapida questo avviene nel suo browser.",
+      "d4": "Anche le ricerche web partono con i segnaposto.",
+      "d5": "L'eccezione è la sua voce: una registrazione va a un servizio vocale e non può essere anonimizzata prima. Causius non la conserva, e scrivere non la coinvolge mai."
     },
     "sealed": {
-      "title": "Sealed at rest",
-      "body": "Each matter has its own data key, sealed by a master key that is never in the database.",
-      "d1": "AES-256-GCM, a fresh nonce per value, bound to its matter and purpose.",
-      "d2": "Titles, messages, facts, deadlines, decisions and document text are sealed; only dates, statuses, sizes and the jurisdiction code are clear.",
-      "d3": "Without the master key, a copy of the database is noise."
+      "title": "Sigillato a riposo",
+      "body": "Ogni pratica ha la propria chiave dei dati, sigillata da una chiave principale che non si trova mai nella banca dati.",
+      "d1": "AES-256-GCM, un nonce nuovo per ogni valore, legato alla sua pratica e al suo scopo.",
+      "d2": "Titoli, messaggi, fatti, termini, decisioni e testo dei documenti sono sigillati; in chiaro restano solo date, stati, dimensioni e il codice della giurisdizione.",
+      "d3": "Senza la chiave principale, una copia della banca dati è rumore."
     },
     "minimal": {
-      "title": "Nothing kept that is not needed",
-      "body": "An upload is reduced to its text. A letter checked without an account is not stored.",
-      "d1": "No users table, no passwords: only an OrangeCat account id.",
-      "d2": "Logs record which model served a turn, never what was said. No analytics. The only extra script is the optional feedback widget."
+      "title": "Nulla di conservato che non serva",
+      "body": "Un documento caricato viene ridotto al suo testo. Una lettera verificata senza account non viene conservata.",
+      "d1": "Nessuna tabella utenti, nessuna password: solo un ID dell'account OrangeCat.",
+      "d2": "I log registrano quale modello ha servito un passaggio, mai che cosa è stato detto. Nessuna analisi statistica. L'unico script aggiuntivo è il widget facoltativo per i riscontri."
     },
     "browser": {
-      "title": "A locked-down browser",
-      "body": "Every page carries a strict content security policy.",
-      "d1": "Scripts run only with a per-request nonce, and a page may talk to Causius and nothing else.",
-      "d2": "No framing, no referrer, HSTS.",
-      "d3": "API answers are never cached."
+      "title": "Un browser blindato",
+      "body": "Ogni pagina porta una rigorosa politica di sicurezza dei contenuti.",
+      "d1": "Gli script girano solo con un nonce per richiesta, e una pagina può comunicare con Causius e con nient'altro.",
+      "d2": "Nessun framing, nessun referrer, HSTS.",
+      "d3": "Le risposte dell'API non vengono mai memorizzate nella cache."
     },
     "access": {
-      "title": "Only you decide",
-      "body": "A matter opens only for the people in it. Anyone else gets the answer a missing matter gets.",
-      "d1": "Actions that leave the matter are proposals only its owner can approve.",
-      "d2": "Limits per account protect the shared models.",
-      "d3": "Deleting a matter deletes all of it."
+      "title": "Decide solo lei",
+      "body": "Una pratica si apre solo per le persone che ne fanno parte. Chiunque altro riceve la stessa risposta di una pratica inesistente.",
+      "d1": "Le azioni che escono dalla pratica sono proposte che solo il titolare può approvare.",
+      "d2": "Limiti per account proteggono i modelli condivisi.",
+      "d3": "Eliminare una pratica la elimina per intero."
     },
     "breach": {
-      "title": "If it went wrong",
-      "lede": "What each party would hold if the worst happened.",
+      "title": "Se andasse storto",
+      "lede": "Che cosa avrebbe in mano ciascuna parte nel caso peggiore.",
       "database": {
-        "title": "A stolen database",
-        "body": "Ciphertext, account ids and dates. No names, no letters. Deadline dates are readable."
+        "title": "Una banca dati rubata",
+        "body": "Testo cifrato, ID degli account e date. Nessun nome, nessuna lettera. Le date di scadenza sono leggibili."
       },
       "provider": {
-        "title": "A model provider's logs",
-        "body": "Placeholders where the people were: [NAME-1], living at [ADDRESS-1]."
+        "title": "I log di un fornitore di modelli",
+        "body": "Segnaposto dove c'erano le persone: [NAME-1], residente in [ADDRESS-1]."
       },
       "operator": {
-        "title": "Us, the operator",
-        "body": "We run the server holding the master key, so we could be compelled. Keys only you hold are on the roadmap; until then, that is the honest limit."
+        "title": "Noi, il gestore",
+        "body": "Gestiamo il server che custodisce la chiave principale, quindi potremmo esservi costretti. Chiavi in mano solo a lei sono nella tabella di marcia; fino ad allora, questo è il limite onesto."
       }
     },
     "links": {
-      "source": "Read the code",
-      "platform": "How it is built"
+      "source": "Leggere il codice",
+      "platform": "Come è costruito"
     }
   },
   "Ecosystem": {
-    "metaTitle": "Ecosystem",
-    "metaDescription": "Causius is the legal layer of a fleet of products — OrangeCat, Loki and Solon — that one OrangeCat account opens.",
-    "kicker": "Ecosystem",
-    "title": "One person, a whole fleet",
-    "lede": "Causius is one product in a fleet built to give a single person what used to take an institution. Each product does one job, and one OrangeCat account opens them all.",
-    "layer": "{layer, select, economic {Economy} execution {Execution} governance {Governance} other {{layer}}}",
-    "open": "Open {name}",
-    "unavailable": "The list of products could not be loaded just now. Try again in a minute.",
-    "layerTitle": "The legal layer",
-    "layerBody": "OrangeCat moves value, Loki gets the work done and Solon governs. Causius is the legal layer on top: the matters, registrations and contracts through which a person or an organisation exists in law and keeps its word. Solon holds the law as data; Causius does the legal work with it.",
+    "metaTitle": "Ecosistema",
+    "metaDescription": "Causius è il livello giuridico di una flotta di prodotti — OrangeCat, Loki e Solon — che un solo account OrangeCat apre.",
+    "kicker": "Ecosistema",
+    "title": "Una persona, un'intera flotta",
+    "lede": "Causius è un prodotto di una flotta costruita per dare a una singola persona ciò che prima richiedeva un'istituzione. Ogni prodotto svolge un solo compito, e un solo account OrangeCat li apre tutti.",
+    "layer": "{layer, select, economic {Economia} execution {Esecuzione} governance {Governance} other {{layer}}}",
+    "open": "Aprire {name}",
+    "unavailable": "Al momento non è stato possibile caricare l'elenco dei prodotti. Riprovi tra un minuto.",
+    "layerTitle": "Il livello giuridico",
+    "layerBody": "OrangeCat muove valore, Loki porta a termine il lavoro e Solon governa. Causius è il livello giuridico al di sopra: le pratiche, le iscrizioni e i contratti con cui una persona o un'organizzazione esiste nel diritto e mantiene la parola data. Solon custodisce il diritto come dati; Causius ci svolge il lavoro giuridico.",
     "seams": {
       "account": {
-        "title": "Sign in once",
-        "body": "A Causius account, or your OrangeCat one, under a pseudonym if you like."
+        "title": "Un solo accesso",
+        "body": "Un account Causius, o il suo account OrangeCat, anche sotto pseudonimo se vuole."
       },
       "pay": {
-        "title": "Pay and be paid",
-        "body": "Lawyers and legal assistants will be paid through OrangeCat, with the money held until the work is accepted."
+        "title": "Pagare ed essere pagati",
+        "body": "Avvocati e assistenti legali saranno pagati tramite OrangeCat, con il denaro trattenuto finché il lavoro non è accettato."
       },
       "build": {
-        "title": "Built and shipped by Loki",
-        "body": "Loki's agents build Causius, and its deploy pipeline ships every change to this site."
+        "title": "Costruito e rilasciato da Loki",
+        "body": "Gli agenti di Loki costruiscono Causius, e la sua pipeline di rilascio porta ogni modifica su questo sito."
       },
       "law": {
-        "title": "The law, from Solon",
-        "body": "Solon keeps rules as versioned data and decisions as signed votes. Causius will cite the law from it, rule by rule."
+        "title": "Il diritto, da Solon",
+        "body": "Solon conserva le regole come dati versionati e le decisioni come voti firmati. Causius ne citerà il diritto, norma per norma."
       }
     },
     "account": {
-      "kicker": "Your account",
-      "title": "One account for all of it",
-      "body": "Create it once at OrangeCat and use it for Causius, OrangeCat, Solon and Loki.",
-      "signedIn": "Go to your matters"
+      "kicker": "Il suo account",
+      "title": "Un solo account per tutto",
+      "body": "Lo crei una volta su OrangeCat e lo usi per Causius, OrangeCat, Solon e Loki.",
+      "signedIn": "Alle sue pratiche"
     }
   },
   "Chat": {
-    "send": "Send",
-    "stop": "Stop",
-    "voice": "Speak instead of typing",
-    "voiceStop": "Stop and use what I said",
-    "cancelRecording": "Cancel the recording",
-    "confirmRecording": "Use the recording",
-    "listening": "Listening…",
-    "transcribing": "Writing it down…",
-    "attach": "Add a photo or file",
-    "attachTitle": "Add to your message",
-    "close": "Close",
-    "camera": "Camera",
-    "photos": "Photos",
-    "files": "Files",
-    "queue": "Write the next message…",
-    "remove": "Remove {name}",
-    "dismiss": "Dismiss",
-    "retryTake": "Try this recording again",
-    "dictMic": "The microphone is blocked. Allow it for this site, or type instead.",
-    "dictSilence": "Nothing was heard. Try again, closer to the microphone.",
-    "dictUnavailable": "Speaking is not available right now. You can type instead.",
-    "dictFileTooLarge": "That recording is too long. Keep it under two minutes.",
-    "noteWrongType": "{name}: Causius reads photos, PDFs and text files.",
-    "noteImageTooLarge": "{name} is too large (over {mb} MB).",
-    "noteTooMany": "At most {max} files at a time.",
-    "noteUnreadable": "{name} could not be read.",
-    "copy": "Copy",
-    "copied": "Copied",
-    "retry": "Try again",
-    "working": "Working…",
-    "stopped": "Stopped. Send it again to retry.",
-    "jump": "Latest",
-    "failed": "That did not work.",
-    "loading": "Loading the conversation…",
-    "replies": "Suggested replies",
-    "attachedOnly": "(see the attached pages and files)",
-    "voiceNote": "Speaking sends your voice to a speech service. A voice cannot be hidden first, so say names only if you are fine with that.",
-    "voiceWhy": "Why",
-    "modelAuto": "Automatic",
-    "modelPicker": "Choose the model",
-    "modelYours": "Your own model",
-    "modelYoursNote": "Your own key. Your vendor bills you.",
-    "modelNote": "A choice is where Causius starts; if that model is busy it moves on.",
-    "modelCannotSee": "cannot read photos",
-    "modelCanSee": "reads photos",
-    "modelUseOwn": "Use your own model",
-    "modelLoadFailed": "The list could not be loaded. Automatic still works.",
-    "page": "Page {n}",
-    "covered": "{count, plural, one {# area covered} other {# areas covered}}",
-    "notCovered": "Nothing covered yet",
-    "cover": "Cover details",
-    "coverMore": "Cover more",
-    "coverHint": "Cover your name, address and numbers before the photo leaves your device.",
-    "sendUncovered": "Nothing is covered on {count, plural, one {# photo} other {# photos}}. Cover them, or send as they are.",
-    "sendAnyway": "Send as they are",
+    "send": "Inviare",
+    "stop": "Fermare",
+    "voice": "Parlare invece di scrivere",
+    "voiceStop": "Fermare e usare ciò che ho detto",
+    "cancelRecording": "Annullare la registrazione",
+    "confirmRecording": "Usare la registrazione",
+    "listening": "In ascolto…",
+    "transcribing": "Trascrizione…",
+    "attach": "Aggiungere una foto o un file",
+    "attachTitle": "Aggiungere al messaggio",
+    "close": "Chiudere",
+    "camera": "Fotocamera",
+    "photos": "Foto",
+    "files": "File",
+    "queue": "Scrivere il prossimo messaggio…",
+    "remove": "Rimuovere {name}",
+    "dismiss": "Chiudere",
+    "retryTake": "Riprovare con questa registrazione",
+    "dictMic": "Il microfono è bloccato. Lo autorizzi per questo sito, oppure scriva.",
+    "dictSilence": "Non si è sentito nulla. Riprovi, più vicino al microfono.",
+    "dictUnavailable": "Al momento non è possibile parlare. Può scrivere invece.",
+    "dictFileTooLarge": "La registrazione è troppo lunga. Resti sotto i due minuti.",
+    "noteWrongType": "{name}: Causius legge foto, PDF e file di testo.",
+    "noteImageTooLarge": "{name} è troppo grande (oltre {mb} MB).",
+    "noteTooMany": "Al massimo {max} file alla volta.",
+    "noteUnreadable": "Non è stato possibile leggere {name}.",
+    "copy": "Copiare",
+    "copied": "Copiato",
+    "retry": "Riprovare",
+    "working": "Al lavoro…",
+    "stopped": "Interrotto. Lo invii di nuovo per riprovare.",
+    "jump": "Più recenti",
+    "failed": "Non ha funzionato.",
+    "loading": "Caricamento della conversazione…",
+    "replies": "Risposte suggerite",
+    "attachedOnly": "(vedere le pagine e i file allegati)",
+    "voiceNote": "Parlando, la sua voce va a un servizio vocale. Una voce non può essere anonimizzata prima, quindi pronunci nomi solo se le sta bene.",
+    "voiceWhy": "Perché",
+    "modelAuto": "Automatico",
+    "modelPicker": "Scegliere il modello",
+    "modelYours": "Il suo modello",
+    "modelYoursNote": "La sua chiave. Le fattura il suo fornitore.",
+    "modelNote": "La scelta è il punto di partenza di Causius; se quel modello è occupato, passa al successivo.",
+    "modelCannotSee": "non legge foto",
+    "modelCanSee": "legge foto",
+    "modelUseOwn": "Usare il proprio modello",
+    "modelLoadFailed": "Non è stato possibile caricare l'elenco. «Automatico» funziona comunque.",
+    "page": "Pagina {n}",
+    "covered": "{count, plural, one {# area coperta} other {# aree coperte}}",
+    "notCovered": "Ancora nulla di coperto",
+    "cover": "Coprire i dati",
+    "coverMore": "Coprire altro",
+    "coverHint": "Copra nome, indirizzo e numeri prima che la foto lasci il suo dispositivo.",
+    "sendUncovered": "{count, plural, one {Su # foto non è coperto nulla. La copra, oppure la invii così com'è.} other {Su # foto non è coperto nulla. Le copra, oppure le invii così come sono.}}",
+    "sendAnyway": "Inviare senza coprire",
     "fileStaged": "File",
-    "uploading": "Reading your pages…",
-    "errScanned": "This PDF is a scan with no text. Photograph its pages instead, and cover your details.",
-    "errNoVision": "No free model can read a photo right now. Paste the text instead, or use your own model.",
-    "errUnreadable": "Nothing could be read from that. Try a sharper photo.",
-    "errUpload": "The file could not be added.",
-    "errTooLarge": "That file is too large (over 10 MB).",
-    "errUnsupported": "Causius reads photos, PDFs and text files.",
-    "errRate": "Too many uploads in a short time. Wait a little.",
-    "starterTitle": "Not sure what to say? Start with one of these.",
-    "s1": "I got a letter and don't know what it asks of me.",
-    "s2": "I want to object to a decision.",
-    "s3": "My landlord or employer is not following the contract."
+    "uploading": "Lettura delle sue pagine…",
+    "errScanned": "Questo PDF è una scansione senza testo. Fotografi invece le sue pagine e copra i suoi dati.",
+    "errNoVision": "Al momento nessun modello gratuito sa leggere una foto. Incolli invece il testo, oppure usi il suo modello.",
+    "errUnreadable": "Non è stato possibile leggervi nulla. Provi con una foto più nitida.",
+    "errUpload": "Non è stato possibile aggiungere il file.",
+    "errTooLarge": "Il file è troppo grande (oltre 10 MB).",
+    "errUnsupported": "Causius legge foto, PDF e file di testo.",
+    "errRate": "Troppi caricamenti in poco tempo. Attenda un momento.",
+    "starterTitle": "Non sa che cosa dire? Cominci con una di queste.",
+    "s1": "Ho ricevuto una lettera e non so che cosa mi chiede.",
+    "s2": "Voglio contestare una decisione.",
+    "s3": "Il mio locatore o il mio datore di lavoro non rispetta il contratto."
   },
   "Auth": {
-    "signIn": "Sign in",
-    "signInTitle": "Sign in",
-    "signUpTitle": "Create an account",
-    "signUpLede": "No real name needed. Choose whatever way in suits you; you can add more later.",
-    "createAccount": "Create an account",
-    "withSignin": "Continue with Google, Apple, GitHub, X or Facebook",
-    "withOrangecat": "Continue with OrangeCat",
-    "withPasskey": "Sign in with a passkey",
-    "withLink": "Email me a sign-in link instead",
-    "signUpWithLink": "Sign up with a link by email instead",
-    "orEmail": "or with email",
-    "email": "Email",
+    "signIn": "Accedere",
+    "signInTitle": "Accesso",
+    "signUpTitle": "Creare un account",
+    "signUpLede": "Non serve il nome vero. Scelga il modo di accesso che preferisce; potrà aggiungerne altri in seguito.",
+    "createAccount": "Creare un account",
+    "withSignin": "Continuare con Google, Apple, GitHub, X o Facebook",
+    "withOrangecat": "Continuare con OrangeCat",
+    "withPasskey": "Accedere con una passkey",
+    "withLink": "Ricevere invece un link di accesso per e-mail",
+    "signUpWithLink": "Registrarsi invece con un link per e-mail",
+    "orEmail": "oppure con l'e-mail",
+    "email": "E-mail",
     "password": "Password",
-    "passwordHint": "At least 12 characters. A long phrase is easier to remember than symbols.",
-    "displayName": "Display name",
-    "displayNameHint": "Optional. Anything you like — it does not have to be your real name.",
-    "checkInbox": "We sent a link to {email}. Open it on this device to continue. It works for 10 minutes.",
-    "confirmInbox": "We sent a link to {email}. Open it to confirm your address and finish creating your account.",
-    "back": "Back",
-    "backHome": "Back to the home page",
-    "totpPrompt": "Enter the 6-digit code from your authenticator app.",
-    "backupPrompt": "Enter one of the backup codes you saved when you set up two-factor sign-in.",
-    "totpCode": "Code",
-    "backupCode": "Backup code",
-    "trustDevice": "Trust this device for 30 days",
-    "verify": "Verify",
-    "useTotp": "Use the authenticator app instead",
-    "useBackup": "Use a backup code instead",
-    "resendVerification": "Send the confirmation link again",
-    "noAccount": "No account yet?",
-    "haveAccount": "Already have an account?",
-    "unavailable": "Accounts are not switched on for this site yet. Everything that does not need an account still works.",
+    "passwordHint": "Almeno 12 caratteri. Una frase lunga si ricorda più facilmente dei simboli.",
+    "displayName": "Nome visualizzato",
+    "displayNameHint": "Facoltativo. Quello che preferisce — non deve essere il suo nome vero.",
+    "checkInbox": "Abbiamo inviato un link a {email}. Lo apra su questo dispositivo per continuare. È valido per 10 minuti.",
+    "confirmInbox": "Abbiamo inviato un link a {email}. Lo apra per confermare il suo indirizzo e completare la creazione dell'account.",
+    "back": "Indietro",
+    "backHome": "Tornare alla pagina iniziale",
+    "totpPrompt": "Inserisca il codice di 6 cifre della sua app di autenticazione.",
+    "backupPrompt": "Inserisca uno dei codici di riserva che ha salvato quando ha configurato l'accesso a due fattori.",
+    "totpCode": "Codice",
+    "backupCode": "Codice di riserva",
+    "trustDevice": "Considerare affidabile questo dispositivo per 30 giorni",
+    "verify": "Verificare",
+    "useTotp": "Usare invece l'app di autenticazione",
+    "useBackup": "Usare invece un codice di riserva",
+    "resendVerification": "Inviare di nuovo il link di conferma",
+    "noAccount": "Non ha ancora un account?",
+    "haveAccount": "Ha già un account?",
+    "unavailable": "Gli account non sono ancora attivati per questo sito. Tutto ciò che non richiede un account funziona comunque.",
     "errors": {
-      "rateLimited": "Too many attempts. Wait a few minutes, then try again.",
-      "unavailable": "Accounts are not available right now. Try again in a little while.",
-      "generic": "That did not work. Try again, or choose another way to sign in.",
-      "emailFirst": "Enter your email address first.",
-      "INVALID_EMAIL_OR_PASSWORD": "That email and password do not match. Check both, or sign in with a link instead.",
-      "EMAIL_NOT_VERIFIED": "Confirm your email address first — the link is in your inbox.",
-      "USER_ALREADY_EXISTS": "There is already an account with this address. Sign in instead.",
-      "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "There is already an account with this address. Sign in instead.",
-      "PASSWORD_TOO_SHORT": "The password needs at least 12 characters.",
-      "PASSWORD_TOO_LONG": "The password can have at most 128 characters.",
-      "INVALID_EMAIL": "That does not look like an email address.",
-      "INVALID_CODE": "That code is not right, or it has expired. Try the newest one.",
-      "INVALID_TWO_FACTOR_CODE": "That code is not right, or it has expired. Try the newest one.",
-      "SESSION_EXPIRED": "For your safety, sign in again before changing this.",
-      "INVALID_PASSWORD": "That password is not right."
+      "rateLimited": "Troppi tentativi. Attenda qualche minuto, poi riprovi.",
+      "unavailable": "Al momento gli account non sono disponibili. Riprovi tra poco.",
+      "generic": "Non ha funzionato. Riprovi, oppure scelga un altro modo di accesso.",
+      "emailFirst": "Inserisca prima il suo indirizzo e-mail.",
+      "INVALID_EMAIL_OR_PASSWORD": "E-mail e password non corrispondono. Controlli entrambe, oppure acceda invece con un link.",
+      "EMAIL_NOT_VERIFIED": "Confermi prima il suo indirizzo e-mail — il link si trova nella sua casella di posta.",
+      "USER_ALREADY_EXISTS": "Esiste già un account con questo indirizzo. Acceda invece.",
+      "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL": "Esiste già un account con questo indirizzo. Acceda invece.",
+      "PASSWORD_TOO_SHORT": "La password deve avere almeno 12 caratteri.",
+      "PASSWORD_TOO_LONG": "La password può avere al massimo 128 caratteri.",
+      "INVALID_EMAIL": "Questo non sembra un indirizzo e-mail.",
+      "INVALID_CODE": "Il codice non è corretto, oppure è scaduto. Provi con quello più recente.",
+      "INVALID_TWO_FACTOR_CODE": "Il codice non è corretto, oppure è scaduto. Provi con quello più recente.",
+      "SESSION_EXPIRED": "Per la sua sicurezza, acceda di nuovo prima di modificare questo dato.",
+      "INVALID_PASSWORD": "La password non è corretta."
     }
   },
   "Mail": {
     "verify": {
-      "subject": "Confirm your email for {site}",
-      "lead": "Confirm this address to finish creating your account at {site}.",
-      "action": "Confirm my email"
+      "subject": "Confermi il suo indirizzo e-mail per {site}",
+      "lead": "Confermi questo indirizzo per completare la creazione del suo account su {site}.",
+      "action": "Confermare il mio indirizzo e-mail"
     },
     "magicLink": {
-      "subject": "Your sign-in link for {site}",
-      "lead": "Use this link to sign in to {site}. It works once, for 10 minutes.",
-      "action": "Sign in"
+      "subject": "Il suo link di accesso per {site}",
+      "lead": "Usi questo link per accedere a {site}. Funziona una sola volta, per 10 minuti.",
+      "action": "Accedere"
     },
     "reset": {
-      "subject": "Reset your password for {site}",
-      "lead": "Someone asked to reset the password of your account at {site}.",
-      "action": "Choose a new password"
+      "subject": "Reimposti la sua password per {site}",
+      "lead": "Qualcuno ha chiesto di reimpostare la password del suo account su {site}.",
+      "action": "Scegliere una nuova password"
     },
-    "ignore": "If this was not you, ignore this email — nothing changes."
+    "ignore": "Se non è stato lei, ignori questa e-mail — non cambia nulla."
   },
   "Professions": {
     "kinds": {
       "ai": {
-        "name": "AI service",
-        "does": "Information and paperwork, run by its operator. Not legal advice."
+        "name": "Servizio di IA",
+        "does": "Informazioni e pratiche amministrative, gestito dal suo operatore. Non è consulenza legale."
       },
       "assistant": {
-        "name": "Legal assistant",
-        "does": "Procedure, evidence, forms, filing, translation. Not legal advice."
+        "name": "Assistente legale",
+        "does": "Procedura, prove, moduli, inoltri, traduzione. Non è consulenza legale."
       },
       "lawyer": {
-        "name": "Licensed lawyer",
-        "does": "Advises and represents, where admitted."
+        "name": "Avvocato abilitato",
+        "does": "Consiglia e rappresenta, dove è abilitato."
       }
     },
-    "causius": "Causius AI",
+    "causius": "Causius IA",
     "areas": {
-      "tenancy": "Tenancy",
-      "employment": "Employment",
-      "migration": "Migration",
-      "family": "Family",
-      "debt": "Debt",
-      "social": "Social security",
-      "tax": "Tax",
-      "company": "Companies",
-      "contracts": "Contracts",
-      "criminal": "Criminal",
-      "administrative": "Authorities",
-      "other": "Other"
+      "tenancy": "Locazione",
+      "employment": "Lavoro",
+      "migration": "Migrazione",
+      "family": "Famiglia",
+      "debt": "Debiti",
+      "social": "Assicurazioni sociali",
+      "tax": "Imposte",
+      "company": "Società",
+      "contracts": "Contratti",
+      "criminal": "Diritto penale",
+      "administrative": "Autorità",
+      "other": "Altro"
     }
   },
   "Helper": {
-    "metaTitle": "{name} · Helper",
-    "places": "Where",
-    "languages": "Languages",
-    "areas": "Areas",
-    "paid": "Paid at {host}",
-    "checkedTitle": "Admission checked by Causius",
-    "checkedBody": "Causius read the public register for {place} on {date}. The statement below is signed and names the place, not the person.",
-    "checkIt": "Check the signature",
-    "valid": "Valid until {date}",
-    "notLawyer": "Not a lawyer: does not give legal advice or represent.",
-    "back": "All helpers",
+    "metaTitle": "{name} · Aiutante",
+    "places": "Dove",
+    "languages": "Lingue",
+    "areas": "Ambiti",
+    "paid": "Pagamento su {host}",
+    "checkedTitle": "Abilitazione verificata da Causius",
+    "checkedBody": "Causius ha consultato il registro pubblico di {place} il {date}. La dichiarazione qui sotto è firmata e nomina il luogo, non la persona.",
+    "checkIt": "Verificare la firma",
+    "valid": "Valida fino al {date}",
+    "notLawyer": "Non è un avvocato: non fornisce consulenza legale né rappresenta.",
+    "back": "Tutti gli aiutanti",
     "ask": {
-      "title": "Ask for help",
-      "matter": "Your matter",
-      "message": "What you need",
-      "placeholder": "For example: can you check my objection before I send it?",
-      "sees": "What they will see",
-      "anonymised": "Without my personal details",
-      "full": "Everything, with names",
-      "send": "Send request",
-      "sending": "Sending…",
-      "sent": "Sent. Their answer appears in the matter.",
-      "openMatter": "Open the matter",
-      "noMatters": "Start a matter first; then ask from here.",
-      "start": "Start a matter",
-      "signIn": "Sign in to ask for help",
+      "title": "Chiedere aiuto",
+      "matter": "La sua pratica",
+      "message": "Di che cosa ha bisogno",
+      "placeholder": "Per esempio: può controllare il mio reclamo prima che lo invii?",
+      "sees": "Che cosa vedrà",
+      "anonymised": "Senza i miei dati personali",
+      "full": "Tutto, con i nomi",
+      "send": "Inviare la richiesta",
+      "sending": "Invio…",
+      "sent": "Inviata. La risposta comparirà nella pratica.",
+      "openMatter": "Aprire la pratica",
+      "noMatters": "Apra prima una pratica; poi chieda da qui.",
+      "start": "Aprire una pratica",
+      "signIn": "Accedere per chiedere aiuto",
       "errors": {
-        "already_asked": "You already asked them about this matter.",
-        "own_profile": "That is your own profile.",
-        "helper_unavailable": "This helper is not available any more.",
-        "rate_limited": "Too many requests in a short time. Wait a little.",
-        "not_configured": "Requests are not switched on for this site yet.",
-        "unknown": "That did not work. Try again."
+        "already_asked": "Ha già fatto una richiesta a questo aiutante per questa pratica.",
+        "own_profile": "Questo è il suo profilo.",
+        "helper_unavailable": "Questo aiutante non è più disponibile.",
+        "rate_limited": "Troppe richieste in poco tempo. Attenda un momento.",
+        "not_configured": "Le richieste non sono ancora attivate per questo sito.",
+        "unknown": "Non ha funzionato. Riprovi."
       },
-      "preview": "Your request, as they will read it",
-      "alsoHide": "A name or word to hide too",
-      "hide": "Hide"
+      "preview": "La sua richiesta, così come la leggerà",
+      "alsoHide": "Un nome o una parola da nascondere ancora",
+      "hide": "Nascondere"
     }
   },
   "HelperDesk": {
-    "metaTitle": "Your helper profile",
-    "title": "Help others",
-    "lead": "List yourself under your name or a pseudonym. People find you in the directory and ask you about their matter.",
-    "signIn": "Sign in to become a helper",
-    "public": "Everything in this section is public.",
-    "kind": "I am",
-    "name": "Public name",
-    "nameHint": "A pseudonym is fine.",
-    "headline": "One line about what you do",
-    "bio": "More about you",
-    "places": "Where you help",
-    "placesHint": "A lawyer is shown only where their admission was checked.",
-    "addPlace": "Add",
-    "remove": "Remove {item}",
-    "areas": "Areas",
-    "languages": "Languages",
-    "serviceUrl": "Where you are paid (optional)",
-    "serviceHint": "An OrangeCat service or your own page, https only.",
+    "metaTitle": "Il suo profilo di aiutante",
+    "title": "Aiutare altri",
+    "lead": "Si iscriva con il suo nome o sotto pseudonimo. Le persone la trovano nell'elenco e le chiedono aiuto per la loro pratica.",
+    "signIn": "Accedere per diventare aiutante",
+    "public": "Tutto ciò che si trova in questa sezione è pubblico.",
+    "kind": "Sono",
+    "name": "Nome pubblico",
+    "nameHint": "Va bene anche uno pseudonimo.",
+    "headline": "Una riga su ciò che fa",
+    "bio": "Altro su di lei",
+    "places": "Dove aiuta",
+    "placesHint": "Un avvocato è mostrato solo dove la sua abilitazione è stata verificata.",
+    "addPlace": "Aggiungere",
+    "remove": "Rimuovere {item}",
+    "areas": "Ambiti",
+    "languages": "Lingue",
+    "serviceUrl": "Dove viene pagato (facoltativo)",
+    "serviceHint": "Un servizio OrangeCat o la sua pagina, solo https.",
     "status": {
-      "draft": "Hidden",
-      "listed": "Listed",
-      "paused": "Paused"
+      "draft": "Nascosto",
+      "listed": "Elencato",
+      "paused": "In pausa"
     },
-    "save": "Save",
-    "saving": "Saving…",
-    "saved": "Saved.",
-    "visible": "You are in the directory.",
-    "viewPublic": "See your public profile",
+    "save": "Salvare",
+    "saving": "Salvataggio…",
+    "saved": "Salvato.",
+    "visible": "Lei compare nell'elenco.",
+    "viewPublic": "Vedere il suo profilo pubblico",
     "waiting": {
-      "listing": "Hidden. Choose Listed to appear.",
-      "language": "Add at least one language to appear.",
-      "verification": "You appear once your admission is checked. Submit it below."
+      "listing": "Nascosto. Scelga «Elencato» per comparire.",
+      "language": "Aggiunga almeno una lingua per comparire.",
+      "verification": "Comparirà quando la sua abilitazione sarà verificata. La invii qui sotto."
     },
-    "delete": "Delete my helper profile",
-    "deleteConfirm": "Delete your helper profile? Your requests and checked admissions go with it. Your own matters stay.",
+    "delete": "Eliminare il mio profilo di aiutante",
+    "deleteConfirm": "Eliminare il suo profilo di aiutante? Le sue richieste e le abilitazioni verificate verranno eliminate con esso. Le sue pratiche restano.",
     "credential": {
-      "title": "Your admission",
-      "lead": "Causius checks it in the public register and publishes only a signed statement that you are admitted there. Your name and number stay sealed until you take a client's matter.",
-      "place": "Admitted in",
-      "legalName": "Legal name, as in the register",
-      "registerNumber": "Register number",
-      "registerUrl": "Link to your entry in the public register",
-      "note": "Note for the reviewer (optional)",
-      "submit": "Submit for checking",
+      "title": "La sua abilitazione",
+      "lead": "Causius la verifica nel registro pubblico e pubblica soltanto una dichiarazione firmata che lei vi è abilitato. Il suo nome e il suo numero restano sigillati finché non assume la pratica di un cliente.",
+      "place": "Abilitato in",
+      "legalName": "Nome legale, come nel registro",
+      "registerNumber": "Numero di registro",
+      "registerUrl": "Link alla sua iscrizione nel registro pubblico",
+      "note": "Nota per chi verifica (facoltativa)",
+      "submit": "Inviare per la verifica",
       "status": {
-        "pending": "Being checked",
-        "verified": "Checked",
-        "rejected": "Not confirmed",
-        "revoked": "Withdrawn"
+        "pending": "In verifica",
+        "verified": "Verificata",
+        "rejected": "Non confermata",
+        "revoked": "Ritirata"
       },
-      "withdraw": "Withdraw",
-      "reason": "Reviewer: {note}"
+      "withdraw": "Ritirare",
+      "reason": "Chi verifica: {note}"
     },
     "requests": {
-      "title": "Requests",
-      "none": "No requests yet.",
-      "anonymised": "Shared without personal details",
-      "full": "Shared with names",
-      "accept": "Accept",
-      "decline": "Decline",
-      "open": "Open the matter",
-      "accepted": "You work on this matter."
+      "title": "Richieste",
+      "none": "Ancora nessuna richiesta.",
+      "anonymised": "Condivisa senza dati personali",
+      "full": "Condivisa con i nomi",
+      "accept": "Accettare",
+      "decline": "Rifiutare",
+      "open": "Aprire la pratica",
+      "accepted": "Lei lavora a questa pratica."
     },
     "errors": {
-      "bad_request": "Check the fields marked above.",
-      "already_submitted": "You already submitted this place.",
-      "not_needed": "Only a lawyer submits an admission.",
-      "no_profile": "Save your profile first.",
-      "needs_verification": "Your admission must be checked before you can take a matter.",
-      "already_answered": "This request was already answered.",
-      "rate_limited": "Too many changes in a short time. Wait a little.",
-      "not_configured": "Helper profiles are not switched on for this site yet.",
-      "unknown": "That did not work. Try again."
+      "bad_request": "Controlli i campi segnalati sopra.",
+      "already_submitted": "Ha già inviato questo luogo.",
+      "not_needed": "Solo un avvocato invia un'abilitazione.",
+      "no_profile": "Salvi prima il suo profilo.",
+      "needs_verification": "La sua abilitazione deve essere verificata prima che possa assumere una pratica.",
+      "already_answered": "A questa richiesta è già stata data risposta.",
+      "rate_limited": "Troppe modifiche in poco tempo. Attenda un momento.",
+      "not_configured": "I profili di aiutante non sono ancora attivati per questo sito.",
+      "unknown": "Non ha funzionato. Riprovi."
     },
-    "roleLegend": "Who is this account for?",
-    "forClient": "I need help with a legal matter",
-    "forHelper": "I help others"
+    "roleLegend": "Per chi è questo account?",
+    "forClient": "Ho bisogno di aiuto per una questione giuridica",
+    "forHelper": "Aiuto altre persone"
   },
   "Review": {
-    "metaTitle": "Review",
-    "title": "Admissions to check",
-    "lead": "Open the register link, compare name, number and place, then decide. Nobody reviews their own.",
-    "notAllowed": "Only Causius staff review admissions.",
-    "none": "Nothing waits for a decision.",
-    "submitted": "Submitted {date}",
+    "metaTitle": "Verifica",
+    "title": "Abilitazioni da verificare",
+    "lead": "Apra il link al registro, confronti nome, numero e luogo, poi decida. Nessuno verifica la propria.",
+    "notAllowed": "Solo il personale di Causius verifica le abilitazioni.",
+    "none": "Nulla attende una decisione.",
+    "submitted": "Inviata il {date}",
     "evidence": {
-      "legalName": "Legal name",
-      "registerNumber": "Register number",
-      "registerUrl": "Register entry",
-      "note": "Note"
+      "legalName": "Nome legale",
+      "registerNumber": "Numero di registro",
+      "registerUrl": "Iscrizione nel registro",
+      "note": "Nota"
     },
-    "noteLabel": "Reason, shown to the lawyer (needed to reject)",
-    "verify": "Verified: issue the attestation",
-    "reject": "Not confirmed",
-    "done": "Decided.",
+    "noteLabel": "Motivo, mostrato all'avvocato (necessario per respingere)",
+    "verify": "Verificata: rilasciare l'attestazione",
+    "reject": "Non confermata",
+    "done": "Deciso.",
     "errors": {
-      "own_credential": "You cannot review your own admission.",
-      "already_decided": "Someone already decided this one.",
-      "unknown": "That did not work. Try again."
+      "own_credential": "Non può verificare la propria abilitazione.",
+      "already_decided": "Qualcun altro ha già deciso su questa.",
+      "unknown": "Non ha funzionato. Riprovi."
     }
   },
   "Verify": {
-    "metaTitle": "Check an attestation",
-    "title": "Check an attestation",
-    "lead": "Paste a Causius attestation. With the disclosures a lawyer gave you, it also shows whether the name you were told is the one Causius checked.",
-    "token": "Attestation",
-    "disclosures": "Disclosures (optional, one per line)",
-    "check": "Check",
-    "checking": "Checking…",
-    "ok": "Signed by Causius: admitted in {place}, valid until {date}.",
-    "revoked": "The signature is valid, but this admission was withdrawn.",
-    "disclosed": "Verified {claim}: {value}",
+    "metaTitle": "Verificare un'attestazione",
+    "title": "Verificare un'attestazione",
+    "lead": "Incolli un'attestazione di Causius. Con le divulgazioni che le ha fornito un avvocato, mostra anche se il nome che le è stato detto è quello verificato da Causius.",
+    "token": "Attestazione",
+    "disclosures": "Divulgazioni (facoltative, una per riga)",
+    "check": "Verificare",
+    "checking": "Verifica…",
+    "ok": "Firmata da Causius: abilitato in {place}, valida fino al {date}.",
+    "revoked": "La firma è valida, ma questa abilitazione è stata ritirata.",
+    "disclosed": "{claim} verificato: {value}",
     "claims": {
-      "legal_name": "name",
-      "register_number": "register number"
+      "legal_name": "nome",
+      "register_number": "numero di registro"
     },
-    "keys": "The public key, to check it without Causius",
-    "how": "It is an SD-JWT signed with Ed25519. The name is in it only as a salted digest, so it cannot be guessed; it is not a zero-knowledge proof: it says Causius checked the register.",
+    "keys": "La chiave pubblica, per verificarla senza Causius",
+    "how": "È un SD-JWT firmato con Ed25519. Il nome vi figura solo come impronta con sale, quindi non può essere indovinato; non è una prova a conoscenza zero: dice che Causius ha consultato il registro.",
     "reasons": {
-      "malformed": "This is not a Causius attestation.",
-      "unknown_key": "Not signed with Causius's key.",
-      "bad_signature": "The signature does not match: it was changed.",
-      "expired": "It has expired.",
-      "wrong_issuer": "Not issued by Causius.",
-      "bad_disclosure": "A disclosure does not belong to this attestation: that is not the name Causius checked.",
-      "rate_limited": "Too many checks in a short time. Wait a little.",
-      "not_configured": "Checking is not switched on for this site yet.",
-      "unknown": "That did not work. Try again."
+      "malformed": "Questa non è un'attestazione di Causius.",
+      "unknown_key": "Non firmata con la chiave di Causius.",
+      "bad_signature": "La firma non corrisponde: è stata modificata.",
+      "expired": "È scaduta.",
+      "wrong_issuer": "Non rilasciata da Causius.",
+      "bad_disclosure": "Una divulgazione non appartiene a questa attestazione: non è il nome verificato da Causius.",
+      "rate_limited": "Troppe verifiche in poco tempo. Attenda un momento.",
+      "not_configured": "La verifica non è ancora attivata per questo sito.",
+      "unknown": "Non ha funzionato. Riprovi."
     }
   },
   "MatterHelpers": {
-    "title": "Helpers",
-    "find": "Find a helper",
-    "none": "Only you and Causius work on this matter.",
+    "title": "Aiutanti",
+    "find": "Trovare un aiutante",
+    "none": "A questa pratica lavorate solo lei e Causius.",
     "status": {
-      "requested": "Asked",
-      "accepted": "Working on it",
-      "declined": "Declined",
-      "withdrawn": "Withdrawn",
-      "ended": "Ended"
+      "requested": "Richiesto",
+      "accepted": "Al lavoro",
+      "declined": "Rifiutato",
+      "withdrawn": "Ritirato",
+      "ended": "Concluso"
     },
     "sees": {
-      "anonymised": "sees no personal details",
-      "full": "sees everything"
+      "anonymised": "non vede dati personali",
+      "full": "vede tutto"
     },
-    "verifiedName": "Name checked by Causius: {name}",
-    "nameMismatch": "The name could not be matched to Causius's check.",
-    "end": "End",
-    "withdraw": "Withdraw",
-    "youHelp": "You help on this matter as {alias}.",
-    "youSeeAnonymised": "You see it without the client's personal details.",
-    "leave": "Leave this matter",
-    "checkYourself": "Check it yourself"
+    "verifiedName": "Nome verificato da Causius: {name}",
+    "nameMismatch": "Non è stato possibile far corrispondere il nome alla verifica di Causius.",
+    "end": "Terminare",
+    "withdraw": "Ritirare",
+    "youHelp": "Lei aiuta in questa pratica come {alias}.",
+    "youSeeAnonymised": "La vede senza i dati personali del cliente.",
+    "leave": "Lasciare questa pratica",
+    "checkYourself": "Verificarlo personalmente"
   },
   "Workflows": {
-    "pick": "Start from a common problem, or just describe yours",
+    "pick": "Parta da un problema frequente, oppure descriva semplicemente il suo",
     "items": {
       "debt-collection": {
-        "name": "Debt collection notice",
-        "ready": "Photograph the notice and say the date it reached you, and whether you owe the amount."
+        "name": "Precetto esecutivo",
+        "ready": "Fotografi il precetto esecutivo e indichi la data in cui le è stato notificato, e se deve l'importo."
       },
       "rent-increase": {
-        "name": "Rent increase",
-        "ready": "Attach the landlord's notice and your lease, and say when the notice arrived."
+        "name": "Aumento della pigione",
+        "ready": "Alleghi l'avviso del locatore e il suo contratto di locazione, e indichi quando è arrivato l'avviso."
       },
       "tax-assessment": {
-        "name": "Tax assessment",
-        "ready": "Attach the assessment and your return, and say what you think is wrong."
+        "name": "Decisione di tassazione",
+        "ready": "Alleghi la decisione di tassazione e la sua dichiarazione d'imposta, e indichi che cosa secondo lei è sbagliato."
       },
       "dismissal": {
-        "name": "Dismissal at work",
-        "ready": "Say when you started, when you were told and how, and attach the contract and the letter."
+        "name": "Licenziamento",
+        "ready": "Indichi quando ha iniziato, quando e come le è stato comunicato, e alleghi il contratto e la lettera."
       },
       "insurance-refusal": {
-        "name": "Insurance refused",
-        "ready": "Attach the insurer's decision and say what you asked for."
+        "name": "Rifiuto dell'assicurazione",
+        "ready": "Alleghi la decisione dell'assicuratore e indichi che cosa aveva chiesto."
       },
       "association": {
-        "name": "Found an association",
-        "ready": "Say its name, what it is for, where it is based and who founds it."
+        "name": "Fondare un'associazione",
+        "ready": "Indichi il nome, lo scopo, la sede e chi la fonda."
       }
     }
   },
   "Places": {
-    "whole": "{country}, whole country",
-    "elsewhere": "Elsewhere"
+    "whole": "{country}, intero Paese",
+    "elsewhere": "Altrove"
   }
 }
