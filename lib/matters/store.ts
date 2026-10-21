@@ -16,6 +16,8 @@ import {
   matters,
   participants,
 } from "../db/schema";
+import { applyRedactions, assignTokens, findPersonalData } from "../redact";
+import { anonymiseView, anonymiser, maskParticipants } from "./anonymise";
 
 /**
  * The matter engine: everything that reads or writes a matter goes through
@@ -93,9 +95,13 @@ export interface DocumentMeta {
   createdAt: string;
 }
 
+export type Sees = "full" | "anonymised";
+
 export interface MatterView {
   id: string;
   role: Role;
+  /** What the reader is shown: placeholders instead of the owner's details, or everything. */
+  sees: Sees;
   status: "open" | "waiting" | "closed";
   jurisdiction: string | null;
   core: MatterCore;
@@ -114,6 +120,8 @@ export interface MatterSummary {
   area: string;
   jurisdiction: string | null;
   status: "open" | "waiting" | "closed";
+  /** The reader's part in it: their own matter, or one they help on. */
+  role: Role;
   nextDue: { date: string; label: string } | null;
   pendingApprovals: number;
   updatedAt: string;
@@ -123,6 +131,7 @@ export interface MatterSummary {
 export interface OpenMatter {
   id: string;
   role: Role;
+  sees: Sees;
   sealer: MatterSealer;
 }
 
@@ -138,7 +147,7 @@ export async function openMatter(
 ): Promise<OpenMatter | null> {
   if (!z.uuid().safeParse(matterId).success) return null;
   const rows = await db
-    .select({ sealedKey: matters.sealedKey, role: participants.role })
+    .select({ sealedKey: matters.sealedKey, role: participants.role, sees: participants.sees })
     .from(matters)
     .innerJoin(
       participants,
@@ -149,7 +158,7 @@ export async function openMatter(
   const row = rows[0];
   if (!row) return null;
   const key = openMatterKey(master, row.sealedKey, matterId);
-  return { id: matterId, role: row.role, sealer: matterSealer(key, matterId) };
+  return { id: matterId, role: row.role, sees: row.sees, sealer: matterSealer(key, matterId) };
 }
 
 async function touch(db: Db, matterId: string) {
@@ -373,7 +382,24 @@ export async function addDocument(
   return id;
 }
 
+/**
+ * One document, as the reader may see it: anonymised for a helper the owner
+ * did not show their details to. The agent reads the matter as it is (it hides
+ * personal details from the model on its own, lib/matters/agent.ts), so it
+ * passes a matter opened with `sees: "full"`.
+ */
 export async function readDocument(
+  db: Db,
+  m: OpenMatter,
+  documentId: string,
+): Promise<{ meta: DocumentMeta; text: string } | null> {
+  const doc = await readDocumentRaw(db, m, documentId);
+  if (!doc || m.sees === "full") return doc;
+  const hide = await anonymiserFor(db, m);
+  return { meta: { ...doc.meta, name: hide(doc.meta.name) }, text: hide(doc.text) };
+}
+
+async function readDocumentRaw(
   db: Db,
   m: OpenMatter,
   documentId: string,
@@ -399,14 +425,46 @@ export async function readDocument(
   };
 }
 
+/**
+ * The whole matter as `sub` may see it. Every reader but the owner sees other
+ * participants under ids that mean nothing outside this matter, and a helper
+ * the owner did not show their details to sees placeholders instead
+ * (lib/matters/anonymise.ts). `raw` is for the agent, which works on the
+ * matter itself and hides details from the model by its own rule.
+ */
 export async function loadMatter(
   db: Db,
   master: Buffer,
   matterId: string,
   sub: string,
+  options: { raw?: boolean } = {},
 ): Promise<MatterView | null> {
   const m = await openMatter(db, master, matterId, sub);
   if (!m) return null;
+  const view = await loadView(db, m);
+  if (options.raw) return view;
+  const masked = maskParticipants(view, sub);
+  if (m.sees === "full") return masked;
+  const hide = anonymiser(view, await documentTexts(db, m, view));
+  return anonymiseView(masked, hide);
+}
+
+async function documentTexts(db: Db, m: OpenMatter, view: MatterView): Promise<string[]> {
+  const texts: string[] = [];
+  for (const d of view.documents) {
+    const doc = await readDocumentRaw(db, m, d.id);
+    if (doc) texts.push(doc.text);
+  }
+  return texts;
+}
+
+async function anonymiserFor(db: Db, m: OpenMatter): Promise<(s: string) => string> {
+  const view = await loadView(db, m);
+  return anonymiser(view, await documentTexts(db, m, view));
+}
+
+async function loadView(db: Db, m: OpenMatter): Promise<MatterView> {
+  const matterId = m.id;
   const [row] = await db.select().from(matters).where(eq(matters.id, matterId));
   const [ps, evs, its, aps, docs] = await Promise.all([
     db
@@ -439,6 +497,7 @@ export async function loadMatter(
   return {
     id: matterId,
     role: m.role,
+    sees: m.sees,
     status: row!.status,
     jurisdiction: row!.jurisdiction,
     core: MatterCore.parse(m.sealer.open("core", row!.sealed)),
@@ -520,6 +579,8 @@ export async function listMatters(
       jurisdiction: matters.jurisdiction,
       status: matters.status,
       updatedAt: matters.updatedAt,
+      role: participants.role,
+      sees: participants.sees,
     })
     .from(matters)
     .innerJoin(
@@ -558,18 +619,20 @@ export async function listMatters(
     const sealer = matterSealer(openMatterKey(master, r.sealedKey, r.id), r.id);
     const core = MatterCore.parse(sealer.open("core", r.sealed));
     const next = dues.find((d) => d.matterId === r.id);
+    const label = next?.due ? sealer.open<{ label: string }>("item", next.sealed).label : "";
+    // A list line is anonymised by what it shows, against the owner's words to hide.
+    const hide =
+      r.sees === "anonymised"
+        ? (s: string) => applyRedactions(s, assignTokens(findPersonalData(`${core.title}\n${core.area}\n${label}`, core.hide)))
+        : (s: string) => s;
     return {
       id: r.id,
-      title: core.title,
-      area: core.area,
+      title: hide(core.title),
+      area: hide(core.area),
       jurisdiction: r.jurisdiction,
       status: r.status,
-      nextDue: next?.due
-        ? {
-            date: next.due,
-            label: sealer.open<{ label: string }>("item", next.sealed).label,
-          }
-        : null,
+      role: r.role,
+      nextDue: next?.due ? { date: next.due, label: hide(label) } : null,
       pendingApprovals: pending.find((p) => p.matterId === r.id)?.n ?? 0,
       updatedAt: iso(r.updatedAt),
     };

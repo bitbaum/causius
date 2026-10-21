@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { btnPrimary, card, eyebrow, link, shell } from "@/components/ui";
+import { Suspense } from "react";
+import { HelperDirectory } from "@/components/helpers/HelperDirectory";
+import { btnPrimary, btnQuiet, card, eyebrow, shell } from "@/components/ui";
 import { Link } from "@/i18n/navigation";
 import { toLocale } from "@/i18n/routing";
-import { EXTERNAL, ROUTES } from "@/lib/routes";
+import { dbConfigured, getDb } from "@/lib/db";
+import { directory, type PublicHelper } from "@/lib/helpers/store";
+import { ROUTES } from "@/lib/routes";
+
+export const dynamic = "force-dynamic";
 
 type Params = { params: Promise<{ locale: string }> };
 
@@ -13,97 +19,81 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return { title: t("metaTitle"), description: t("metaDescription") };
 }
 
-/**
- * NOBODY IS LISTED HERE YET, AND THE PAGE SAYS SO.
- *
- * The earlier Lex demo in Botsmann filled this space with invented lawyers,
- * ratings and response times. For a demo that reads as "illustrative"; on a
- * live legal site it reads as real people who can be hired, and a person with a
- * deadline will try. So: the rules, the roles and where to list yourself — and
- * profiles only when there are real ones.
- *
- * WHERE A HELPER LIVES. Fleet STACK.md, "Identity": if an app needs profiles,
- * payments or a public presence, those live at OrangeCat, and rebuilding them
- * here is the same mistake in a different repo. A helper is an OrangeCat actor
- * offering a service; they are paid there by the person they helped. What
- * Causius adds on top — the label, and checking a lawyer's admission — is not
- * built yet, and the page says that too ("Planned:").
- */
-const ROLES = ["assistant", "lawyer"] as const;
-const RULES = ["label", "pseudonym", "share", "place"] as const;
-const DOES = ["does1", "does2", "does3"] as const;
+const RULES = ["label", "pseudonym", "share"] as const;
 
+/**
+ * The directory of helpers, with Causius AI first because it is always there.
+ *
+ * NOBODY IS INVENTED. Every profile below is a real account that listed itself,
+ * and a lawyer appears only for the places a reviewer checked (lib/helpers).
+ * The earlier Lex demo filled this page with invented lawyers and ratings; a
+ * person with a deadline will try to hire them. There are no ratings here at
+ * all until there are real ones.
+ */
 export default async function HelpersPage({ params }: Params) {
   const { locale } = await params;
   setRequestLocale(toLocale(locale));
   const t = await getTranslations("Helpers");
-  const inlineLink = `${link} inline-flex min-h-11 items-center`;
+  const p = await getTranslations("Professions");
+
+  let helpers: PublicHelper[] | null = null;
+  if (dbConfigured()) {
+    try {
+      helpers = await directory(getDb());
+    } catch (error) {
+      console.error("[helpers] directory unavailable", error instanceof Error ? error.message : error);
+    }
+  }
 
   return (
     <main className={`${shell} py-10 sm:py-14`}>
       <p className={eyebrow}>{t("eyebrow")}</p>
-      <h1 className="mt-4 max-w-[22ch] headline text-4xl sm:text-5xl">
-        {t("title")}
-      </h1>
+      <h1 className="mt-4 max-w-[22ch] headline text-4xl sm:text-5xl">{t("title")}</h1>
       <p className="mt-5 max-w-prose text-lg leading-relaxed text-fg-secondary">{t("lead")}</p>
 
-      <div className="mt-8 rounded-control border border-accent px-5 py-4">
-        <p className="font-medium">{t("noneTitle")}</p>
-        <p className="mt-1 max-w-prose text-sm leading-relaxed text-fg-secondary">{t("noneBody")}</p>
+      <div className="mt-8 grid gap-4 md:grid-cols-2">
+        <section className={`${card} grid content-start gap-3`}>
+          <p className="kicker">{p("kinds.ai.name")}</p>
+          <h2 className="text-xl font-semibold tracking-tight">{p("causius")}</h2>
+          <p className="text-sm text-fg-secondary">{t("ai.line")}</p>
+          <p>
+            <Link href={ROUTES.matters} className={btnPrimary}>
+              {t("ai.start")}
+            </Link>
+          </p>
+        </section>
+        <section className={`${card} grid content-start gap-3`}>
+          <h2 className="text-xl font-semibold tracking-tight">{t("offerTitle")}</h2>
+          <p className="text-sm text-fg-secondary">{t("offerBody")}</p>
+          <p>
+            <Link href={ROUTES.helperDesk} className={btnQuiet}>
+              {t("offerCta")}
+            </Link>
+          </p>
+        </section>
       </div>
 
-      <div className="mt-10 grid gap-5 lg:grid-cols-2">
-        {ROLES.map((role) => (
-          <article key={role} className={`${card} sm:p-8`}>
-            <h2 className="text-2xl font-semibold tracking-tight">{t(`${role}.name`)}</h2>
-            <p className="mt-1 font-mono text-xs uppercase tracking-caps text-fg-secondary">
-              {t("listedUnder", { identity: t(`${role}.identity`) })}
-            </p>
-            <ul className="mt-5 grid list-disc gap-2 pl-5 text-sm leading-relaxed">
-              {DOES.map((d) => (
-                <li key={d}>{t(`${role}.${d}`)}</li>
-              ))}
-            </ul>
-            <p className="mt-4 text-sm leading-relaxed text-fg-secondary">{t(`${role}.doesNot`)}</p>
-            <p className="mt-4 border-t border-border-subtle pt-4 text-sm leading-relaxed text-fg-secondary">
-              {t(`${role}.checks`)}
-            </p>
-          </article>
-        ))}
-      </div>
-
-      <section className={`${card} mt-5 sm:p-8`}>
-        <h2 className="text-2xl font-semibold tracking-tight">{t("wantTitle")}</h2>
-        <p className="mt-3 max-w-prose text-sm leading-relaxed text-fg-secondary">{t("wantBody")}</p>
-        <p className="mt-3 flex flex-wrap gap-x-8">
-          <a href={EXTERNAL.orangecatOfferService} className={inlineLink}>
-            {t("offer")}
-          </a>
-          <Link href={ROUTES.roadmap} className={inlineLink}>
-            {t("seeRoadmap")}
-          </Link>
-        </p>
+      <section className="mt-12">
+        {helpers ? (
+          <Suspense>
+            <HelperDirectory helpers={helpers} />
+          </Suspense>
+        ) : (
+          <p className="text-fg-secondary">{t("unavailable")}</p>
+        )}
       </section>
 
       <section className="mt-16">
         <h2 className="headline text-3xl">{t("rulesTitle")}</h2>
-        <dl className="mt-6 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+        <dl className="mt-6 grid gap-x-10 gap-y-8 sm:grid-cols-3">
           {RULES.map((rule) => (
             <div key={rule}>
               <dt className="text-lg font-semibold tracking-tight">{t(`rules.${rule}.title`)}</dt>
-              <dd className="mt-1.5 text-sm leading-relaxed text-fg-secondary">
-                {t(`rules.${rule}.body`)}
-              </dd>
+              <dd className="mt-1.5 text-sm leading-relaxed text-fg-secondary">{t(`rules.${rule}.body`)}</dd>
             </div>
           ))}
         </dl>
       </section>
-
-      <p className="mt-14">
-        <Link href={ROUTES.newCase} className={btnPrimary}>
-          {t("start")} <span aria-hidden="true">&rarr;</span>
-        </Link>
-      </p>
     </main>
   );
 }

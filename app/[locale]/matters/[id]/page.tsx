@@ -26,7 +26,7 @@ export default async function MatterPage({ params }: Params) {
   return (
     <main className={`${shell} py-8 sm:py-12`}>
       {session?.actorId ? (
-        <MatterWorkspace id={id} />
+        <MatterWorkspace id={id} me={session.actorId} />
       ) : (
         <div className={`${card} grid gap-4 sm:p-8`}>
           <h1 className="text-2xl font-semibold tracking-tight">{t("signInTitle")}</h1>

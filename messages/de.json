@@ -18,7 +18,8 @@
     "ecosystem": "Ökosystem",
     "menu": "Menü",
     "skip": "Zum Inhalt springen",
-    "dark": "Dunkler Modus"
+    "dark": "Dunkler Modus",
+    "helperDesk": "Anderen helfen"
   },
   "Footer": {
     "tagline": "Die Rechtsebene der Flotte: ein Agent, der die juristische Arbeit macht, und ein Mensch, der entscheidet.",
@@ -241,55 +242,44 @@
   },
   "Helpers": {
     "metaTitle": "Helfende",
-    "metaDescription": "Der Marktplatz von Causius: Rechtshelferinnen und Rechtshelfer für den Papierkram, zugelassene Anwältinnen und Anwälte für Beratung und Vertretung.",
-    "eyebrow": "Marktplatz",
-    "title": "Menschen, die helfen, wenn die KI nicht reicht",
-    "lead": "Zwei Arten von Menschen helfen. Was sie unterscheidet, ist das, was das Gesetz ihnen jeweils erlaubt.",
-    "noneTitle": "Es ist noch niemand aufgeführt.",
-    "noneBody": "Causius vermittelt und prüft noch niemanden. Geben Sie die Falldatei bis dahin einer Anwältin, einem Anwalt oder einer Beratungsstelle, die Sie selbst finden.",
-    "listedUnder": "Aufgeführt unter: {identity}",
-    "assistant": {
-      "name": "Rechtshelferin oder Rechtshelfer",
-      "identity": "Name oder Pseudonym",
-      "does1": "Erklärt das Verfahren",
-      "does2": "Hilft, Belege zu sammeln",
-      "does3": "Füllt Formulare aus, übersetzt, bereitet die Eingabe vor",
-      "doesNot": "Gibt keine Rechtsberatung und vertritt Sie nicht.",
-      "checks": "Geplant: ein Ruf, der durch abgeschlossene Fälle entsteht."
+    "metaDescription": "Hilfe in einer Rechtssache finden: Causius KI, Rechtsassistenz sowie Anwältinnen und Anwälte, deren Zulassung Causius geprüft hat, unter Namen oder Pseudonym.",
+    "eyebrow": "Helfende",
+    "title": "Wer helfen kann, und was jede Person darf",
+    "lead": "Alle dürfen ein Pseudonym verwenden. Eine Anwältin oder ein Anwalt wird nur dort aufgeführt, wo Causius die Zulassung geprüft hat.",
+    "search": "Nach Namen oder Tätigkeit suchen",
+    "filters": {
+      "kind": "Art",
+      "place": "Land",
+      "lang": "Sprache",
+      "area": "Gebiet"
     },
-    "lawyer": {
-      "name": "Zugelassene Anwältin oder zugelassener Anwalt",
-      "identity": "Name oder Pseudonym; Zulassung vertraulich geprüft",
-      "does1": "Berät Sie zu Ihren Rechten und Möglichkeiten",
-      "does2": "Prüft oder schreibt, was Sie einreichen",
-      "does3": "Vertritt Sie vor Behörde und Gericht",
-      "doesNot": "Nur dort, wo zugelassen; das steht im Profil.",
-      "checks": "Geplant: Die Zulassung wird im öffentlichen Anwaltsregister geprüft."
+    "count": "{count, plural, =0 {Niemand passt} one {# helfende Person} other {# helfende Personen}}",
+    "clear": "Filter zurücksetzen",
+    "noneYet": "Es ist noch niemand aufgeführt.",
+    "unavailable": "Das Verzeichnis kann gerade nicht gelesen werden.",
+    "verifiedIn": "Zulassung geprüft: {places}",
+    "offerTitle": "Anderen helfen",
+    "offerBody": "Tragen Sie sich als Rechtsassistenz, als Anwältin oder Anwalt oder als KI-Dienst ein, den Sie betreiben.",
+    "offerCta": "Helfende Person werden",
+    "ai": {
+      "line": "Liest, recherchiert, entwirft und hält Fristen ein, in einem versiegelten Fall. Kostenlos.",
+      "start": "Einen Fall eröffnen"
     },
-    "wantTitle": "Möchten Sie helfen?",
-    "wantBody": "Bieten Sie Ihre Hilfe als Dienstleistung auf OrangeCat an, unter Ihrem Namen oder einem Pseudonym, und werden Sie dort direkt bezahlt. Causius führt, kennzeichnet und prüft diese Einträge noch nicht; das ist der nächste Schritt auf der Roadmap.",
-    "offer": "Dienstleistung auf OrangeCat anbieten",
-    "seeRoadmap": "Roadmap ansehen",
     "rulesTitle": "Die Regeln",
     "rules": {
       "label": {
         "title": "Die Bezeichnung ist das Gesetz",
-        "body": "Wer Rechtsberatung geben darf, legt jedes Land fest, fast immer ist sie Anwältinnen und Anwälten vorbehalten. Die Bezeichnung sagt, auf welcher Seite eine helfende Person steht."
+        "body": "Nur zugelassene Anwältinnen und Anwälte dürfen beraten oder vertreten. Die Bezeichnung sagt, auf welcher Seite eine helfende Person steht."
       },
       "pseudonym": {
-        "title": "Pseudonym auf allen Seiten",
-        "body": "Alle dürfen unter Pseudonym auftreten; Causius prüft vertraulich nur, was stimmen muss."
+        "title": "Pseudonym, und trotzdem geprüft",
+        "body": "Name und Registernummer einer Anwältin oder eines Anwalts bleiben versiegelt. Die Öffentlichkeit sieht eine signierte Bestätigung, dass die Zulassung geprüft wurde; eine Klientin oder ein Klient sieht den Namen, sobald der Fall übernommen wird."
       },
       "share": {
         "title": "Sie bestimmen, was eine helfende Person sieht",
-        "body": "Sie bekommt nur die Falldatei, die Sie übergeben, standardmässig anonymisiert."
-      },
-      "place": {
-        "title": "Eine Rechtsordnung nach der anderen",
-        "body": "Helfende werden nach Ort, Rechtsgebiet und gemeinsamer Sprache zugeordnet."
+        "body": "Standardmässig ohne Ihre Personendaten; Sie können den Zugriff jederzeit beenden."
       }
-    },
-    "start": "Fall eröffnen"
+    }
   },
   "Settings": {
     "metaTitle": "Einstellungen",
@@ -443,7 +433,8 @@
       "offline": "Causius ist nicht erreichbar. Prüfen Sie Ihre Verbindung.",
       "unknown": "Das hat nicht geklappt. Versuchen Sie es noch einmal."
     },
-    "kicker": "Ihre Angelegenheiten"
+    "kicker": "Ihre Angelegenheiten",
+    "helping": "Sie helfen"
   },
   "Matter": {
     "pageTitle": "Fall",
@@ -580,7 +571,7 @@
     },
     "marketplace": {
       "name": "Rechtsassistenz und Anwälte",
-      "body": "Zugelassene Anwältinnen und Anwälte und pseudonyme Rechtsassistenten bieten ihre Arbeit an und werden über OrangeCat bezahlt."
+      "body": "Rechtsassistenz, Anwältinnen und Anwälte sowie KI-Dienste tragen sich unter Namen oder Pseudonym ein; eine Anwältin oder ein Anwalt nur dort, wo Causius die Zulassung geprüft hat."
     },
     "formation": {
       "name": "Gründen und eintragen",
@@ -643,7 +634,7 @@
       },
       "identity": {
         "title": "Identität und Geld",
-        "body": "Die Anmeldung läuft über OrangeCat, mit OpenID Connect. Causius führt keine Benutzertabelle und kein Passwort, nur eine Konto-ID. Auch das Bezahlen von Helfenden wird über OrangeCat laufen."
+        "body": "Causius führt eigene Konten (Passwort, Link, Passkey, Zwei-Schritt-Codes) und lässt die Anmeldung über OrangeCat zu. Die Zulassung einer Anwältin oder eines Anwalts wird als signierte Bestätigung veröffentlicht, die den Ort nennt, nicht die Person."
       }
     },
     "principles": {
@@ -712,7 +703,7 @@
     "next": {
       "kicker": "Wohin es geht",
       "title": "Vom Brief zur rechtlichen Existenz",
-      "lede": "Causius trägt die juristische Arbeit: Angelegenheiten, Gründungen und Registereinträge, Verträge. Das Recht selbst gehört in Solon, als Daten, die jedes Produkt zitieren kann. Als Nächstes kommt der Marktplatz für Anwälte und Rechtsassistenz, bezahlt über OrangeCat.",
+      "lede": "Causius trägt die juristische Arbeit: Fälle, Gründungen und Registereinträge, Verträge. Das Recht selbst gehört in Solon, als Daten, die jedes Produkt zitieren kann. Als Nächstes werden Helfende über OrangeCat bezahlt.",
       "roadmap": "Zur Roadmap",
       "ecosystem": "Zum Ökosystem",
       "source": "Zum Quellcode"
@@ -795,7 +786,7 @@
     "seams": {
       "account": {
         "title": "Einmal anmelden",
-        "body": "Ihre OrangeCat-Identität ist hier Ihre Identität, auf Wunsch unter Pseudonym. Causius sieht Ihr Passwort nie."
+        "body": "Ein Causius-Konto oder Ihr OrangeCat-Konto, auf Wunsch unter Pseudonym."
       },
       "pay": {
         "title": "Bezahlen und bezahlt werden",
@@ -955,5 +946,230 @@
       "action": "Neues Passwort wählen"
     },
     "ignore": "Wenn du das nicht warst, ignoriere diese E-Mail — es ändert sich nichts."
+  },
+  "Professions": {
+    "kinds": {
+      "ai": {
+        "name": "KI-Dienst",
+        "does": "Informationen und Papierkram, betrieben von seinem Betreiber. Keine Rechtsberatung."
+      },
+      "assistant": {
+        "name": "Rechtsassistenz",
+        "does": "Verfahren, Belege, Formulare, Eingaben, Übersetzung. Keine Rechtsberatung."
+      },
+      "lawyer": {
+        "name": "Zugelassene Anwältin oder zugelassener Anwalt",
+        "does": "Berät und vertritt, wo zugelassen."
+      }
+    },
+    "causius": "Causius KI",
+    "areas": {
+      "tenancy": "Miete",
+      "employment": "Arbeit",
+      "migration": "Migration",
+      "family": "Familie",
+      "debt": "Schulden",
+      "social": "Sozialversicherung",
+      "tax": "Steuern",
+      "company": "Unternehmen",
+      "contracts": "Verträge",
+      "criminal": "Strafrecht",
+      "administrative": "Behörden",
+      "other": "Anderes"
+    }
+  },
+  "Helper": {
+    "metaTitle": "{name} · Helfende Person",
+    "places": "Wo",
+    "languages": "Sprachen",
+    "areas": "Gebiete",
+    "paid": "Bezahlt bei {host}",
+    "checkedTitle": "Zulassung von Causius geprüft",
+    "checkedBody": "Causius hat am {date} das öffentliche Register für {place} gelesen. Die Bestätigung unten ist signiert und nennt den Ort, nicht die Person.",
+    "checkIt": "Signatur prüfen",
+    "valid": "Gültig bis {date}",
+    "notLawyer": "Keine Anwältin, kein Anwalt: gibt keine Rechtsberatung und vertritt nicht.",
+    "back": "Alle Helfenden",
+    "ask": {
+      "title": "Um Hilfe bitten",
+      "matter": "Ihr Fall",
+      "message": "Was Sie brauchen",
+      "placeholder": "Zum Beispiel: Können Sie meine Einsprache prüfen, bevor ich sie abschicke?",
+      "sees": "Was die Person sieht",
+      "anonymised": "Ohne meine Personendaten",
+      "full": "Alles, mit Namen",
+      "send": "Anfrage senden",
+      "sending": "Wird gesendet…",
+      "sent": "Gesendet. Die Antwort erscheint im Fall.",
+      "openMatter": "Fall öffnen",
+      "noMatters": "Eröffnen Sie zuerst einen Fall; dann fragen Sie von hier aus.",
+      "start": "Einen Fall eröffnen",
+      "signIn": "Anmelden, um um Hilfe zu bitten",
+      "errors": {
+        "already_asked": "Sie haben diese Person zu diesem Fall schon gefragt.",
+        "own_profile": "Das ist Ihr eigenes Profil.",
+        "helper_unavailable": "Diese helfende Person ist nicht mehr verfügbar.",
+        "rate_limited": "Zu viele Anfragen in kurzer Zeit. Warten Sie einen Moment.",
+        "not_configured": "Anfragen sind für diese Website noch nicht eingeschaltet.",
+        "unknown": "Das hat nicht geklappt. Versuchen Sie es noch einmal."
+      },
+      "preview": "Ihre Anfrage, wie sie gelesen wird",
+      "alsoHide": "Weiteren Namen oder Begriff verbergen",
+      "hide": "Verbergen"
+    }
+  },
+  "HelperDesk": {
+    "metaTitle": "Ihr Profil als helfende Person",
+    "title": "Anderen helfen",
+    "lead": "Tragen Sie sich unter Ihrem Namen oder einem Pseudonym ein. Man findet Sie im Verzeichnis und fragt Sie zu einem Fall.",
+    "signIn": "Anmelden, um helfende Person zu werden",
+    "public": "Alles in diesem Abschnitt ist öffentlich.",
+    "kind": "Ich bin",
+    "name": "Öffentlicher Name",
+    "nameHint": "Ein Pseudonym genügt.",
+    "headline": "Eine Zeile zu dem, was Sie tun",
+    "bio": "Mehr über Sie",
+    "places": "Wo Sie helfen",
+    "placesHint": "Eine Anwältin oder ein Anwalt wird nur dort angezeigt, wo die Zulassung geprüft wurde.",
+    "addPlace": "Hinzufügen",
+    "remove": "{item} entfernen",
+    "areas": "Gebiete",
+    "languages": "Sprachen",
+    "serviceUrl": "Wo Sie bezahlt werden (optional)",
+    "serviceHint": "Ein OrangeCat-Dienst oder Ihre eigene Seite, nur https.",
+    "status": {
+      "draft": "Verborgen",
+      "listed": "Aufgeführt",
+      "paused": "Pausiert"
+    },
+    "save": "Speichern",
+    "saving": "Wird gespeichert…",
+    "saved": "Gespeichert.",
+    "visible": "Sie stehen im Verzeichnis.",
+    "viewPublic": "Ihr öffentliches Profil ansehen",
+    "waiting": {
+      "listing": "Verborgen. Wählen Sie «Aufgeführt», um zu erscheinen.",
+      "language": "Geben Sie mindestens eine Sprache an, um zu erscheinen.",
+      "verification": "Sie erscheinen, sobald Ihre Zulassung geprüft ist. Reichen Sie sie unten ein."
+    },
+    "delete": "Mein Profil als helfende Person löschen",
+    "deleteConfirm": "Ihr Profil als helfende Person löschen? Ihre Anfragen und geprüften Zulassungen werden mitgelöscht. Ihre eigenen Fälle bleiben.",
+    "credential": {
+      "title": "Ihre Zulassung",
+      "lead": "Causius prüft sie im öffentlichen Register und veröffentlicht nur eine signierte Bestätigung, dass Sie dort zugelassen sind. Name und Nummer bleiben versiegelt, bis Sie den Fall einer Klientin oder eines Klienten übernehmen.",
+      "place": "Zugelassen in",
+      "legalName": "Amtlicher Name, wie im Register",
+      "registerNumber": "Registernummer",
+      "registerUrl": "Link zu Ihrem Eintrag im öffentlichen Register",
+      "note": "Notiz für die prüfende Person (optional)",
+      "submit": "Zur Prüfung einreichen",
+      "status": {
+        "pending": "Wird geprüft",
+        "verified": "Geprüft",
+        "rejected": "Nicht bestätigt",
+        "revoked": "Zurückgezogen"
+      },
+      "withdraw": "Zurückziehen",
+      "reason": "Prüfung: {note}"
+    },
+    "requests": {
+      "title": "Anfragen",
+      "none": "Noch keine Anfragen.",
+      "anonymised": "Ohne Personendaten geteilt",
+      "full": "Mit Namen geteilt",
+      "accept": "Annehmen",
+      "decline": "Ablehnen",
+      "open": "Fall öffnen",
+      "accepted": "Sie arbeiten an diesem Fall."
+    },
+    "errors": {
+      "bad_request": "Prüfen Sie die oben markierten Felder.",
+      "already_submitted": "Diesen Ort haben Sie schon eingereicht.",
+      "not_needed": "Nur Anwältinnen und Anwälte reichen eine Zulassung ein.",
+      "no_profile": "Speichern Sie zuerst Ihr Profil.",
+      "needs_verification": "Ihre Zulassung muss geprüft sein, bevor Sie einen Fall übernehmen können.",
+      "already_answered": "Diese Anfrage wurde schon beantwortet.",
+      "rate_limited": "Zu viele Änderungen in kurzer Zeit. Warten Sie einen Moment.",
+      "not_configured": "Profile für Helfende sind für diese Website noch nicht eingeschaltet.",
+      "unknown": "Das hat nicht geklappt. Versuchen Sie es noch einmal."
+    },
+    "signUpLine": "Sie bieten Hilfe an, statt sie zu suchen?",
+    "signUpCta": "Konto als helfende Person erstellen"
+  },
+  "Review": {
+    "metaTitle": "Prüfung",
+    "title": "Zu prüfende Zulassungen",
+    "lead": "Öffnen Sie den Registerlink, vergleichen Sie Name, Nummer und Ort, dann entscheiden Sie. Niemand prüft die eigene.",
+    "notAllowed": "Nur Mitarbeitende von Causius prüfen Zulassungen.",
+    "none": "Nichts wartet auf einen Entscheid.",
+    "submitted": "Eingereicht am {date}",
+    "evidence": {
+      "legalName": "Amtlicher Name",
+      "registerNumber": "Registernummer",
+      "registerUrl": "Registereintrag",
+      "note": "Notiz"
+    },
+    "noteLabel": "Begründung, für die Anwältin oder den Anwalt sichtbar (für eine Ablehnung nötig)",
+    "verify": "Geprüft: Bestätigung ausstellen",
+    "reject": "Nicht bestätigt",
+    "done": "Entschieden.",
+    "errors": {
+      "own_credential": "Sie können Ihre eigene Zulassung nicht prüfen.",
+      "already_decided": "Darüber hat schon jemand entschieden.",
+      "unknown": "Das hat nicht geklappt. Versuchen Sie es noch einmal."
+    }
+  },
+  "Verify": {
+    "metaTitle": "Eine Bestätigung prüfen",
+    "title": "Eine Bestätigung prüfen",
+    "lead": "Fügen Sie eine Bestätigung von Causius ein. Mit den Offenlegungen, die Ihnen eine Anwältin oder ein Anwalt gegeben hat, zeigt sie auch, ob der genannte Name derjenige ist, den Causius geprüft hat.",
+    "token": "Bestätigung",
+    "disclosures": "Offenlegungen (optional, eine pro Zeile)",
+    "check": "Prüfen",
+    "checking": "Wird geprüft…",
+    "ok": "Von Causius signiert: zugelassen in {place}, gültig bis {date}.",
+    "revoked": "Die Signatur ist gültig, aber diese Zulassung wurde zurückgezogen.",
+    "disclosed": "Geprüft – {claim}: {value}",
+    "claims": {
+      "legal_name": "Name",
+      "register_number": "Registernummer"
+    },
+    "keys": "Der öffentliche Schlüssel, um ohne Causius zu prüfen",
+    "how": "Es ist ein SD-JWT, signiert mit Ed25519. Der Name steht darin nur als gesalzener Hashwert und lässt sich daher nicht erraten; es ist kein Zero-Knowledge-Beweis: Es sagt, dass Causius das Register geprüft hat.",
+    "reasons": {
+      "malformed": "Das ist keine Bestätigung von Causius.",
+      "unknown_key": "Nicht mit dem Schlüssel von Causius signiert.",
+      "bad_signature": "Die Signatur stimmt nicht: Es wurde etwas verändert.",
+      "expired": "Sie ist abgelaufen.",
+      "wrong_issuer": "Nicht von Causius ausgestellt.",
+      "bad_disclosure": "Eine Offenlegung gehört nicht zu dieser Bestätigung: Das ist nicht der Name, den Causius geprüft hat.",
+      "rate_limited": "Zu viele Prüfungen in kurzer Zeit. Warten Sie einen Moment.",
+      "not_configured": "Die Prüfung ist für diese Website noch nicht eingeschaltet.",
+      "unknown": "Das hat nicht geklappt. Versuchen Sie es noch einmal."
+    }
+  },
+  "MatterHelpers": {
+    "title": "Helfende",
+    "find": "Helfende Person finden",
+    "none": "Nur Sie und Causius arbeiten an diesem Fall.",
+    "status": {
+      "requested": "Angefragt",
+      "accepted": "Arbeitet daran",
+      "declined": "Abgelehnt",
+      "withdrawn": "Zurückgezogen",
+      "ended": "Beendet"
+    },
+    "sees": {
+      "anonymised": "sieht keine Personendaten",
+      "full": "sieht alles"
+    },
+    "verifiedName": "Von Causius geprüfter Name: {name}",
+    "nameMismatch": "Der Name konnte der Prüfung von Causius nicht zugeordnet werden.",
+    "end": "Beenden",
+    "withdraw": "Zurückziehen",
+    "youHelp": "Sie helfen bei diesem Fall als {alias}.",
+    "youSeeAnonymised": "Sie sehen ihn ohne die Personendaten der Klientin oder des Klienten.",
+    "leave": "Diesen Fall verlassen",
+    "checkYourself": "Selbst prüfen"
   }
 }

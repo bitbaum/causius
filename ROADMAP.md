@@ -78,10 +78,13 @@ Legal assistants and licensed lawyers offer their help as services on OrangeCat
 and are paid there. Causius adds the label and the check.
 
 - [x] The rules: who may give legal advice, and who may be pseudonymous {#helper-rules}
-- [ ] Helpers listed from their OrangeCat services, by jurisdiction, area and language, under a name or a pseudonym
-- [ ] A lawyer's identity held privately and shown to a client when they engage them
-- [ ] A lawyer's admission checked against the public bar register before the label
-- [ ] Hand a case to a helper from the case page, sharing only what you choose
+- [x] Helpers list themselves by jurisdiction, area and language, under a name or a pseudonym {#directory}
+- [x] A lawyer's identity held privately and shown to a client when they engage them {#disclosure}
+- [x] A lawyer's admission checked against the public register before the label, published as a signed attestation {#attestation}
+- [x] Ask a helper about a matter, sharing it with or without your personal details {#engage}
+- [ ] Helpers paid through OrangeCat, with the money held until the work is accepted
+- [ ] Credentials issued by a bar itself, so the check needs no word of ours
+- [ ] Notices by e-mail when a helper is asked, answers or writes
 
 ### Decide the marketplace rules in the open {#governance}
 
@@ -95,7 +98,7 @@ decisions, and decisions belong on Solon.
 
 ### A matter shared with a helper {#rooms}
 
-- [ ] A shared matter: the person, their helper and the agent in one thread, the helper seeing only what is shared
+- [x] A shared matter: the person, their helper and the agent in one thread, the helper seeing only what is shared {#shared-matter}
 
 ### Legal existence {#existence}
 

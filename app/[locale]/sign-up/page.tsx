@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SignUpForm } from "@/components/auth/SignUpForm";
 import { AccountsUnavailable } from "@/components/auth/Unavailable";
 import { card, shell } from "@/components/ui";
-import { getPathname, redirect } from "@/i18n/navigation";
+import { getPathname, Link, redirect } from "@/i18n/navigation";
 import { toLocale } from "@/i18n/routing";
 import { signInMethods } from "@bitbaum/accountkit/auth";
 import { authStatus, getSession } from "@/lib/auth";
@@ -27,6 +27,7 @@ export default async function SignUpPage({ params, searchParams }: Props) {
   const locale = toLocale((await params).locale);
   setRequestLocale(locale);
   const t = await getTranslations("Auth");
+  const h = await getTranslations("HelperDesk");
   const query = await searchParams;
 
   if (await getSession())
@@ -48,6 +49,14 @@ export default async function SignUpPage({ params, searchParams }: Props) {
           />
         ) : (
           <AccountsUnavailable />
+        )}
+        {safeNext(query.next ?? query.from) !== ROUTES.helperDesk && (
+          <p className="mt-6 border-t border-border-subtle pt-4 text-sm text-fg-secondary">
+            {h("signUpLine")}{" "}
+            <Link href={{ pathname: ROUTES.signUp, query: { next: ROUTES.helperDesk } }} className="text-link">
+              {h("signUpCta")}
+            </Link>
+          </p>
         )}
       </div>
     </div>

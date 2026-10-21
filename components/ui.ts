@@ -26,3 +26,7 @@ export const label = "block text-sm font-medium";
 export const notice =
   "border border-border px-4 py-3 text-sm text-fg-secondary";
 export const errorText = "text-sm text-accent";
+
+/** A toggle in a row of choices; `aria-pressed` carries the state, so it is styled from it. */
+export const chip =
+  "inline-flex min-h-11 items-center rounded-control border border-border px-3 text-sm text-fg-primary transition-colors hover:border-fg-muted aria-pressed:border-accent aria-pressed:bg-accent/10";

@@ -55,6 +55,8 @@ The blessed column of fleet `STACK.md`, nothing else:
 | i18n | `next-intl`: English (`/en`), German (`/de`), French (`/fr`) |
 | Accounts | `@bitbaum/accountkit/auth` (better-auth on Drizzle): password, link, passkeys, 2FA, OrangeCat OIDC with PKCE |
 | Conversation | `@bitbaum/chatkit` |
+| Search and filters | `@bitbaum/searchkit` (typo-tolerant ranking) and `listkit` (facets in the URL), for the helper directory |
+| Attestations | SD-JWT signed with Ed25519 by `node:crypto` (`lib/helpers/attest.ts`); key derived from the master key, published at `/.well-known/jwks.json` |
 | Design | `@bitbaum/design-tokens` (tokens.css + the Tailwind preset via `@config`) |
 | Data | Postgres on the host, Drizzle (`lib/db/schema.ts`, `drizzle/`), envelope encryption in `lib/crypto.ts` |
 | Tests | Vitest, hermetic; the store and the agent run against PGlite, a real Postgres in process |
@@ -77,13 +79,19 @@ does, in the grammar Solon uses (`kicker`, `headline-caps`, `btn-frame`).
 - `/cases` cases in this browser, and import of an exported case file
 - `/cases/sample` a worked example with invented personal details
 - `/settings` your own model
-- `/helpers` the marketplace rules and where a helper lists themselves
+- `/helpers` the directory (searchkit, listkit); `/helpers/[id]` a profile, with
+  a lawyer's signed attestation and "Ask for help"
+- `/helper` your own helper profile, admission and requests; `/review` the staff
+  queue of admissions; `/verify` check any attestation
+- `GET /.well-known/jwks.json` the key attestations are signed with
 - `/roadmap`, `/changelog` the public record
 - `POST /api/analyze` letter in, case file out
 - `POST /api/model/check` does this key work, and which models can it use
 - `GET /api/health` is the site up, and can it analyse text and photos without a reader's key
 - `POST /api/transcribe` a spoken take to text; `GET /api/models` the free
   models the picker may offer (both signed in)
+- `/api/helpers`, `/api/helper/…`, `/api/review/…`, `/api/credentials/verify`,
+  `/api/matters/[id]/engagements` and `/leave`: the helper side
 - `/api/matters/…` create, read, work (`messages`, one agent turn), documents,
   photographed `pages`, items and approvals; every route answers 401 signed out and 404 to anyone
   who is not in the matter
@@ -96,10 +104,14 @@ language.
 
 Said plainly, because the pages say it too. `ROADMAP.md` has the order.
 
-- **No helpers are listed.** Nothing pulls in OrangeCat services, labels them or
-  checks a lawyer's admission.
+- **Helpers are not paid through Causius.** A profile links to where its
+  helper is paid (an OrangeCat service or their own page); escrow is planned.
+- **A lawyer's admission is checked by a person.** A reviewer reads the public
+  register; no bar issues credentials of its own yet, so the attestation says
+  "Causius checked", not a zero-knowledge proof that needs no one's word.
 - **A quick-check case stays in the browser.** It is not moved into a matter yet.
-- **No shared matter.** A matter has one participant, its owner.
+- **A helper's messages do not notify anyone.** The other side sees them on
+  the matter page; e-mail notices are planned.
 - **Approving does not act.** It records the decision; sending or filing is still
   done by the person.
 - **The operator holds the master key.** Keys only the owner holds are on the roadmap.
@@ -168,8 +180,10 @@ in rather than added:
   personal detail replaced and without the placeholder table.
 - **Pseudonymous on every side.** People seeking help, legal assistants and
   lawyers may all appear under a pseudonym; a lawyer's admission is verified
-  privately and their name is given to a client on engagement (planned, with
-  the marketplace).
+  privately (evidence sealed per credential) and their name, with the
+  disclosures that prove it is the checked one, is given to a client on
+  engagement. A helper sees a matter with or without the owner's details, as
+  the owner chose (`lib/matters/anonymise.ts`, applied in the store).
 - **Headers** (`lib/security.ts`, `proxy.ts`): a per-request nonce CSP with
   `strict-dynamic`, `connect-src 'self'` and `frame-ancestors 'none'`; HSTS for
   two years; `nosniff`; `Referrer-Policy: no-referrer`; a Permissions-Policy

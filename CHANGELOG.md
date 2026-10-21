@@ -4,6 +4,34 @@ What changed for the people who use Causius, newest first. Every entry comes
 from a change merged into this repository; where there is a number in
 brackets, it is the pull request to read for the detail.
 
+## 2026-10-21
+
+### Added
+
+- **Helpers you can find and ask.** A directory of legal assistants, licensed
+  lawyers and AI services, with Causius AI first. Search forgives a typo;
+  filter by kind, country, language and area. Nobody is invented: every
+  profile is a real account that listed itself. {#helpers}
+- **Become a helper.** Any account can list itself, under a name or a
+  pseudonym, and still keep matters of its own. "Create a helper account" sits
+  on the sign-up page. {#helper-desk}
+- **A lawyer checked, and still pseudonymous.** A lawyer submits their
+  admission privately; a Causius reviewer checks it in the public register.
+  The public then sees a signed attestation (SD-JWT, Ed25519) that names the
+  place, never the person, and anyone can check it at /verify or with the key
+  at /.well-known/jwks.json. A lawyer is listed only where it was checked.
+  {#attestations}
+- **Ask a helper about your matter.** You choose what they see: without your
+  personal details (the default) or everything. Before sending you read your
+  request exactly as they will, and can hide a name the patterns missed. A
+  lawyer who accepts gives you the name Causius checked, with proof it is that
+  name. Ending it ends their access at once. {#engagements}
+
+### Fixed
+
+- **The account menu's label** no longer shows a formatting error to screen
+  readers. {#account-label}
+
 ## 2026-10-14
 
 ### Changed

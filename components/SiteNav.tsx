@@ -9,6 +9,7 @@ import { ROUTES } from "@/lib/routes";
 /** The places in the header. Everything else is one scroll away, in the footer. */
 const NAV = [
   { href: ROUTES.matters, key: "matters" },
+  { href: ROUTES.helpers, key: "helpers" },
   { href: ROUTES.platform, key: "platform" },
   { href: ROUTES.security, key: "security" },
   { href: ROUTES.ecosystem, key: "ecosystem" },

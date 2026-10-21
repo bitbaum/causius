@@ -28,6 +28,8 @@ export async function PATCH(request: Request, { params }: Params) {
   if (!parsed.success) return json({ error: "bad_request" }, 400);
   const m = await openMatter(ctx.db, ctx.master, (await params).id, ctx.sub);
   if (!m) return json({ error: "not_found" }, 404);
+  // The words kept from models are the owner's own personal details.
+  if (parsed.data.hide && m.role !== "owner") return json({ error: "not_allowed" }, 403);
   return guarded(async () => {
     await updateCore(ctx.db, m, (c) => ({
       ...c,
