@@ -502,7 +502,8 @@
       "read_document": "read",
       "unverified": "unverified",
       "review": "reviewed",
-      "from_case": "quick check"
+      "from_case": "letter",
+      "read_law": "law"
     },
     "emptyThread": "Write what is going on. Causius will start working.",
     "composer": "Write to Causius…",

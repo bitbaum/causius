@@ -8,6 +8,12 @@ brackets, it is the pull request to read for the detail.
 
 ### Added
 
+- **The agent reads the law itself.** For Swiss federal law it now opens the
+  article on Fedlex, the official collection, and reads the text in force today
+  before it states the rule. The answer cites the article with its link. This
+  needs no search engine and no paid service, so it works when web search does
+  not. {#read-law}
+
 - **A quick check opens as a matter.** Under the deadline, one tap moves the
   check into a sealed matter. The deadline and its sentence, the letter, the
   draft reply and the place come along. What the check hid from the model stays

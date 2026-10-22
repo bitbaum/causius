@@ -68,7 +68,7 @@ export function repairPrompt(problems: readonly AnswerProblem[]): string {
       ? "Your answer describes tool calls instead of making them. Nothing you described has happened. Call the tools now (natively, or with the TOOL/ARGS lines), then answer."
       : p === "unrecorded"
         ? "Your answer gives a deadline, but none is recorded in the matter. Call record_deadline now for each deadline, quoting the text it comes from, then answer."
-        : "Your answer states rules of law, but this turn consulted no source. Use web_search and read_page now to find the official text for each rule, cite it as [n], and drop or mark as unverified any rule you cannot source.",
+        : "Your answer states rules of law, but this turn consulted no source. Read each one now: read_law for a Swiss federal act (act and article), web_search and read_page for anything else. Cite each as [n], and drop or mark as unverified any rule you cannot source.",
   );
   return `${lines.join("\n")}\nDo not apologise or mention this message; just do it.`;
 }

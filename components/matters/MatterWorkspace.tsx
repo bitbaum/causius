@@ -345,6 +345,7 @@ export function MatterWorkspace({ id, me }: { id: string; me: string }) {
 }
 
 const TOOL_KEYS = new Set([
+  "read_law",
   "from_case",
   "review",
   "unverified",
