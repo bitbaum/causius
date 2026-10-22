@@ -66,7 +66,13 @@ import { answerProblems, repairPrompt, withoutNarration } from "./answer-check";
  */
 
 const health = createHealthTracker();
-const MAX_ROUNDS = 6;
+/**
+ * Model calls per turn. Eight, not six: research takes three or four rounds,
+ * and a correction (answer-check.ts) needs a round to act in plus one to
+ * answer. With six, an answer arriving at round four could not be corrected
+ * and the final, tool-less round stored whatever came (Agent check, 2026-10-22).
+ */
+const MAX_ROUNDS = 8;
 /** Corrections per turn (answer-check.ts); each goes to the next model in the chain. */
 const MAX_CORRECTIONS = 2;
 const HISTORY = 30;
