@@ -88,7 +88,14 @@ jobs:
             sudo -n cp -p "$HOSTFILE" "$HOSTFILE.bak-$(date -u +%Y%m%dT%H%M%SZ)"
             echo "backup: $(ls -1 $HOSTFILE.bak-* | tail -n 1)"
           fi
-          $D exec -u 0 "$C" python3 /tmp/searx-tune.py /etc/searxng/settings.yml "$APPLY"
+          # SearXNG's own Python (its venv) has YAML; the image's system one may not.
+          PY=""
+          for p in /usr/local/searxng/.venv/bin/python3 /usr/local/searxng/searx-pyenv/bin/python3 /usr/local/searxng/.venv/bin/python python3; do
+            if $D exec "$C" "$p" -c 'import yaml' >/dev/null 2>&1; then PY=$p; break; fi
+          done
+          [ -n "$PY" ] || { echo "no Python with YAML in the container"; $D exec "$C" sh -c 'ls -d /usr/local/searxng/* 2>/dev/null; which -a python3 python'; exit 1; }
+          echo "python: $PY"
+          $D exec -u 0 "$C" "$PY" /tmp/searx-tune.py /etc/searxng/settings.yml "$APPLY"
           if [ "$APPLY" = "true" ]; then
             $D restart "$C" >/dev/null && echo "restarted"
             for i in $(seq 1 30); do curl -s -o /dev/null -m 3 http://127.0.0.1:8899/healthz && break; sleep 2; done
