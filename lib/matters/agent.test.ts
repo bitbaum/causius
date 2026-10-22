@@ -345,3 +345,20 @@ describe("an answer lost to its correction", () => {
     expect(answer && answer.kind === "message" ? answer.text : "").toContain("Your objection is due 4 November 2026");
   });
 });
+
+describe("a turn that would end with nothing", () => {
+  it("gets one more round, without tools, to answer in words", async () => {
+    const id = await matter();
+    const model = scriptedModel([
+      ...Array.from({ length: 6 }, () => ({ tools: [["note_fact", { fact: "x" }]] as [string, unknown][] })),
+      { text: "(called note_fact)" },
+      { text: "Your deadline is recorded: 4 November 2026." },
+    ]);
+    await runTurn({ db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl, text: "When?" });
+    const view = (await loadMatter(db, MASTER, id, OWNER))!;
+    const answer = view.events.filter((e) => e.kind === "message" && e.role === "assistant").at(-1);
+    expect(answer && answer.kind === "message" ? answer.text : "").toContain("4 November 2026");
+    expect(model.seen.at(-1)).toContain("Answer the person now, without calling more tools.");
+    expect(model.seen.at(-1)).not.toContain('"tools"');
+  });
+});

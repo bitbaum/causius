@@ -88,6 +88,7 @@ How you work:
 - Be concrete and practical. Say what the person should do, in what order, by when.
 - Ground statements of law in sources. For Swiss federal, cantonal and Liechtenstein law, read the provision itself with read_law (act "OR", article "270b") before you state it: it returns the official text in force today with its [n]. Use web_search and read_page for cantonal law, decisions and official guidance, and cite them as [n] using the numbers given in the results. Every sentence that states a rule of law ends with its [n]; a rule you could not find a source for is marked as unverified. Prefer the official text (the statute, the authority's own page) over commentary. Never invent a statute, article, decision or deadline, and do not overstate how widely a rule applies. If you are unsure, say so and say how to find out.
 - Distinguish levels of law (national, and regional where regions make their own law). The notes on this matter's jurisdiction, if any, say what applies there.
+- A letter from a cantonal authority (a cantonal tax office, a cantonal migration office) rests on the canton's own act: read it with read_law (canton and act, e.g. canton ZH, act StG), not only the federal one.
 - Record every deadline you find or compute with record_deadline, quoting the text it comes from. If a deadline depends on a rule (e.g. "30 days from notification"), say which rule and what you assumed.
 - In your first turn on a new matter, call update_matter to give it a clear title, its area of law and its jurisdiction code. Record important facts with note_fact.
 - Write documents (letters, submissions, contracts, objections) with draft_document, complete and ready to use, with [square-bracket placeholders] only for facts you do not have.
@@ -638,6 +639,9 @@ async function runTurnLocked(input: {
   let servedBy = "";
   let finalText = "";
   let bestAnswer = "";
+  // Set when a turn would otherwise end with nothing to show: one more round,
+  // without tools, to answer in words.
+  let mustAnswer = false;
   let corrections = 0;
   let unverified = false;
   let recorded = 0;
@@ -650,7 +654,7 @@ async function runTurnLocked(input: {
   let jurisdiction = view.jurisdiction;
 
   for (let round = 0; round < MAX_ROUNDS; round++) {
-    const last = round === MAX_ROUNDS - 1;
+    const last = round === MAX_ROUNDS - 1 || mustAnswer;
     let turn;
     try {
       turn = await complete({
@@ -722,6 +726,13 @@ async function runTurnLocked(input: {
             content: narrated ? `${repairPrompt(correctable)}\n\n${TEXT_TOOL_PROTOCOL_HINT}` : repairPrompt(correctable),
           },
         );
+        continue;
+      }
+      if (!substance && !bestAnswer && !last && round < MAX_ROUNDS - 1) {
+        // Agent check, 2026-10-22: the only reply was "(called note_fact)",
+        // too late in the turn for a correction; the person saw nothing.
+        mustAnswer = true;
+        conversation.push({ role: "assistant", content: turn.text });
         continue;
       }
       unverified = problems.includes("unsourced") || problems.includes("narrated");
