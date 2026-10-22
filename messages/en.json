@@ -499,7 +499,8 @@
       "error": "error",
       "other": "step",
       "check_domain": "domains",
-      "read_document": "read"
+      "read_document": "read",
+      "unverified": "unverified"
     },
     "emptyThread": "Write what is going on. Causius will start working.",
     "composer": "Write to Causius…",

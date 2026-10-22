@@ -43,6 +43,7 @@ import {
 import { workflowById } from "../workflows";
 import { localeEnglishNames, type Locale } from "../../i18n/routing";
 import { marketOf } from "../jurisdictions";
+import { answerProblems, repairPrompt } from "./answer-check";
 
 /**
  * The agent that works a matter.
@@ -267,6 +268,7 @@ const TOOLS = [
     },
   },
 ];
+const TOOL_NAMES = TOOLS.map((t) => t.function.name);
 
 /** A real calendar date: "2026-02-31" parses in some engines and means March; it is refused here. */
 export const ISO_DATE = z
@@ -582,6 +584,8 @@ async function runTurnLocked(input: {
   const read = input.read ?? readPage;
   let servedBy = "";
   let finalText = "";
+  let repaired = false;
+  let unverified = false;
 
   for (let round = 0; round < MAX_ROUNDS; round++) {
     const last = round === MAX_ROUNDS - 1;
@@ -620,6 +624,18 @@ async function runTurnLocked(input: {
     }
     servedBy = turn.id;
     if (turn.toolCalls.length === 0) {
+      // The server holds the answer to what the prompt asks (answer-check.ts):
+      // no tool calls written out instead of made, no law without a source.
+      const problems = answerProblems(turn.text, { toolNames: TOOL_NAMES, sources: sources.length });
+      if (problems.length && !repaired && round < MAX_ROUNDS - 2) {
+        repaired = true;
+        conversation.push(
+          { role: "assistant", content: turn.text },
+          { role: "user", content: repairPrompt(problems) },
+        );
+        continue;
+      }
+      unverified = problems.includes("unsourced") || problems.includes("narrated");
       finalText = turn.text;
       break;
     }
@@ -811,6 +827,9 @@ async function runTurnLocked(input: {
   const answer =
     parsed.text.trim() || "I could not finish this turn. Please try again.";
   const cited = sources.filter((s) => answer.includes(`[${s.id}]`));
+  // Shown above the answer, in the reader's language (Matter.tool.unverified).
+  if (unverified)
+    await appendStep(db, m, { tool: "unverified", summary: "The answer states rules no source was found for." });
   await appendMessage(db, m, {
     actor: "agent",
     role: "assistant",

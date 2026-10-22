@@ -499,7 +499,8 @@
       "error": "erreur",
       "other": "étape",
       "check_domain": "domaines",
-      "read_document": "lu"
+      "read_document": "lu",
+      "unverified": "non vérifié"
     },
     "emptyThread": "Écrivez ce qui se passe. Causius se met au travail.",
     "composer": "Écrire à Causius…",

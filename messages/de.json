@@ -499,7 +499,8 @@
       "error": "Fehler",
       "other": "Schritt",
       "check_domain": "Domains",
-      "read_document": "gelesen"
+      "read_document": "gelesen",
+      "unverified": "ungeprüft"
     },
     "emptyThread": "Schreiben Sie, worum es geht. Causius beginnt mit der Arbeit.",
     "composer": "An Causius schreiben…",
