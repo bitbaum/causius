@@ -9,7 +9,14 @@
  * no source. Every sentence looked finished. That is the fabrication path the
  * product promises not to take, so it is caught here, mechanically:
  *
- *   narrated   — tool calls written out instead of made
+ *   narrated   — tool calls written out instead of made, or an answer that
+ *                is only the loop's own note of a call ("(called web_search)"),
+ *                which a model copies from the conversation as its answer
+ *
+ * Tried and withdrawn the same day: giving the model ai-kit's
+ * TEXT_TOOL_PROTOCOL_HINT. With it, the chain's models (all of which call
+ * natively) switched to text calls and then answered "(called note_fact)"; the
+ * real-model Agent check went from passing to failing. Without it, it passes.
  *   unsourced  — a rule of law stated in a turn that consulted no source
  *
  * The agent gets one precise correction per problem and tries again; an answer
@@ -29,7 +36,7 @@ export function answerProblems(
   const problems: AnswerProblem[] = [];
   const names = turn.toolNames.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
   const narrated = new RegExp(`\\b(?:${names})\\s*\\(|^\\s*(?:\\*\\*)?TOOL(?:\\*\\*)?\\s*[:=]`, "m");
-  if (names && narrated.test(text)) problems.push("narrated");
+  if ((names && narrated.test(text)) || /^\s*\(called [\w, ]+\)\s*$/.test(text)) problems.push("narrated");
   if (turn.sources === 0 && CITES_LAW.test(text)) problems.push("unsourced");
   return problems;
 }

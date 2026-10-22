@@ -18,6 +18,11 @@ describe("answer check", () => {
     expect(answerProblems(text, none)).toEqual(["narrated", "unsourced"]);
   });
 
+  it("catches an answer that is only the note of a call", () => {
+    expect(answerProblems("(called note_fact)", none)).toEqual(["narrated"]);
+    expect(answerProblems("(called web_search, read_page)", none)).toEqual(["narrated"]);
+  });
+
   it("catches a TOOL line left in the answer", () => {
     expect(answerProblems('TOOL: web_search\nARGS: {"query":"x"}', none)).toContain("narrated");
   });

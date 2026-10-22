@@ -5,7 +5,6 @@ import {
   type ChatMessage,
   type Env,
   type Link,
-  TEXT_TOOL_PROTOCOL_HINT,
 } from "@bitbaum/ai-kit";
 import { byokChain, isByokConfig } from "@bitbaum/ai-kit/byok";
 import {
@@ -564,7 +563,7 @@ async function runTurnLocked(input: {
   const conversation: ChatMessage[] = [
     {
       role: "system",
-      content: `${SYSTEM}\n\n${TEXT_TOOL_PROTOCOL_HINT}${input.locale ? `\n- The person reads ${localeEnglishNames[input.locale]}: write your answers in ${localeEnglishNames[input.locale]}, whatever language a letter is in.` : ""}\n\n=== The matter ===\n${hide(context)}`,
+      content: `${SYSTEM}${input.locale ? `\n- The person reads ${localeEnglishNames[input.locale]}: write your answers in ${localeEnglishNames[input.locale]}, whatever language a letter is in.` : ""}\n\n=== The matter ===\n${hide(context)}`,
     },
     // Documents sit in the user turn, marked as data, never in the system prompt.
     ...(documents

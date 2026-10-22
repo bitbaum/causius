@@ -4,6 +4,17 @@ What changed for the people who use Causius, newest first. Every entry comes
 from a change merged into this repository; where there is a number in
 brackets, it is the pull request to read for the detail.
 
+## 2026-10-22
+
+### Fixed
+
+- **The agent researches before it states the law.** A real question on the
+  live site was answered from memory: no search, no source, and the tool calls
+  it should have made written into the answer as text. Every answer is now
+  checked: one that cites law without a source, or describes calls instead of
+  making them, is sent back once; if it still fails it is shown marked
+  "unverified". {#no-unsourced-law}
+
 ## 2026-10-21
 
 ### Changed
