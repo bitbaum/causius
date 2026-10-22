@@ -65,6 +65,10 @@ export function useChatLabels() {
     failed: t("failed"),
     loading: t("loading"),
     replies: t("replies"),
+    // chatkit fills in `{time}` itself, so the words reach it as written.
+    thoughtFor: t.raw("thoughtFor") as string,
+    thought: t("thought"),
+    thinking: t("thinking"),
   };
   return { composer, attachMenu, thread };
 }

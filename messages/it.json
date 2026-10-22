@@ -486,7 +486,6 @@
     "backToMatters": "Tornare alle sue pratiche",
     "newMatter": "Nuova pratica",
     "agentName": "Causius",
-    "stepsCount": "{count, plural, one {# passo} other {# passi}} compiuti da Causius",
     "tool": {
       "web_search": "ricerca",
       "read_page": "lettura",
@@ -890,6 +889,9 @@
     "failed": "Non ha funzionato.",
     "loading": "Caricamento della conversazione…",
     "replies": "Risposte suggerite",
+    "thoughtFor": "Ha riflettuto per {time}",
+    "thought": "Cosa ha fatto",
+    "thinking": "Sta pensando",
     "attachedOnly": "(vedere le pagine e i file allegati)",
     "voiceNote": "Parlando, la sua voce va a un servizio vocale. Una voce non può essere anonimizzata prima, quindi pronunci nomi solo se le sta bene.",
     "voiceWhy": "Perché",

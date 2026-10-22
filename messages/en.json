@@ -486,7 +486,6 @@
     "backToMatters": "Back to your matters",
     "newMatter": "New matter",
     "agentName": "Causius",
-    "stepsCount": "{count, plural, one {# step} other {# steps}} Causius took",
     "tool": {
       "web_search": "searched",
       "read_page": "read",
@@ -890,6 +889,9 @@
     "failed": "That did not work.",
     "loading": "Loading the conversation…",
     "replies": "Suggested replies",
+    "thoughtFor": "Thought for {time}",
+    "thought": "What it did",
+    "thinking": "Thinking",
     "attachedOnly": "(see the attached pages and files)",
     "voiceNote": "Speaking sends your voice to a speech service. A voice cannot be hidden first, so say names only if you are fine with that.",
     "voiceWhy": "Why",

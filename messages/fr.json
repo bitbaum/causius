@@ -486,7 +486,6 @@
     "backToMatters": "Retour à vos dossiers",
     "newMatter": "Nouveau dossier",
     "agentName": "Causius",
-    "stepsCount": "{count, plural, one {# étape} other {# étapes}} de Causius",
     "tool": {
       "web_search": "recherché",
       "read_page": "lu",
@@ -890,6 +889,9 @@
     "failed": "Cela n'a pas fonctionné.",
     "loading": "Chargement de la conversation…",
     "replies": "Réponses suggérées",
+    "thoughtFor": "A réfléchi pendant {time}",
+    "thought": "Ce qu'il a fait",
+    "thinking": "Réfléchit",
     "attachedOnly": "(voir les pages et fichiers joints)",
     "voiceNote": "En parlant, votre voix est envoyée à un service de reconnaissance vocale. Une voix ne peut pas être masquée au préalable : ne citez des noms que si cela vous convient.",
     "voiceWhy": "Pourquoi",

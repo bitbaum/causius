@@ -486,7 +486,6 @@
     "backToMatters": "Zurück zu Ihren Fällen",
     "newMatter": "Neuer Fall",
     "agentName": "Causius",
-    "stepsCount": "{count, plural, one {# Schritt} other {# Schritte}} von Causius",
     "tool": {
       "web_search": "gesucht",
       "read_page": "gelesen",
@@ -890,6 +889,9 @@
     "failed": "Das hat nicht geklappt.",
     "loading": "Gespräch wird geladen…",
     "replies": "Antwortvorschläge",
+    "thoughtFor": "{time} nachgedacht",
+    "thought": "Was es getan hat",
+    "thinking": "Denkt nach",
     "attachedOnly": "(siehe angehängte Seiten und Dateien)",
     "voiceNote": "Beim Sprechen geht Ihre Stimme an einen Spracherkennungsdienst. Eine Stimme lässt sich nicht vorher verbergen: Nennen Sie Namen nur, wenn das für Sie in Ordnung ist.",
     "voiceWhy": "Warum",
