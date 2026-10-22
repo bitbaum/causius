@@ -501,7 +501,8 @@
       "check_domain": "domaines",
       "read_document": "lu",
       "unverified": "non vérifié",
-      "review": "examiné"
+      "review": "examiné",
+      "from_case": "vérification rapide"
     },
     "emptyThread": "Écrivez ce qui se passe. Causius se met au travail.",
     "composer": "Écrire à Causius…",
@@ -1273,5 +1274,17 @@
       "rate_limited": "Trop de demandes en peu de temps. Patientez un peu.",
       "unknown": "Cela n'a pas fonctionné. Réessayez."
     }
+  },
+  "FromCase": {
+    "eyebrow": "Continuer",
+    "open": "Ouvrir comme dossier",
+    "body": "L’agent suit le délai et rédige avec vous, sous scellé. Ce qui était masqué le reste.",
+    "working": "Ouverture…",
+    "failed": "L’ouverture a échoué. Réessayez."
+  },
+  "MatterFromCase": {
+    "deadline": "Répondre avant le",
+    "letter": "La lettre",
+    "reply": "Projet de réponse"
   }
 }

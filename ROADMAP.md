@@ -65,7 +65,7 @@ deadlines, drafts, and proposes anything outward for the owner to approve.
 - [x] Ask up to three questions across every document of a matter, answered as a table with the passage each answer came from {#document-review}
 - [ ] Watch a matter's rules: tell its owner when a law, a form or a deadline it depends on changes
 - [ ] Deadline reminders by e-mail
-- [ ] Bring a quick-check letter into a matter in one step
+- [x] Bring a quick-check letter into a matter in one step {#letter-to-matter}
 - [ ] Keys only the owner holds, so the operator cannot open a matter
 
 ### The fleet's design and a technical narrative {#site}

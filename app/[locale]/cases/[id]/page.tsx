@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { use } from "react";
 import { CaseView } from "@/components/CaseView";
+import { OpenAsMatter } from "@/components/matters/OpenAsMatter";
 import { link, shell } from "@/components/ui";
 import { Link, useRouter } from "@/i18n/navigation";
 import { toLocale } from "@/i18n/routing";
@@ -44,6 +45,7 @@ export default function CasePage({ params }: { params: Promise<{ id: string }> }
       {data ? (
         <CaseView
           data={data}
+          next={<OpenAsMatter data={data} />}
           onChange={saveCase}
           onDelete={() => {
             deleteCase(data.id);

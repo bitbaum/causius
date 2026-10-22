@@ -8,6 +8,12 @@ brackets, it is the pull request to read for the detail.
 
 ### Added
 
+- **A quick check opens as a matter.** Under the deadline, one tap moves the
+  check into a sealed matter. The deadline and its sentence, the letter, the
+  draft reply and the place come along. What the check hid from the model stays
+  hidden. Signed out, it goes through sign-in and comes back to the check.
+  {#letter-to-matter}
+
 - **Ask across documents.** In a matter, ask up to three questions of every
   document at once: who pays, when it ends, what notice applies. The answers
   come back as a table, one row per document, and every answer quotes its

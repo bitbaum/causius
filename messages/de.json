@@ -501,7 +501,8 @@
       "check_domain": "Domains",
       "read_document": "gelesen",
       "unverified": "ungeprüft",
-      "review": "geprüft"
+      "review": "geprüft",
+      "from_case": "Schnellprüfung"
     },
     "emptyThread": "Schreiben Sie, worum es geht. Causius beginnt mit der Arbeit.",
     "composer": "An Causius schreiben…",
@@ -1273,5 +1274,17 @@
       "rate_limited": "Zu viele Anfragen in kurzer Zeit. Warten Sie einen Moment.",
       "unknown": "Das hat nicht geklappt. Versuchen Sie es nochmals."
     }
+  },
+  "FromCase": {
+    "eyebrow": "Weiter daran arbeiten",
+    "open": "Als Fall öffnen",
+    "body": "Der Agent behält die Frist im Blick und entwirft mit Ihnen, versiegelt. Was verborgen war, bleibt verborgen.",
+    "working": "Wird geöffnet…",
+    "failed": "Das hat nicht geklappt. Bitte erneut versuchen."
+  },
+  "MatterFromCase": {
+    "deadline": "Antworten bis",
+    "letter": "Der Brief",
+    "reply": "Antwortentwurf"
   }
 }
