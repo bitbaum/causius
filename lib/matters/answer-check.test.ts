@@ -23,6 +23,12 @@ describe("answer check", () => {
     expect(answerProblems("(called web_search, read_page)", none)).toEqual(["narrated"]);
   });
 
+  it("catches calls written as JSON, as one model did on 2026-10-22", () => {
+    const text = '**Matter update**\n```json\n{ "action": "update_matter", "title": "Einsprache" }\n```';
+    expect(answerProblems(text, none)).toEqual(["narrated"]);
+    expect(answerProblems('I used "web_search" earlier.', none)).toEqual([]);
+  });
+
   it("catches a TOOL line left in the answer", () => {
     expect(answerProblems('TOOL: web_search\nARGS: {"query":"x"}', none)).toContain("narrated");
   });

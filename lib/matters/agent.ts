@@ -5,6 +5,7 @@ import {
   type ChatMessage,
   type Env,
   type Link,
+  TEXT_TOOL_PROTOCOL_HINT,
 } from "@bitbaum/ai-kit";
 import { byokChain, isByokConfig } from "@bitbaum/ai-kit/byok";
 import {
@@ -587,13 +588,14 @@ async function runTurnLocked(input: {
   let repaired = false;
   let unverified = false;
   let recorded = 0;
+  let chain = models.chain;
 
   for (let round = 0; round < MAX_ROUNDS; round++) {
     const last = round === MAX_ROUNDS - 1;
     let turn;
     try {
       turn = await complete({
-        chain: models.chain,
+        chain,
         env: models.env,
         extraHeaders: models.extraHeaders,
         health: models.own ? undefined : health,
@@ -634,9 +636,21 @@ async function runTurnLocked(input: {
       });
       if (problems.length && !repaired && round < MAX_ROUNDS - 2) {
         repaired = true;
+        const narrated = problems.includes("narrated");
+        if (narrated) {
+          // Half the free chain cannot call tools natively. The model that just
+          // wrote its calls out goes to the back for the rest of the turn, and
+          // the correction alone carries the text protocol: in the system
+          // prompt it made native callers switch to text and fail (run 5).
+          const served = (l: Link) => `${l.provider.id}/${l.model}` === turn.id;
+          chain = [...chain.filter((l) => !served(l)), ...chain.filter(served)];
+        }
         conversation.push(
           { role: "assistant", content: turn.text },
-          { role: "user", content: repairPrompt(problems) },
+          {
+            role: "user",
+            content: narrated ? `${repairPrompt(problems)}\n\n${TEXT_TOOL_PROTOCOL_HINT}` : repairPrompt(problems),
+          },
         );
         continue;
       }

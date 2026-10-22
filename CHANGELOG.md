@@ -19,8 +19,9 @@ brackets, it is the pull request to read for the detail.
 - **The agent researches before it states the law.** A real question on the
   live site was answered from memory: no search, no source, and the tool calls
   it should have made written into the answer as text. Every answer is now
-  checked: one that cites law without a source, or describes calls instead of
-  making them, is sent back once; if it still fails it is shown marked
+  checked: one that cites law without a source, describes calls instead of
+  making them, or gives a deadline without recording it, is sent back once
+  (a model that wrote its calls out hands the retry to the next model); if it still fails it is shown marked
   "unverified". {#no-unsourced-law}
 
 ## 2026-10-21

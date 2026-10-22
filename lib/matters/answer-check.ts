@@ -9,7 +9,8 @@
  * no source. Every sentence looked finished. That is the fabrication path the
  * product promises not to take, so it is caught here, mechanically:
  *
- *   narrated   — tool calls written out instead of made, or an answer that
+ *   narrated   — tool calls written out instead of made (as name(…), as a
+ *                TOOL line, or as JSON naming the tool), or an answer that
  *                is only the loop's own note of a call ("(called web_search)"),
  *                which a model copies from the conversation as its answer
  *
@@ -48,7 +49,10 @@ export function answerProblems(
 ): AnswerProblem[] {
   const problems: AnswerProblem[] = [];
   const names = turn.toolNames.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
-  const narrated = new RegExp(`\\b(?:${names})\\s*\\(|^\\s*(?:\\*\\*)?TOOL(?:\\*\\*)?\\s*[:=]`, "m");
+  const narrated = new RegExp(
+    `\\b(?:${names})\\s*\\(|[:=]\\s*"(?:${names})"|^\\s*(?:\\*\\*)?TOOL(?:\\*\\*)?\\s*[:=]`,
+    "m",
+  );
   if ((names && narrated.test(text)) || /^\s*\(called [\w, ]+\)\s*$/.test(text)) problems.push("narrated");
   if (turn.sources === 0 && CITES_LAW.test(text)) problems.push("unsourced");
   if (turn.deadlines === 0 && DEADLINE_WORD.test(text) && DATE.test(text)) problems.push("unrecorded");
