@@ -47,7 +47,9 @@ jobs:
           HOSTFILE=/opt/searxng/settings.yml
           cat > /tmp/searx-tune.py <<'PY'
           import sys, yaml
-          WANT = ["bing", "mojeek", "startpage", "qwant", "yahoo", "presearch", "brave", "duckduckgo", "wikipedia"]
+          WANT = ["bing", "mojeek", "startpage", "qwant", "yahoo", "brave", "duckduckgo", "wikipedia"]
+          # Entries SearXNG cannot load (no engine of that name in its defaults); run 4 added presearch.
+          DROP = ["presearch"]
           SUSPEND = {"SearxEngineAccessDenied": 600, "SearxEngineCaptcha": 900, "SearxEngineTooManyRequests": 120,
                      "cf_SearxEngineCaptcha": 900, "cf_SearxEngineAccessDenied": 600, "recaptcha_SearxEngineCaptcha": 900}
           path, apply = sys.argv[1], sys.argv[2] == "true"
@@ -66,6 +68,9 @@ jobs:
                   keep.extend(add); changes.append(f"keep_only += {add}")
           if not isinstance(eng, list):
               eng = []; s["engines"] = eng
+          for d in DROP:
+              if any(isinstance(e, dict) and e.get("name") == d for e in eng):
+                  eng[:] = [e for e in eng if not (isinstance(e, dict) and e.get("name") == d)]; changes.append(f"drop {d}")
           by = {e.get("name"): e for e in eng if isinstance(e, dict)}
           for w in WANT:
               if w in by:
