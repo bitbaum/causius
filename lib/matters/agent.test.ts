@@ -362,3 +362,20 @@ describe("a turn that would end with nothing", () => {
     expect(model.seen.at(-1)).not.toContain('"tools"');
   });
 });
+
+describe("a last round answered with a TOOL line", () => {
+  it("gets one rescue round past the limit, and the answer stands", async () => {
+    const id = await matter();
+    const model = scriptedModel([
+      ...Array.from({ length: 7 }, () => ({ tools: [["note_fact", { fact: "x" }]] as [string, unknown][] })),
+      { text: 'TOOL: read_law\nARGS: {"act":"StG","article":"140","canton":"ZH"}' },
+      { text: "You have until 4 November 2026 to object." },
+    ]);
+    await runTurn({ db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl, text: "When?" });
+    const view = (await loadMatter(db, MASTER, id, OWNER))!;
+    const answer = view.events.filter((e) => e.kind === "message" && e.role === "assistant").at(-1);
+    expect(answer && answer.kind === "message" ? answer.text : "").toContain("4 November 2026");
+    expect(model.seen).toHaveLength(9);
+    expect(model.seen.at(-1)).toContain("Tools are not available any more");
+  });
+});

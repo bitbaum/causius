@@ -642,6 +642,8 @@ async function runTurnLocked(input: {
   // Set when a turn would otherwise end with nothing to show: one more round,
   // without tools, to answer in words.
   let mustAnswer = false;
+  // One rescue round past the limit, only for a turn with no answer at all.
+  let extraRound = 0;
   let corrections = 0;
   let unverified = false;
   let recorded = 0;
@@ -653,8 +655,8 @@ async function runTurnLocked(input: {
   // (StGB, ZPO) is read from the matter's own.
   let jurisdiction = view.jurisdiction;
 
-  for (let round = 0; round < MAX_ROUNDS; round++) {
-    const last = round === MAX_ROUNDS - 1 || mustAnswer;
+  for (let round = 0; round < MAX_ROUNDS + extraRound; round++) {
+    const last = round >= MAX_ROUNDS - 1 + extraRound || mustAnswer;
     let turn;
     try {
       turn = await complete({
@@ -728,11 +730,24 @@ async function runTurnLocked(input: {
         );
         continue;
       }
-      if (!substance && !bestAnswer && !last && round < MAX_ROUNDS - 1) {
+      if (!substance && !bestAnswer && !mustAnswer) {
         // Agent check, 2026-10-22: the only reply was "(called note_fact)",
-        // too late in the turn for a correction; the person saw nothing.
+        // too late in the turn for a correction; in the next run a text-
+        // protocol model answered the tool-less last round with a TOOL line.
+        // Either way the person saw nothing. One round more, by the next
+        // model, without tools, to answer in words.
         mustAnswer = true;
-        conversation.push({ role: "assistant", content: turn.text });
+        if (round >= MAX_ROUNDS - 1) extraRound = 1;
+        const served = (l: Link) => `${l.provider.id}/${l.model}` === turn.id;
+        chain = [...chain.filter((l) => !served(l)), ...chain.filter(served)];
+        conversation.push(
+          { role: "assistant", content: turn.text },
+          {
+            role: "user",
+            content:
+              "Tools are not available any more. Write your answer to the person now, in words, from what the tools returned above. Do not write TOOL lines or describe calls.",
+          },
+        );
         continue;
       }
       unverified = problems.includes("unsourced") || problems.includes("narrated");
