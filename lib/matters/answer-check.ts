@@ -28,6 +28,8 @@
  * still failing is stored with a visible "not checked against a source" step,
  * never silently.
  */
+import { stripToolCallLines } from "@bitbaum/ai-kit";
+
 export type AnswerProblem = "narrated" | "unsourced" | "unrecorded";
 
 /** A statement of law: an article, a paragraph sign, a Swiss/Liechtenstein code or collection number. */
@@ -69,4 +71,20 @@ export function repairPrompt(problems: readonly AnswerProblem[]): string {
         : "Your answer states rules of law, but this turn consulted no source. Use web_search and read_page now to find the official text for each rule, cite it as [n], and drop or mark as unverified any rule you cannot source.",
   );
   return `${lines.join("\n")}\nDo not apologise or mention this message; just do it.`;
+}
+
+/**
+ * An answer that still narrates after its one correction is stored without
+ * the narration: TOOL/ARGS lines, notes of calls, fenced JSON naming a tool.
+ * The last round offers no tools, so nothing parses them there; left in, they
+ * read as work done. What remains may be empty, and the caller says so.
+ */
+export function withoutNarration(text: string, toolNames: readonly string[]): string {
+  const names = new Set(toolNames);
+  return stripToolCallLines(text)
+    .replace(/```[a-z]*\n([\s\S]*?)```/g, (block, body: string) =>
+      [...body.matchAll(/"(\w+)"/g)].some((m) => names.has(m[1])) ? "" : block,
+    )
+    .replace(/^\s*\(called [\w, ]+\)\s*$/gm, "")
+    .trim();
 }

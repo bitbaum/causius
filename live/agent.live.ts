@@ -65,7 +65,7 @@ describe.skipIf(!available)("a real model works a matter", () => {
     for (const i of view.items) console.log(`[agent] item ${i.kind} ${i.due} ${i.label}`);
     console.log(`[agent] answer ${answer && answer.kind === "message" ? answer.text.slice(0, 600).replace(/\n/g, " ") : "-"}`);
     const sent = seen.join("\n");
-    console.log(`[agent] model requests ${seen.length}; name sent: ${/Erika|Muster/.test(sent)}`);
+    console.log(`[agent] model requests ${seen.length}; name sent: ${/Erika|Muster/.test(sent)}; served by ${outcome.ok ? outcome.servedBy : "-"}`);
 
     expect(outcome.ok).toBe(true);
     expect(sent).not.toMatch(/Erika|Muster/);
@@ -92,7 +92,7 @@ describe.skipIf(!available)("a real model works a matter", () => {
     const text = answer && answer.kind === "message" ? answer.text : "";
     const sources = answer && answer.kind === "message" ? (answer.sources ?? []) : [];
     console.log(`[agent] rent: outcome ${JSON.stringify(outcome)}`);
-    console.log(`[agent] rent: steps ${steps.join(", ")}`);
+    console.log(`[agent] rent: steps ${steps.join(", ")}; served by ${outcome.ok ? outcome.servedBy : "-"}`);
     for (const i of view.items) console.log(`[agent] rent: item ${i.kind} ${i.due} ${i.label}`);
     console.log(`[agent] rent: sources ${sources.map((s) => s.url).join(" ")}`);
     console.log(`[agent] rent: answer ${text.slice(0, 900).replace(/\n/g, " ")}`);

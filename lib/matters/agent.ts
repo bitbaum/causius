@@ -44,7 +44,7 @@ import {
 import { workflowById } from "../workflows";
 import { localeEnglishNames, type Locale } from "../../i18n/routing";
 import { marketOf } from "../jurisdictions";
-import { answerProblems, repairPrompt } from "./answer-check";
+import { answerProblems, repairPrompt, withoutNarration } from "./answer-check";
 
 /**
  * The agent that works a matter.
@@ -655,7 +655,7 @@ async function runTurnLocked(input: {
         continue;
       }
       unverified = problems.includes("unsourced") || problems.includes("narrated");
-      finalText = turn.text;
+      finalText = problems.includes("narrated") ? withoutNarration(turn.text, TOOL_NAMES) : turn.text;
       break;
     }
 
