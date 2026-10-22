@@ -256,7 +256,7 @@ describe("the answer check", () => {
     const outcome = await runTurn({
       db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl,
       search: async (query) => ({ status: "could_not_look", query, attempts: [] }),
-      readLaw: async () => ({ ok: false, reason: "unreachable" }),
+      readLaw: async ({ act }) => ({ cite: `${act} (SR 642.11)`, collection: "Fedlex", result: { ok: false, reason: "unreachable" } }),
       text: "How long do I have?",
     });
     expect(outcome).toMatchObject({ ok: true });
@@ -264,7 +264,7 @@ describe("the answer check", () => {
     expect(model.seen[0]).toContain('"name":"web_search"');
     expect(model.seen[1]).not.toContain('"name":"web_search"');
     expect(model.seen[1]).toContain("Search is not available for the rest of this turn");
-    expect(model.seen[2]).toContain("read_law for a Swiss federal act");
+    expect(model.seen[2]).toContain("read_law for a Swiss federal or Liechtenstein act");
     expect(model.seen[3]).toContain("Fedlex could not be reached");
     const view = (await loadMatter(db, MASTER, id, OWNER))!;
     expect(view.events.some((e) => e.kind === "step" && e.tool === "unverified")).toBe(true);
@@ -282,20 +282,24 @@ describe("reading the law", () => {
     const outcome = await runTurn({
       db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl,
       search: async (query) => ({ status: "could_not_look", query, attempts: [] }),
-      readLaw: async ({ sr, article }) => ({
-        ok: true,
-        article: {
-          heading: `Art. ${article}`,
-          text: "1 Der Mieter kann eine Mietzinserhöhung innert 30 Tagen … anfechten.",
-          url: `https://www.fedlex.admin.ch/eli/cc/27/317_321_377/de#art_270_b`,
-          inForceSince: sr === "220" ? "2026-10-01" : "",
+      readLaw: async ({ act, provision }) => ({
+        cite: `${act} (SR 220)`,
+        collection: "Fedlex",
+        result: {
+          ok: true,
+          article: {
+            heading: `Art. ${provision}`,
+            text: "1 Der Mieter kann eine Mietzinserhöhung innert 30 Tagen … anfechten.",
+            url: `https://www.fedlex.admin.ch/eli/cc/27/317_321_377/de#art_270_b`,
+            inForceSince: "2026-10-01",
+          },
         },
       }),
       text: "Can I contest my rent increase?",
     });
     expect(outcome).toMatchObject({ ok: true });
-    expect(model.seen[1]).toContain("read_law for a Swiss federal act");
-    expect(model.seen[2]).toContain("official text in force since 2026-10-01");
+    expect(model.seen[1]).toContain("read_law for a Swiss federal or Liechtenstein act");
+    expect(model.seen[2]).toContain("official text from Fedlex, in force since 2026-10-01");
     const view = (await loadMatter(db, MASTER, id, OWNER))!;
     const answer = view.events.filter((e) => e.kind === "message" && e.role === "assistant").at(-1);
     expect(answer && answer.kind === "message" ? answer.sources : []).toEqual([

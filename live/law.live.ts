@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { FEDERAL_ACTS } from "../lib/law/acts";
 import { readFederalArticle } from "../lib/law/fedlex";
+import { LI_ACTS, readLiechtensteinProvision } from "../lib/law/lilex";
 
 /**
  * The real Fedlex, no keys needed: `pnpm run check:law`. The articles a
@@ -26,6 +27,25 @@ describe("Fedlex, live", () => {
     for (const sr of new Set(Object.values(FEDERAL_ACTS))) {
       const r = await readFederalArticle({ sr, article: "1", lang: "de", day: DAY });
       expect(r.ok, `SR ${sr}`).toBe(true);
+    }
+  }, 600_000);
+
+  it.each([
+    ["ABGB", "Art. 12", /Mietzins/],
+    ["LV", "Art. 1", /elf Gemeinden/],
+    ["StGB", "§ 1", /Keine Strafe ohne Gesetz/],
+  ] as const)("Liechtenstein %s %s", async (act, provision, says) => {
+    const r = await readLiechtensteinProvision({ act, provision });
+    expect(r.ok && r.article.text).toMatch(says);
+    console.log(`[law] LI ${act} ${provision} ${r.ok ? r.article.url : r.reason}`);
+  }, 120_000);
+
+  it("every Liechtenstein act in the map has provisions", async () => {
+    for (const act of Object.keys(LI_ACTS)) {
+      // Lilex answers a burst with a proof-of-work page; be gentle with it.
+      await new Promise((r) => setTimeout(r, 1500));
+      const r = await readLiechtensteinProvision({ act, provision: "1", retryMs: 5000 });
+      expect(r.ok || r.reason === "no_such_article", `${act}: ${r.ok ? "" : r.reason}`).toBe(true);
     }
   }, 600_000);
 });

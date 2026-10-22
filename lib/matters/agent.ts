@@ -44,8 +44,8 @@ import {
 import { workflowById } from "../workflows";
 import { localeEnglishNames, type Locale } from "../../i18n/routing";
 import { marketOf } from "../jurisdictions";
-import { srNumber } from "../law/acts";
-import { readFederalArticle, type LawLanguage } from "../law/fedlex";
+import { readLaw as readLawDefault } from "../law";
+import type { LawLanguage } from "../law/fedlex";
 import { answerProblems, repairPrompt, withoutNarration } from "./answer-check";
 
 /**
@@ -84,7 +84,7 @@ const SYSTEM = `You are Causius, a legal assistant working one matter for the pe
 
 How you work:
 - Be concrete and practical. Say what the person should do, in what order, by when.
-- Ground statements of law in sources. For Swiss federal law, read the article itself with read_law (act "OR", article "270b") before you state it: it returns the official text in force today with its [n]. Use web_search and read_page for cantonal law, decisions and official guidance, and cite them as [n] using the numbers given in the results. Every sentence that states a rule of law ends with its [n]; a rule you could not find a source for is marked as unverified. Prefer the official text (the statute, the authority's own page) over commentary. Never invent a statute, article, decision or deadline, and do not overstate how widely a rule applies. If you are unsure, say so and say how to find out.
+- Ground statements of law in sources. For Swiss federal and Liechtenstein law, read the provision itself with read_law (act "OR", article "270b") before you state it: it returns the official text in force today with its [n]. Use web_search and read_page for cantonal law, decisions and official guidance, and cite them as [n] using the numbers given in the results. Every sentence that states a rule of law ends with its [n]; a rule you could not find a source for is marked as unverified. Prefer the official text (the statute, the authority's own page) over commentary. Never invent a statute, article, decision or deadline, and do not overstate how widely a rule applies. If you are unsure, say so and say how to find out.
 - Distinguish levels of law (national, and regional where regions make their own law). The notes on this matter's jurisdiction, if any, say what applies there.
 - Record every deadline you find or compute with record_deadline, quoting the text it comes from. If a deadline depends on a rule (e.g. "30 days from notification"), say which rule and what you assumed.
 - In your first turn on a new matter, call update_matter to give it a clear title, its area of law and its jurisdiction code. Record important facts with note_fact.
@@ -138,7 +138,7 @@ const TOOLS = [
     function: {
       name: "read_law",
       description:
-        "Read one article of a Swiss federal act from Fedlex, the official collection: the text in force today and its link. Give the act by abbreviation (OR, ZGB, SchKG, ZPO, DBG, AIG, StGB, CO, CC, LP…) or SR number (220), and the article (270b). Cite it by the [n] it returns.",
+        "Read one provision of the law from its official collection: the text in force today and its link. Swiss federal acts (Fedlex): abbreviation (OR, ZGB, SchKG, ZPO, DBG, AIG, StGB, CO, CC, LP…) or SR number (220), and the article (270b). Liechtenstein (gesetze.li): LV, ABGB, PGR, SR, ZPO, StGB, StPO, LVG, AuG, SteG, ArG, and the article or § (\"Art. 12\", \"§ 1090\"; ABGB tenancy is \"Art. n\"). The matter's country is read first. Cite it by the [n] it returns.",
       parameters: {
         type: "object",
         properties: {
@@ -544,7 +544,7 @@ async function runTurnLocked(input: {
   /** Injected in tests. */
   search?: typeof webSearch;
   read?: typeof readPage;
-  readLaw?: typeof readFederalArticle;
+  readLaw?: typeof readLawDefault;
   domains?: typeof checkDomains;
   /** The reader's interface language; the answer is written in it. */
   locale?: Locale;
@@ -622,7 +622,7 @@ async function runTurnLocked(input: {
   const writes = new Map<string, number>();
   const search = input.search ?? webSearch;
   const read = input.read ?? readPage;
-  const readLaw = input.readLaw ?? readFederalArticle;
+  const readLaw = input.readLaw ?? readLawDefault;
   let servedBy = "";
   let finalText = "";
   let corrections = 0;
@@ -632,6 +632,9 @@ async function runTurnLocked(input: {
   let searchMisses = 0;
   let canSearch = true;
   let canReadLaw = true;
+  // Set by update_matter during the turn too: an act both countries have
+  // (StGB, ZPO) is read from the matter's own.
+  let jurisdiction = view.jurisdiction;
 
   for (let round = 0; round < MAX_ROUNDS; round++) {
     const last = round === MAX_ROUNDS - 1;
@@ -795,27 +798,34 @@ async function runTurnLocked(input: {
             .join("\n");
         }
         case "read_law": {
-          const sr = srNumber(args.act!);
-          if (!sr)
-            return `"${args.act}" is not a Swiss federal act known by that name. Give its SR number (every Fedlex page shows it), or use web_search for cantonal or foreign law.`;
-          const found = await readLaw({ sr, article: args.article!, lang: (args.language as LawLanguage | undefined) ?? "de", day: swissToday() });
-          if (!found.ok) {
-            if (found.reason === "unreachable") canReadLaw = false;
+          const found = await readLaw({
+            act: args.act!,
+            provision: args.article!,
+            lang: (args.language as LawLanguage | undefined) ?? "de",
+            day: swissToday(),
+            country: jurisdiction?.split("-")[0],
+          });
+          if ("unknown" in found)
+            return `"${args.act}" is not an act read_law knows. For a Swiss federal act give its SR number (every Fedlex page shows it); for cantonal, foreign or other law use web_search.`;
+          const { result, cite, collection } = found;
+          if (!result.ok) {
+            if (result.reason === "unreachable") canReadLaw = false;
             return {
-              unreachable: "Fedlex could not be reached, so the article was not read. Do not quote it from memory.",
-              no_such_act: `No act numbered SR ${sr} is in force today.`,
-              no_such_article: `SR ${sr} has no article ${args.article} in force today.`,
-            }[found.reason];
+              unreachable: `${collection} could not be reached, so the provision was not read. Do not quote it from memory.`,
+              no_such_act: `${cite}: no such act is in force today.`,
+              no_such_article: `${cite} has no provision ${args.article} in force today.`,
+            }[result.reason];
           }
-          const a = found.article;
-          const title = `${a.heading} ${args.act} (SR ${sr})`;
+          const a = result.article;
+          const title = `${a.heading} ${cite}`;
           let n = sources.findIndex((s) => s.url === a.url);
           if (n < 0) {
             sources.push({ id: String(sources.length + 1), title, url: a.url });
             n = sources.length - 1;
           }
           await appendStep(db, m, { tool: "read_law", summary: title });
-          return `[${n + 1}] ${title}, official text in force since ${a.inForceSince} — ${a.url}\n${a.text.slice(0, 6000)}`;
+          const since = a.inForceSince ? `, in force since ${a.inForceSince}` : ", as consolidated today";
+          return `[${n + 1}] ${title}, official text from ${collection}${since} — ${a.url}\n${a.text.slice(0, 6000)}`;
         }
         case "read_page": {
           const refused = refusesPageAddress(args.url!);
@@ -885,6 +895,7 @@ async function runTurnLocked(input: {
             }),
             args.jurisdiction,
           );
+          if (args.jurisdiction) jurisdiction = args.jurisdiction.toUpperCase();
           await appendStep(db, m, {
             tool: "update_matter",
             summary: args.title ?? "updated the matter",
