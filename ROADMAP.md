@@ -63,6 +63,8 @@ deadlines, drafts, and proposes anything outward for the owner to approve.
 - [x] Check domain names with the registries before founding on a name {#domains}
 - [x] Start from a common problem: a workflow says what to establish and draft, never the law itself {#workflows}
 - [x] Ask up to three questions across every document of a matter, answered as a table with the passage each answer came from {#document-review}
+- [x] The agent reads the law itself from the official sources, for no fee: Swiss federal law from Fedlex, Liechtenstein from gesetze.li and all 26 cantons through LexFind {#reads-law}
+- [x] Every answer checked before it is shown: law needs a source, a deadline given is a deadline recorded, tool calls are made and not narrated, the answer is in the reader's language, and a turn always ends with an answer {#answer-checks}
 - [ ] Watch a matter's rules: tell its owner when a law, a form or a deadline it depends on changes
 - [ ] Deadline reminders by e-mail
 - [x] Bring a quick-check letter into a matter in one step {#letter-to-matter}
@@ -75,6 +77,39 @@ deadlines, drafts, and proposes anything outward for the owner to approve.
 
 ## Next
 
+### The law from Solon {#law-from-solon}
+
+Causius holds legal work; the law itself belongs in Solon, as data. Until it is
+there Causius reads the official publishers directly, and keeps doing so as a
+check. The plan, the sources and the sizes are in Solon's
+`docs/design/2026-10-law-as-data.md`.
+
+- [ ] Solon holds the acts (its register, then federal text, then Liechtenstein, then the cantons)
+- [ ] The agent asks Solon first and falls back to the publisher; an answer cites the publisher's link and Solon's hash
+- [ ] The agent tells a person when a law a matter depends on has changed, with what changed
+
+### The big problems, as workflows {#big-workflows}
+
+A workflow says what to establish and what to draft, never the law itself. The
+common problems are covered (debt, rent increase, tax assessment, dismissal,
+insurance refusal, association). The ones people most often bring, and that
+Causius can only meet today by improvising, are not:
+
+- [ ] Founding a company in Switzerland or Liechtenstein: the form (GmbH, AG, sole proprietorship), capital, statutes and the founding checklist; the notarial deed, the capital deposit and the register entry are handed over to a notary, never done here {#wf-company}
+- [ ] Divorce: agreement or dispute, children, property and pensions; the petition and a draft convention; a lawyer recommended where the law and the sums call for one {#wf-divorce}
+- [ ] A notice ending a tenancy, and an eviction: which it is, the thirty days to contest, the request for an extension, the draft {#wf-termination}
+- [ ] Choosing a vehicle for an investment or an inheritance (foundation, Anstalt, company, fund) and comparing it across Switzerland, Liechtenstein, Luxembourg and Ireland: a sourced first draft, and then a licensed trustee or lawyer {#wf-vehicle}
+
+### Law beyond Switzerland and Liechtenstein {#more-law}
+
+Switzerland and Liechtenstein are the markets. A country is added by giving it
+a reader for its official publisher; Luxembourg and Ireland are first, because
+vehicle comparisons need them.
+
+- [ ] Luxembourg: Legilux, read as Fedlex is
+- [ ] Ireland: the Irish Statute Book, read the same way
+- [ ] The citation check recognises each market's way of citing law, so a rule quoted without a source is caught there too (today it knows Swiss and Liechtenstein forms only)
+
 ### Helpers you can actually reach {#helpers}
 
 Legal assistants and licensed lawyers offer their help as services on OrangeCat
@@ -86,7 +121,7 @@ and are paid there. Causius adds the label and the check.
 - [x] A lawyer's admission checked against the public register before the label, published as a signed attestation {#attestation}
 - [x] Ask a helper about a matter, sharing it with or without your personal details {#engage}
 - [ ] Helpers paid through OrangeCat, with the money held until the work is accepted; a flat price per piece of work, never a share of a lawyer's fee
-- [ ] Credentials issued by a bar itself, so the check needs no word of ours
+- [ ] Credentials issued by a bar itself, so the check needs no word of ours. Today's attestation is a signed selective disclosure: a reviewer checked the admission, and the public sees only what the lawyer chooses. It is not yet a zero-knowledge proof, and says so
 - [ ] Notices by e-mail when a helper is asked, answers or writes
 
 ### Decide the marketplace rules in the open {#governance}
@@ -108,7 +143,6 @@ decisions, and decisions belong on Solon.
 - [ ] Found a company or an association: documents prepared by the agent, filed on approval
 - [ ] Register a domain on approval, through a registrar connected to OrangeCat payments
 - [ ] Contracts signed by the parties, obligations tracked, payment held in escrow on OrangeCat
-- [ ] The law cited from Solon as versioned data, rule by rule
 - [ ] Law firms running Causius on models inside their own walls
 
 ### More than letters {#beyond}

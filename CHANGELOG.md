@@ -35,6 +35,22 @@ brackets, it is the pull request to read for the detail.
   another language than the reader's is now sent back to be written again,
   keeping its facts and citations. {#answer-language}
 
+- **A turn no longer ends with "I could not finish".** Free models misbehave
+  in ways that a plain answer check does not catch: one reply asked for the same
+  statute a hundred and fifty times, another wrote its answer as a tool call in
+  the last round, where no tool can run. A reply now runs at most eight calls
+  and a repeat only once, a turn at most twelve law readings and eight searches,
+  a turn with nothing to show gets one more round, with tools off, by another
+  model, and the best real answer of the turn is kept when a later reply is only
+  a note of a call. {#turn-never-empty}
+
+- **Search works again, on our own server.** The search engine on the host had
+  four sources, all four blocked for too many requests or a CAPTCHA, so every
+  search came back empty. More free sources are switched on and a block lasts
+  minutes instead of hours. The other engines still refuse the host, so search
+  stays thin and the law is read from the publishers instead. No paid service
+  is involved. {#search-again}
+
 - **The agent researches before it states the law.** A real question on the
   live site was answered from memory: no search, no source, and the tool calls
   it should have made written into the answer as text. Every answer is now
@@ -42,6 +58,16 @@ brackets, it is the pull request to read for the detail.
   making them, or gives a deadline without recording it, is sent back once
   (up to twice, each time to the next model in the chain); if it still fails it is shown marked
   "unverified". {#no-unsourced-law}
+
+### Changed
+
+- **The roadmap records where this is going.** The law will be read from Solon
+  as data, with the publisher as the check; the problems people bring most
+  often (a company, a divorce, a notice ending a tenancy, choosing a vehicle for
+  an investment) are named as workflows to build; Luxembourg and Ireland are
+  named as the next readers; and the lawyer credential is described as what it
+  is, a signed selective disclosure and not yet a zero-knowledge proof. None of
+  this is built. {#roadmap-direction}
 
 ## 2026-10-21
 
