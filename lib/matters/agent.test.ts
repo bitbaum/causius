@@ -264,7 +264,7 @@ describe("the answer check", () => {
     expect(model.seen[0]).toContain('"name":"web_search"');
     expect(model.seen[1]).not.toContain('"name":"web_search"');
     expect(model.seen[1]).toContain("Search is not available for the rest of this turn");
-    expect(model.seen[2]).toContain("read_law for a Swiss federal or Liechtenstein act");
+    expect(model.seen[2]).toContain("read_law for a Swiss federal, cantonal or Liechtenstein act");
     expect(model.seen[3]).toContain("Fedlex could not be reached");
     const view = (await loadMatter(db, MASTER, id, OWNER))!;
     expect(view.events.some((e) => e.kind === "step" && e.tool === "unverified")).toBe(true);
@@ -298,7 +298,7 @@ describe("reading the law", () => {
       text: "Can I contest my rent increase?",
     });
     expect(outcome).toMatchObject({ ok: true });
-    expect(model.seen[1]).toContain("read_law for a Swiss federal or Liechtenstein act");
+    expect(model.seen[1]).toContain("read_law for a Swiss federal, cantonal or Liechtenstein act");
     expect(model.seen[2]).toContain("official text from Fedlex, in force since 2026-10-01");
     const view = (await loadMatter(db, MASTER, id, OWNER))!;
     const answer = view.events.filter((e) => e.kind === "message" && e.role === "assistant").at(-1);

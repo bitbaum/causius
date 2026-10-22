@@ -1,5 +1,6 @@
 import { srNumber } from "./acts";
 import { readFederalArticle, type LawLanguage, type ReadArticle } from "./fedlex";
+import { readCantonalProvision } from "./lexfind";
 import { liActId, readLiechtensteinProvision } from "./lilex";
 
 /**
@@ -17,18 +18,27 @@ export interface LawQuery {
   lang: LawLanguage;
   /** YYYY-MM-DD: the version in force that day, where the collection keeps versions. */
   day: string;
+  /** A Swiss canton ("ZH") for cantonal law: the matter's, or one named. */
+  canton?: string | null;
   fetchImpl?: typeof fetch;
 }
 
 /** A reader returns null when the act is not one of its own. */
 const READERS: Record<string, { label: string; read: (q: LawQuery) => Promise<{ result: ReadArticle; cite: string } | null> }> = {
   CH: {
-    label: "Fedlex",
+    label: "Fedlex / LexFind",
     async read(q) {
       const sr = srNumber(q.act);
-      if (!sr) return null;
-      const result = await readFederalArticle({ sr, article: q.provision, lang: q.lang, day: q.day, fetchImpl: q.fetchImpl });
-      return { result, cite: `${q.act} (SR ${sr})` };
+      if (sr) {
+        const result = await readFederalArticle({ sr, article: q.provision, lang: q.lang, day: q.day, fetchImpl: q.fetchImpl });
+        return { result, cite: `${q.act} (SR ${sr})` };
+      }
+      // Not a federal act: the canton's own, through LexFind.
+      if (!q.canton) return null;
+      const found = await readCantonalProvision({ canton: q.canton, act: q.act, provision: q.provision, lang: q.lang, fetchImpl: q.fetchImpl });
+      if (!found) return null;
+      const { act, ...result } = found;
+      return { result, cite: act ? `${act.abbreviation} ${q.canton} ${act.number} (${act.title})` : `${q.act} ${q.canton}` };
     },
   },
   LI: {
