@@ -586,6 +586,7 @@ async function runTurnLocked(input: {
   let finalText = "";
   let repaired = false;
   let unverified = false;
+  let recorded = 0;
 
   for (let round = 0; round < MAX_ROUNDS; round++) {
     const last = round === MAX_ROUNDS - 1;
@@ -626,7 +627,11 @@ async function runTurnLocked(input: {
     if (turn.toolCalls.length === 0) {
       // The server holds the answer to what the prompt asks (answer-check.ts):
       // no tool calls written out instead of made, no law without a source.
-      const problems = answerProblems(turn.text, { toolNames: TOOL_NAMES, sources: sources.length });
+      const problems = answerProblems(turn.text, {
+        toolNames: TOOL_NAMES,
+        sources: sources.length,
+        deadlines: recorded + view.items.filter((i) => i.kind === "deadline").length,
+      });
       if (problems.length && !repaired && round < MAX_ROUNDS - 2) {
         repaired = true;
         conversation.push(
@@ -746,6 +751,7 @@ async function runTurnLocked(input: {
             label: args.label!,
             quote: args.quote,
           });
+          recorded++;
           await appendStep(db, m, {
             tool: "record_deadline",
             summary: `${args.date}: ${args.label}`,

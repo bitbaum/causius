@@ -41,9 +41,19 @@ describe("answer check", () => {
     expect(answerProblems("I will search the web for the cantonal rules.", none)).toEqual([]);
   });
 
+  it("catches a deadline given but not recorded", () => {
+    const text = "## Your deadline: **4 November 2026**\nThe 30 days run from service.";
+    expect(answerProblems(text, { ...none, deadlines: 0 })).toEqual(["unrecorded"]);
+    expect(answerProblems("Die Frist läuft am 04.11.2026 ab.", { ...none, deadlines: 0 })).toEqual(["unrecorded"]);
+    expect(answerProblems(text, { ...none, deadlines: 1 })).toEqual([]);
+    // A date with no deadline in sight is not a deadline.
+    expect(answerProblems("The assessment is dated 2 October 2026.", { ...none, deadlines: 0 })).toEqual([]);
+  });
+
   it("asks for each problem, plainly", () => {
     const p = repairPrompt(["narrated", "unsourced"]);
     expect(p).toMatch(/Call the tools now/);
     expect(p).toMatch(/web_search/);
+    expect(repairPrompt(["unrecorded"])).toMatch(/record_deadline/);
   });
 });
