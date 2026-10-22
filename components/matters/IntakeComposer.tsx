@@ -55,6 +55,8 @@ export function useChatLabels() {
   const thread = {
     copy: t("copy"),
     copied: t("copied"),
+    listen: t("listen"),
+    share: t("share"),
     retry: t("retry"),
     stop: t("stop"),
     working: t("working"),

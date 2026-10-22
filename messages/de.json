@@ -877,6 +877,8 @@
     "noteUnreadable": "{name} konnte nicht gelesen werden.",
     "copy": "Kopieren",
     "copied": "Kopiert",
+    "listen": "Vorlesen",
+    "share": "Teilen",
     "retry": "Nochmals versuchen",
     "working": "Ich arbeite…",
     "stopped": "Gestoppt. Senden Sie es nochmals, um es erneut zu versuchen.",
