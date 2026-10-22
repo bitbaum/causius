@@ -54,6 +54,7 @@ describe.skipIf(!available)("a real model works a matter", () => {
     });
     const outcome = await runTurn({
       db, master: MASTER, matterId: id, sub: "actor-live", env: process.env, fetchImpl: tap, locale: "en",
+      onRound: (r) => console.log(`[agent] round ${r.round} ${r.servedBy} calls=${r.calls.join(",") || "-"} problems=${r.problems.join(",") || "-"} | ${r.text.replace(/\n/g, " ").slice(0, 120)}`),
       text: `I received this letter and want to object. What is my deadline? Please record it.\n\n${LETTER}`,
     });
     const view = (await loadMatter(db, MASTER, id, "actor-live"))!;
@@ -85,6 +86,7 @@ describe.skipIf(!available)("a real model works a matter", () => {
     });
     const outcome = await runTurn({
       db, master: MASTER, matterId: id, sub: "actor-live", env: process.env, locale: "en",
+      onRound: (r) => console.log(`[agent] rent: round ${r.round} ${r.servedBy} calls=${r.calls.join(",") || "-"} problems=${r.problems.join(",") || "-"} | ${r.text.replace(/\n/g, " ").slice(0, 120)}`),
       text: "My landlord in Zürich notified me on 1 October 2026, on the official form, that my rent rises by 8% from 1 January 2027, citing increased costs. Can I contest it, by when, and with which authority?",
     });
     const view = (await loadMatter(db, MASTER, id, "actor-live"))!;

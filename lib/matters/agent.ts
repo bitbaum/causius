@@ -519,6 +519,8 @@ async function runTurnLocked(input: {
   domains?: typeof checkDomains;
   /** The reader's interface language; the answer is written in it. */
   locale?: Locale;
+  /** Called after every model call: which link served, what it asked for, what the check found. The live check reads it. */
+  onRound?: (r: { round: number; servedBy: string; calls: string[]; problems: string[]; text: string }) => void;
 }): Promise<TurnOutcome> {
   const { db, master, matterId, sub } = input;
   const opened = await openMatter(db, master, matterId, sub);
@@ -634,6 +636,8 @@ async function runTurnLocked(input: {
       throw error;
     }
     servedBy = turn.id;
+    const trace = (problems: string[]) =>
+      input.onRound?.({ round, servedBy, calls: turn.toolCalls.map((c) => c.name), problems, text: turn.text.slice(0, 160) });
     if (turn.toolCalls.length === 0) {
       // The server holds the answer to what the prompt asks (answer-check.ts):
       // no tool calls written out instead of made, no law without a source.
@@ -642,6 +646,7 @@ async function runTurnLocked(input: {
         sources: sources.length,
         deadlines: recorded + view.items.filter((i) => i.kind === "deadline").length,
       });
+      trace(problems);
       if (problems.length && corrections < MAX_CORRECTIONS && round < MAX_ROUNDS - 2) {
         corrections++;
         const narrated = problems.includes("narrated");
@@ -668,6 +673,7 @@ async function runTurnLocked(input: {
       break;
     }
 
+    trace([]);
     const results: string[] = [];
     for (const call of turn.toolCalls) {
       const result = await runTool(call.name, call.args);
