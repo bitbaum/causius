@@ -1,0 +1,115 @@
+name: Search tune
+
+# By hand: keep the self-hosted SearXNG answering.
+#
+# Search doctor (2026-10-22) found it running four engines (brave,
+# duckduckgo, google cse, wikipedia), all four suspended for "too many
+# requests" or a CAPTCHA, so every query answered empty, for every fleet app
+# that shares it. Free fixes, on our own box:
+#   - more engines with independent indexes, so one throttled engine is one
+#     of ten rather than one of four;
+#   - suspensions in minutes, not SearXNG's default hour (a day after a
+#     CAPTCHA), so a burst does not take search out for the afternoon.
+#
+# apply=false (default) prints the current engine setup and what would
+# change. apply=true backs the file up next to itself, edits it inside the
+# container (which has Python and YAML), restarts SearXNG and probes it.
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "Apply the change (otherwise only show it)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  tune:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Tune SearXNG on the box
+        env:
+          SSH_KEY: ${{ secrets.HETZNER_SSH_PRIVATE_KEY }}
+          APPLY: ${{ inputs.apply }}
+        run: |
+          set -euo pipefail
+          IP=167.233.22.31
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id && chmod 600 ~/.ssh/id
+          ssh-keyscan -H "$IP" >> ~/.ssh/known_hosts 2>/dev/null
+          ssh -i ~/.ssh/id -o BatchMode=yes "ubuntu@$IP" "APPLY=$APPLY bash -s" > out.txt 2>&1 <<'REMOTE' || status=$?
+          set -euo pipefail
+          D=docker; $D ps >/dev/null 2>&1 || D="sudo -n docker"
+          C=searxng
+          HOSTFILE=/opt/searxng/settings.yml
+          cat > /tmp/searx-tune.py <<'PY'
+          import sys, yaml
+          WANT = ["bing", "mojeek", "startpage", "qwant", "yahoo", "presearch", "brave", "duckduckgo", "wikipedia"]
+          SUSPEND = {"SearxEngineAccessDenied": 600, "SearxEngineCaptcha": 900, "SearxEngineTooManyRequests": 120,
+                     "cf_SearxEngineCaptcha": 900, "cf_SearxEngineAccessDenied": 600, "recaptcha_SearxEngineCaptcha": 900}
+          path, apply = sys.argv[1], sys.argv[2] == "true"
+          s = yaml.safe_load(open(path)) or {}
+          eng = s.get("engines")
+          keep = (s.get("use_default_settings") or {}).get("engines", {}).get("keep_only") if isinstance(s.get("use_default_settings"), dict) else None
+          print("use_default_settings:", "dict" if isinstance(s.get("use_default_settings"), dict) else s.get("use_default_settings"))
+          print("keep_only:", keep)
+          if isinstance(eng, list):
+              print("engines listed:", [(e.get("name"), "disabled" if e.get("disabled") else "on") for e in eng])
+          print("suspended_times:", (s.get("search") or {}).get("suspended_times"))
+          changes = []
+          if keep is not None:
+              add = [w for w in WANT if w not in keep]
+              if add:
+                  keep.extend(add); changes.append(f"keep_only += {add}")
+          if not isinstance(eng, list):
+              eng = []; s["engines"] = eng
+          by = {e.get("name"): e for e in eng if isinstance(e, dict)}
+          for w in WANT:
+              if w in by:
+                  if by[w].get("disabled"):
+                      by[w]["disabled"] = False; changes.append(f"enable {w}")
+              elif s.get("use_default_settings"):
+                  eng.append({"name": w, "disabled": False}); changes.append(f"switch on default engine {w}")
+          search = s.setdefault("search", {})
+          cur = search.get("suspended_times") or {}
+          if any(cur.get(k) != v for k, v in SUSPEND.items()):
+              search["suspended_times"] = {**cur, **SUSPEND}; changes.append(f"suspended_times -> {SUSPEND}")
+          print("changes:", changes or "none")
+          if apply and changes:
+              with open(path, "w") as f:
+                  yaml.safe_dump(s, f, sort_keys=False, allow_unicode=True)
+              print("written")
+          PY
+          $D cp /tmp/searx-tune.py "$C":/tmp/searx-tune.py
+          if [ "$APPLY" = "true" ]; then
+            sudo -n cp -p "$HOSTFILE" "$HOSTFILE.bak-$(date -u +%Y%m%dT%H%M%SZ)"
+            echo "backup: $(ls -1 $HOSTFILE.bak-* | tail -n 1)"
+          fi
+          $D exec -u 0 "$C" python3 /tmp/searx-tune.py /etc/searxng/settings.yml "$APPLY"
+          if [ "$APPLY" = "true" ]; then
+            $D restart "$C" >/dev/null && echo "restarted"
+            for i in $(seq 1 30); do curl -s -o /dev/null -m 3 http://127.0.0.1:8899/healthz && break; sleep 2; done
+            $D logs --since 2m "$C" 2>&1 | grep -iE 'error|invalid|yaml' | tail -n 20 || true
+          fi
+          for q in "Art. 270b OR Mietzinserhöhung anfechten" "Einsprachefrist Steuerveranlagung Zürich" "weather Zurich"; do
+            curl -s -m 30 -G -H 'Accept: application/json' --data-urlencode "q=$q" --data-urlencode format=json \
+              http://127.0.0.1:8899/search -o r.json -w "%{http_code}" > code.txt || true
+            python3 - "$q" "$(cat code.txt)" <<'PY'
+          import json, sys, collections
+          q, code = sys.argv[1], sys.argv[2]
+          try:
+              d = json.load(open("r.json"))
+          except Exception as e:
+              print(f"[{code}] {q!r}: not JSON ({e})"); sys.exit()
+          by = collections.Counter(r.get("engine") for r in d.get("results", []))
+          print(f"[{code}] {q!r}: {len(d.get('results', []))} results {dict(by)}; unresponsive: {d.get('unresponsive_engines')}")
+          PY
+          done
+          rm -f r.json code.txt /tmp/searx-tune.py
+          REMOTE
+          rm -f ~/.ssh/id
+          while IFS= read -r line; do echo "::notice::$line"; done < out.txt
+          exit "${status:-0}"
