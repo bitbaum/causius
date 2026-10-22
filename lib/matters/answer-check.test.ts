@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { answerProblems, repairPrompt, withoutNarration } from "./answer-check";
+import { answerLanguage, answerProblems, repairPrompt, withoutNarration } from "./answer-check";
 
 const TOOLS = ["web_search", "read_page", "record_deadline", "update_matter", "draft_document"];
 const none = { toolNames: TOOLS, sources: 0 };
@@ -70,5 +70,25 @@ describe("answer check", () => {
     expect(p).toMatch(/Call the tools now/);
     expect(p).toMatch(/web_search/);
     expect(repairPrompt(["unrecorded"])).toMatch(/record_deadline/);
+  });
+});
+
+describe("the answer's language", () => {
+  const de =
+    "Ja, Sie können die Mietzinserhöhung anfechten. Die Frist beträgt 30 Tage, und sie beginnt mit dem Tag, an dem Ihnen die Mitteilung zugestellt worden ist. Die Schlichtungsbehörde ist für Ihre Wohnung zuständig, und die Anfechtung ist kostenlos. Sie müssen die Gründe nicht im Detail angeben, aber es ist hilfreich, wenn Sie die Unterlagen mit der Eingabe einreichen können.";
+  const en =
+    "Yes, you can contest the increase. The deadline is 30 days from the day the notice reached you, and the conciliation authority for your flat is the one to write to. It costs nothing to file, and you do not need to give detailed reasons, but it helps if you can attach the notice and your lease to the application you send.";
+
+  it("tells a German answer from an English one, and leaves short or quoted text alone", () => {
+    expect(answerLanguage(de)).toBe("de");
+    expect(answerLanguage(en)).toBe("en");
+    expect(answerLanguage("Ja, Sie können.")).toBeNull();
+    expect(answerLanguage(`${en} «${de}»`)).toBe("en");
+  });
+
+  it("sends back an answer in another language than the reader's", () => {
+    expect(answerProblems(de, { ...none, sources: 1, locale: "en" })).toEqual(["language"]);
+    expect(answerProblems(de, { ...none, sources: 1, locale: "de" })).toEqual([]);
+    expect(repairPrompt(["language"], { language: "English" })).toMatch(/Write it again in English/);
   });
 });

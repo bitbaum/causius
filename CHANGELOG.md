@@ -30,6 +30,11 @@ brackets, it is the pull request to read for the detail.
 
 ### Fixed
 
+- **Answers come in the reader's language.** After reading German statutes the
+  agent once answered an English question in German. An answer plainly in
+  another language than the reader's is now sent back to be written again,
+  keeping its facts and citations. {#answer-language}
+
 - **The agent researches before it states the law.** A real question on the
   live site was answered from memory: no search, no source, and the tool calls
   it should have made written into the answer as text. Every answer is now
