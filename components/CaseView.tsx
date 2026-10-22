@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import { daysUntil, formatDate, type CaseFile } from "@/lib/case";
 import { anonymisedCase } from "@/lib/case-export";
@@ -15,6 +15,8 @@ interface Props {
   onChange?: (next: CaseFile) => void;
   onDelete?: () => void;
   onSaveCopy?: () => void;
+  /** The next step, under the deadline: opening the check as a matter. */
+  next?: ReactNode;
 }
 
 /**
@@ -86,7 +88,7 @@ function download(data: unknown, name: string) {
 
 
 
-export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
+export function CaseView({ data, onChange, onDelete, onSaveCopy, next }: Props) {
   const t = useTranslations("Case");
   const locale = useLocale();
   const [lang, setLang] = useState(0);
@@ -147,6 +149,7 @@ export function CaseView({ data, onChange, onDelete, onSaveCopy }: Props) {
               {data.consequence}
             </p>
           )}
+          {next}
         </div>
       </header>
 

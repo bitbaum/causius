@@ -4,7 +4,7 @@ import en from "../messages/en.json";
 import fr from "../messages/fr.json";
 import it_ from "../messages/it.json";
 import { locales } from "../i18n/routing";
-import { JURISDICTION_GROUPS, jurisdictionLabel, MARKETS, marketOf } from "./jurisdictions";
+import { JURISDICTION_GROUPS, jurisdictionFromText, jurisdictionLabel, MARKETS, marketOf } from "./jurisdictions";
 
 const MESSAGES = { en, de, fr, it: it_ } as const;
 
@@ -39,5 +39,26 @@ describe("markets", () => {
     expect(marketOf("CH-GE")?.code).toBe("CH");
     expect(marketOf("US")).toBeUndefined();
     expect(jurisdictionLabel("CH-GE", "fr")).toBe("Genève, Suisse");
+  });
+});
+
+describe("a place read out of the quick check's words", () => {
+  it("finds the canton by any of its names, else the country", () => {
+    expect(jurisdictionFromText("Switzerland · Canton of Zürich")).toBe("CH-ZH");
+    expect(jurisdictionFromText("Schweiz · Kanton Zurich")).toBe("CH-ZH");
+    expect(jurisdictionFromText("Suisse · canton de Genève")).toBe("CH-GE");
+    expect(jurisdictionFromText("Switzerland · Geneva")).toBe("CH-GE");
+    expect(jurisdictionFromText("Basel-Landschaft")).toBe("CH-BL");
+    expect(jurisdictionFromText("Switzerland (federal)")).toBe("CH");
+    expect(jurisdictionFromText("Fürstentum Liechtenstein · Vaduz")).toBe("LI");
+  });
+
+  it("gives nothing for a place outside the markets, even with a cantonal name in it", () => {
+    expect(jurisdictionFromText("Germany · Freiburg im Breisgau")).toBeNull();
+    expect(jurisdictionFromText("France · Jura")).toBeNull();
+    expect(jurisdictionFromText("")).toBeNull();
+    expect(jurisdictionFromText(undefined)).toBeNull();
+    // Not a word inside another word.
+    expect(jurisdictionFromText("Curia")).toBeNull();
   });
 });

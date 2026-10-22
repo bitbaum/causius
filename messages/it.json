@@ -501,7 +501,8 @@
       "check_domain": "domini",
       "read_document": "lettura",
       "unverified": "non verificato",
-      "review": "esaminato"
+      "review": "esaminato",
+      "from_case": "verifica rapida"
     },
     "emptyThread": "Scriva che cosa succede. Causius si metterà al lavoro.",
     "composer": "Scrivere a Causius…",
@@ -1273,5 +1274,17 @@
       "rate_limited": "Troppe richieste in poco tempo. Attenda un momento.",
       "unknown": "Non ha funzionato. Riprovi."
     }
+  },
+  "FromCase": {
+    "eyebrow": "Continuare",
+    "open": "Apri come pratica",
+    "body": "L’agente segue il termine e redige con te, sotto sigillo. Ciò che era nascosto resta nascosto.",
+    "working": "Apertura…",
+    "failed": "Non si è aperto. Riprova."
+  },
+  "MatterFromCase": {
+    "deadline": "Rispondere entro",
+    "letter": "La lettera",
+    "reply": "Bozza di risposta"
   }
 }

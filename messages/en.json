@@ -501,7 +501,8 @@
       "check_domain": "domains",
       "read_document": "read",
       "unverified": "unverified",
-      "review": "reviewed"
+      "review": "reviewed",
+      "from_case": "quick check"
     },
     "emptyThread": "Write what is going on. Causius will start working.",
     "composer": "Write to Causius…",
@@ -1273,5 +1274,17 @@
       "rate_limited": "Too many requests in a short time. Wait a little.",
       "unknown": "That did not work. Try again."
     }
+  },
+  "FromCase": {
+    "eyebrow": "Keep working on it",
+    "open": "Open as a matter",
+    "body": "The agent keeps the deadline and drafts with you, sealed. What was hidden stays hidden.",
+    "working": "Opening…",
+    "failed": "It did not open. Try again."
+  },
+  "MatterFromCase": {
+    "deadline": "Reply by",
+    "letter": "The letter",
+    "reply": "Draft reply"
   }
 }

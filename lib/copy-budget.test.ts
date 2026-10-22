@@ -37,7 +37,9 @@ const BUDGETS: { page: string; namespaces: string[]; budget: number }[] = [
   // error lines are what they read when it goes wrong.
   { page: "NewCase (quick check)", namespaces: ["NewCase"], budget: 310 },
   // The result, around the case's own content.
-  { page: "Case", namespaces: ["Case"], budget: 170 },
+  // Raised from 170 on 2026-10-22 for one card: the quick check's next step,
+  // opening it as a matter. Without it a check was a dead end on this device.
+  { page: "Case", namespaces: ["Case", "FromCase"], budget: 200 },
   // The working screen of a matter. Held where it stands: it may fall, not rise.
   { page: "Matter", namespaces: ["Matter"], budget: 380 },
   // Explains a choice; reference rather than landing.

@@ -54,12 +54,28 @@ export interface Market {
   languages: readonly Locale[];
   /** What the agent must keep in mind about this legal order. Written for the model, in English. */
   agentNote: string;
+  /** Other names a region goes by in letters ("Geneva", "Genf"), for reading a place out of text. */
+  aliases?: Record<string, readonly string[]>;
 }
 
 const SWITZERLAND: Market = {
   code: "CH",
   regions: CANTONS,
   languages: ["de", "fr", "it"],
+  aliases: {
+    "CH-ZH": ["Zurich"],
+    "CH-BE": ["Berne"],
+    "CH-LU": ["Lucerne"],
+    "CH-FR": ["Freiburg"],
+    "CH-BL": ["Basel-Land", "Bâle-Campagne"],
+    "CH-BS": ["Bâle-Ville"],
+    "CH-GR": ["Grisons", "Grigioni"],
+    "CH-TI": ["Tessin"],
+    "CH-VD": ["Waadt"],
+    "CH-VS": ["Wallis"],
+    "CH-NE": ["Neuenburg"],
+    "CH-GE": ["Geneva", "Genf", "Ginevra"],
+  },
   agentNote:
     "Switzerland: federal law and the law of the 26 cantons differ; a cantonal tax, permit or procedure is governed by the canton's law, not only by the federal act. Official texts are on fedlex.admin.ch and on each canton's own collection.",
 };
@@ -103,4 +119,27 @@ export function jurisdictionLabel(code: string | null | undefined, locale: strin
   const [country, sub] = code.split("-");
   const countryName = region.of(country!) ?? country!;
   return sub ? `${marketOf(code)?.regions[code] ?? sub}, ${countryName}` : countryName;
+}
+
+const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+const names = (code: string) =>
+  ["en", "de", "fr", "it"].map((l) => new Intl.DisplayNames([l], { type: "region" }).of(code) ?? code);
+
+/**
+ * A code for a place named in free text ("Switzerland · Canton of Zürich" →
+ * "CH-ZH"), as the quick check writes it. Only markets are read: a region
+ * by any of its names, else the country; anything else gives null and the
+ * agent sets the place itself.
+ */
+export function jurisdictionFromText(text: string | null | undefined): string | null {
+  if (!text) return null;
+  const hay = fold(text);
+  const has = (name: string) => new RegExp(`(^|[^\\p{L}])${fold(name).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}($|[^\\p{L}])`, "u").test(hay);
+  // "Germany · Freiburg" is not the canton: a place outside the markets wins.
+  if (COUNTRIES.some((c) => names(c).some(has))) return null;
+  for (const m of MARKETS) {
+    for (const [code, name] of Object.entries(m.regions))
+      if ([name, ...(m.aliases?.[code] ?? [])].some(has)) return code;
+  }
+  return MARKETS.find((m) => names(m.code).some(has))?.code ?? null;
 }

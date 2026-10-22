@@ -49,6 +49,7 @@ export const API = {
   modelCheck: "/api/model/check",
   health: "/api/health",
   matters: "/api/matters",
+  matterFromCase: "/api/matters/from-case",
   matter: (id: string) => `/api/matters/${id}`,
   matterMessages: (id: string) => `/api/matters/${id}/messages`,
   transcribe: "/api/transcribe",
