@@ -1,6 +1,6 @@
 "use client";
 
-import { ChatThread, type ChatMessageData } from "@bitbaum/chatkit/react";
+import { ChatThread, type ChatMessageData, type Thinking } from "@bitbaum/chatkit/react";
 import "@bitbaum/chatkit/styles.css";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -8,7 +8,7 @@ import { btnQuiet, card, eyebrow, field, link } from "@/components/ui";
 import { Link, useRouter } from "@/i18n/navigation";
 import { daysUntil, formatDate } from "@/lib/case";
 import { jurisdictionLabel } from "@/lib/jurisdictions";
-import type { MatterEvent, MatterView } from "@/lib/matters/store";
+import type { MatterEvent, MatterView, MessageEvent, StepEvent } from "@/lib/matters/store";
 import { API, ROUTES } from "@/lib/routes";
 import { useToday } from "@/lib/store";
 import { IntakeComposer, uploadErrorKey, useChatLabels } from "./IntakeComposer";
@@ -173,8 +173,7 @@ export function MatterWorkspace({ id, me }: { id: string; me: string }) {
 
   const m = load.matter;
   const isOwner = m.role === "owner";
-  const messages = toChat(m.events, t("agentName"), m, me);
-  const stepsBefore = stepsByMessage(m.events);
+  const messages = toChat(m.events, t, m, me);
   const openItems = m.items.filter((i) => i.status === "open");
   const doneItems = m.items.filter((i) => i.status === "done");
   const pending = m.approvals.filter((a) => a.status === "pending");
@@ -196,21 +195,6 @@ export function MatterWorkspace({ id, me }: { id: string; me: string }) {
             onReply={(text) => void send(text)}
             onStop={() => turn.current?.abort()}
             share={{ title: m.core.title || t("agentName") }}
-            renderFooter={(msg) => {
-              const steps = stepsBefore.get(msg.id);
-              return steps?.length ? (
-                <details className="mt-2 text-xs text-fg-secondary">
-                  <summary className="inline-flex min-h-11 cursor-pointer items-center">{t("stepsCount", { count: steps.length })}</summary>
-                  <ul className="grid gap-1 pb-2 pl-4">
-                    {steps.map((s, i) => (
-                      <li key={i}>
-                        <span className="font-mono">{t(`tool.${TOOL_KEYS.has(s.tool) ? s.tool : "other"}`)}</span> {s.summary}
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              ) : null;
-            }}
             empty={<p className="text-sm text-fg-secondary">{t("emptyThread")}</p>}
             labels={labels.thread}
           />
@@ -370,15 +354,24 @@ function relative(days: number, t: ReturnType<typeof useTranslations>): string {
 }
 
 /**
- * Messages for chatkit, with the sources an answer cited. Once a helper works
- * on the matter, a message from someone other than the reader carries the name
- * they go by here: the owner is "Client", a helper their public name.
+ * Messages for chatkit, with the sources an answer cited and, above an answer,
+ * what the agent did on the way to it — the step events since the last
+ * message, as chatkit's "Thought for …" row. Once a helper works on the
+ * matter, a message from someone other than the reader carries the name they
+ * go by here: the owner is "Client", a helper their public name.
  */
-function toChat(events: MatterEvent[], agentName: string, m: MatterView, me: string): ChatMessageData[] {
+function toChat(events: MatterEvent[], t: ReturnType<typeof useTranslations>, m: MatterView, me: string): ChatMessageData[] {
   const alias = new Map(m.participants.map((p) => [p.sub, p.alias]));
   const shared = m.participants.length > 1;
+  const agentName = t("agentName");
+  let steps: StepEvent[] = [];
   return events.flatMap((e): ChatMessageData[] => {
-    if (e.kind !== "message") return [];
+    if (e.kind === "step") {
+      steps.push(e);
+      return [];
+    }
+    const thinking = e.role === "assistant" && steps.length ? thoughtFrom(steps, e, t) : undefined;
+    steps = [];
     const citations = e.sources?.length
       ? Object.fromEntries(e.sources.map((s) => [s.id, { label: s.title, detail: s.url }]))
       : undefined;
@@ -391,6 +384,7 @@ function toChat(events: MatterEvent[], agentName: string, m: MatterView, me: str
           : e.text,
         citations,
         replies: e.replies,
+        thinking,
         speaker:
           e.role === "assistant"
             ? { name: agentName }
@@ -402,18 +396,19 @@ function toChat(events: MatterEvent[], agentName: string, m: MatterView, me: str
   });
 }
 
-/** The agent's steps, grouped under the answer they led to. */
-function stepsByMessage(events: MatterEvent[]): Map<string, { tool: string; summary: string }[]> {
-  const out = new Map<string, { tool: string; summary: string }[]>();
-  let pending: { tool: string; summary: string }[] = [];
-  for (const e of events) {
-    if (e.kind === "step") pending.push({ tool: e.tool, summary: e.summary });
-    else if (e.role === "assistant") {
-      out.set(String(e.id), pending);
-      pending = [];
-    }
-  }
-  return out;
+/**
+ * The agent's steps as chatkit's thinking row: the tool's name as the label,
+ * its one-line summary as the detail, and how long the turn took — from the
+ * first step to the answer — when the stored times allow it.
+ */
+function thoughtFrom(steps: StepEvent[], answer: MessageEvent, t: ReturnType<typeof useTranslations>): Thinking {
+  const from = Date.parse(steps[0].at);
+  const to = Date.parse(answer.at);
+  const durationMs = Number.isFinite(from) && Number.isFinite(to) && to >= from ? to - from : undefined;
+  return {
+    durationMs,
+    steps: steps.map((s) => ({ label: t(`tool.${TOOL_KEYS.has(s.tool) ? s.tool : "other"}`), detail: s.summary })),
+  };
 }
 
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
