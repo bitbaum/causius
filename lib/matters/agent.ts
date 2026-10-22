@@ -5,6 +5,7 @@ import {
   type ChatMessage,
   type Env,
   type Link,
+  TEXT_TOOL_PROTOCOL_HINT,
 } from "@bitbaum/ai-kit";
 import { byokChain, isByokConfig } from "@bitbaum/ai-kit/byok";
 import {
@@ -43,7 +44,7 @@ import {
 import { workflowById } from "../workflows";
 import { localeEnglishNames, type Locale } from "../../i18n/routing";
 import { marketOf } from "../jurisdictions";
-import { answerProblems, repairPrompt } from "./answer-check";
+import { answerProblems, repairPrompt, withoutNarration } from "./answer-check";
 
 /**
  * The agent that works a matter.
@@ -65,7 +66,15 @@ import { answerProblems, repairPrompt } from "./answer-check";
  */
 
 const health = createHealthTracker();
-const MAX_ROUNDS = 6;
+/**
+ * Model calls per turn. Eight, not six: research takes three or four rounds,
+ * and a correction (answer-check.ts) needs a round to act in plus one to
+ * answer. With six, an answer arriving at round four could not be corrected
+ * and the final, tool-less round stored whatever came (Agent check, 2026-10-22).
+ */
+const MAX_ROUNDS = 8;
+/** Corrections per turn (answer-check.ts); each goes to the next model in the chain. */
+const MAX_CORRECTIONS = 2;
 const HISTORY = 30;
 const DOC_BUDGET = 24_000;
 
@@ -269,6 +278,10 @@ const TOOLS = [
   },
 ];
 const TOOL_NAMES = TOOLS.map((t) => t.function.name);
+/** Offered once search has failed for the turn, so a dead backend cannot eat every round. */
+const TOOLS_WITHOUT_SEARCH = TOOLS.filter((t) => t.function.name !== "web_search");
+/** Searches that may come back empty before search is withdrawn for the turn. */
+const SEARCH_MISSES = 2;
 
 /** A real calendar date: "2026-02-31" parses in some engines and means March; it is refused here. */
 export const ISO_DATE = z
@@ -457,7 +470,7 @@ function documentsBlock(
   return untrusted("documents", parts.join("\n"));
 }
 
-function chainFor(
+export function chainFor(
   byok: unknown,
   env: Env,
   model?: string,
@@ -510,6 +523,8 @@ async function runTurnLocked(input: {
   domains?: typeof checkDomains;
   /** The reader's interface language; the answer is written in it. */
   locale?: Locale;
+  /** Called after every model call: which link served, what it asked for, what the check found. The live check reads it. */
+  onRound?: (r: { round: number; servedBy: string; calls: string[]; problems: string[]; text: string }) => void;
 }): Promise<TurnOutcome> {
   const { db, master, matterId, sub } = input;
   const opened = await openMatter(db, master, matterId, sub);
@@ -584,15 +599,19 @@ async function runTurnLocked(input: {
   const read = input.read ?? readPage;
   let servedBy = "";
   let finalText = "";
-  let repaired = false;
+  let corrections = 0;
   let unverified = false;
+  let recorded = 0;
+  let chain = models.chain;
+  let searchMisses = 0;
+  let canSearch = true;
 
   for (let round = 0; round < MAX_ROUNDS; round++) {
     const last = round === MAX_ROUNDS - 1;
     let turn;
     try {
       turn = await complete({
-        chain: models.chain,
+        chain,
         env: models.env,
         extraHeaders: models.extraHeaders,
         health: models.own ? undefined : health,
@@ -605,7 +624,7 @@ async function runTurnLocked(input: {
               },
             ]
           : conversation,
-        tools: last ? undefined : TOOLS,
+        tools: last ? undefined : canSearch ? TOOLS : TOOLS_WITHOUT_SEARCH,
         maxTokens: 6000,
         temperature: 0.2,
         timeoutMs: 90_000,
@@ -623,23 +642,47 @@ async function runTurnLocked(input: {
       throw error;
     }
     servedBy = turn.id;
+    const trace = (problems: string[]) =>
+      input.onRound?.({ round, servedBy, calls: turn.toolCalls.map((c) => c.name), problems, text: turn.text.slice(0, 160) });
     if (turn.toolCalls.length === 0) {
       // The server holds the answer to what the prompt asks (answer-check.ts):
       // no tool calls written out instead of made, no law without a source.
-      const problems = answerProblems(turn.text, { toolNames: TOOL_NAMES, sources: sources.length });
-      if (problems.length && !repaired && round < MAX_ROUNDS - 2) {
-        repaired = true;
+      const problems = answerProblems(turn.text, {
+        toolNames: TOOL_NAMES,
+        sources: sources.length,
+        deadlines: recorded + view.items.filter((i) => i.kind === "deadline").length,
+      });
+      trace(problems);
+      // Asking for a source is pointless once search is withdrawn; the answer
+      // is then stored marked unverified instead.
+      const correctable = problems.filter((p) => canSearch || p !== "unsourced");
+      if (correctable.length && corrections < MAX_CORRECTIONS && round < MAX_ROUNDS - 2) {
+        corrections++;
+        const narrated = correctable.includes("narrated");
+        // A model that ignored the rule tends to ignore its correction too
+        // (Agent check, 2026-10-22: gpt-oss-20b computed the deadline, was
+        // told to record it, and answered again without recording it). So
+        // the serving link goes to the back and the next model takes the
+        // correction. Only the correction for a narrated answer carries the
+        // text protocol: in the system prompt it made native callers switch
+        // to text and fail.
+        const served = (l: Link) => `${l.provider.id}/${l.model}` === turn.id;
+        chain = [...chain.filter((l) => !served(l)), ...chain.filter(served)];
         conversation.push(
           { role: "assistant", content: turn.text },
-          { role: "user", content: repairPrompt(problems) },
+          {
+            role: "user",
+            content: narrated ? `${repairPrompt(correctable)}\n\n${TEXT_TOOL_PROTOCOL_HINT}` : repairPrompt(correctable),
+          },
         );
         continue;
       }
       unverified = problems.includes("unsourced") || problems.includes("narrated");
-      finalText = turn.text;
+      finalText = problems.includes("narrated") ? withoutNarration(turn.text, TOOL_NAMES) : turn.text;
       break;
     }
 
+    trace([]);
     const results: string[] = [];
     for (const call of turn.toolCalls) {
       const result = await runTool(call.name, call.args);
@@ -698,7 +741,17 @@ async function runTurnLocked(input: {
       switch (name as ToolName) {
         case "web_search": {
           const found = await search(args.query!, { limit: 6 });
-          if (found.status !== "found") return describeEmptySearch(found);
+          if (found.status !== "found") {
+            // Agent check, 2026-10-22: with the search backends spent, a model
+            // searched six rounds in a row and answered only in the last,
+            // where nothing can be corrected. An outage, or two misses, ends
+            // searching for the turn and says so.
+            searchMisses++;
+            if (found.status === "could_not_look" || searchMisses >= SEARCH_MISSES) canSearch = false;
+            return canSearch
+              ? describeEmptySearch(found)
+              : `${describeEmptySearch(found)}\nSearch is not available for the rest of this turn. Do not search again: answer from what the matter holds, and say plainly which rules you could not check against a source.`;
+          }
           const start = sources.length;
           for (const r of found.results)
             sources.push({
@@ -746,6 +799,7 @@ async function runTurnLocked(input: {
             label: args.label!,
             quote: args.quote,
           });
+          recorded++;
           await appendStep(db, m, {
             tool: "record_deadline",
             summary: `${args.date}: ${args.label}`,

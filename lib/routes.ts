@@ -61,6 +61,7 @@ export const API = {
   matterEngagements: (id: string) => `/api/matters/${id}/engagements`,
   matterEngagement: (id: string, engagement: string) => `/api/matters/${id}/engagements/${engagement}`,
   matterLeave: (id: string) => `/api/matters/${id}/leave`,
+  matterReview: (id: string) => `/api/matters/${id}/review`,
   helpers: "/api/helpers",
   helper: "/api/helper",
   helperCredentials: "/api/helper/credentials",

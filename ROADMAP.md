@@ -62,7 +62,7 @@ deadlines, drafts, and proposes anything outward for the owner to approve.
 - [x] Documents added to a matter: PDF and text, only the text kept {#documents}
 - [x] Check domain names with the registries before founding on a name {#domains}
 - [x] Start from a common problem: a workflow says what to establish and draft, never the law itself {#workflows}
-- [ ] Ask one question across every document of a matter, answered as a table with the passage each answer came from
+- [x] Ask up to three questions across every document of a matter, answered as a table with the passage each answer came from {#document-review}
 - [ ] Watch a matter's rules: tell its owner when a law, a form or a deadline it depends on changes
 - [ ] Deadline reminders by e-mail
 - [ ] Bring a quick-check letter into a matter in one step

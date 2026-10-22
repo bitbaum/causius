@@ -16,6 +16,7 @@ import {
   readDocument,
   requestApproval,
   updateCore,
+  wordsToHide,
 } from "./store";
 
 let db: Db;
@@ -121,5 +122,15 @@ describe("a matter's life", () => {
     await appendMessage(db, m, { actor: ALICE, role: "user", text: "x" });
     await deleteMatter(db, m);
     expect(await openMatter(db, MASTER, id, ALICE)).toBeNull();
+  });
+});
+
+describe("words to hide", () => {
+  it("keeps the account name when a model could recognise someone by it, and never breaks a new matter", () => {
+    expect(wordsToHide("Erika Muster", ["Musterweg"])).toEqual(["Erika Muster", "Musterweg"]);
+    // A one-letter or empty account name used to make every new matter fail.
+    expect(wordsToHide("J", [])).toEqual([]);
+    expect(wordsToHide(null, [" Acme AG ", "Acme AG"])).toEqual(["Acme AG"]);
+    expect(wordsToHide("x".repeat(200))).toEqual([]);
   });
 });

@@ -47,6 +47,16 @@ export const MatterCore = z.object({
 });
 export type MatterCore = z.infer<typeof MatterCore>;
 
+/**
+ * The words a new matter keeps from every model: the person's account name
+ * and whatever they listed. Only words a model could recognise someone by
+ * are kept (2 to 120 characters, as MatterCore requires): an account named
+ * "J" could not open a matter at all while its name was passed through as is.
+ */
+export function wordsToHide(accountName: string | null | undefined, listed: readonly string[] = []): string[] {
+  return [...new Set([accountName ?? "", ...listed].map((w) => w.trim()).filter((w) => w.length >= 2 && w.length <= 120))];
+}
+
 export const JURISDICTION = /^[A-Z]{2}(-[A-Z0-9]{1,3})?$/;
 
 export type MessageEvent = {

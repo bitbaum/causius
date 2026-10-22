@@ -6,13 +6,22 @@ brackets, it is the pull request to read for the detail.
 
 ## 2026-10-22
 
+### Added
+
+- **Ask across documents.** In a matter, ask up to three questions of every
+  document at once: who pays, when it ends, what notice applies. The answers
+  come back as a table, one row per document, and every answer quotes its
+  passage. An answer whose quote is not in the document is dropped rather than
+  shown. The table is saved to the matter as a draft. {#document-review}
+
 ### Fixed
 
 - **The agent researches before it states the law.** A real question on the
   live site was answered from memory: no search, no source, and the tool calls
   it should have made written into the answer as text. Every answer is now
-  checked: one that cites law without a source, or describes calls instead of
-  making them, is sent back once; if it still fails it is shown marked
+  checked: one that cites law without a source, describes calls instead of
+  making them, or gives a deadline without recording it, is sent back once
+  (up to twice, each time to the next model in the chain); if it still fails it is shown marked
   "unverified". {#no-unsourced-law}
 
 ## 2026-10-21

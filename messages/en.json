@@ -500,7 +500,8 @@
       "other": "step",
       "check_domain": "domains",
       "read_document": "read",
-      "unverified": "unverified"
+      "unverified": "unverified",
+      "review": "reviewed"
     },
     "emptyThread": "Write what is going on. Causius will start working.",
     "composer": "Write to Causius…",
@@ -1248,5 +1249,29 @@
   "Places": {
     "whole": "{country}, whole country",
     "elsewhere": "Elsewhere"
+  },
+  "DocReview": {
+    "title": "Ask every document",
+    "lead": "The same questions of each document you added. Every answer shows the words it was read from; where a document does not say, the cell says so.",
+    "question": "Question {n}",
+    "suggestions": {
+      "asks": "What does it ask of me?",
+      "deadline": "By when?",
+      "amount": "What amount?",
+      "sender": "Who sent it?"
+    },
+    "ask": "Ask",
+    "asking": "Reading {count, plural, one {# document} other {# documents}}…",
+    "document": "Document",
+    "notFound": "not in this document",
+    "saved": "Kept in the matter as a document.",
+    "savedTitle": "Document review",
+    "errors": {
+      "no_documents": "Add a document first.",
+      "busy": "No model answered. Try again in a moment.",
+      "not_configured": "Reading is not switched on for this site yet.",
+      "rate_limited": "Too many requests in a short time. Wait a little.",
+      "unknown": "That did not work. Try again."
+    }
   }
 }

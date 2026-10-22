@@ -219,3 +219,49 @@ describe("one-tap replies", () => {
     expect((last as { replies?: string[] }).replies).toBeUndefined();
   });
 });
+
+describe("the answer check", () => {
+  it("sends back a deadline that was not recorded, and the trace shows it", async () => {
+    const id = await matter();
+    const model = scriptedModel([
+      { text: "Your deadline is **4 November 2026**." },
+      { tools: [["record_deadline", { date: "2026-11-04", label: "Objection due", quote: "innert 30 Tagen" }]] },
+      { text: "Recorded: your deadline is 4 November 2026." },
+    ]);
+    const rounds: Array<{ calls: string[]; problems: string[] }> = [];
+    const outcome = await runTurn({
+      db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl,
+      onRound: (r) => rounds.push({ calls: r.calls, problems: r.problems }),
+      text: "When must I object?",
+    });
+    expect(outcome).toMatchObject({ ok: true });
+    expect(rounds).toEqual([
+      { calls: [], problems: ["unrecorded"] },
+      { calls: ["record_deadline"], problems: [] },
+      { calls: [], problems: [] },
+    ]);
+    expect(model.seen[1]).toContain("Call record_deadline now");
+    const view = (await loadMatter(db, MASTER, id, OWNER))!;
+    expect(view.items.some((i) => i.kind === "deadline" && i.due === "2026-11-04")).toBe(true);
+  });
+
+  it("withdraws search for the turn when the backend is down, and marks the answer unverified", async () => {
+    const id = await matter();
+    const model = scriptedModel([
+      { tools: [["web_search", { query: "Art. 132 DBG Einsprachefrist" }]] },
+      { text: "Under Art. 132 DBG you have 30 days." },
+    ]);
+    const outcome = await runTurn({
+      db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl,
+      search: async (query) => ({ status: "could_not_look", query, attempts: [] }),
+      text: "How long do I have?",
+    });
+    expect(outcome).toMatchObject({ ok: true });
+    expect(model.seen).toHaveLength(2);
+    expect(model.seen[0]).toContain('"name":"web_search"');
+    expect(model.seen[1]).not.toContain('"name":"web_search"');
+    expect(model.seen[1]).toContain("Search is not available for the rest of this turn");
+    const view = (await loadMatter(db, MASTER, id, OWNER))!;
+    expect(view.events.some((e) => e.kind === "step" && e.tool === "unverified")).toBe(true);
+  });
+});

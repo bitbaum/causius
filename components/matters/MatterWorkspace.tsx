@@ -12,6 +12,7 @@ import type { MatterEvent, MatterView } from "@/lib/matters/store";
 import { API, ROUTES } from "@/lib/routes";
 import { useToday } from "@/lib/store";
 import { IntakeComposer, uploadErrorKey, useChatLabels } from "./IntakeComposer";
+import { DocumentReview } from "./DocumentReview";
 import { MatterHelpers } from "./MatterHelpers";
 import { FIRST_MESSAGE_KEY } from "./MattersHome";
 import { useModelChoice } from "./ModelPicker";
@@ -337,11 +338,14 @@ export function MatterWorkspace({ id, me }: { id: string; me: string }) {
           </button>
         )}
       </aside>
+
+      <DocumentReview matter={m} onDone={refresh} />
     </div>
   );
 }
 
 const TOOL_KEYS = new Set([
+  "review",
   "unverified",
   "web_search",
   "read_page",

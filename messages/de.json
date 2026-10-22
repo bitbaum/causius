@@ -500,7 +500,8 @@
       "other": "Schritt",
       "check_domain": "Domains",
       "read_document": "gelesen",
-      "unverified": "ungeprüft"
+      "unverified": "ungeprüft",
+      "review": "geprüft"
     },
     "emptyThread": "Schreiben Sie, worum es geht. Causius beginnt mit der Arbeit.",
     "composer": "An Causius schreiben…",
@@ -1248,5 +1249,29 @@
   "Places": {
     "whole": "{country}, ganzes Land",
     "elsewhere": "Anderswo"
+  },
+  "DocReview": {
+    "title": "Alle Dokumente fragen",
+    "lead": "Dieselben Fragen an jedes Dokument, das Sie hinzugefügt haben. Jede Antwort zeigt die Worte, aus denen sie gelesen wurde; steht etwas nicht im Dokument, sagt das Feld es.",
+    "question": "Frage {n}",
+    "suggestions": {
+      "asks": "Was wird von mir verlangt?",
+      "deadline": "Bis wann?",
+      "amount": "Welcher Betrag?",
+      "sender": "Wer ist der Absender?"
+    },
+    "ask": "Fragen",
+    "asking": "{count, plural, one {# Dokument wird} other {# Dokumente werden}} gelesen…",
+    "document": "Dokument",
+    "notFound": "steht nicht in diesem Dokument",
+    "saved": "Im Fall als Dokument abgelegt.",
+    "savedTitle": "Dokumentenprüfung",
+    "errors": {
+      "no_documents": "Fügen Sie zuerst ein Dokument hinzu.",
+      "busy": "Kein Modell hat geantwortet. Versuchen Sie es gleich nochmals.",
+      "not_configured": "Das Lesen ist auf dieser Website noch nicht eingeschaltet.",
+      "rate_limited": "Zu viele Anfragen in kurzer Zeit. Warten Sie einen Moment.",
+      "unknown": "Das hat nicht geklappt. Versuchen Sie es nochmals."
+    }
   }
 }

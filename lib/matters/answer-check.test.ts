@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { answerProblems, repairPrompt } from "./answer-check";
+import { answerProblems, repairPrompt, withoutNarration } from "./answer-check";
 
 const TOOLS = ["web_search", "read_page", "record_deadline", "update_matter", "draft_document"];
 const none = { toolNames: TOOLS, sources: 0 };
@@ -23,6 +23,12 @@ describe("answer check", () => {
     expect(answerProblems("(called web_search, read_page)", none)).toEqual(["narrated"]);
   });
 
+  it("catches calls written as JSON, as one model did on 2026-10-22", () => {
+    const text = '**Matter update**\n```json\n{ "action": "update_matter", "title": "Einsprache" }\n```';
+    expect(answerProblems(text, none)).toEqual(["narrated"]);
+    expect(answerProblems('I used "web_search" earlier.', none)).toEqual([]);
+  });
+
   it("catches a TOOL line left in the answer", () => {
     expect(answerProblems('TOOL: web_search\nARGS: {"query":"x"}', none)).toContain("narrated");
   });
@@ -41,9 +47,28 @@ describe("answer check", () => {
     expect(answerProblems("I will search the web for the cantonal rules.", none)).toEqual([]);
   });
 
+  it("catches a deadline given but not recorded", () => {
+    const text = "## Your deadline: **4 November 2026**\nThe 30 days run from service.";
+    expect(answerProblems(text, { ...none, deadlines: 0 })).toEqual(["unrecorded"]);
+    expect(answerProblems("Die Frist läuft am 04.11.2026 ab.", { ...none, deadlines: 0 })).toEqual(["unrecorded"]);
+    expect(answerProblems(text, { ...none, deadlines: 1 })).toEqual([]);
+    // A date with no deadline in sight is not a deadline.
+    expect(answerProblems("The assessment is dated 2 October 2026.", { ...none, deadlines: 0 })).toEqual([]);
+  });
+
+  it("strips the narration an answer still carries after its correction", () => {
+    expect(withoutNarration("(called note_fact)", TOOLS)).toBe("");
+    expect(withoutNarration('TOOL: note_fact\nARGS: {"fact":"x"}', TOOLS)).toBe("");
+    const json = 'Your deadline is 4 November.\n```json\n{ "action": "update_matter" }\n```';
+    expect(withoutNarration(json, TOOLS)).toBe("Your deadline is 4 November.");
+    const code = 'Example:\n```json\n{ "amount": 1 }\n```';
+    expect(withoutNarration(code, TOOLS)).toBe(code);
+  });
+
   it("asks for each problem, plainly", () => {
     const p = repairPrompt(["narrated", "unsourced"]);
     expect(p).toMatch(/Call the tools now/);
     expect(p).toMatch(/web_search/);
+    expect(repairPrompt(["unrecorded"])).toMatch(/record_deadline/);
   });
 });

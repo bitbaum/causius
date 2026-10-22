@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { callerKey, limits, tooMany } from "@/lib/limits";
 import { body, context, json } from "@/lib/matters/http";
-import { createMatter, JURISDICTION, listMatters } from "@/lib/matters/store";
+import { createMatter, JURISDICTION, listMatters, wordsToHide } from "@/lib/matters/store";
 import { WORKFLOW_IDS } from "@/lib/workflows";
 
 export const runtime = "nodejs";
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
   // The person's account name is a word to hide from the model, sealed with
   // the matter like every other one. The participant row only ever holds a
   // role-shaped pseudonym, so the database in the clear names nobody.
-  const hide = [...new Set([...(ctx.name ? [ctx.name] : []), ...(parsed.data.hide ?? [])])];
+  const hide = wordsToHide(ctx.name, parsed.data.hide);
   const id = await createMatter(ctx.db, ctx.master, {
     ownerSub: ctx.sub,
     jurisdiction: parsed.data.jurisdiction ?? null,
