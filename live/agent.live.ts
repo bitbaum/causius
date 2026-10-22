@@ -1,6 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { freeAvailability } from "../lib/analyze";
 import type { Db } from "../lib/db";
+import { webSearch } from "@bitbaum/ai-kit/web";
 import { runTurn } from "../lib/matters/agent";
 import { answerProblems } from "../lib/matters/answer-check";
 import { runReview } from "../lib/matters/review";
@@ -94,6 +95,12 @@ describe.skipIf(!available)("a real model works a matter", () => {
     const outcome = await runTurn({
       db, master: MASTER, matterId: id, sub: "actor-live", env: process.env, locale: "en",
       onRound: (r) => rounds.push(roundLine(r)),
+      // Which backends answered, so an outage reads as one and not as the model's fault.
+      search: async (query, opts) => {
+        const found = await webSearch(query, opts);
+        rounds.push(`search ${found.status}: ${found.attempts.map((a) => `${a.provider} ${a.outcome}${a.failure ? ` (${JSON.stringify(a.failure).slice(0, 80)})` : ""}`).join("; ")}`);
+        return found;
+      },
       text: "My landlord in Zürich notified me on 1 October 2026, on the official form, that my rent rises by 8% from 1 January 2027, citing increased costs. Can I contest it, by when, and with which authority?",
     });
     const view = (await loadMatter(db, MASTER, id, "actor-live"))!;

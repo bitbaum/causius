@@ -278,6 +278,10 @@ const TOOLS = [
   },
 ];
 const TOOL_NAMES = TOOLS.map((t) => t.function.name);
+/** Offered once search has failed for the turn, so a dead backend cannot eat every round. */
+const TOOLS_WITHOUT_SEARCH = TOOLS.filter((t) => t.function.name !== "web_search");
+/** Searches that may come back empty before search is withdrawn for the turn. */
+const SEARCH_MISSES = 2;
 
 /** A real calendar date: "2026-02-31" parses in some engines and means March; it is refused here. */
 export const ISO_DATE = z
@@ -599,6 +603,8 @@ async function runTurnLocked(input: {
   let unverified = false;
   let recorded = 0;
   let chain = models.chain;
+  let searchMisses = 0;
+  let canSearch = true;
 
   for (let round = 0; round < MAX_ROUNDS; round++) {
     const last = round === MAX_ROUNDS - 1;
@@ -618,7 +624,7 @@ async function runTurnLocked(input: {
               },
             ]
           : conversation,
-        tools: last ? undefined : TOOLS,
+        tools: last ? undefined : canSearch ? TOOLS : TOOLS_WITHOUT_SEARCH,
         maxTokens: 6000,
         temperature: 0.2,
         timeoutMs: 90_000,
@@ -647,9 +653,12 @@ async function runTurnLocked(input: {
         deadlines: recorded + view.items.filter((i) => i.kind === "deadline").length,
       });
       trace(problems);
-      if (problems.length && corrections < MAX_CORRECTIONS && round < MAX_ROUNDS - 2) {
+      // Asking for a source is pointless once search is withdrawn; the answer
+      // is then stored marked unverified instead.
+      const correctable = problems.filter((p) => canSearch || p !== "unsourced");
+      if (correctable.length && corrections < MAX_CORRECTIONS && round < MAX_ROUNDS - 2) {
         corrections++;
-        const narrated = problems.includes("narrated");
+        const narrated = correctable.includes("narrated");
         // A model that ignored the rule tends to ignore its correction too
         // (Agent check, 2026-10-22: gpt-oss-20b computed the deadline, was
         // told to record it, and answered again without recording it). So
@@ -663,7 +672,7 @@ async function runTurnLocked(input: {
           { role: "assistant", content: turn.text },
           {
             role: "user",
-            content: narrated ? `${repairPrompt(problems)}\n\n${TEXT_TOOL_PROTOCOL_HINT}` : repairPrompt(problems),
+            content: narrated ? `${repairPrompt(correctable)}\n\n${TEXT_TOOL_PROTOCOL_HINT}` : repairPrompt(correctable),
           },
         );
         continue;
@@ -732,7 +741,17 @@ async function runTurnLocked(input: {
       switch (name as ToolName) {
         case "web_search": {
           const found = await search(args.query!, { limit: 6 });
-          if (found.status !== "found") return describeEmptySearch(found);
+          if (found.status !== "found") {
+            // Agent check, 2026-10-22: with the search backends spent, a model
+            // searched six rounds in a row and answered only in the last,
+            // where nothing can be corrected. An outage, or two misses, ends
+            // searching for the turn and says so.
+            searchMisses++;
+            if (found.status === "could_not_look" || searchMisses >= SEARCH_MISSES) canSearch = false;
+            return canSearch
+              ? describeEmptySearch(found)
+              : `${describeEmptySearch(found)}\nSearch is not available for the rest of this turn. Do not search again: answer from what the matter holds, and say plainly which rules you could not check against a source.`;
+          }
           const start = sources.length;
           for (const r of found.results)
             sources.push({
