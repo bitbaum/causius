@@ -1,6 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { Db } from "../db";
 import { MASTER, testDb } from "../test/db";
+import { REPLIES_INSTRUCTION, RICH_ANSWERS_INSTRUCTION } from "@bitbaum/chatkit";
 import { runTurn } from "./agent";
 import { createMatter, loadMatter } from "./store";
 
@@ -164,5 +165,57 @@ describe("a turn", () => {
     expect(await runTurn({ db, master: MASTER, matterId: id, sub: OWNER, env: {}, fetchImpl: model.impl, text: "hi" }))
       .toEqual({ ok: false, error: "not_configured" });
     expect(model.seen).toEqual([]);
+  });
+});
+
+describe("one-tap replies", () => {
+  it("asks the model for them in the system prompt", async () => {
+    const id = await matter();
+    const model = scriptedModel([{ text: "Hello." }]);
+    await runTurn({ db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl, text: "Hi" });
+    const sent = JSON.parse(model.seen[0]!) as { messages: Array<{ role: string; content: string }> };
+    const system = sent.messages.find((x) => x.role === "system")!.content;
+    expect(system).toContain(REPLIES_INSTRUCTION);
+    expect(system).toContain(RICH_ANSWERS_INSTRUCTION);
+    // The rich-answer and replies instructions sit with ours, never in the user turns.
+    expect(sent.messages.filter((x) => x.role !== "system").map((x) => x.content).join("\n")).not.toContain("## Suggested replies");
+  });
+
+  it("keeps the replies beside the answer and the block out of the stored text", async () => {
+    const id = await matter();
+    const model = scriptedModel([
+      {
+        text: 'You have 30 days to object, [NAME-1].\n\n```quick_replies\n["Draft the objection", "Which rule says 30 days?", "Not now"]\n```',
+      },
+    ]);
+    await runTurn({
+      db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl,
+      text: "I am Erika Muster. How long do I have to object?",
+    });
+    const last = (await loadMatter(db, MASTER, id, OWNER))!.events.at(-1)!;
+    expect(last).toMatchObject({
+      kind: "message",
+      role: "assistant",
+      text: "You have 30 days to object, Erika Muster.",
+      replies: ["Draft the objection", "Which rule says 30 days?", "Not now"],
+    });
+    expect((last as { text: string }).text).not.toContain("quick_replies");
+
+    // The next turn's history carries the words only, never the block.
+    const next = scriptedModel([{ text: "Done." }]);
+    await runTurn({ db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: next.impl, text: "Draft the objection" });
+    const sent = JSON.parse(next.seen[0]!) as { messages: Array<{ role: string; content: string }> };
+    const history = sent.messages.filter((x) => x.role !== "system").map((x) => x.content);
+    expect(history).toContain("You have 30 days to object, [NAME-1].");
+    expect(history.join("\n")).not.toContain("quick_replies");
+  });
+
+  it("stores no replies when the answer offers none", async () => {
+    const id = await matter();
+    const model = scriptedModel([{ text: "Goodbye, and good luck." }]);
+    await runTurn({ db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl, text: "Thanks, that is all." });
+    const last = (await loadMatter(db, MASTER, id, OWNER))!.events.at(-1)!;
+    expect(last).toMatchObject({ kind: "message", text: "Goodbye, and good luck." });
+    expect((last as { replies?: string[] }).replies).toBeUndefined();
   });
 });

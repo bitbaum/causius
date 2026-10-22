@@ -18,8 +18,8 @@
   "dependencies": {
     "@better-auth/passkey": "^1.7.7",
     "@bitbaum/accountkit": "github:bitbaum/accountkit#f07353eee9907ea3a434d230a9ed079b3e4215a2",
-    "@bitbaum/ai-kit": "^1.20.1",
-    "@bitbaum/chatkit": "git+https://github.com/bitbaum/chatkit.git#b8b613d0c8984d7fdf902f3a8791fc9d84122b7f",
+    "@bitbaum/ai-kit": "^1.21.0",
+    "@bitbaum/chatkit": "^0.12.0",
     "@bitbaum/design-tokens": "1.1.0",
     "@bitbaum/mail-kit": "^0.1.1",
     "@bitbaum/searchkit": "github:bitbaum/searchkit#v0.2.2",

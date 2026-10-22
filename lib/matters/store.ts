@@ -58,6 +58,8 @@ export type MessageEvent = {
   text: string;
   /** Web sources the agent cited in this message, by fact id. */
   sources?: { id: string; title: string; url: string }[];
+  /** One-tap replies the agent suggested after this answer; the text never carries them. */
+  replies?: string[];
 };
 export type StepEvent = {
   id: number;
@@ -246,6 +248,7 @@ export async function appendMessage(
     role: "user" | "assistant";
     text: string;
     sources?: MessageEvent["sources"];
+    replies?: string[];
   },
 ): Promise<number> {
   if (msg.role === "user" && m.role === "observer")
@@ -260,6 +263,7 @@ export async function appendMessage(
         role: msg.role,
         text: msg.text,
         sources: msg.sources,
+        replies: msg.replies,
       }),
     })
     .returning({ id: events.id });
@@ -516,6 +520,9 @@ async function loadView(db: Db, m: OpenMatter): Promise<MatterView> {
             role: body.role as "user" | "assistant",
             text: String(body.text ?? ""),
             sources: body.sources as MessageEvent["sources"],
+            replies: Array.isArray(body.replies)
+              ? body.replies.filter((r): r is string => typeof r === "string")
+              : undefined,
           }
         : {
             id: e.id,

@@ -194,6 +194,7 @@ export function MatterWorkspace({ id, me }: { id: string; me: string }) {
             live={sending ? { status: workingLines[working % workingLines.length] } : null}
             onReply={(text) => void send(text)}
             onStop={() => turn.current?.abort()}
+            share={{ title: m.core.title || t("agentName") }}
             renderFooter={(msg) => {
               const steps = stepsBefore.get(msg.id);
               return steps?.length ? (
@@ -382,6 +383,7 @@ function toChat(events: MatterEvent[], agentName: string, m: MatterView, me: str
           ? `${e.text}\n\n${e.sources.map((s) => `[${s.id}] [${s.title}](${s.url})`).join("  \n")}`
           : e.text,
         citations,
+        replies: e.replies,
         speaker:
           e.role === "assistant"
             ? { name: agentName }

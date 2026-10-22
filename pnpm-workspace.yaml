@@ -26,3 +26,5 @@ allowBuilds:
   "@parcel/watcher": false
   "@swc/core": false
   esbuild: true
+minimumReleaseAgeExclude:
+  - '@bitbaum/chatkit@0.12.0'
