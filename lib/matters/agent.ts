@@ -67,6 +67,8 @@ import { answerProblems, repairPrompt, withoutNarration } from "./answer-check";
 
 const health = createHealthTracker();
 const MAX_ROUNDS = 6;
+/** Corrections per turn (answer-check.ts); each goes to the next model in the chain. */
+const MAX_CORRECTIONS = 2;
 const HISTORY = 30;
 const DOC_BUDGET = 24_000;
 
@@ -585,7 +587,7 @@ async function runTurnLocked(input: {
   const read = input.read ?? readPage;
   let servedBy = "";
   let finalText = "";
-  let repaired = false;
+  let corrections = 0;
   let unverified = false;
   let recorded = 0;
   let chain = models.chain;
@@ -634,17 +636,18 @@ async function runTurnLocked(input: {
         sources: sources.length,
         deadlines: recorded + view.items.filter((i) => i.kind === "deadline").length,
       });
-      if (problems.length && !repaired && round < MAX_ROUNDS - 2) {
-        repaired = true;
+      if (problems.length && corrections < MAX_CORRECTIONS && round < MAX_ROUNDS - 2) {
+        corrections++;
         const narrated = problems.includes("narrated");
-        if (narrated) {
-          // Half the free chain cannot call tools natively. The model that just
-          // wrote its calls out goes to the back for the rest of the turn, and
-          // the correction alone carries the text protocol: in the system
-          // prompt it made native callers switch to text and fail (run 5).
-          const served = (l: Link) => `${l.provider.id}/${l.model}` === turn.id;
-          chain = [...chain.filter((l) => !served(l)), ...chain.filter(served)];
-        }
+        // A model that ignored the rule tends to ignore its correction too
+        // (Agent check, 2026-10-22: gpt-oss-20b computed the deadline, was
+        // told to record it, and answered again without recording it). So
+        // the serving link goes to the back and the next model takes the
+        // correction. Only the correction for a narrated answer carries the
+        // text protocol: in the system prompt it made native callers switch
+        // to text and fail.
+        const served = (l: Link) => `${l.provider.id}/${l.model}` === turn.id;
+        chain = [...chain.filter((l) => !served(l)), ...chain.filter(served)];
         conversation.push(
           { role: "assistant", content: turn.text },
           {

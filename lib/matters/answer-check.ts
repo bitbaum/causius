@@ -24,9 +24,9 @@
  *                2026" correctly and never call record_deadline, so the
  *                reminder the person relies on was never set
  *
- * The agent gets one precise correction per problem and tries again; an answer
- * still failing is stored with a visible "not checked against a source" step,
- * never silently.
+ * The agent gets a precise correction (at most two per turn, each answered by
+ * the next model in the chain) and tries again; an answer still failing is
+ * stored with a visible "unverified" step, never silently.
  */
 import { stripToolCallLines } from "@bitbaum/ai-kit";
 

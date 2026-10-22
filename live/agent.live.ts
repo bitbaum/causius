@@ -65,6 +65,7 @@ describe.skipIf(!available)("a real model works a matter", () => {
     for (const i of view.items) console.log(`[agent] item ${i.kind} ${i.due} ${i.label}`);
     console.log(`[agent] answer ${answer && answer.kind === "message" ? answer.text.slice(0, 600).replace(/\n/g, " ") : "-"}`);
     const sent = seen.join("\n");
+    console.log(`[agent] corrections ${seen.filter((b) => b.includes("Do not apologise or mention this message")).length ? "yes" : "none"}`);
     console.log(`[agent] model requests ${seen.length}; name sent: ${/Erika|Muster/.test(sent)}; served by ${outcome.ok ? outcome.servedBy : "-"}`);
 
     expect(outcome.ok).toBe(true);

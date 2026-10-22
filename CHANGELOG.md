@@ -21,7 +21,7 @@ brackets, it is the pull request to read for the detail.
   it should have made written into the answer as text. Every answer is now
   checked: one that cites law without a source, describes calls instead of
   making them, or gives a deadline without recording it, is sent back once
-  (a model that wrote its calls out hands the retry to the next model); if it still fails it is shown marked
+  (up to twice, each time to the next model in the chain); if it still fails it is shown marked
   "unverified". {#no-unsourced-law}
 
 ## 2026-10-21
