@@ -44,6 +44,8 @@ import {
 import { workflowById } from "../workflows";
 import { localeEnglishNames, type Locale } from "../../i18n/routing";
 import { marketOf } from "../jurisdictions";
+import { srNumber } from "../law/acts";
+import { readFederalArticle, type LawLanguage } from "../law/fedlex";
 import { answerProblems, repairPrompt, withoutNarration } from "./answer-check";
 
 /**
@@ -82,7 +84,7 @@ const SYSTEM = `You are Causius, a legal assistant working one matter for the pe
 
 How you work:
 - Be concrete and practical. Say what the person should do, in what order, by when.
-- Ground statements of law in sources. Use web_search and read_page to find the law, official guidance or decisions, and cite them as [n] using the numbers given in the search results. Every sentence that states a rule of law ends with its [n]; a rule you could not find a source for is marked as unverified. Prefer the official text (the statute, the authority's own page) over commentary. Never invent a statute, article, decision or deadline, and do not overstate how widely a rule applies. If you are unsure, say so and say how to find out.
+- Ground statements of law in sources. For Swiss federal law, read the article itself with read_law (act "OR", article "270b") before you state it: it returns the official text in force today with its [n]. Use web_search and read_page for cantonal law, decisions and official guidance, and cite them as [n] using the numbers given in the results. Every sentence that states a rule of law ends with its [n]; a rule you could not find a source for is marked as unverified. Prefer the official text (the statute, the authority's own page) over commentary. Never invent a statute, article, decision or deadline, and do not overstate how widely a rule applies. If you are unsure, say so and say how to find out.
 - Distinguish levels of law (national, and regional where regions make their own law). The notes on this matter's jurisdiction, if any, say what applies there.
 - Record every deadline you find or compute with record_deadline, quoting the text it comes from. If a deadline depends on a rule (e.g. "30 days from notification"), say which rule and what you assumed.
 - In your first turn on a new matter, call update_matter to give it a clear title, its area of law and its jurisdiction code. Record important facts with note_fact.
@@ -128,6 +130,23 @@ const TOOLS = [
         type: "object",
         properties: { url: { type: "string" } },
         required: ["url"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "read_law",
+      description:
+        "Read one article of a Swiss federal act from Fedlex, the official collection: the text in force today and its link. Give the act by abbreviation (OR, ZGB, SchKG, ZPO, DBG, AIG, StGB, CO, CC, LP…) or SR number (220), and the article (270b). Cite it by the [n] it returns.",
+      parameters: {
+        type: "object",
+        properties: {
+          act: { type: "string" },
+          article: { type: "string" },
+          language: { type: "string", enum: ["de", "fr", "it"] },
+        },
+        required: ["act", "article"],
       },
     },
   },
@@ -295,6 +314,11 @@ export const ISO_DATE = z
 const ARGS = {
   web_search: z.object({ query: z.string().trim().min(2).max(300) }),
   read_page: z.object({ url: z.url({ protocol: /^https?$/ }) }),
+  read_law: z.object({
+    act: z.string().trim().min(1).max(40),
+    article: z.string().trim().min(1).max(20),
+    language: z.enum(["de", "fr", "it"]).optional(),
+  }),
   check_domain: z.object({
     names: z.array(z.string().trim().min(1).max(253)).min(1).max(10),
   }),
@@ -359,7 +383,7 @@ export function untrusted(source: string, text: string): string {
 }
 
 /** Results whose text comes from outside Causius, and so can carry instructions. */
-const UNTRUSTED_RESULTS = new Set(["web_search", "read_page", "read_document"]);
+const UNTRUSTED_RESULTS = new Set(["web_search", "read_page", "read_law", "read_document"]);
 
 /** At most this many writes of each kind in one turn: an injected loop cannot flood a matter. */
 const WRITE_LIMIT: Partial<Record<string, number>> = {
@@ -520,6 +544,7 @@ async function runTurnLocked(input: {
   /** Injected in tests. */
   search?: typeof webSearch;
   read?: typeof readPage;
+  readLaw?: typeof readFederalArticle;
   domains?: typeof checkDomains;
   /** The reader's interface language; the answer is written in it. */
   locale?: Locale;
@@ -597,6 +622,7 @@ async function runTurnLocked(input: {
   const writes = new Map<string, number>();
   const search = input.search ?? webSearch;
   const read = input.read ?? readPage;
+  const readLaw = input.readLaw ?? readFederalArticle;
   let servedBy = "";
   let finalText = "";
   let corrections = 0;
@@ -605,6 +631,7 @@ async function runTurnLocked(input: {
   let chain = models.chain;
   let searchMisses = 0;
   let canSearch = true;
+  let canReadLaw = true;
 
   for (let round = 0; round < MAX_ROUNDS; round++) {
     const last = round === MAX_ROUNDS - 1;
@@ -653,9 +680,9 @@ async function runTurnLocked(input: {
         deadlines: recorded + view.items.filter((i) => i.kind === "deadline").length,
       });
       trace(problems);
-      // Asking for a source is pointless once search is withdrawn; the answer
-      // is then stored marked unverified instead.
-      const correctable = problems.filter((p) => canSearch || p !== "unsourced");
+      // Asking for a source is pointless once neither search nor Fedlex can
+      // be reached; the answer is then stored marked unverified instead.
+      const correctable = problems.filter((p) => canSearch || canReadLaw || p !== "unsourced");
       if (correctable.length && corrections < MAX_CORRECTIONS && round < MAX_ROUNDS - 2) {
         corrections++;
         const narrated = correctable.includes("narrated");
@@ -766,6 +793,29 @@ async function runTurnLocked(input: {
                 `[${start + i + 1}] ${r.title} — ${r.url}\n${r.snippet}`,
             )
             .join("\n");
+        }
+        case "read_law": {
+          const sr = srNumber(args.act!);
+          if (!sr)
+            return `"${args.act}" is not a Swiss federal act known by that name. Give its SR number (every Fedlex page shows it), or use web_search for cantonal or foreign law.`;
+          const found = await readLaw({ sr, article: args.article!, lang: (args.language as LawLanguage | undefined) ?? "de", day: swissToday() });
+          if (!found.ok) {
+            if (found.reason === "unreachable") canReadLaw = false;
+            return {
+              unreachable: "Fedlex could not be reached, so the article was not read. Do not quote it from memory.",
+              no_such_act: `No act numbered SR ${sr} is in force today.`,
+              no_such_article: `SR ${sr} has no article ${args.article} in force today.`,
+            }[found.reason];
+          }
+          const a = found.article;
+          const title = `${a.heading} ${args.act} (SR ${sr})`;
+          let n = sources.findIndex((s) => s.url === a.url);
+          if (n < 0) {
+            sources.push({ id: String(sources.length + 1), title, url: a.url });
+            n = sources.length - 1;
+          }
+          await appendStep(db, m, { tool: "read_law", summary: title });
+          return `[${n + 1}] ${title}, official text in force since ${a.inForceSince} — ${a.url}\n${a.text.slice(0, 6000)}`;
         }
         case "read_page": {
           const refused = refusesPageAddress(args.url!);

@@ -502,7 +502,8 @@
       "read_document": "lettura",
       "unverified": "non verificato",
       "review": "esaminato",
-      "from_case": "verifica rapida"
+      "from_case": "lettera",
+      "read_law": "legge"
     },
     "emptyThread": "Scriva che cosa succede. Causius si metterà al lavoro.",
     "composer": "Scrivere a Causius…",

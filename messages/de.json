@@ -502,7 +502,8 @@
       "read_document": "gelesen",
       "unverified": "ungeprüft",
       "review": "geprüft",
-      "from_case": "Schnellprüfung"
+      "from_case": "Brief",
+      "read_law": "Gesetz"
     },
     "emptyThread": "Schreiben Sie, worum es geht. Causius beginnt mit der Arbeit.",
     "composer": "An Causius schreiben…",
