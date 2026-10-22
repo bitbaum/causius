@@ -1,0 +1,71 @@
+name: Search doctor
+
+# By hand: why does web search return nothing? Read-only.
+#
+# The agent searches through the self-hosted SearXNG on the box
+# (127.0.0.1:8899). When it answers "empty" to every query, the agent cannot
+# cite law. This prints where SearXNG runs, which engines its settings switch
+# on (never its secret key), and what a few real queries return engine by
+# engine, including the engines SearXNG itself reports as unresponsive.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  doctor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Look at SearXNG on the box
+        env:
+          SSH_KEY: ${{ secrets.HETZNER_SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          IP=167.233.22.31
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id && chmod 600 ~/.ssh/id
+          ssh-keyscan -H "$IP" >> ~/.ssh/known_hosts 2>/dev/null
+          ssh -i ~/.ssh/id -o BatchMode=yes "ubuntu@$IP" 'bash -s' > out.txt 2>&1 <<'REMOTE' || status=$?
+          set -uo pipefail
+          D=docker; $D ps >/dev/null 2>&1 || D="sudo -n docker"
+          echo "== containers"
+          $D ps -a --format '{{.Names}} | {{.Image}} | {{.Status}} | {{.Ports}}' | grep -i searx || echo "no searxng container"
+          echo "== units"
+          systemctl list-units --all --no-pager 2>/dev/null | grep -i searx || echo "no searxng unit"
+          echo "== mounts"
+          for c in $($D ps -a --format '{{.Names}}' | grep -i searx); do
+            $D inspect -f '{{range .Mounts}}{{.Source}} -> {{.Destination}}{{"\n"}}{{end}}' "$c"
+            src=$($D inspect -f '{{range .Mounts}}{{if eq .Destination "/etc/searxng"}}{{.Source}}{{end}}{{end}}' "$c")
+            for f in "$src/settings.yml" "$src/limiter.toml"; do
+              [ -n "$src" ] && sudo -n test -f "$f" || continue
+              echo "== $f (secrets left out)"
+              sudo -n grep -nvE 'secret|token|password|key:' "$f" | grep -nE 'use_default_settings|keep_only|remove|engines:|- name:|disabled|limiter|botdetection|formats|- json|request_timeout|outgoing|proxies|default_lang|safe_search' | head -n 120
+            done
+            echo "== last log lines of $c (errors only)"
+            $D logs --since 2h "$c" 2>&1 | grep -iE 'error|exception|suspend|captcha|denied|timeout|429|403' | tail -n 40
+          done
+          envf=/opt/causius/shared/.env; [ -f "$envf" ] || envf=/opt/causius/app/.env
+          URL=$(grep -E '^SEARXNG_URL=' "$envf" | cut -d= -f2- | tr -d '"')
+          TOKEN=$(grep -E '^SEARXNG_TOKEN=' "$envf" | cut -d= -f2- | tr -d '"')
+          echo "== probes against causius's SEARXNG_URL (host only): $(printf '%s' "$URL" | sed -E 's#(https?://[^/]+).*#\1#')"
+          for q in "Art. 270b OR Mietzinserhöhung anfechten" "Einsprachefrist Steuerveranlagung Zürich" "fedlex Obligationenrecht" "weather Zurich"; do
+            curl -s -m 30 -G ${TOKEN:+-H "Authorization: Bearer $TOKEN"} -H 'Accept: application/json' \
+              --data-urlencode "q=$q" --data-urlencode format=json --data-urlencode safesearch=0 "$URL/search" -o r.json -w "%{http_code}" > code.txt || true
+            python3 - "$q" "$(cat code.txt)" <<'PY'
+          import json, sys, collections
+          q, code = sys.argv[1], sys.argv[2]
+          try:
+              d = json.load(open("r.json"))
+          except Exception as e:
+              print(f"[{code}] {q!r}: not JSON ({e})"); sys.exit()
+          by = collections.Counter(r.get("engine") for r in d.get("results", []))
+          print(f"[{code}] {q!r}: {len(d.get('results', []))} results {dict(by)}; unresponsive: {d.get('unresponsive_engines')}")
+          PY
+          done
+          rm -f r.json code.txt
+          REMOTE
+          rm -f ~/.ssh/id
+          while IFS= read -r line; do echo "::notice::$line"; done < out.txt
+          exit "${status:-0}"
