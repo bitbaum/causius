@@ -90,11 +90,11 @@ describe.skipIf(!available)("a real model works a matter", () => {
     const answer = view.events.filter((e) => e.kind === "message" && e.role === "assistant").at(-1);
     const text = answer && answer.kind === "message" ? answer.text : "";
     const sources = answer && answer.kind === "message" ? (answer.sources ?? []) : [];
-    console.log(`[rent] outcome ${JSON.stringify(outcome)}`);
-    console.log(`[rent] steps ${steps.join(", ")}`);
-    for (const i of view.items) console.log(`[rent] item ${i.kind} ${i.due} ${i.label}`);
-    console.log(`[rent] sources ${sources.map((s) => s.url).join(" ")}`);
-    console.log(`[rent] answer ${text.slice(0, 900).replace(/\n/g, " ")}`);
+    console.log(`[agent] rent: outcome ${JSON.stringify(outcome)}`);
+    console.log(`[agent] rent: steps ${steps.join(", ")}`);
+    for (const i of view.items) console.log(`[agent] rent: item ${i.kind} ${i.due} ${i.label}`);
+    console.log(`[agent] rent: sources ${sources.map((s) => s.url).join(" ")}`);
+    console.log(`[agent] rent: answer ${text.slice(0, 900).replace(/\n/g, " ")}`);
 
     expect(outcome.ok).toBe(true);
     expect(answerProblems(text, { toolNames: ["web_search", "read_page", "record_deadline", "update_matter", "draft_document", "note_fact", "request_approval"], sources: sources.length })).not.toContain("narrated");
