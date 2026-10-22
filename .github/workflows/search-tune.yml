@@ -79,9 +79,10 @@ jobs:
               search["suspended_times"] = {**cur, **SUSPEND}; changes.append(f"suspended_times -> {SUSPEND}")
           print("changes:", changes or "none")
           if apply and changes:
-              with open(path, "w") as f:
+              # The settings file is mounted read-only; the host copies this in.
+              with open("/tmp/settings.new.yml", "w") as f:
                   yaml.safe_dump(s, f, sort_keys=False, allow_unicode=True)
-              print("written")
+              print("new settings prepared")
           PY
           $D cp /tmp/searx-tune.py "$C":/tmp/searx-tune.py
           if [ "$APPLY" = "true" ]; then
@@ -96,7 +97,9 @@ jobs:
           [ -n "$PY" ] || { echo "no Python with YAML in the container"; $D exec "$C" sh -c 'ls -d /usr/local/searxng/* 2>/dev/null; which -a python3 python'; exit 1; }
           echo "python: $PY"
           $D exec -u 0 "$C" "$PY" /tmp/searx-tune.py /etc/searxng/settings.yml "$APPLY"
-          if [ "$APPLY" = "true" ]; then
+          if [ "$APPLY" = "true" ] && $D exec "$C" test -f /tmp/settings.new.yml; then
+            $D cp "$C":/tmp/settings.new.yml /tmp/settings.new.yml
+            sudo -n cp /tmp/settings.new.yml "$HOSTFILE" && rm -f /tmp/settings.new.yml && echo "written to $HOSTFILE"
             $D restart "$C" >/dev/null && echo "restarted"
             for i in $(seq 1 30); do curl -s -o /dev/null -m 3 http://127.0.0.1:8899/healthz && break; sleep 2; done
             $D logs --since 2m "$C" 2>&1 | grep -iE 'error|invalid|yaml' | tail -n 20 || true
