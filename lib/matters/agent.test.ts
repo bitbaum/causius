@@ -264,7 +264,7 @@ describe("the answer check", () => {
     expect(model.seen[0]).toContain('"name":"web_search"');
     expect(model.seen[1]).not.toContain('"name":"web_search"');
     expect(model.seen[1]).toContain("Search is not available for the rest of this turn");
-    expect(model.seen[2]).toContain("read_law for a Swiss federal or Liechtenstein act");
+    expect(model.seen[2]).toContain("read_law for a Swiss federal, cantonal or Liechtenstein act");
     expect(model.seen[3]).toContain("Fedlex could not be reached");
     const view = (await loadMatter(db, MASTER, id, OWNER))!;
     expect(view.events.some((e) => e.kind === "step" && e.tool === "unverified")).toBe(true);
@@ -298,7 +298,7 @@ describe("reading the law", () => {
       text: "Can I contest my rent increase?",
     });
     expect(outcome).toMatchObject({ ok: true });
-    expect(model.seen[1]).toContain("read_law for a Swiss federal or Liechtenstein act");
+    expect(model.seen[1]).toContain("read_law for a Swiss federal, cantonal or Liechtenstein act");
     expect(model.seen[2]).toContain("official text from Fedlex, in force since 2026-10-01");
     const view = (await loadMatter(db, MASTER, id, OWNER))!;
     const answer = view.events.filter((e) => e.kind === "message" && e.role === "assistant").at(-1);
@@ -306,5 +306,76 @@ describe("reading the law", () => {
       { id: "1", title: "Art. 270b OR (SR 220)", url: "https://www.fedlex.admin.ch/eli/cc/27/317_321_377/de#art_270_b" },
     ]);
     expect(view.events.some((e) => e.kind === "step" && e.tool === "unverified")).toBe(false);
+  });
+});
+
+describe("a runaway reply", () => {
+  it("runs at most 8 calls of one reply, and a repeated call once", async () => {
+    const id = await matter();
+    let reads = 0;
+    const model = scriptedModel([
+      { tools: Array.from({ length: 30 }, () => ["read_law", { act: "OR", article: "270b" }] as [string, unknown]) },
+      { text: "Done [1]." },
+    ]);
+    await runTurn({
+      db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl,
+      readLaw: async () => {
+        reads++;
+        return { cite: "OR (SR 220)", collection: "Fedlex", result: { ok: true, article: { heading: "Art. 270b", text: "x", url: "https://www.fedlex.admin.ch/x", inForceSince: "2026-10-01" } } };
+      },
+      text: "Rent?",
+    });
+    expect(reads).toBe(1);
+    expect(model.seen[1]).toContain("at most 8 tool calls are run from one reply");
+    expect(model.seen[1]).toContain("the same call was already made in this reply");
+  });
+});
+
+describe("an answer lost to its correction", () => {
+  it("keeps the turn's real answer when the last reply is only a call note", async () => {
+    const id = await matter();
+    const model = scriptedModel([
+      { text: "Your objection is due 4 November 2026. update_matter(title)" },
+      { text: "(called add_task)" },
+      { text: "(called add_task)" },
+    ]);
+    await runTurn({ db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl, text: "When?" });
+    const view = (await loadMatter(db, MASTER, id, OWNER))!;
+    const answer = view.events.filter((e) => e.kind === "message" && e.role === "assistant").at(-1);
+    expect(answer && answer.kind === "message" ? answer.text : "").toContain("Your objection is due 4 November 2026");
+  });
+});
+
+describe("a turn that would end with nothing", () => {
+  it("gets one more round, without tools, to answer in words", async () => {
+    const id = await matter();
+    const model = scriptedModel([
+      ...Array.from({ length: 6 }, () => ({ tools: [["note_fact", { fact: "x" }]] as [string, unknown][] })),
+      { text: "(called note_fact)" },
+      { text: "Your deadline is recorded: 4 November 2026." },
+    ]);
+    await runTurn({ db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl, text: "When?" });
+    const view = (await loadMatter(db, MASTER, id, OWNER))!;
+    const answer = view.events.filter((e) => e.kind === "message" && e.role === "assistant").at(-1);
+    expect(answer && answer.kind === "message" ? answer.text : "").toContain("4 November 2026");
+    expect(model.seen.at(-1)).toContain("Answer the person now, without calling more tools.");
+    expect(model.seen.at(-1)).not.toContain('"tools"');
+  });
+});
+
+describe("a last round answered with a TOOL line", () => {
+  it("gets one rescue round past the limit, and the answer stands", async () => {
+    const id = await matter();
+    const model = scriptedModel([
+      ...Array.from({ length: 7 }, () => ({ tools: [["note_fact", { fact: "x" }]] as [string, unknown][] })),
+      { text: 'TOOL: read_law\nARGS: {"act":"StG","article":"140","canton":"ZH"}' },
+      { text: "You have until 4 November 2026 to object." },
+    ]);
+    await runTurn({ db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl, text: "When?" });
+    const view = (await loadMatter(db, MASTER, id, OWNER))!;
+    const answer = view.events.filter((e) => e.kind === "message" && e.role === "assistant").at(-1);
+    expect(answer && answer.kind === "message" ? answer.text : "").toContain("4 November 2026");
+    expect(model.seen).toHaveLength(9);
+    expect(model.seen.at(-1)).toContain("Tools are not available any more");
   });
 });

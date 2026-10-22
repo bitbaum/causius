@@ -13,7 +13,8 @@ brackets, it is the pull request to read for the detail.
   before it states the rule. The answer cites the article with its link. This
   needs no search engine and no paid service, so it works when web search does
   not. Liechtenstein law is read the same way, from gesetze.li, the
-  Government's consolidated collection. {#read-law}
+  Government's consolidated collection, and the law of all 26 cantons through
+  LexFind, from each canton's own official text. {#read-law}
 
 - **A quick check opens as a matter.** Under the deadline, one tap moves the
   check into a sealed matter. The deadline and its sentence, the letter, the

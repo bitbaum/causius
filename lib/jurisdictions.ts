@@ -77,7 +77,7 @@ const SWITZERLAND: Market = {
     "CH-GE": ["Geneva", "Genf", "Ginevra"],
   },
   agentNote:
-    "Switzerland: federal law and the law of the 26 cantons differ; a cantonal tax, permit or procedure is governed by the canton's law, not only by the federal act. Official texts are on fedlex.admin.ch and on each canton's own collection.",
+    "Switzerland: federal law and the law of the 26 cantons differ; a cantonal tax, permit or procedure is governed by the canton's law, not only by the federal act. read_law reads both from the official texts: a federal act by its abbreviation (OR, DBG), a cantonal act with the canton and its abbreviation, number or title (canton ZH, act StG, § 140).",
 };
 
 const LIECHTENSTEIN: Market = {
@@ -85,7 +85,7 @@ const LIECHTENSTEIN: Market = {
   regions: {},
   languages: ["de"],
   agentNote:
-    "Liechtenstein has its own legal order (official texts on gesetze.li), close to Swiss and Austrian law in places and part of the EEA: do not apply Swiss or Austrian law there unless a Liechtenstein source says it applies.",
+    "Liechtenstein has its own legal order, close to Swiss and Austrian law in places and part of the EEA: do not apply Swiss or Austrian law there unless a Liechtenstein source says it applies. read_law reads its acts from gesetze.li (ABGB, PGR, LV, SteG…).",
 };
 
 /** The markets that are switched on, in the order they are shown. */

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { FEDERAL_ACTS } from "../lib/law/acts";
 import { readFederalArticle } from "../lib/law/fedlex";
+import { readCantonalProvision } from "../lib/law/lexfind";
 import { LI_ACTS, readLiechtensteinProvision } from "../lib/law/lilex";
 
 /**
@@ -48,4 +49,14 @@ describe("Fedlex, live", () => {
       expect(r.ok || r.reason === "no_such_article", `${act}: ${r.ok ? "" : r.reason}`).toBe(true);
     }
   }, 600_000);
+
+  it.each([
+    ["ZH", "StG", "§ 140", "de", /innert 30 Tagen nach Zustellung/],
+    ["BE", "StG", "Art. 187", "de", /Quelle besteuerte Personen/],
+    ["VD", "LI", "Art. 1", "fr", /impôt sur le revenu/],
+  ] as const)("canton %s %s %s (LexFind)", async (canton, act, provision, lang, says) => {
+    const r = await readCantonalProvision({ canton, act, provision, lang });
+    expect(r && r.ok && r.article.text).toMatch(says);
+    console.log(`[law] ${canton} ${act} ${provision} ${r && r.ok ? `${r.act?.title} ${r.article.url}` : JSON.stringify(r)}`);
+  }, 120_000);
 });

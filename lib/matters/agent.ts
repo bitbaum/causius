@@ -77,6 +77,8 @@ const health = createHealthTracker();
 const MAX_ROUNDS = 8;
 /** Corrections per turn (answer-check.ts); each goes to the next model in the chain. */
 const MAX_CORRECTIONS = 2;
+/** Tool calls run from one model reply; the rest are answered "not run" so the model can ask again. */
+const MAX_CALLS_PER_ROUND = 8;
 const HISTORY = 30;
 const DOC_BUDGET = 24_000;
 
@@ -84,8 +86,9 @@ const SYSTEM = `You are Causius, a legal assistant working one matter for the pe
 
 How you work:
 - Be concrete and practical. Say what the person should do, in what order, by when.
-- Ground statements of law in sources. For Swiss federal and Liechtenstein law, read the provision itself with read_law (act "OR", article "270b") before you state it: it returns the official text in force today with its [n]. Use web_search and read_page for cantonal law, decisions and official guidance, and cite them as [n] using the numbers given in the results. Every sentence that states a rule of law ends with its [n]; a rule you could not find a source for is marked as unverified. Prefer the official text (the statute, the authority's own page) over commentary. Never invent a statute, article, decision or deadline, and do not overstate how widely a rule applies. If you are unsure, say so and say how to find out.
+- Ground statements of law in sources. For Swiss federal, cantonal and Liechtenstein law, read the provision itself with read_law (act "OR", article "270b") before you state it: it returns the official text in force today with its [n]. Use web_search and read_page for cantonal law, decisions and official guidance, and cite them as [n] using the numbers given in the results. Every sentence that states a rule of law ends with its [n]; a rule you could not find a source for is marked as unverified. Prefer the official text (the statute, the authority's own page) over commentary. Never invent a statute, article, decision or deadline, and do not overstate how widely a rule applies. If you are unsure, say so and say how to find out.
 - Distinguish levels of law (national, and regional where regions make their own law). The notes on this matter's jurisdiction, if any, say what applies there.
+- A letter from a cantonal authority (a cantonal tax office, a cantonal migration office) rests on the canton's own act: read it with read_law (canton and act, e.g. canton ZH, act StG), not only the federal one.
 - Record every deadline you find or compute with record_deadline, quoting the text it comes from. If a deadline depends on a rule (e.g. "30 days from notification"), say which rule and what you assumed.
 - In your first turn on a new matter, call update_matter to give it a clear title, its area of law and its jurisdiction code. Record important facts with note_fact.
 - Write documents (letters, submissions, contracts, objections) with draft_document, complete and ready to use, with [square-bracket placeholders] only for facts you do not have.
@@ -138,13 +141,14 @@ const TOOLS = [
     function: {
       name: "read_law",
       description:
-        "Read one provision of the law from its official collection: the text in force today and its link. Swiss federal acts (Fedlex): abbreviation (OR, ZGB, SchKG, ZPO, DBG, AIG, StGB, CO, CC, LP…) or SR number (220), and the article (270b). Liechtenstein (gesetze.li): LV, ABGB, PGR, SR, ZPO, StGB, StPO, LVG, AuG, SteG, ArG, and the article or § (\"Art. 12\", \"§ 1090\"; ABGB tenancy is \"Art. n\"). The matter's country is read first. Cite it by the [n] it returns.",
+        "Read one provision of the law from its official collection: the text in force today and its link. Swiss federal acts (Fedlex): abbreviation (OR, ZGB, SchKG, ZPO, DBG, AIG, StGB, CO, CC, LP…) or SR number (220), and the article (270b). Cantonal acts of all 26 cantons (LexFind, the canton's official text): the canton's abbreviation (StG), systematic number (631.1) or title, and the § or Art. (\"§ 140\"). Liechtenstein (gesetze.li): LV, ABGB, PGR, SR, ZPO, StGB, StPO, LVG, AuG, SteG, ArG, and the article or § (\"Art. 12\", \"§ 1090\"; ABGB tenancy is \"Art. n\"). The matter's country is read first. Cite it by the [n] it returns.",
       parameters: {
         type: "object",
         properties: {
           act: { type: "string" },
           article: { type: "string" },
           language: { type: "string", enum: ["de", "fr", "it"] },
+          canton: { type: "string", description: "Two letters (ZH, BE, GE…) for a cantonal act; defaults to the matter's canton." },
         },
         required: ["act", "article"],
       },
@@ -318,6 +322,7 @@ const ARGS = {
     act: z.string().trim().min(1).max(40),
     article: z.string().trim().min(1).max(20),
     language: z.enum(["de", "fr", "it"]).optional(),
+    canton: z.string().trim().regex(/^[A-Za-z]{2}$/).optional(),
   }),
   check_domain: z.object({
     names: z.array(z.string().trim().min(1).max(253)).min(1).max(10),
@@ -385,8 +390,16 @@ export function untrusted(source: string, text: string): string {
 /** Results whose text comes from outside Causius, and so can carry instructions. */
 const UNTRUSTED_RESULTS = new Set(["web_search", "read_page", "read_law", "read_document"]);
 
-/** At most this many writes of each kind in one turn: an injected loop cannot flood a matter. */
+/**
+ * At most this many calls of each kind in one turn: an injected loop cannot
+ * flood a matter, and a model cannot read the same statute a hundred times
+ * (Agent check, 2026-10-22: one round asked for read_law ~150 times and the
+ * turn failed).
+ */
 const WRITE_LIMIT: Partial<Record<string, number>> = {
+  read_law: 12,
+  web_search: 8,
+  read_page: 8,
   note_fact: 10,
   record_deadline: 8,
   add_task: 8,
@@ -625,6 +638,12 @@ async function runTurnLocked(input: {
   const readLaw = input.readLaw ?? readLawDefault;
   let servedBy = "";
   let finalText = "";
+  let bestAnswer = "";
+  // Set when a turn would otherwise end with nothing to show: one more round,
+  // without tools, to answer in words.
+  let mustAnswer = false;
+  // One rescue round past the limit, only for a turn with no answer at all.
+  let extraRound = 0;
   let corrections = 0;
   let unverified = false;
   let recorded = 0;
@@ -636,8 +655,8 @@ async function runTurnLocked(input: {
   // (StGB, ZPO) is read from the matter's own.
   let jurisdiction = view.jurisdiction;
 
-  for (let round = 0; round < MAX_ROUNDS; round++) {
-    const last = round === MAX_ROUNDS - 1;
+  for (let round = 0; round < MAX_ROUNDS + extraRound; round++) {
+    const last = round >= MAX_ROUNDS - 1 + extraRound || mustAnswer;
     let turn;
     try {
       turn = await complete({
@@ -683,6 +702,10 @@ async function runTurnLocked(input: {
         deadlines: recorded + view.items.filter((i) => i.kind === "deadline").length,
       });
       trace(problems);
+      // The best real answer of the turn so far, without any narration: what
+      // the person gets if a later correction ends in nothing but a call note.
+      const substance = withoutNarration(turn.text, TOOL_NAMES);
+      if (substance.length > bestAnswer.length) bestAnswer = substance;
       // Asking for a source is pointless once neither search nor Fedlex can
       // be reached; the answer is then stored marked unverified instead.
       const correctable = problems.filter((p) => canSearch || canReadLaw || p !== "unsourced");
@@ -707,15 +730,43 @@ async function runTurnLocked(input: {
         );
         continue;
       }
+      if (!substance && !bestAnswer && !mustAnswer) {
+        // Agent check, 2026-10-22: the only reply was "(called note_fact)",
+        // too late in the turn for a correction; in the next run a text-
+        // protocol model answered the tool-less last round with a TOOL line.
+        // Either way the person saw nothing. One round more, by the next
+        // model, without tools, to answer in words.
+        mustAnswer = true;
+        if (round >= MAX_ROUNDS - 1) extraRound = 1;
+        const served = (l: Link) => `${l.provider.id}/${l.model}` === turn.id;
+        chain = [...chain.filter((l) => !served(l)), ...chain.filter(served)];
+        conversation.push(
+          { role: "assistant", content: turn.text },
+          {
+            role: "user",
+            content:
+              "Tools are not available any more. Write your answer to the person now, in words, from what the tools returned above. Do not write TOOL lines or describe calls.",
+          },
+        );
+        continue;
+      }
       unverified = problems.includes("unsourced") || problems.includes("narrated");
-      finalText = problems.includes("narrated") ? withoutNarration(turn.text, TOOL_NAMES) : turn.text;
+      finalText = problems.includes("narrated") ? substance || bestAnswer : turn.text;
       break;
     }
 
     trace([]);
     const results: string[] = [];
-    for (const call of turn.toolCalls) {
-      const result = await runTool(call.name, call.args);
+    const ran = new Set<string>();
+    for (const [i, call] of turn.toolCalls.entries()) {
+      const key = `${call.name}:${call.args}`;
+      const result =
+        i >= MAX_CALLS_PER_ROUND
+          ? `not run: at most ${MAX_CALLS_PER_ROUND} tool calls are run from one reply; call again for what is still needed`
+          : ran.has(key)
+            ? "not run: the same call was already made in this reply; its result is above"
+            : await runTool(call.name, call.args);
+      ran.add(key);
       const shownResult = hide(result);
       results.push(
         `[tool ${call.name}] ${UNTRUSTED_RESULTS.has(call.name) ? untrusted(call.name, shownResult) : shownResult}`,
@@ -804,9 +855,10 @@ async function runTurnLocked(input: {
             lang: (args.language as LawLanguage | undefined) ?? "de",
             day: swissToday(),
             country: jurisdiction?.split("-")[0],
+            canton: args.canton?.toUpperCase() ?? (jurisdiction?.startsWith("CH-") ? jurisdiction.slice(3) : null),
           });
           if ("unknown" in found)
-            return `"${args.act}" is not an act read_law knows. For a Swiss federal act give its SR number (every Fedlex page shows it); for cantonal, foreign or other law use web_search.`;
+            return `"${args.act}" is not an act read_law found. For a Swiss federal act give its SR number; for a cantonal act give the canton (canton: "ZH") and its abbreviation, number or title; for foreign law use web_search.`;
           const { result, cite, collection } = found;
           if (!result.ok) {
             if (result.reason === "unreachable") canReadLaw = false;
