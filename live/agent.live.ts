@@ -41,6 +41,10 @@ Gegen diese Verfügung können Sie innert 30 Tagen nach Zustellung schriftlich E
 Freundliche Grüsse
 Kantonales Steueramt Zürich`;
 
+function roundLine(r: { round: number; servedBy: string; calls: string[]; problems: string[]; text: string }): string {
+  return `round ${r.round} ${r.servedBy} calls=${r.calls.join(",") || "-"} problems=${r.problems.join(",") || "-"} | ${r.text.replace(/\n/g, " ").slice(0, 100)}`;
+}
+
 describe.skipIf(!available)("a real model works a matter", () => {
   it("records the deadline, uses tools, and never sees the name", { timeout: 300_000 }, async () => {
     const seen: string[] = [];
@@ -52,15 +56,17 @@ describe.skipIf(!available)("a real model works a matter", () => {
       ownerSub: "actor-live",
       core: { title: "New matter", summary: "", area: "", facts: [], hide: ["Erika Muster"] },
     });
+    const rounds: string[] = [];
     const outcome = await runTurn({
       db, master: MASTER, matterId: id, sub: "actor-live", env: process.env, fetchImpl: tap, locale: "en",
-      onRound: (r) => console.log(`[agent] round ${r.round} ${r.servedBy} calls=${r.calls.join(",") || "-"} problems=${r.problems.join(",") || "-"} | ${r.text.replace(/\n/g, " ").slice(0, 120)}`),
+      onRound: (r) => rounds.push(roundLine(r)),
       text: `I received this letter and want to object. What is my deadline? Please record it.\n\n${LETTER}`,
     });
     const view = (await loadMatter(db, MASTER, id, "actor-live"))!;
     const steps = view.events.filter((e) => e.kind === "step").map((e) => (e.kind === "step" ? `${e.tool}: ${e.summary}` : ""));
     const answer = view.events.filter((e) => e.kind === "message" && e.role === "assistant").at(-1);
     console.log(`[agent] outcome ${JSON.stringify(outcome)}`);
+    for (const r of rounds) console.log(`[agent] ${r}`);
     console.log(`[agent] title ${view.core.title} | jurisdiction ${view.jurisdiction}`);
     for (const s of steps) console.log(`[agent] step ${s}`);
     for (const i of view.items) console.log(`[agent] item ${i.kind} ${i.due} ${i.label}`);
@@ -84,9 +90,10 @@ describe.skipIf(!available)("a real model works a matter", () => {
       jurisdiction: "CH-ZH",
       core: { title: "New matter", summary: "", area: "", facts: [], hide: [], workflow: "rent-increase" },
     });
+    const rounds: string[] = [];
     const outcome = await runTurn({
       db, master: MASTER, matterId: id, sub: "actor-live", env: process.env, locale: "en",
-      onRound: (r) => console.log(`[agent] rent: round ${r.round} ${r.servedBy} calls=${r.calls.join(",") || "-"} problems=${r.problems.join(",") || "-"} | ${r.text.replace(/\n/g, " ").slice(0, 120)}`),
+      onRound: (r) => rounds.push(roundLine(r)),
       text: "My landlord in Zürich notified me on 1 October 2026, on the official form, that my rent rises by 8% from 1 January 2027, citing increased costs. Can I contest it, by when, and with which authority?",
     });
     const view = (await loadMatter(db, MASTER, id, "actor-live"))!;
@@ -95,6 +102,7 @@ describe.skipIf(!available)("a real model works a matter", () => {
     const text = answer && answer.kind === "message" ? answer.text : "";
     const sources = answer && answer.kind === "message" ? (answer.sources ?? []) : [];
     console.log(`[agent] rent: outcome ${JSON.stringify(outcome)}`);
+    for (const r of rounds) console.log(`[agent] rent: ${r}`);
     console.log(`[agent] rent: steps ${steps.join(", ")}; served by ${outcome.ok ? outcome.servedBy : "-"}`);
     for (const i of view.items) console.log(`[agent] rent: item ${i.kind} ${i.due} ${i.label}`);
     console.log(`[agent] rent: sources ${sources.map((s) => s.url).join(" ")}`);
