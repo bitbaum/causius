@@ -330,3 +330,18 @@ describe("a runaway reply", () => {
     expect(model.seen[1]).toContain("the same call was already made in this reply");
   });
 });
+
+describe("an answer lost to its correction", () => {
+  it("keeps the turn's real answer when the last reply is only a call note", async () => {
+    const id = await matter();
+    const model = scriptedModel([
+      { text: "Your objection is due 4 November 2026. update_matter(title)" },
+      { text: "(called add_task)" },
+      { text: "(called add_task)" },
+    ]);
+    await runTurn({ db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl, text: "When?" });
+    const view = (await loadMatter(db, MASTER, id, OWNER))!;
+    const answer = view.events.filter((e) => e.kind === "message" && e.role === "assistant").at(-1);
+    expect(answer && answer.kind === "message" ? answer.text : "").toContain("Your objection is due 4 November 2026");
+  });
+});

@@ -637,6 +637,7 @@ async function runTurnLocked(input: {
   const readLaw = input.readLaw ?? readLawDefault;
   let servedBy = "";
   let finalText = "";
+  let bestAnswer = "";
   let corrections = 0;
   let unverified = false;
   let recorded = 0;
@@ -695,6 +696,10 @@ async function runTurnLocked(input: {
         deadlines: recorded + view.items.filter((i) => i.kind === "deadline").length,
       });
       trace(problems);
+      // The best real answer of the turn so far, without any narration: what
+      // the person gets if a later correction ends in nothing but a call note.
+      const substance = withoutNarration(turn.text, TOOL_NAMES);
+      if (substance.length > bestAnswer.length) bestAnswer = substance;
       // Asking for a source is pointless once neither search nor Fedlex can
       // be reached; the answer is then stored marked unverified instead.
       const correctable = problems.filter((p) => canSearch || canReadLaw || p !== "unsourced");
@@ -720,7 +725,7 @@ async function runTurnLocked(input: {
         continue;
       }
       unverified = problems.includes("unsourced") || problems.includes("narrated");
-      finalText = problems.includes("narrated") ? withoutNarration(turn.text, TOOL_NAMES) : turn.text;
+      finalText = problems.includes("narrated") ? substance || bestAnswer : turn.text;
       break;
     }
 
