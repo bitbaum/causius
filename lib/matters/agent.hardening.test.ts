@@ -144,7 +144,8 @@ describe("text from outside is data, not instructions", () => {
       "note_fact",
       { fact: `fact ${i}` },
     ]);
-    const model = scriptedModel([{ tools: flood }, { text: "Done." }]);
+    // Over two replies: one reply runs at most 8 calls, the turn's limit is 10.
+    const model = scriptedModel([{ tools: flood.slice(0, 8) }, { tools: flood.slice(8) }, { text: "Done." }]);
     await runTurn({
       db,
       master: MASTER,
@@ -157,7 +158,7 @@ describe("text from outside is data, not instructions", () => {
     expect((await loadMatter(db, MASTER, id, OWNER))!.core.facts).toHaveLength(
       10,
     );
-    expect(model.seen[1]).toContain("limit reached");
+    expect(model.seen[2]).toContain("limit reached");
   });
 });
 

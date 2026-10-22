@@ -308,3 +308,25 @@ describe("reading the law", () => {
     expect(view.events.some((e) => e.kind === "step" && e.tool === "unverified")).toBe(false);
   });
 });
+
+describe("a runaway reply", () => {
+  it("runs at most 8 calls of one reply, and a repeated call once", async () => {
+    const id = await matter();
+    let reads = 0;
+    const model = scriptedModel([
+      { tools: Array.from({ length: 30 }, () => ["read_law", { act: "OR", article: "270b" }] as [string, unknown]) },
+      { text: "Done [1]." },
+    ]);
+    await runTurn({
+      db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl,
+      readLaw: async () => {
+        reads++;
+        return { cite: "OR (SR 220)", collection: "Fedlex", result: { ok: true, article: { heading: "Art. 270b", text: "x", url: "https://www.fedlex.admin.ch/x", inForceSince: "2026-10-01" } } };
+      },
+      text: "Rent?",
+    });
+    expect(reads).toBe(1);
+    expect(model.seen[1]).toContain("at most 8 tool calls are run from one reply");
+    expect(model.seen[1]).toContain("the same call was already made in this reply");
+  });
+});

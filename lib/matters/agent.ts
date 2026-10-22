@@ -77,6 +77,8 @@ const health = createHealthTracker();
 const MAX_ROUNDS = 8;
 /** Corrections per turn (answer-check.ts); each goes to the next model in the chain. */
 const MAX_CORRECTIONS = 2;
+/** Tool calls run from one model reply; the rest are answered "not run" so the model can ask again. */
+const MAX_CALLS_PER_ROUND = 8;
 const HISTORY = 30;
 const DOC_BUDGET = 24_000;
 
@@ -387,8 +389,16 @@ export function untrusted(source: string, text: string): string {
 /** Results whose text comes from outside Causius, and so can carry instructions. */
 const UNTRUSTED_RESULTS = new Set(["web_search", "read_page", "read_law", "read_document"]);
 
-/** At most this many writes of each kind in one turn: an injected loop cannot flood a matter. */
+/**
+ * At most this many calls of each kind in one turn: an injected loop cannot
+ * flood a matter, and a model cannot read the same statute a hundred times
+ * (Agent check, 2026-10-22: one round asked for read_law ~150 times and the
+ * turn failed).
+ */
 const WRITE_LIMIT: Partial<Record<string, number>> = {
+  read_law: 12,
+  web_search: 8,
+  read_page: 8,
   note_fact: 10,
   record_deadline: 8,
   add_task: 8,
@@ -716,8 +726,16 @@ async function runTurnLocked(input: {
 
     trace([]);
     const results: string[] = [];
-    for (const call of turn.toolCalls) {
-      const result = await runTool(call.name, call.args);
+    const ran = new Set<string>();
+    for (const [i, call] of turn.toolCalls.entries()) {
+      const key = `${call.name}:${call.args}`;
+      const result =
+        i >= MAX_CALLS_PER_ROUND
+          ? `not run: at most ${MAX_CALLS_PER_ROUND} tool calls are run from one reply; call again for what is still needed`
+          : ran.has(key)
+            ? "not run: the same call was already made in this reply; its result is above"
+            : await runTool(call.name, call.args);
+      ran.add(key);
       const shownResult = hide(result);
       results.push(
         `[tool ${call.name}] ${UNTRUSTED_RESULTS.has(call.name) ? untrusted(call.name, shownResult) : shownResult}`,
