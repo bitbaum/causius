@@ -642,6 +642,7 @@ async function runTurnLocked(input: {
   // Set when a turn would otherwise end with nothing to show: one more round,
   // without tools, to answer in words.
   let mustAnswer = false;
+  const reader = input.locale ? { language: localeEnglishNames[input.locale] } : undefined;
   // One rescue round past the limit, only for a turn with no answer at all.
   let extraRound = 0;
   let corrections = 0;
@@ -700,6 +701,7 @@ async function runTurnLocked(input: {
         toolNames: TOOL_NAMES,
         sources: sources.length,
         deadlines: recorded + view.items.filter((i) => i.kind === "deadline").length,
+        locale: input.locale,
       });
       trace(problems);
       // The best real answer of the turn so far, without any narration: what
@@ -725,7 +727,7 @@ async function runTurnLocked(input: {
           { role: "assistant", content: turn.text },
           {
             role: "user",
-            content: narrated ? `${repairPrompt(correctable)}\n\n${TEXT_TOOL_PROTOCOL_HINT}` : repairPrompt(correctable),
+            content: narrated ? `${repairPrompt(correctable, reader)}\n\n${TEXT_TOOL_PROTOCOL_HINT}` : repairPrompt(correctable, reader),
           },
         );
         continue;

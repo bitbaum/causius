@@ -19,6 +19,9 @@
  * natively) switched to text calls and then answered "(called note_fact)"; the
  * real-model Agent check went from passing to failing. Without it, it passes.
  *   unsourced  — a rule of law stated in a turn that consulted no source
+ *   language   — an answer plainly written in another language than the
+ *                reader's (Agent check, 2026-10-22: an English question was
+ *                answered in German after the agent read German statutes)
  *   unrecorded — a deadline date given in the answer while the matter holds
  *                no deadline: the Agent check saw a model compute "4 November
  *                2026" correctly and never call record_deadline, so the
@@ -30,7 +33,7 @@
  */
 import { stripToolCallLines } from "@bitbaum/ai-kit";
 
-export type AnswerProblem = "narrated" | "unsourced" | "unrecorded";
+export type AnswerProblem = "narrated" | "unsourced" | "unrecorded" | "language";
 
 /** A statement of law: an article, a paragraph sign, a Swiss/Liechtenstein code or collection number. */
 const CITES_LAW =
@@ -45,9 +48,35 @@ const DATE = new RegExp(
 );
 const DEADLINE_WORD = /\b(?:deadline|Frist|délai|termine|scadenza)/i;
 
+/** Words common in running text of each interface language, and rare in the others. */
+const FUNCTION_WORDS: Record<string, readonly string[]> = {
+  en: ["the", "and", "you", "your", "is", "are", "to", "of", "with", "this", "that", "for", "not", "can"],
+  de: ["der", "die", "das", "und", "ist", "sie", "ihre", "nicht", "mit", "den", "dem", "zu", "eine", "werden", "können"],
+  fr: ["le", "la", "les", "et", "est", "vous", "votre", "pas", "avec", "des", "une", "que", "pour", "dans"],
+  it: ["il", "la", "le", "e", "è", "di", "che", "non", "con", "una", "per", "del", "della", "lei"],
+};
+
+/**
+ * The language an answer is plainly written in, or null when it is short or
+ * mixed. Quoted text (a letter's own words, a statute) does not count.
+ */
+export function answerLanguage(text: string): string | null {
+  const own = text
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/«[^»]*»|„[^“”]*[“”]|"[^"]*"|“[^”]*”/g, " ")
+    .replace(/^>.*$/gm, " ");
+  const words = own.toLowerCase().match(/\p{L}+/gu) ?? [];
+  if (words.length < 40) return null;
+  const scores = Object.entries(FUNCTION_WORDS)
+    .map(([lang, list]) => [lang, words.filter((w) => list.includes(w)).length] as const)
+    .sort((a, b) => b[1] - a[1]);
+  const [best, second] = scores;
+  return best![1] >= 8 && best![1] >= 2 * second![1] ? best![0] : null;
+}
+
 export function answerProblems(
   text: string,
-  turn: { toolNames: readonly string[]; sources: number; deadlines?: number },
+  turn: { toolNames: readonly string[]; sources: number; deadlines?: number; locale?: string },
 ): AnswerProblem[] {
   const problems: AnswerProblem[] = [];
   const names = turn.toolNames.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
@@ -58,13 +87,19 @@ export function answerProblems(
   if ((names && narrated.test(text)) || /^\s*\(called [\w, ]+\)\s*$/.test(text)) problems.push("narrated");
   if (turn.sources === 0 && CITES_LAW.test(text)) problems.push("unsourced");
   if (turn.deadlines === 0 && DEADLINE_WORD.test(text) && DATE.test(text)) problems.push("unrecorded");
+  if (turn.locale) {
+    const lang = answerLanguage(text);
+    if (lang && lang !== turn.locale) problems.push("language");
+  }
   return problems;
 }
 
 /** The correction the agent is sent, one sentence per problem. Written for the model. */
-export function repairPrompt(problems: readonly AnswerProblem[]): string {
+export function repairPrompt(problems: readonly AnswerProblem[], reader?: { language: string }): string {
   const lines = problems.map((p) =>
-    p === "narrated"
+    p === "language"
+      ? `Your answer is not in the person's language. Write it again in ${reader?.language ?? "the language the person wrote in"}, keeping every fact, date and [n]; quote a letter or statute in its own language only where you quote it.`
+      : p === "narrated"
       ? "Your answer describes tool calls instead of making them. Nothing you described has happened. Call the tools now (natively, or with the TOOL/ARGS lines), then answer."
       : p === "unrecorded"
         ? "Your answer gives a deadline, but none is recorded in the matter. Call record_deadline now for each deadline, quoting the text it comes from, then answer."
