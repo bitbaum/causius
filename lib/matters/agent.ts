@@ -457,7 +457,7 @@ function documentsBlock(
   return untrusted("documents", parts.join("\n"));
 }
 
-function chainFor(
+export function chainFor(
   byok: unknown,
   env: Env,
   model?: string,

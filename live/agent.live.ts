@@ -3,7 +3,8 @@ import { freeAvailability } from "../lib/analyze";
 import type { Db } from "../lib/db";
 import { runTurn } from "../lib/matters/agent";
 import { answerProblems } from "../lib/matters/answer-check";
-import { createMatter, loadMatter } from "../lib/matters/store";
+import { runReview } from "../lib/matters/review";
+import { addDocument, createMatter, loadMatter, openMatter } from "../lib/matters/store";
 import { MASTER, testDb } from "../lib/test/db";
 
 /**
@@ -101,4 +102,31 @@ describe.skipIf(!available)("a real model works a matter", () => {
     // Either it found sources, or it is visibly marked unverified: never a silent answer from memory.
     expect(sources.length > 0 || steps.includes("unverified")).toBe(true);
   });
+
+  // Ask every document: each kept answer must quote its document word for word.
+  it("reviews documents, every answer quoting its document", { timeout: 300_000 }, async () => {
+    const id = await createMatter(db, MASTER, {
+      ownerSub: "actor-live",
+      core: { title: "Review", summary: "", area: "", facts: [], hide: ["Erika Muster"] },
+    });
+    const m = (await openMatter(db, MASTER, id, "actor-live"))!;
+    await addDocument(db, m, { name: "Steuerverfügung.txt", mime: "text/plain", origin: "upload", text: LETTER, bySub: "actor-live" });
+    await addDocument(db, m, {
+      name: "Mietzinserhöhung.txt", mime: "text/plain", origin: "upload", bySub: "actor-live",
+      text: "Sehr geehrte Frau Erika Muster\nDer Nettomietzins erhöht sich ab 1. Januar 2027 von CHF 1'500 auf CHF 1'620.\nSie können die Erhöhung innert 30 Tagen nach Empfang bei der Schlichtungsbehörde anfechten.",
+    });
+    const out = await runReview({
+      db, master: MASTER, matterId: id, sub: "actor-live", env: process.env,
+      questions: ["By when must I act?", "What amount is involved?"], language: "English", notFound: "-", title: "Review",
+    });
+    if (!out.ok) console.log(`[agent] review: ${out.error}`);
+    expect(out.ok).toBe(true);
+    if (!out.ok) return;
+    for (const r of out.table.rows)
+      for (const [i, c] of r.cells.entries()) console.log(`[agent] review: ${r.name} | ${out.table.questions[i]} | ${c.answer || "-"} | ${c.quote ?? ""}`);
+    const answered = out.table.rows.flatMap((r) => r.cells).filter((c) => c.answer);
+    // Four cells, at least three answerable; runReview keeps only answers whose quote is in the document.
+    expect(answered.length).toBeGreaterThanOrEqual(3);
+  });
 });
+

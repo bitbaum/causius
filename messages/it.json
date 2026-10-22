@@ -500,7 +500,8 @@
       "other": "passo",
       "check_domain": "domini",
       "read_document": "lettura",
-      "unverified": "non verificato"
+      "unverified": "non verificato",
+      "review": "esaminato"
     },
     "emptyThread": "Scriva che cosa succede. Causius si metterà al lavoro.",
     "composer": "Scrivere a Causius…",
@@ -1248,5 +1249,29 @@
   "Places": {
     "whole": "{country}, intero Paese",
     "elsewhere": "Altrove"
+  },
+  "DocReview": {
+    "title": "Interrogare ogni documento",
+    "lead": "Le stesse domande a ogni documento aggiunto. Ogni risposta mostra le parole da cui è tratta; se un documento non lo dice, la casella lo indica.",
+    "question": "Domanda {n}",
+    "suggestions": {
+      "asks": "Che cosa mi si chiede?",
+      "deadline": "Entro quando?",
+      "amount": "Quale importo?",
+      "sender": "Chi lo ha inviato?"
+    },
+    "ask": "Chiedere",
+    "asking": "Lettura di {count, plural, one {# documento} other {# documenti}}…",
+    "document": "Documento",
+    "notFound": "non è in questo documento",
+    "saved": "Conservato nella pratica come documento.",
+    "savedTitle": "Esame dei documenti",
+    "errors": {
+      "no_documents": "Aggiunga prima un documento.",
+      "busy": "Nessun modello ha risposto. Riprovi tra poco.",
+      "not_configured": "La lettura non è ancora attiva su questo sito.",
+      "rate_limited": "Troppe richieste in poco tempo. Attenda un momento.",
+      "unknown": "Non ha funzionato. Riprovi."
+    }
   }
 }

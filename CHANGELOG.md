@@ -6,6 +6,14 @@ brackets, it is the pull request to read for the detail.
 
 ## 2026-10-22
 
+### Added
+
+- **Ask across documents.** In a matter, ask up to three questions of every
+  document at once: who pays, when it ends, what notice applies. The answers
+  come back as a table, one row per document, and every answer quotes its
+  passage. An answer whose quote is not in the document is dropped rather than
+  shown. The table is saved to the matter as a draft. {#document-review}
+
 ### Fixed
 
 - **The agent researches before it states the law.** A real question on the
