@@ -24,6 +24,8 @@ export interface ArticleText {
   url: string;
   /** The day this consolidated version took effect, YYYY-MM-DD. */
   inForceSince: string;
+  /** Set when Solon held the text: the sha256 of the publisher's page it was read from. */
+  sha256?: string;
 }
 
 export type ReadArticle =

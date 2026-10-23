@@ -29,6 +29,26 @@ export const LI_ACTS: Record<string, string> = {
   ARG: "1967006000", // Arbeitsgesetz, LR 822.10
 };
 
+/** The same acts by their LR number, which is how Solon keeps them. */
+export const LI_LR: Record<string, string> = {
+  LV: "101",
+  ABGB: "210.0",
+  SR: "214.0",
+  PGR: "216.0",
+  ZPO: "271.0",
+  STGB: "311.0",
+  STPO: "312.0",
+  LVG: "172.020",
+  AUG: "152.20",
+  STEG: "640.0",
+  ARG: "822.10",
+};
+
+/** "LV", "abgb" → "101", "210.0"; an unknown name → null. */
+export function liLr(act: string): string | null {
+  return LI_LR[act.trim().toUpperCase().replace(/[.\s-]/g, "")] ?? null;
+}
+
 /** "ABGB", "abgb", "LR 210.0"? Only abbreviations: Lilex ids are not LR numbers. */
 export function liActId(act: string): string | null {
   return LI_ACTS[act.trim().toUpperCase().replace(/[.\s-]/g, "")] ?? null;

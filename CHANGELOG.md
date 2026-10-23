@@ -4,6 +4,16 @@ What changed for the people who use Causius, newest first. Every entry comes
 from a change merged into this repository; where there is a number in
 brackets, it is the pull request to read for the detail.
 
+## 2026-10-23
+
+### Added
+
+- **The agent reads the law from Solon first.** For Swiss federal acts and
+  Liechtenstein's common ones it now asks Solon, which keeps the publisher's text
+  with the page it came from and a hash that proves the copy, and tells the
+  answer which copy it used. Where Solon does not hold an act or an article yet,
+  the agent reads the publisher itself, as before. {#law-from-solon-read}
+
 ## 2026-10-22
 
 ### Added

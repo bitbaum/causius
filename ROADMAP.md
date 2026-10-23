@@ -85,7 +85,8 @@ check. The plan, the sources and the sizes are in Solon's
 `docs/design/2026-10-law-as-data.md`.
 
 - [ ] Solon holds the acts (its register, then federal text, then Liechtenstein, then the cantons)
-- [ ] The agent asks Solon first and falls back to the publisher; an answer cites the publisher's link and Solon's hash
+- [x] The agent asks Solon first and falls back to the publisher; an answer cites the publisher's link and Solon's hash. Done for federal acts and Liechtenstein's ten common acts; cantonal acts are still read from LexFind {#law-from-solon-read}
+- [ ] The agent asks Solon for cantonal acts too, once Solon names them by abbreviation or reads each canton's own text {#law-from-solon-cantons}
 - [ ] The agent tells a person when a law a matter depends on has changed, with what changed
 
 ### The big problems, as workflows {#big-workflows}

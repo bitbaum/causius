@@ -141,7 +141,7 @@ const TOOLS = [
     function: {
       name: "read_law",
       description:
-        "Read one provision of the law from its official collection: the text in force today and its link. Swiss federal acts (Fedlex): abbreviation (OR, ZGB, SchKG, ZPO, DBG, AIG, StGB, CO, CC, LP…) or SR number (220), and the article (270b). Cantonal acts of all 26 cantons (LexFind, the canton's official text): the canton's abbreviation (StG), systematic number (631.1) or title, and the § or Art. (\"§ 140\"). Liechtenstein (gesetze.li): LV, ABGB, PGR, SR, ZPO, StGB, StPO, LVG, AuG, SteG, ArG, and the article or § (\"Art. 12\", \"§ 1090\"; ABGB tenancy is \"Art. n\"). The matter's country is read first. Cite it by the [n] it returns.",
+        "Read one provision of the law from its official collection: the text in force today and its link. Swiss federal acts (Fedlex): abbreviation (OR, ZGB, SchKG, ZPO, DBG, AIG, StGB, CO, CC, LP…) or SR number (220), and the article (270b). Cantonal acts of all 26 cantons (LexFind, the canton's official text): the canton's abbreviation (StG), systematic number (631.1) or title, and the § or Art. (\"§ 140\"). Liechtenstein (gesetze.li): LV, ABGB, PGR, SR, ZPO, StGB, StPO, LVG, AuG, SteG, ArG, and the article or § (\"Art. 12\", \"§ 1090\"; ABGB tenancy is \"Art. n\"). The matter's country is read first. Solon's hash-checked copy of the publisher's text is read first where it holds the act; the publisher itself otherwise. Cite it by the [n] it returns.",
       parameters: {
         type: "object",
         properties: {
@@ -879,7 +879,8 @@ async function runTurnLocked(input: {
           }
           await appendStep(db, m, { tool: "read_law", summary: title });
           const since = a.inForceSince ? `, in force since ${a.inForceSince}` : ", as consolidated today";
-          return `[${n + 1}] ${title}, official text from ${collection}${since} — ${a.url}\n${a.text.slice(0, 6000)}`;
+          const copy = a.sha256 ? `, copy checked by sha256 ${a.sha256.slice(0, 12)}…` : "";
+          return `[${n + 1}] ${title}, official text from ${collection}${since}${copy} — ${a.url}\n${a.text.slice(0, 6000)}`;
         }
         case "read_page": {
           const refused = refusesPageAddress(args.url!);

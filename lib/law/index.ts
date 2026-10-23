@@ -1,7 +1,8 @@
 import { srNumber } from "./acts";
 import { readFederalArticle, type LawLanguage, type ReadArticle } from "./fedlex";
 import { readCantonalProvision } from "./lexfind";
-import { liActId, readLiechtensteinProvision } from "./lilex";
+import { liActId, liLr, readLiechtensteinProvision } from "./lilex";
+import { readFromSolon } from "./solon";
 
 /**
  * The law of each market, read from its own official collection. A country
@@ -24,12 +25,16 @@ export interface LawQuery {
 }
 
 /** A reader returns null when the act is not one of its own. */
-const READERS: Record<string, { label: string; read: (q: LawQuery) => Promise<{ result: ReadArticle; cite: string } | null> }> = {
+type Read = (q: LawQuery) => Promise<{ result: ReadArticle; cite: string; collection?: string } | null>;
+const READERS: Record<string, { label: string; read: Read }> = {
   CH: {
     label: "Fedlex / LexFind",
     async read(q) {
       const sr = srNumber(q.act);
       if (sr) {
+        // Solon's copy first: the publisher's text with its page and hash. Fedlex itself when Solon does not hold it.
+        const held = await readFromSolon({ authority: "ch", number: sr, provision: q.provision, lang: q.lang, day: q.day, fetchImpl: q.fetchImpl });
+        if (held) return { result: held, cite: `${q.act} (SR ${sr})`, collection: SOLON_LABEL };
         const result = await readFederalArticle({ sr, article: q.provision, lang: q.lang, day: q.day, fetchImpl: q.fetchImpl });
         return { result, cite: `${q.act} (SR ${sr})` };
       }
@@ -45,11 +50,18 @@ const READERS: Record<string, { label: string; read: (q: LawQuery) => Promise<{ 
     label: "gesetze.li",
     async read(q) {
       if (!liActId(q.act)) return null;
+      const lr = liLr(q.act);
+      const held = lr
+        ? await readFromSolon({ authority: "li", number: lr, provision: q.provision, lang: q.lang, day: q.day, fetchImpl: q.fetchImpl })
+        : null;
+      if (held) return { result: held, cite: `${q.act} (LI)`, collection: SOLON_LABEL };
       const result = await readLiechtensteinProvision({ act: q.act, provision: q.provision, fetchImpl: q.fetchImpl });
       return { result, cite: `${q.act} (LI)` };
     },
   },
 };
+
+const SOLON_LABEL = "Solon (the publisher's text, kept with its page and hash)";
 
 export const LAW_COUNTRIES = Object.keys(READERS);
 
@@ -63,7 +75,7 @@ export async function readLaw(
   const first = q.country && READERS[q.country] ? [q.country] : [];
   for (const code of [...first, ...LAW_COUNTRIES.filter((c) => c !== q.country)]) {
     const found = await READERS[code]!.read(q);
-    if (found) return { ...found, collection: READERS[code]!.label };
+    if (found) return { ...found, collection: found.collection ?? READERS[code]!.label };
   }
   return { unknown: true };
 }

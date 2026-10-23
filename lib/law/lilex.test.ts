@@ -57,7 +57,8 @@ describe("one read_law for both countries", () => {
     }) as typeof fetch;
     const li = await readLaw({ act: "StGB", provision: "§ 1", lang: "de", day: "2026-10-22", country: "LI", fetchImpl: tap });
     expect(li).toMatchObject({ collection: "gesetze.li", result: { ok: true } });
-    expect(seen.every((u) => u.includes("gesetze.li"))).toBe(true);
+    // Solon is asked first and, holding nothing here, the publisher answers.
+    expect(seen.filter((u) => !u.includes("solon.orangecat.ch")).every((u) => u.includes("gesetze.li"))).toBe(true);
     expect(await readLaw({ act: "Mietrecht", provision: "1", lang: "de", day: "2026-10-22", fetchImpl: tap })).toEqual({ unknown: true });
   });
 });
