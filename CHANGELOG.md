@@ -4,6 +4,16 @@ What changed for the people who use Causius, newest first. Every entry comes
 from a change merged into this repository; where there is a number in
 brackets, it is the pull request to read for the detail.
 
+## 2026-10-24
+
+### Added
+
+- **The agent finds the law by what it says.** It no longer needs to know the act
+  or article. It searches Solon's copy of the law of the Confederation and of
+  every place the question names, and reads the provisions that answer it. Ask
+  whether something is allowed in one canton, then in another, and each
+  answer rests on that canton's own text. {#law-search}
+
 ## 2026-10-23
 
 ### Added

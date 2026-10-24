@@ -309,6 +309,65 @@ describe("reading the law", () => {
   });
 });
 
+describe("finding the law by what it says", () => {
+  it("searches Solon for the places named, and the answer cites what it found", async () => {
+    const id = await matter();
+    const asked: { terms: readonly string[]; authorities: readonly string[] }[] = [];
+    const model = scriptedModel([
+      { tools: [["search_law", { terms: ["Fuchs", "Wildtier", "Bewilligung"], places: ["GR", "LU"] }]] },
+      { text: "Keeping wild animals needs a permit [1]." },
+    ]);
+    const outcome = await runTurn({
+      db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl,
+      searchSolon: async (input) => {
+        asked.push(input);
+        return [
+          {
+            actId: "11111111-1111-1111-1111-111111111111",
+            authority: "gr",
+            title: "Jagdgesetz",
+            systematicNumber: "740.000",
+            path: "art_12",
+            heading: "Art. 12 Halten von Wildtieren",
+            text: "Wer Wildtiere hält, braucht eine Bewilligung.",
+            dateBasis: "publisher",
+            inForceFrom: "2020-01-01",
+            sourceUrl: null,
+            contentSha256: "a".repeat(64),
+          },
+        ];
+      },
+      text: "Is it legal to keep a fox in Graubünden?",
+    });
+    expect(outcome).toMatchObject({ ok: true });
+    expect(asked).toEqual([{ terms: ["Fuchs", "Wildtier", "Bewilligung"], authorities: ["ch", "gr", "lu"] }]);
+    expect(model.seen[1]).toContain("Wer Wildtiere hält, braucht eine Bewilligung.");
+    const view = (await loadMatter(db, MASTER, id, OWNER))!;
+    const answer = view.events.filter((e) => e.kind === "message" && e.role === "assistant").at(-1);
+    expect(answer && answer.kind === "message" ? answer.sources : []).toEqual([
+      {
+        id: "1",
+        title: "Art. 12 Halten von Wildtieren, Jagdgesetz (GR)",
+        url: "https://solon.orangecat.ch/law/11111111-1111-1111-1111-111111111111#art_12",
+      },
+    ]);
+  });
+
+  it("says so when Solon cannot be reached, instead of leaving the model to guess", async () => {
+    const id = await matter();
+    const model = scriptedModel([
+      { tools: [["search_law", { terms: ["Fuchs"] }]] },
+      { text: "I could not look this up." },
+    ]);
+    await runTurn({
+      db, master: MASTER, matterId: id, sub: OWNER, env: ENV, fetchImpl: model.impl,
+      searchSolon: async () => null,
+      text: "Fox?",
+    });
+    expect(model.seen[1]).toContain("Do not state the law from memory");
+  });
+});
+
 describe("a runaway reply", () => {
   it("runs at most 8 calls of one reply, and a repeated call once", async () => {
     const id = await matter();
