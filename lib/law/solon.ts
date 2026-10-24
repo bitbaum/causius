@@ -120,3 +120,42 @@ export async function readFromSolon(input: {
   }
   return null;
 }
+
+export interface SolonHit {
+  actId: string;
+  authority: string;
+  title: string | null;
+  systematicNumber: string | null;
+  path: string;
+  heading: string;
+  text: string;
+  dateBasis: string;
+  inForceFrom: string;
+  sourceUrl: string | null;
+  contentSha256: string;
+}
+
+/**
+ * Provisions that bear on a question, from Solon's search over the text of the
+ * law in force: `terms` are stems as the law words them (German, French or
+ * Italian), `authorities` are Solon's keys ("ch", "gr", "li"). Null when Solon
+ * cannot be reached, so the caller can say so instead of answering from memory.
+ */
+export async function searchSolon(input: {
+  terms: readonly string[];
+  authorities: readonly string[];
+  limit?: number;
+  fetchImpl?: typeof fetch;
+  baseUrl?: string;
+}): Promise<SolonHit[] | null> {
+  const base = input.baseUrl ?? SOLON_URL;
+  const params = new URLSearchParams({
+    terms: input.terms.join(","),
+    authority: input.authorities.join(","),
+    limit: String(input.limit ?? 8),
+  });
+  const found = (await getJson(`${base}/api/v1/law/search?${params}`, input.fetchImpl ?? fetch)) as {
+    hits?: SolonHit[];
+  } | null;
+  return found?.hits ?? null;
+}

@@ -45,6 +45,7 @@ import { workflowById } from "../workflows";
 import { localeEnglishNames, type Locale } from "../../i18n/routing";
 import { marketOf } from "../jurisdictions";
 import { readLaw as readLawDefault } from "../law";
+import { SOLON_URL, searchSolon as searchSolonDefault } from "../law/solon";
 import type { LawLanguage } from "../law/fedlex";
 import { answerProblems, repairPrompt, withoutNarration } from "./answer-check";
 
@@ -88,6 +89,7 @@ How you work:
 - Be concrete and practical. Say what the person should do, in what order, by when.
 - Ground statements of law in sources. For Swiss federal, cantonal and Liechtenstein law, read the provision itself with read_law (act "OR", article "270b") before you state it: it returns the official text in force today with its [n]. Use web_search and read_page for cantonal law, decisions and official guidance, and cite them as [n] using the numbers given in the results. Every sentence that states a rule of law ends with its [n]; a rule you could not find a source for is marked as unverified. Prefer the official text (the statute, the authority's own page) over commentary. Never invent a statute, article, decision or deadline, and do not overstate how widely a rule applies. If you are unsure, say so and say how to find out.
 - Distinguish levels of law (national, and regional where regions make their own law). The notes on this matter's jurisdiction, if any, say what applies there.
+- When you do not know which act answers a question ("may one keep a fox in Graubünden?"), find it with search_law first (word stems as the law words them, in German, French or Italian; name every place the question is about), then read the provisions that matter with read_law. For "and in Lucerne?" search the same stems for Lucerne. Say which place each rule comes from; the federal rule applies everywhere and a canton's own rule adds to it.
 - A letter from a cantonal authority (a cantonal tax office, a cantonal migration office) rests on the canton's own act: read it with read_law (canton and act, e.g. canton ZH, act StG), not only the federal one.
 - Record every deadline you find or compute with record_deadline, quoting the text it comes from. If a deadline depends on a rule (e.g. "30 days from notification"), say which rule and what you assumed.
 - In your first turn on a new matter, call update_matter to give it a clear title, its area of law and its jurisdiction code. Record important facts with note_fact.
@@ -151,6 +153,22 @@ const TOOLS = [
           canton: { type: "string", description: "Two letters (ZH, BE, GE…) for a cantonal act; defaults to the matter's canton." },
         },
         required: ["act", "article"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "search_law",
+      description:
+        "Search the text of the law in force when you do not know which act or article answers a question (\"may one keep a fox\", \"notice period for a flat\"). Searches Solon's copy of the published law of the Confederation and the places you name. Give `terms`: 3 to 8 word stems as the LAW words them, in German (and French or Italian for places that speak them), e.g. Fuchs, Wildtier, Haltung, Bewilligung. Give `places`: the cantons (two letters, GR, LU…) or LI the question is about; the Confederation is always searched. Compare places by naming them all. Returns provisions with their [n]; read the full provision with read_law before relying on a long one.",
+      parameters: {
+        type: "object",
+        properties: {
+          terms: { type: "array", items: { type: "string" } },
+          places: { type: "array", items: { type: "string" } },
+        },
+        required: ["terms"],
       },
     },
   },
@@ -324,6 +342,10 @@ const ARGS = {
     language: z.enum(["de", "fr", "it"]).optional(),
     canton: z.string().trim().regex(/^[A-Za-z]{2}$/).optional(),
   }),
+  search_law: z.object({
+    terms: z.array(z.string().trim().min(2).max(40)).min(1).max(10),
+    places: z.array(z.string().trim().regex(/^[A-Za-z]{2}$/)).max(8).optional(),
+  }),
   check_domain: z.object({
     names: z.array(z.string().trim().min(1).max(253)).min(1).max(10),
   }),
@@ -388,7 +410,7 @@ export function untrusted(source: string, text: string): string {
 }
 
 /** Results whose text comes from outside Causius, and so can carry instructions. */
-const UNTRUSTED_RESULTS = new Set(["web_search", "read_page", "read_law", "read_document"]);
+const UNTRUSTED_RESULTS = new Set(["web_search", "read_page", "read_law", "search_law", "read_document"]);
 
 /**
  * At most this many calls of each kind in one turn: an injected loop cannot
@@ -398,6 +420,7 @@ const UNTRUSTED_RESULTS = new Set(["web_search", "read_page", "read_law", "read_
  */
 const WRITE_LIMIT: Partial<Record<string, number>> = {
   read_law: 12,
+  search_law: 6,
   web_search: 8,
   read_page: 8,
   note_fact: 10,
@@ -558,6 +581,7 @@ async function runTurnLocked(input: {
   search?: typeof webSearch;
   read?: typeof readPage;
   readLaw?: typeof readLawDefault;
+  searchSolon?: typeof searchSolonDefault;
   domains?: typeof checkDomains;
   /** The reader's interface language; the answer is written in it. */
   locale?: Locale;
@@ -636,6 +660,7 @@ async function runTurnLocked(input: {
   const search = input.search ?? webSearch;
   const read = input.read ?? readPage;
   const readLaw = input.readLaw ?? readLawDefault;
+  const searchSolon = input.searchSolon ?? searchSolonDefault;
   let servedBy = "";
   let finalText = "";
   let bestAnswer = "";
@@ -849,6 +874,32 @@ async function runTurnLocked(input: {
                 `[${start + i + 1}] ${r.title} — ${r.url}\n${r.snippet}`,
             )
             .join("\n");
+        }
+        case "search_law": {
+          const wanted = parsed.data as { terms: string[]; places?: string[] };
+          const canton = jurisdiction?.startsWith("CH-") ? jurisdiction.slice(3) : null;
+          const places = wanted.places ?? (canton ? [canton] : []);
+          const authorities = ["ch", ...new Set(places.map((p) => p.toLowerCase()).filter((p) => p !== "ch"))];
+          const hits = await searchSolon({ terms: wanted.terms, authorities });
+          if (!hits)
+            return "Solon's search could not be reached, so nothing was found. Do not state the law from memory; try read_law for an act you can name, or web_search.";
+          if (hits.length === 0)
+            return `No provision in force matched ${wanted.terms.join(", ")} in ${authorities.join(", ")}. Try other stems, or another wording of the law (German, French, Italian).`;
+          await appendStep(db, m, { tool: "search_law", summary: wanted.terms.join(", ") });
+          return hits
+            .map((hit) => {
+              const url = `${SOLON_URL}/law/${hit.actId}#${hit.path}`;
+              const title = `${hit.heading}, ${hit.title ?? hit.systematicNumber ?? hit.authority} (${hit.authority.toUpperCase()})`;
+              let n = sources.findIndex((s) => s.url === url);
+              if (n < 0) {
+                sources.push({ id: String(sources.length + 1), title, url });
+                n = sources.length - 1;
+              }
+              const since =
+                hit.dateBasis === "retrieved" ? "" : `, in force since ${hit.inForceFrom}`;
+              return `[${n + 1}] ${title}${since}, copy checked by sha256 ${hit.contentSha256.slice(0, 12)}… — ${url}\n${hit.text.slice(0, 1500)}`;
+            })
+            .join("\n\n");
         }
         case "read_law": {
           const found = await readLaw({

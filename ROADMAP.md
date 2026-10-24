@@ -86,6 +86,7 @@ check. The plan, the sources and the sizes are in Solon's
 
 - [ ] Solon holds the acts (its register, then federal text, then Liechtenstein, then the cantons)
 - [x] The agent asks Solon first and falls back to the publisher; an answer cites the publisher's link and Solon's hash. Done for federal acts and Liechtenstein's ten common acts; cantonal acts are still read from LexFind {#law-from-solon-read}
+- [x] The agent finds the law by what it says: it searches Solon's text of the Confederation and of the places a question names, then reads the provisions that matter, so "may one keep a fox in Graubünden, and in Lucerne?" is answered from both cantons' own text {#law-search}
 - [ ] The agent asks Solon for cantonal acts too, once Solon names them by abbreviation or reads each canton's own text {#law-from-solon-cantons}
 - [ ] The agent tells a person when a law a matter depends on has changed, with what changed
 
