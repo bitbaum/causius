@@ -18,7 +18,7 @@ type Props = {
   searchParams: Promise<{
     next?: string;
     from?: string;
-    error?: string;
+    method?: string; error?: string;
     token?: string;
   }>;
 };
@@ -37,7 +37,7 @@ export default async function SignInPage({ params, searchParams }: Props) {
   const t = await getTranslations("Auth");
   const query = await searchParams;
   const next = accountDestination(locale, query.next ?? query.from);
-  const recovering = Boolean(query.token) || query.error === "INVALID_TOKEN";
+  const recovering = Boolean(query.token) || (query.error === "INVALID_TOKEN" && query.method !== "magic-link");
   if ((await getSession()) && !recovering) redirectTo(next);
 
   return (
