@@ -1,14 +1,16 @@
+import { redirect as redirectTo } from "next/navigation";
+import { accountDestination } from "@/lib/auth/entry";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SignUpForm } from "@/components/auth/SignUpForm";
 import { AccountsUnavailable } from "@/components/auth/Unavailable";
 import { card, shell } from "@/components/ui";
-import { getPathname, Link, redirect } from "@/i18n/navigation";
+import { getPathname, Link } from "@/i18n/navigation";
 import { toLocale } from "@/i18n/routing";
 import { signInMethods } from "@bitbaum/accountkit/auth";
 import { authStatus, getSession } from "@/lib/auth";
 import { mailConfigured } from "@/lib/mail";
-import { ROUTES, safeNext } from "@/lib/routes";
+import { ROUTES } from "@/lib/routes";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -29,10 +31,11 @@ export default async function SignUpPage({ params, searchParams }: Props) {
   const t = await getTranslations("Auth");
   const h = await getTranslations("HelperDesk");
   const query = await searchParams;
-  const asHelper = safeNext(query.next ?? query.from) === ROUTES.helperDesk;
+  const next = accountDestination(locale, query.next ?? query.from);
+  const asHelper =
+    next.split(/[?#]/)[0] === getPathname({ href: ROUTES.helperDesk, locale });
 
-  if (await getSession())
-    redirect({ href: safeNext(query.next ?? query.from), locale });
+  if (await getSession()) redirectTo(next);
 
   return (
     <div className={`${shell} py-12 sm:py-16`}>
@@ -40,7 +43,10 @@ export default async function SignUpPage({ params, searchParams }: Props) {
         <h1 className="mb-2 text-2xl font-semibold">{t("signUpTitle")}</h1>
         <p className="mb-6 text-fg-secondary">{t("signUpLede")}</p>
         {/* Who is signing up decides where they land; both are the same account. */}
-        <nav aria-label={h("roleLegend")} className="mb-6 grid grid-cols-2 gap-2">
+        <nav
+          aria-label={h("roleLegend")}
+          className="mb-6 grid grid-cols-2 gap-2"
+        >
           {(
             [
               { key: "forClient", next: ROUTES.matters },
@@ -63,10 +69,7 @@ export default async function SignUpPage({ params, searchParams }: Props) {
         {authStatus().ready ? (
           <SignUpForm
             methods={signInMethods(process.env, mailConfigured())}
-            next={getPathname({
-              href: safeNext(query.next ?? query.from),
-              locale,
-            })}
+            next={next}
             signUpPath={getPathname({ href: ROUTES.signUp, locale })}
           />
         ) : (

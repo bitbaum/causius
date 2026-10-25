@@ -14,7 +14,12 @@ import { adoptLegacyMatters } from "./legacy";
 export const { GET, POST, getSession, requireUser, authStatus, getAuth } =
   createAuthRuntime({
     site: SITE,
-    mail: { configured: mailConfigured(), send: sendAuthMail },
+    mail: {
+      get configured() {
+        return mailConfigured();
+      },
+      send: sendAuthMail,
+    },
     isDatabaseConfigured: () => dbConfigured(),
     getDatabase: () => getDb(),
     // Matters made while OrangeCat was the only way in belong to the same person.
@@ -47,5 +52,7 @@ export async function auth(): Promise<{
  */
 export async function reviewer(): Promise<{ actorId: string } | null> {
   const session = await getSession();
-  return session && isStaff(session.user.role) ? { actorId: session.user.id } : null;
+  return session && isStaff(session.user.role)
+    ? { actorId: session.user.id }
+    : null;
 }

@@ -83,4 +83,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
   workflow or `pnpm run role:grant`. An attestation never carries a legal name
   in clear; keep `lib/helpers/attest.test.ts` proving it.
 - `pnpm dev` signs in on localhost only with `CAUSIUS_DEV_URL=http://localhost:3000`
-  (accounts pin their origin; ignored in production).
+  (accounts pin their origin; ignored in production). An explicit
+  `NEXT_PUBLIC_SITE_URL` configures a deployment/test origin; requests never select it.
+  Common account form words come from AccountKit translations; product role
+  labels, page copy and mail templates remain in `messages/<locale>.json`.

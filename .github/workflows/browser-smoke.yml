@@ -1,0 +1,16 @@
+name: Account lifecycle smoke
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+permissions:
+  contents: read
+jobs:
+  account:
+    uses: bitbaum/fleet/.github/workflows/shared-auth-journey.yml@main
+    with:
+      sign-in-path: /de/sign-in
+      account-path: /de/account
+      migrate-command: for file in drizzle/[0-9]*.sql; do psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -q -f "$file"; done

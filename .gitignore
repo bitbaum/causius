@@ -5,3 +5,6 @@ next-env.d.ts
 *.tsbuildinfo
 .env
 .env*.local
+
+# Synthetic account browser evidence is uploaded by CI.
+auth-journey-artifacts/

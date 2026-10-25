@@ -12,9 +12,10 @@ export const CANONICAL_URL = "https://causius.orangecat.ch";
  */
 export const SITE = {
   url:
-    process.env.NODE_ENV !== "production" && process.env.CAUSIUS_DEV_URL
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.NODE_ENV !== "production" && process.env.CAUSIUS_DEV_URL
       ? process.env.CAUSIUS_DEV_URL
-      : CANONICAL_URL,
+      : CANONICAL_URL),
   title: "Causius",
   slug: "causius",
 } as const;

@@ -1,4 +1,8 @@
-import { isMailConfigured, sendMail } from "@bitbaum/mail-kit";
+import {
+  conventionalFrom,
+  isMailConfigured,
+  sendMail,
+} from "@bitbaum/mail-kit";
 import { createTranslator } from "next-intl";
 import de from "../messages/de.json";
 import en from "../messages/en.json";
@@ -25,8 +29,14 @@ const MESSAGES: Record<Locale, Messages> = {
   it: withFallback(en, it) as Messages,
 };
 
+const mailEnv = () => ({
+  ...process.env,
+  APP_URL: SITE.url,
+  RESEND_FROM: process.env.RESEND_FROM || conventionalFrom(SITE.title),
+});
+
 export function mailConfigured(): boolean {
-  return isMailConfigured();
+  return isMailConfigured(mailEnv());
 }
 
 /**
@@ -81,16 +91,27 @@ export async function sendAuthMail(
   url: string,
 ): Promise<void> {
   if (!isDeliverable(to)) return;
-  if (!isMailConfigured()) {
-    // Development only: there is no inbox, so the link goes to the console of
-    // the person running the server. Production never reaches this line with
-    // a link, because the methods that need mail are hidden without it.
+  try {
+    if (new URL(url).origin !== new URL(SITE.url).origin) {
+      console.error("[mail] account link origin refused");
+      return;
+    }
+  } catch {
+    console.error("[mail] invalid account link refused");
+    return;
+  }
+  if (!mailConfigured()) {
+    // Development may request a link without a sender. Never log its bearer
+    // credential, including locally; report only that delivery is unavailable.
     if (process.env.NODE_ENV === "development")
-      console.warn(`[mail] not configured — ${kind}: ${url}`);
+      console.warn(`[mail] not configured — ${kind} delivery unavailable`);
     return;
   }
   const { subject, html, text } = renderAuthMail(kind, url, localeOfLink(url));
-  const result = await sendMail({ to, subject, html, text });
+  const result = await sendMail(
+    { to, subject, html, text },
+    { env: mailEnv() },
+  );
   if (!result.sent) {
     console.error(
       `[mail] ${kind} not sent (status ${result.status ?? "none"}, retryable ${result.retryable})`,
