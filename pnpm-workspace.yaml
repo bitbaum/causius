@@ -27,4 +27,4 @@ allowBuilds:
   "@swc/core": false
   esbuild: true
 minimumReleaseAgeExclude:
-  - '@bitbaum/chatkit@0.12.0 || 0.13.0'
+  - '@bitbaum/chatkit@0.12.0 || 0.13.0 || 0.15.2'

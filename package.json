@@ -20,7 +20,7 @@
     "@better-auth/passkey": "^1.7.7",
     "@bitbaum/accountkit": "github:bitbaum/accountkit#f07353eee9907ea3a434d230a9ed079b3e4215a2",
     "@bitbaum/ai-kit": "^1.21.0",
-    "@bitbaum/chatkit": "^0.13.0",
+    "@bitbaum/chatkit": "^0.15.2",
     "@bitbaum/design-tokens": "1.1.0",
     "@bitbaum/mail-kit": "^0.1.1",
     "@bitbaum/searchkit": "github:bitbaum/searchkit#v0.2.2",
