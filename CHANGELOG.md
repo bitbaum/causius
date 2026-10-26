@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-10-25
+
+- Account screens now use the shared AccountKit forms, including password recovery and reset, while retaining Causius's languages, profession labels and return routes.
+
+
 What changed for the people who use Causius, newest first. Every entry comes
 from a change merged into this repository; where there is a number in
 brackets, it is the pull request to read for the detail.

@@ -1,0 +1,106 @@
+{
+  "blocks": {
+    "shell": {
+      "package": "@bitbaum/sitekit",
+      "status": "pending",
+      "bindings": [],
+      "gap": {
+        "owner": "fleet-remediation",
+        "reason": "The product header/footer still render locally. Shared shell adoption is a separate UI wave; pending is not an exemption."
+      }
+    },
+    "identity": {
+      "package": "@bitbaum/accountkit",
+      "status": "adopted",
+      "bindings": [
+        {
+          "file": "lib/auth/index.ts",
+          "symbols": [
+            "createAuthRuntime"
+          ]
+        },
+        {
+          "file": "components/auth/SignInForm.tsx",
+          "symbols": [
+            "SharedSignInForm"
+          ]
+        },
+        {
+          "file": "components/auth/SignUpForm.tsx",
+          "symbols": [
+            "SharedSignUpForm"
+          ]
+        },
+        {
+          "file": "components/auth/AccountPanel.tsx",
+          "symbols": [
+            "SharedAccountPanel"
+          ]
+        }
+      ]
+    },
+    "publishing": {
+      "package": "bip-kit",
+      "bindings": [
+        {
+          "file": "components/DevelopmentRecords.tsx",
+          "symbols": [
+            "DevelopmentPage"
+          ]
+        }
+      ]
+    },
+    "design": {
+      "package": "@bitbaum/design-tokens",
+      "bindings": [
+        {
+          "file": "app/[locale]/layout.tsx"
+        }
+      ]
+    },
+    "ai": {
+      "package": "@bitbaum/ai-kit",
+      "bindings": [
+        {
+          "file": "lib/analyze.ts",
+          "symbols": [
+            "complete"
+          ]
+        }
+      ]
+    },
+    "chat": {
+      "package": "@bitbaum/chatkit",
+      "bindings": [
+        {
+          "file": "components/matters/MatterWorkspace.tsx",
+          "symbols": [
+            "ChatThread"
+          ]
+        },
+        {
+          "file": "components/matters/IntakeComposer.tsx",
+          "symbols": [
+            "Composer"
+          ]
+        }
+      ]
+    },
+    "mail": {
+      "package": "@bitbaum/mail-kit",
+      "bindings": [
+        {
+          "file": "lib/mail.ts",
+          "symbols": [
+            "sendMail",
+            "isMailConfigured"
+          ]
+        }
+      ]
+    }
+  },
+  "productOwned": {
+    "legal": "Legal-information safeguards, professions/attestation policy, matter encryption and legacy matter ownership remain product-owned. Shared account UI retains localized product role labels and route links.",
+    "mail": "Product mail templates remain localized in messages/*.json. Delivery uses mail-kit; no shared renderer owns legal/product email copy."
+  }
+}
