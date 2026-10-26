@@ -69,6 +69,13 @@ export function useChatLabels() {
     thoughtFor: t.raw("thoughtFor") as string,
     thought: t("thought"),
     thinking: t("thinking"),
+    alerts: {
+      note: t("alertNote"),
+      tip: t("alertTip"),
+      important: t("alertImportant"),
+      warning: t("alertWarning"),
+      caution: t("alertCaution"),
+    },
   };
   return { composer, attachMenu, thread };
 }
