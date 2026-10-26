@@ -5,16 +5,14 @@ host, a name, or a page. Do not copy those facts into this file.
 
 Repo-only notes live below this line.
 
-- **The owner's standing instruction (2026-10-11): finish to production.** An
-  instruction from the owner is done when it is live on causius.orangecat.ch,
-  not when a pull request is open. Merge your own pull request as soon as CI is
-  green (`gh api -X PUT repos/bitbaum/causius/pulls/N/merge`), watch the Deploy
-  run, and check the live site. This overrides the "agents do not merge by
-  hand" line in fleet's auto-merge sweep for this repository. The sweep
-  (`auto-merge.yml`) is the fallback, not the plan. After every deploy,
-  `live-check.yml` asks the live site from outside whether every language
-  answers, the security headers are on and analysis is switched on; a red
-  Live check means the product is not working, whatever Deploy said.
+- **Finish to production without bypassing the fleet merge policy.** Let the
+  Fleet auto-merge sweep merge only after the exact required CI and policy
+  checks pass. Do not call the GitHub merge API or merge by hand to accelerate
+  a PR. After merge, watch the Deploy run and check the live site. The external
+  `live-check.yml` verifies every language, security headers and analysis
+  availability; a red Live check means the product is not working, regardless
+  of the Deploy result. If the fleet merge path is unavailable, record the
+  blocker and continue independent work rather than bypassing it.
 
 - Run: `pnpm install`, `pnpm dev`. Check before pushing: `pnpm run verify`
   (type-check, lint, tests). CI also builds.
