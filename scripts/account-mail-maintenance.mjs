@@ -44,9 +44,11 @@ async function main() {
   stage="load-mail-sdk";
   const sdk=await import(new URL("./mail-sdk/index.js",import.meta.url).href);
   stage="inspect-mail-config";
-  const before=fs.readFileSync(file,"utf8"),target=parseEnv(before);
+  const sharedFile="/opt/fleet/env";
+  const inherited=fs.existsSync(sharedFile)?parseEnv(fs.readFileSync(sharedFile,"utf8")):{};
+  const before=fs.readFileSync(file,"utf8"),target={...inherited,...parseEnv(before)};
   const sourceFile=["/opt/biaslens/shared/.env","/opt/biaslens/app/.env"].find(candidate=>fs.existsSync(candidate));
-  const source=sourceFile?parseEnv(fs.readFileSync(sourceFile,"utf8")):{};
+  const source={...inherited,...(sourceFile?parseEnv(fs.readFileSync(sourceFile,"utf8")):{})};
   const configured=(env,title)=>sdk.isMailConfigured({...env,NODE_ENV:"production",RESEND_FROM:env.RESEND_FROM||sdk.conventionalFrom(title)});
   console.log(JSON.stringify({targetConfigured:configured(target,"Causius"),sharedConfigured:configured(source,"BiasLens"),action:mode}));
   if(mode==="inspect"||configured(target,"Causius"))return;

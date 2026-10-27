@@ -59,7 +59,7 @@ jobs:
           trap 'rm -rf -- "$helper"' EXIT
           sudo -n node "$helper/account-mail-maintenance.mjs" "$action"
           if [[ "$action" == configure || "$action" == rollback ]]; then
-            sudo -n systemctl restart causius
-            sudo -n systemctl is-active --quiet causius
+            sudo -n systemctl restart causius-app
+            sudo -n systemctl is-active --quiet causius-app
           fi
           REMOTE
