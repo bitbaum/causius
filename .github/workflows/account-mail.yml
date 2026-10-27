@@ -18,6 +18,12 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
       - run: node --test scripts/account-mail-maintenance.test.mjs
       - uses: actions/checkout@v7
         with:
@@ -40,15 +46,20 @@ jobs:
           printf '%s\n' "$SSH_KEY" > "$key"
           chmod 600 "$key"
           ssh-keyscan -H "$HETZNER_IP" > "$known" 2>/dev/null
-          remote="/tmp/causius-account-mail-$GITHUB_RUN_ID.mjs"
-          scp -q -i "$key" -o "UserKnownHostsFile=$known" scripts/account-mail-maintenance.mjs "$BOX_UBUNTU:$remote"
+          sdk="$RUNNER_TEMP/mail-sdk"
+          mkdir -m 700 "$sdk"
+          cp -R node_modules/@bitbaum/mail-kit/dist/. "$sdk/"
+          printf '%s\n' '{"type":"module"}' > "$sdk/package.json"
+          remote=$(ssh -i "$key" -o BatchMode=yes -o "UserKnownHostsFile=$known" "$BOX_UBUNTU" 'mktemp -d /tmp/causius-account-mail.XXXXXX')
+          [[ "$remote" =~ ^/tmp/causius-account-mail\.[[:alnum:]]{6}$ ]]
+          scp -qr -i "$key" -o "UserKnownHostsFile=$known" scripts/account-mail-maintenance.mjs "$sdk" "$BOX_UBUNTU:$remote/"
           ssh -i "$key" -o BatchMode=yes -o "UserKnownHostsFile=$known" "$BOX_UBUNTU" "bash -s -- '$remote' '$MAIL_ACTION'" <<'REMOTE'
           set -euo pipefail
           helper="$1"; action="$2"
-          trap 'rm -f "$helper"' EXIT
-          sudo -n node "$helper" "$action"
+          trap 'rm -rf -- "$helper"' EXIT
+          sudo -n node "$helper/account-mail-maintenance.mjs" "$action"
           if [[ "$action" == configure || "$action" == rollback ]]; then
-            sudo -n systemctl restart causius
-            sudo -n systemctl is-active --quiet causius
+            sudo -n systemctl restart causius-app
+            sudo -n systemctl is-active --quiet causius-app
           fi
           REMOTE
