@@ -18,8 +18,8 @@ importers:
         specifier: ^1.21.4
         version: 1.21.4(react@19.2.4)
       '@bitbaum/chatkit':
-        specifier: ^0.17.1
-        version: 0.17.1(react@19.2.4)
+        specifier: ^0.18.0
+        version: 0.18.0(react@19.2.4)
       '@bitbaum/design-tokens':
         specifier: 1.2.0
         version: 1.2.0
@@ -300,8 +300,8 @@ packages:
       react:
         optional: true
 
-  '@bitbaum/chatkit@0.17.1':
-    resolution: {integrity: sha512-obLB5G0sjgPlSrmjX18ln8LAuXJeLFetIT+/7TvXT94ZID6HcICuptdW+r/zUE7ZXPsZbghSzHG9aB47JNyJ+g==}
+  '@bitbaum/chatkit@0.18.0':
+    resolution: {integrity: sha512-1vwvWPe8/QldESe2HPHkRxKxdunljWRafdi2jIhbbz+mM7WdAi8lwr4GkcRgoFUgVWZDWII6mqoEkuqAla7fpg==}
     engines: {node: '>=20'}
     hasBin: true
     peerDependencies:
@@ -3947,7 +3947,7 @@ snapshots:
     transitivePeerDependencies:
       - canvas
 
-  '@bitbaum/chatkit@0.17.1(react@19.2.4)':
+  '@bitbaum/chatkit@0.18.0(react@19.2.4)':
     dependencies:
       react: 19.2.4
 
