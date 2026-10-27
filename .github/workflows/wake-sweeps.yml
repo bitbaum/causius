@@ -1,0 +1,24 @@
+# Wake the other repos' merge sweeps when this canary has deployed.
+#
+# A shared-package PR in a consumer repo is held by the rollout gate until this
+# repo has deployed the artifact and passed its checks. Nothing told the
+# consumer's sweep when that happened, so a cleared PR waited for the next CI
+# completion in its own repo or GitHub's hourly cron (42 minutes to 11 hours,
+# measured 2026-10-27). The logic lives in bitbaum/fleet: sweep-wake.yml.
+name: Wake sweeps
+
+on:
+  workflow_run:
+    workflows: [Deploy, "Account lifecycle smoke"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  wake:
+    # Only a green deploy or smoke can clear the gate; a red one clears nothing.
+    if: github.event.workflow_run.conclusion == 'success'
+    uses: bitbaum/fleet/.github/workflows/sweep-wake.yml@main
+    secrets: inherit
