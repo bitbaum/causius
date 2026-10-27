@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Shared chat scrolling now respects page and panel layouts, upward gestures and the reader's position while answers arrive (ChatKit 0.17.1).
+
 - A matter conversation loads once when opened instead of reloading on working-status, model-choice or reply changes, preserving messages and reading position.
 
 ## 2026-10-25
