@@ -18,8 +18,8 @@ importers:
         specifier: ^1.21.4
         version: 1.21.4(react@19.2.4)
       '@bitbaum/chatkit':
-        specifier: ^0.20.0
-        version: 0.20.0(react@19.2.4)
+        specifier: ^0.20.1
+        version: 0.20.1(react@19.2.4)
       '@bitbaum/design-tokens':
         specifier: 1.2.0
         version: 1.2.0
@@ -299,8 +299,8 @@ packages:
       react:
         optional: true
 
-  '@bitbaum/chatkit@0.20.0':
-    resolution: {integrity: sha512-YeSEBuGMUU7A8JVum2yZuTXqVTq9S7fIEz7D7WG4LtFI+1RRGDsfKxgqdSDvP2u0lGMM4R3QPXwLoPO34P4w4A==}
+  '@bitbaum/chatkit@0.20.1':
+    resolution: {integrity: sha512-4TFeWKJfqUNCkSZkUHNvcf/VCgFrmnGsIsO5NTqnU3DIsOyMYpVkrGGXWl8cPkdqcNAhL/UhFGtuL01gBWQmUg==}
     engines: {node: '>=20'}
     hasBin: true
     peerDependencies:
@@ -4025,7 +4025,7 @@ snapshots:
     transitivePeerDependencies:
       - canvas
 
-  '@bitbaum/chatkit@0.20.0(react@19.2.4)':
+  '@bitbaum/chatkit@0.20.1(react@19.2.4)':
     dependencies:
       pdfjs-dist: 6.4.299
       react: 19.2.4
