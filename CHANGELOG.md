@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- A matter conversation loads once when opened instead of reloading on working-status, model-choice or reply changes, preserving messages and reading position.
+
 ## 2026-10-25
 
 - Account screens now use the shared AccountKit forms, including password recovery and reset, while retaining Causius's languages, profession labels and return routes.

@@ -3,7 +3,7 @@
 import { ChatThread, type ChatMessageData, type Thinking } from "@bitbaum/chatkit/react";
 import "@bitbaum/chatkit/styles.css";
 import { useLocale, useTranslations } from "next-intl";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useEffectEvent, useRef, useState } from "react";
 import { btnQuiet, card, eyebrow, field, link } from "@/components/ui";
 import { Link, useRouter } from "@/i18n/navigation";
 import { daysUntil, formatDate } from "@/lib/case";
@@ -42,7 +42,7 @@ export function MatterWorkspace({ id, me }: { id: string; me: string }) {
   // When the running turn started, and a clock that ticks while it runs.
   const [startedAt, setStartedAt] = useState(0);
   const [now, setNow] = useState(0);
-  const firstSent = useRef(false);
+  const firstSent = useRef<string | null>(null);
 
   const refresh = useCallback(async () => {
     try {
@@ -119,6 +119,8 @@ export function MatterWorkspace({ id, me }: { id: string; me: string }) {
     [id, locale, choice, chat, refresh],
   );
 
+  const sendInitial = useEffectEvent((text: string) => { void send(text); });
+
   // Open the matter; then send the first message, if one was typed on the
   // matters page and the matter is still empty.
   useEffect(() => {
@@ -132,8 +134,8 @@ export function MatterWorkspace({ id, me }: { id: string; me: string }) {
           return;
         }
         setLoad({ state: "ready", matter: body.matter });
-        if (firstSent.current) return;
-        firstSent.current = true;
+        if (firstSent.current === id) return;
+        firstSent.current = id;
         let first: string | null = null;
         try {
           first = sessionStorage.getItem(FIRST_MESSAGE_KEY(id));
@@ -141,13 +143,13 @@ export function MatterWorkspace({ id, me }: { id: string; me: string }) {
         } catch {
           first = null;
         }
-        if (first && body.matter.events.length === 0) void send(first);
+        if (first && body.matter.events.length === 0) sendInitial(first);
       })
       .catch(() => !stale && setLoad({ state: "failed", error: "offline" }));
     return () => {
       stale = true;
     };
-  }, [id, send]);
+  }, [id]);
 
   // While a turn runs, say what is happening rather than showing a bare spinner.
   useEffect(() => {

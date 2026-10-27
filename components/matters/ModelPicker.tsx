@@ -2,7 +2,7 @@
 
 import { byokLabel } from "@bitbaum/ai-kit/byok";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { API, ROUTES } from "@/lib/routes";
 import { saveModelPick, useModelPick, useOwnModel } from "@/lib/store";
@@ -24,9 +24,10 @@ export function useModelChoice(): ModelChoice {
   const own = useOwnModel();
   const pick = useModelPick();
   // With no explicit pick, an own key keeps being used: that is what it was saved for.
-  if (pick === "" && own) return { byok: own };
-  if (pick === "own" && own) return { byok: own };
-  return pick && pick !== "own" ? { model: pick } : {};
+  return useMemo(() => {
+    if ((pick === "" || pick === "own") && own) return { byok: own };
+    return pick && pick !== "own" ? { model: pick } : {};
+  }, [own, pick]);
 }
 
 export function ModelPicker() {
