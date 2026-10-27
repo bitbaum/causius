@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "type-check": "tsc --noEmit",
-    "verify": "pnpm run type-check && pnpm run lint && pnpm run test",
+    "verify": "pnpm run type-check && pnpm run lint && pnpm run test && node --test scripts/account-mail-maintenance.test.mjs",
     "test": "vitest run",
     "check:analyze": "vitest run --config vitest.live.config.mts live/analyze.live.ts",
     "check:agent": "vitest run --config vitest.live.config.mts live/agent.live.ts",

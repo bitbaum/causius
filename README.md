@@ -252,3 +252,20 @@ pnpm run check:agent     # needs a vendor key: one matter worked by the real age
 ```
 
 Merging to `main` deploys: CI must pass, then the shared deploy workflow builds on the box, health-checks and rolls back on failure.
+
+### Account mail maintenance
+
+The `Account mail maintenance` workflow inspects delivery configuration without
+printing credentials. Its default action is read-only. When Causius has no
+configured sender, `configure` can reuse the existing shared transport only after
+the provider confirms the shared sender domain is verified. It changes only the
+two mail settings, preserves the rest of the runtime configuration and restarts
+the service. Configuring mail enables the shared verification/recovery methods;
+existing unverified users retain their IDs and can confirm through the shared
+resend flow. Do not mark their addresses verified automatically.
+
+Verify real delivery and the account transition after configuration, then run
+`finalize`. `rollback` restores the exact previous configuration only if nothing
+has changed since maintenance; it refuses to overwrite a later operator change.
+A failed provider check makes no configuration change. This workflow does not
+prove delivery by itself; successful controlled receipt is separate evidence.
