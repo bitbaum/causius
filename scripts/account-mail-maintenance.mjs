@@ -4,6 +4,7 @@ import path from "node:path";
 import { parseEnv } from "node:util";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
+import { execFileSync } from "node:child_process";
 
 export function planSharedMail(source, target, sdk, verifiedDomains) {
   const conventional=sdk.conventionalFrom("Causius");
@@ -50,7 +51,11 @@ async function main() {
   const sourceFile=["/opt/biaslens/shared/.env","/opt/biaslens/app/.env"].find(candidate=>fs.existsSync(candidate));
   const source={...inherited,...(sourceFile?parseEnv(fs.readFileSync(sourceFile,"utf8")):{})};
   const configured=(env,title)=>sdk.isMailConfigured({...env,NODE_ENV:"production",RESEND_FROM:env.RESEND_FROM||sdk.conventionalFrom(title)});
-  console.log(JSON.stringify({targetConfigured:configured(target,"Causius"),sharedConfigured:configured(source,"BiasLens"),action:mode}));
+  stage="inspect-running-mail-config";
+  const pid=execFileSync("systemctl",["show","--property=MainPID","--value","causius-app"],{encoding:"utf8"}).trim();
+  if(!/^[1-9][0-9]*$/.test(pid))throw new Error("Runtime process is unavailable");
+  const runtime=Object.fromEntries(fs.readFileSync(`/proc/${pid}/environ`,"utf8").split("\0").filter(Boolean).map(entry=>{const separator=entry.indexOf("=");return [entry.slice(0,separator),entry.slice(separator+1)];}));
+  console.log(JSON.stringify({targetConfigured:configured(target,"Causius"),sharedConfigured:configured(source,"BiasLens"),runningProcessConfigured:configured(runtime,"Causius"),action:mode}));
   if(mode==="inspect"||configured(target,"Causius"))return;
   if(!configured(source,"BiasLens"))throw new Error("No configured shared transport; no configuration changed");
   stage="verify-provider-domain";
