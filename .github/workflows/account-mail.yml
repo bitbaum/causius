@@ -1,0 +1,54 @@
+name: Account mail maintenance
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Inspect, configure a verified shared sender, roll back, or finalize
+        type: choice
+        options: [inspect, configure, rollback, finalize]
+        default: inspect
+permissions:
+  contents: read
+concurrency:
+  group: account-mail-maintenance
+  cancel-in-progress: false
+jobs:
+  mail:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - run: node --test scripts/account-mail-maintenance.test.mjs
+      - uses: actions/checkout@v7
+        with:
+          repository: bitbaum/loki
+          path: .mail-ops
+          sparse-checkout: scripts/hetzner/_box-env.sh
+          sparse-checkout-cone-mode: false
+      - name: Inspect or configure account delivery without exporting credentials
+        env:
+          SSH_KEY: ${{ secrets.HETZNER_SSH_PRIVATE_KEY }}
+          MAIL_ACTION: ${{ inputs.action }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          case "$MAIL_ACTION" in inspect|configure|rollback|finalize) ;; *) exit 1 ;; esac
+          source .mail-ops/scripts/hetzner/_box-env.sh
+          key="$RUNNER_TEMP/account-mail.key"
+          known="$RUNNER_TEMP/account-mail.known-hosts"
+          trap 'rm -f "$key" "$known"' EXIT
+          printf '%s\n' "$SSH_KEY" > "$key"
+          chmod 600 "$key"
+          ssh-keyscan -H "$HETZNER_IP" > "$known" 2>/dev/null
+          remote="/tmp/causius-account-mail-$GITHUB_RUN_ID.mjs"
+          scp -q -i "$key" -o "UserKnownHostsFile=$known" scripts/account-mail-maintenance.mjs "$BOX_UBUNTU:$remote"
+          ssh -i "$key" -o BatchMode=yes -o "UserKnownHostsFile=$known" "$BOX_UBUNTU" "bash -s -- '$remote' '$MAIL_ACTION'" <<'REMOTE'
+          set -euo pipefail
+          helper="$1"; action="$2"
+          trap 'rm -f "$helper"' EXIT
+          sudo -n node "$helper" "$action"
+          if [[ "$action" == configure || "$action" == rollback ]]; then
+            sudo -n systemctl restart causius
+            sudo -n systemctl is-active --quiet causius
+          fi
+          REMOTE
