@@ -32,3 +32,4 @@ minimumReleaseAgeExclude:
   - '@bitbaum/listkit@0.2.1'
   - '@bitbaum/searchkit@0.2.2'
   - bip-kit@0.6.1
+  - '@bitbaum/accountkit@0.8.0'
