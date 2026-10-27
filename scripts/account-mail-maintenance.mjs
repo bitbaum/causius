@@ -3,7 +3,6 @@ import fs from "node:fs";
 import path from "node:path";
 import { parseEnv } from "node:util";
 import { createHash } from "node:crypto";
-import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 
 export function planSharedMail(source, target, sdk, verifiedDomains) {
@@ -43,8 +42,7 @@ async function main() {
     atomicWrite(file,previous);fs.unlinkSync(journal);console.log(JSON.stringify({rolledBack:true}));return;
   }
   stage="load-mail-sdk";
-  const require=createRequire("/opt/causius/app/package.json");
-  const sdk=await import(require.resolve("@bitbaum/mail-kit"));
+  const sdk=await import(new URL("./mail-sdk/index.js",import.meta.url).href);
   stage="inspect-mail-config";
   const before=fs.readFileSync(file,"utf8"),target=parseEnv(before);
   const sourceFile=["/opt/biaslens/shared/.env","/opt/biaslens/app/.env"].find(candidate=>fs.existsSync(candidate));
