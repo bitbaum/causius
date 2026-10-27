@@ -16,7 +16,14 @@ export function planSharedMail(source, target, sdk, verifiedDomains) {
   return {RESEND_API_KEY:source.RESEND_API_KEY,RESEND_FROM:conventional};
 }
 const digest=text=>createHash("sha256").update(text).digest("hex");
-function atomicWrite(file,text) {
+export function rollbackText(current,record) {
+  if(record.appliedHash!==digest(current))throw new Error("Configuration changed after maintenance; refusing to overwrite it");
+  const previous=current.slice(0,record.previousLength);
+  if(digest(previous)!==record.previousHash)throw new Error("Rollback prefix verification failed");
+  return previous;
+}
+
+export function atomicWrite(file,text) {
   const stat=fs.statSync(file),temporary=file+".mail-config.tmp";
   fs.writeFileSync(temporary,text,{mode:0o600});fs.chownSync(temporary,stat.uid,stat.gid);fs.renameSync(temporary,file);
 }
@@ -30,8 +37,7 @@ async function main() {
   if(mode==="finalize"){if(fs.existsSync(journal))fs.unlinkSync(journal);console.log(JSON.stringify({finalized:true}));return;}
   if(mode==="rollback"){
     const record=JSON.parse(fs.readFileSync(journal,"utf8")),current=fs.readFileSync(file,"utf8");
-    if(record.appliedHash!==digest(current))throw new Error("Configuration changed after maintenance; refusing to overwrite it");
-    const previous=current.slice(0,record.previousLength);if(digest(previous)!==record.previousHash)throw new Error("Rollback prefix verification failed");
+    const previous=rollbackText(current,record);
     atomicWrite(file,previous);fs.unlinkSync(journal);console.log(JSON.stringify({rolledBack:true}));return;
   }
   const require=createRequire("/opt/causius/app/package.json");
