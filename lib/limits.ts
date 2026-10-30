@@ -12,6 +12,10 @@ import { clientIp, slidingWindow, toHeaders } from "limitkit";
 export const limits = {
   analyzeFree: slidingWindow({ limit: 8, windowMs: 60 * 60_000 }),
   analyzeOwn: slidingWindow({ limit: 60, windowMs: 60 * 60_000 }),
+  // A question without a matter (/api/ask, the fleet's bot contract): cheaper
+  // than a letter, dearer than a probe, on the same shared daily budget.
+  askFree: slidingWindow({ limit: 30, windowMs: 60 * 60_000 }),
+  askOwn: slidingWindow({ limit: 200, windowMs: 60 * 60_000 }),
   modelCheck: slidingWindow({ limit: 30, windowMs: 10 * 60_000 }),
   // Keyed by actor, not IP: a signed-in person's budget follows them.
   turnFree: slidingWindow({ limit: 30, windowMs: 60 * 60_000 }),
