@@ -41,6 +41,7 @@ describe("buildAskMessages", () => {
     const [system, user] = buildAskMessages(ask());
     const text = system!.content as string;
     expect(text).toContain("never legal advice");
+    expect(text).toContain("Swiss law");
     expect(text).toContain("Reply in German.");
     expect(text).toContain(RICH_ANSWERS_INSTRUCTION);
     expect(text).toContain(REPLIES_INSTRUCTION);
