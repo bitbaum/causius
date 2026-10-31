@@ -27,7 +27,7 @@ allowBuilds:
   "@swc/core": false
   esbuild: true
 minimumReleaseAgeExclude:
-  - '@bitbaum/chatkit@0.12.0 || 0.13.0 || 0.16.0 || 0.17.0 || 0.17.1 || 0.18.0 || 0.19.0 || 0.20.0 || 0.20.1 || 0.21.0 || 0.21.1 || 0.21.2 || 0.21.3 || 0.21.4'
+  - '@bitbaum/chatkit@0.12.0 || 0.13.0 || 0.16.0 || 0.17.0 || 0.17.1 || 0.18.0 || 0.19.0 || 0.20.0 || 0.20.1 || 0.21.0 || 0.21.1 || 0.21.2 || 0.21.3 || 0.21.4 || 0.21.5'
   - '@bitbaum/design-tokens@1.2.0'
   - '@bitbaum/listkit@0.2.1 || 0.2.2'
   - '@bitbaum/searchkit@0.2.2 || 0.2.3'
