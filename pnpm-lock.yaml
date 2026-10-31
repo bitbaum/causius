@@ -18,8 +18,8 @@ importers:
         specifier: ^1.21.5
         version: 1.21.5(react@19.2.4)
       '@bitbaum/chatkit':
-        specifier: github:bitbaum/chatkit#3cfe0bdadd9aad68f40779186027594478ab8f6d
-        version: https://codeload.github.com/bitbaum/chatkit/tar.gz/3cfe0bdadd9aad68f40779186027594478ab8f6d(react@19.2.4)
+        specifier: ^0.21.4
+        version: 0.21.4(react@19.2.4)
       '@bitbaum/design-tokens':
         specifier: 1.2.0
         version: 1.2.0
@@ -299,9 +299,8 @@ packages:
       react:
         optional: true
 
-  '@bitbaum/chatkit@https://codeload.github.com/bitbaum/chatkit/tar.gz/3cfe0bdadd9aad68f40779186027594478ab8f6d':
-    resolution: {gitHosted: true, integrity: sha512-W/QQwUE3P5WVznO/xuMzZiu3CTznciYOkQur4kUc/2u4JC6xKtCcPowNhUVi6thEGqEYXEGEyGJ3IjJiWsYJig==, tarball: https://codeload.github.com/bitbaum/chatkit/tar.gz/3cfe0bdadd9aad68f40779186027594478ab8f6d}
-    version: 0.21.4
+  '@bitbaum/chatkit@0.21.4':
+    resolution: {integrity: sha512-vNSbTUSbaX1DYCofcnd7CpybNn1YISUEDQZRpJRO+9L8s5C7+I7/W0ZJ59Yrd8/PufMzmuXbZ0+1Odhk3e05fA==}
     engines: {node: '>=20'}
     hasBin: true
     peerDependencies:
@@ -4030,7 +4029,7 @@ snapshots:
     transitivePeerDependencies:
       - canvas
 
-  '@bitbaum/chatkit@https://codeload.github.com/bitbaum/chatkit/tar.gz/3cfe0bdadd9aad68f40779186027594478ab8f6d(react@19.2.4)':
+  '@bitbaum/chatkit@0.21.4(react@19.2.4)':
     dependencies:
       pdfjs-dist: 6.4.299
       react: 19.2.4
