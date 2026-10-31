@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- A Swiss non-compete is answered under Swiss law only: the answer no longer imports the German compensation rule (OR 340 to 340c need no compensation; a court may narrow an excessive clause and reduce a disproportionate penalty). Found through the OrangeCat bots list on 2026-10-31.
+
+- A one-tap reply never decides for the reader: "Sign as written" and its kind are dropped under an answer; the chips are questions to ask next or steps to understand and negotiate.
+
 - Shared chat scrolling now respects page and panel layouts, upward gestures and the reader's position while answers arrive (ChatKit 0.17.1).
 
 - A matter conversation loads once when opened instead of reloading on working-status, model-choice or reply changes, preserving messages and reading position.
