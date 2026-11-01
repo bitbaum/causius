@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- In a group chat with other bots, Causius answers only the part that is law and hands a medical or other part over to the bot whose job it is, instead of answering it briefly itself (seen twice on OrangeCat's bots list, 2026-10-31).
+
 - A Swiss non-compete is answered under Swiss law only: the answer no longer imports the German compensation rule (OR 340 to 340c need no compensation; a court may narrow an excessive clause and reduce a disproportionate penalty). Found through the OrangeCat bots list on 2026-10-31.
 
 - A one-tap reply never decides for the reader: "Sign as written" and its kind are dropped under an answer; the chips are questions to ask next or steps to understand and negotiate.
