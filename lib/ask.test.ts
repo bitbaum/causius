@@ -72,6 +72,21 @@ describe("buildAskMessages", () => {
     expect(text).not.toContain("<document>");
   });
 
+  it("keeps to the law in a group: the medical part is handed to its member", () => {
+    // Live, 2026-10-31, twice: in a room with Diplodoctor, Causius answered
+    // "do I even need to see a doctor for a cold?" itself.
+    const system = buildAskMessages(
+      ask({ scene: "## The room\n- @Diplodoctor — health" }),
+    )[0]!.content as string;
+    expect(system).toContain(
+      "answer only the part of the question that is law",
+    );
+    expect(system).toContain("@handle");
+    expect(system.indexOf("answer only the part")).toBeLessThan(
+      system.indexOf("## The room"),
+    );
+  });
+
   it("puts the caller's scene after the rules, before the file", () => {
     const [system] = buildAskMessages(
       ask({
