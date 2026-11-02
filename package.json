@@ -18,7 +18,7 @@
   "packageManager": "pnpm@11.25.0",
   "dependencies": {
     "@better-auth/passkey": "^1.7.10",
-    "@bitbaum/accountkit": "^0.20.0",
+    "@bitbaum/accountkit": "github:bitbaum/accountkit#99d43a4439da4b57a471ebceae98a1203861d070",
     "@bitbaum/ai-kit": "^1.22.0",
     "@bitbaum/chatkit": "^0.22.1",
     "@bitbaum/design-tokens": "1.2.0",
