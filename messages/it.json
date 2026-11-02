@@ -997,7 +997,8 @@
       "lead": "Qualcuno ha chiesto di reimpostare la password del suo account su {site}.",
       "action": "Scegliere una nuova password"
     },
-    "ignore": "Se non è stato lei, ignori questa e-mail — non cambia nulla."
+    "ignore": "Se non è stato lei, ignori questa e-mail — non cambia nulla.",
+    "code": "Su un altro dispositivo? Inserisca questo codice nella pagina in cui ha chiesto il link: {code}"
   },
   "Professions": {
     "kinds": {
