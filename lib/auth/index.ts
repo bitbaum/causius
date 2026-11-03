@@ -1,7 +1,7 @@
 import { isStaff } from "@bitbaum/accountkit/auth";
 import { createAuthRuntime } from "@bitbaum/accountkit/auth/next";
 import { dbConfigured, getDb } from "../db";
-import { mailConfigured, sendAuthMail } from "../mail";
+import { authMail } from "../mail";
 import { SITE } from "../site";
 import { adoptLegacyMatters } from "./legacy";
 
@@ -14,12 +14,7 @@ import { adoptLegacyMatters } from "./legacy";
 export const { GET, POST, getSession, requireUser, authStatus, getAuth } =
   createAuthRuntime({
     site: SITE,
-    mail: {
-      get configured() {
-        return mailConfigured();
-      },
-      send: sendAuthMail,
-    },
+    mail: authMail,
     isDatabaseConfigured: () => dbConfigured(),
     getDatabase: () => getDb(),
     // Matters made while OrangeCat was the only way in belong to the same person.

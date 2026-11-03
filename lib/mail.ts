@@ -1,8 +1,4 @@
-import {
-  conventionalFrom,
-  isMailConfigured,
-  sendMail,
-} from "@bitbaum/mail-kit";
+import { createAuthMailer, spacedCode } from "@bitbaum/accountkit/auth/mail";
 import { createTranslator } from "next-intl";
 import de from "../messages/de.json";
 import en from "../messages/en.json";
@@ -10,14 +6,14 @@ import fr from "../messages/fr.json";
 import it from "../messages/it.json";
 import { withFallback } from "../i18n/request";
 import { defaultLocale, toLocale, type Locale } from "../i18n/routing";
-import { isDeliverable } from "@bitbaum/accountkit/auth";
 import { SITE } from "./site";
 
 /**
  * The account mails: confirm an address, sign in by link, reset a password.
- * Sent through @bitbaum/mail-kit (one provider, one env contract). Never
- * throws, and never logs who it was for or what it carried — a sign-in link in
- * a log is a credential anyone with log access can use.
+ * Written here, in the reader's language; sent by AccountKit's shared mailer
+ * (@bitbaum/mail-kit underneath), which checks the link's origin, skips
+ * addresses that cannot receive mail and adds the sign-in code to the link's
+ * email. Never throws, and never logs who it was for or what it carried.
  */
 export type AuthMail = "verify" | "magicLink" | "reset";
 
@@ -29,15 +25,6 @@ const MESSAGES: Record<Locale, Messages> = {
   it: withFallback(en, it) as Messages,
 };
 
-const mailEnv = () => ({
-  ...process.env,
-  APP_URL: SITE.url,
-  RESEND_FROM: process.env.RESEND_FROM || conventionalFrom(SITE.title),
-});
-
-export function mailConfigured(): boolean {
-  return isMailConfigured(mailEnv());
-}
 
 /**
  * The language a mail is written in, read from the page the person will land
@@ -64,7 +51,12 @@ const escapeHtml = (value: string) =>
       ] ?? c,
   );
 
-export function renderAuthMail(kind: AuthMail, url: string, locale: Locale) {
+export function renderAuthMail(
+  kind: AuthMail,
+  url: string,
+  locale: Locale,
+  code?: string,
+) {
   const t = createTranslator({
     locale,
     messages: MESSAGES[locale],
@@ -75,46 +67,25 @@ export function renderAuthMail(kind: AuthMail, url: string, locale: Locale) {
   const lead = t(`${kind}.lead`, values);
   const action = t(`${kind}.action`);
   const ignore = t("ignore");
+  const codeLine = code ? t("code", { code: spacedCode(code) }) : null;
   const href = escapeHtml(url);
   const html = `<!doctype html><html lang="${locale}"><body style="font-family:system-ui,sans-serif;line-height:1.5">
 <p>${escapeHtml(lead)}</p>
 <p><a href="${href}">${escapeHtml(action)}</a></p>
-<p style="color:#555">${escapeHtml(ignore)}</p>
+${codeLine ? `<p>${escapeHtml(codeLine)}</p>\n` : ""}<p style="color:#555">${escapeHtml(ignore)}</p>
 </body></html>`;
-  const textBody = `${lead}\n\n${action}: ${url}\n\n${ignore}\n`;
+  const textBody = `${lead}\n\n${action}: ${url}\n\n${codeLine ? `${codeLine}\n\n` : ""}${ignore}\n`;
   return { subject, html, text: textBody };
 }
 
-export async function sendAuthMail(
-  kind: AuthMail,
-  to: string,
-  url: string,
-): Promise<void> {
-  if (!isDeliverable(to)) return;
-  try {
-    if (new URL(url).origin !== new URL(SITE.url).origin) {
-      console.error("[mail] account link origin refused");
-      return;
-    }
-  } catch {
-    console.error("[mail] invalid account link refused");
-    return;
-  }
-  if (!mailConfigured()) {
-    // Development may request a link without a sender. Never log its bearer
-    // credential, including locally; report only that delivery is unavailable.
-    if (process.env.NODE_ENV === "development")
-      console.warn(`[mail] not configured — ${kind} delivery unavailable`);
-    return;
-  }
-  const { subject, html, text } = renderAuthMail(kind, url, localeOfLink(url));
-  const result = await sendMail(
-    { to, subject, html, text },
-    { env: mailEnv() },
-  );
-  if (!result.sent) {
-    console.error(
-      `[mail] ${kind} not sent (status ${result.status ?? "none"}, retryable ${result.retryable})`,
-    );
-  }
-}
+export const authMail = createAuthMailer({
+  site: SITE,
+  codes: true,
+  render: (kind, url, extra) =>
+    renderAuthMail(kind, url, localeOfLink(url), extra.code),
+});
+
+export const mailConfigured = (): boolean => authMail.configured;
+
+export const sendAuthMail: typeof authMail.send = (kind, to, url, extra) =>
+  authMail.send(kind, to, url, extra);
