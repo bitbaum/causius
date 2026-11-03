@@ -21,8 +21,8 @@ importers:
         specifier: ^0.22.1
         version: 0.22.1(react@19.2.4)
       '@bitbaum/design-tokens':
-        specifier: ^1.5.1
-        version: 1.5.1
+        specifier: ^1.5.2
+        version: 1.5.2
       '@bitbaum/mail-kit':
         specifier: ^0.2.0
         version: 0.2.0
@@ -307,8 +307,8 @@ packages:
     peerDependencies:
       react: '>=18'
 
-  '@bitbaum/design-tokens@1.5.1':
-    resolution: {integrity: sha512-yFVbzG0mMxUogvA8MLnvTxuH+mqxGYLeMvwdyJEXLJt3+2IZb+j/zdZ42Rz0Xe5cYuWga60SNVPGZxuF8T1dew==}
+  '@bitbaum/design-tokens@1.5.2':
+    resolution: {integrity: sha512-ScF091XRs5ph109PkRgI3t5w3eersltlJUGea64MPItqXaT5asXM2x3Gj4t6THuFGojZ2pvMLAtuOc3DTmCoTg==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -4049,7 +4049,7 @@ snapshots:
       pdfjs-dist: 6.4.299
       react: 19.2.4
 
-  '@bitbaum/design-tokens@1.5.1': {}
+  '@bitbaum/design-tokens@1.5.2': {}
 
   '@bitbaum/listkit@0.2.2': {}
 
