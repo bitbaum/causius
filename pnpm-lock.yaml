@@ -17,12 +17,18 @@ importers:
       '@bitbaum/ai-kit':
         specifier: ^1.24.0
         version: 1.24.0(react@19.2.4)
+      '@bitbaum/bip-kit':
+        specifier: ^0.6.1
+        version: 0.6.1(react@19.2.4)
       '@bitbaum/chatkit':
         specifier: ^0.23.0
         version: 0.23.0(react@19.2.4)
       '@bitbaum/design-tokens':
         specifier: ^1.5.2
         version: 1.5.2
+      '@bitbaum/limitkit':
+        specifier: ^0.2.1
+        version: 0.2.1
       '@bitbaum/mail-kit':
         specifier: ^0.3.0
         version: 0.3.0
@@ -32,15 +38,9 @@ importers:
       better-auth:
         specifier: ^1.7.10
         version: 1.7.12(drizzle-kit@0.31.11)(drizzle-orm@0.45.4(@electric-sql/pglite@0.5.8)(@types/pg@8.23.1)(kysely@0.29.6)(pg@8.23.1))(next@16.4.2(@babel/core@7.29.7(supports-color@7.2.0))(@types/node@26.6.4)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pg@8.23.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vitest@4.1.11(@types/node@26.6.4)(vite@8.3.4(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)))
-      bip-kit:
-        specifier: ^0.6.1
-        version: 0.6.1(react@19.2.4)
       drizzle-orm:
         specifier: ^0.45.4
         version: 0.45.4(@electric-sql/pglite@0.5.8)(@types/pg@8.23.1)(kysely@0.29.6)(pg@8.23.1)
-      limitkit:
-        specifier: ^0.2.1
-        version: 0.2.1
       listkit:
         specifier: npm:@bitbaum/listkit@^0.2.2
         version: '@bitbaum/listkit@0.2.2'
@@ -300,6 +300,22 @@ packages:
       react:
         optional: true
 
+  '@bitbaum/bip-kit@0.6.1':
+    resolution: {integrity: sha512-bDcAeO3+X+Dh+TVKioYWoYBdk3bgSFJSUMR4Af5K2qemRXjN4bfPrSUQWWDH7s2UlOIf297Ot28/0WPij7wVvQ==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      katex: '>=0.16'
+      mermaid: '>=10'
+      react: '>=18'
+      shiki: '>=1'
+    peerDependenciesMeta:
+      katex:
+        optional: true
+      mermaid:
+        optional: true
+      shiki:
+        optional: true
+
   '@bitbaum/chatkit@0.23.0':
     resolution: {integrity: sha512-iI7tyLcN7Zj3tXN9xZsb7Ixa2VPoDnuMX2taEzb2S1wMtV1A2A7tKfCJsqZp2GELrBCJTH9j59f6djbBF1H1RA==}
     engines: {node: '>=20'}
@@ -311,6 +327,10 @@ packages:
     resolution: {integrity: sha512-ScF091XRs5ph109PkRgI3t5w3eersltlJUGea64MPItqXaT5asXM2x3Gj4t6THuFGojZ2pvMLAtuOc3DTmCoTg==}
     engines: {node: '>=20'}
     hasBin: true
+
+  '@bitbaum/limitkit@0.2.1':
+    resolution: {integrity: sha512-YXDSHLji3Q3MTu0zh6GguQnesCWU9gSyTRPZs7TZp+Tj16L1KOCRP7jk196wPCeTe15gPMODbgsnPXnkYGITyQ==}
+    engines: {node: '>=20'}
 
   '@bitbaum/listkit@0.2.2':
     resolution: {integrity: sha512-MS7SpPodTaxXYccXW565M3sIYaDCHSpWFlJB77FdkE/fM7uktxn0u25p0BSWC97i4U6uCqPedYVt1xV34sGXnQ==}
@@ -2099,22 +2119,6 @@ packages:
       zod: ^4.0.0
     peerDependenciesMeta:
       zod:
-        optional: true
-
-  bip-kit@0.6.1:
-    resolution: {integrity: sha512-lwWnRDCuhrO5YzBeaASjQwVoyIcDwGqEH3cskqa2ylIgyPagtVE6+ppDze+rkEBzVmKkUXREW5ydXOr2Kw3Oow==}
-    engines: {node: '>=20'}
-    peerDependencies:
-      katex: '>=0.16'
-      mermaid: '>=10'
-      react: '>=18'
-      shiki: '>=1'
-    peerDependenciesMeta:
-      katex:
-        optional: true
-      mermaid:
-        optional: true
-      shiki:
         optional: true
 
   boolbase@2.0.0:
@@ -4044,12 +4048,18 @@ snapshots:
     transitivePeerDependencies:
       - canvas
 
+  '@bitbaum/bip-kit@0.6.1(react@19.2.4)':
+    dependencies:
+      react: 19.2.4
+
   '@bitbaum/chatkit@0.23.0(react@19.2.4)':
     dependencies:
       pdfjs-dist: 6.4.299
       react: 19.2.4
 
   '@bitbaum/design-tokens@1.5.2': {}
+
+  '@bitbaum/limitkit@0.2.1': {}
 
   '@bitbaum/listkit@0.2.2': {}
 
@@ -5408,10 +5418,6 @@ snapshots:
       set-cookie-parser: 3.1.3
     optionalDependencies:
       zod: 4.6.6
-
-  bip-kit@0.6.1(react@19.2.4):
-    dependencies:
-      react: 19.2.4
 
   boolbase@2.0.0: {}
 

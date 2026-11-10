@@ -732,7 +732,7 @@
       },
       "limits": {
         "label": "Limites de débit",
-        "value": "limitkit"
+        "value": "@bitbaum/limitkit"
       },
       "languages": {
         "label": "Langues",

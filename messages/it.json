@@ -732,7 +732,7 @@
       },
       "limits": {
         "label": "Limiti di frequenza",
-        "value": "limitkit"
+        "value": "@bitbaum/limitkit"
       },
       "languages": {
         "label": "Lingue",

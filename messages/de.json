@@ -732,7 +732,7 @@
       },
       "limits": {
         "label": "Ratenbegrenzung",
-        "value": "limitkit"
+        "value": "@bitbaum/limitkit"
       },
       "languages": {
         "label": "Sprachen",

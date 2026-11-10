@@ -1,4 +1,4 @@
-import { clientIp, slidingWindow, toHeaders } from "limitkit";
+import { clientIp, slidingWindow, toHeaders } from "@bitbaum/limitkit";
 
 /**
  * Rate limits, as limitkit decisions. In-memory and per process, which is the

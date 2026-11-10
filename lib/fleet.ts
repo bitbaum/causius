@@ -1,4 +1,4 @@
-import { developmentProfileFromMap, type DevelopmentProfile } from "bip-kit";
+import { developmentProfileFromMap, type DevelopmentProfile } from "@bitbaum/bip-kit";
 import { z } from "zod";
 
 /**
