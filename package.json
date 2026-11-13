@@ -21,7 +21,7 @@
     "@bitbaum/accountkit": "^0.27.0",
     "@bitbaum/ai-kit": "^1.26.0",
     "@bitbaum/bip-kit": "^0.6.1",
-    "@bitbaum/chatkit": "^0.29.0",
+    "@bitbaum/chatkit": "^0.31.1",
     "@bitbaum/design-tokens": "^1.5.2",
     "@bitbaum/limitkit": "^0.2.1",
     "@bitbaum/mail-kit": "^0.3.0",
