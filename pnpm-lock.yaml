@@ -21,8 +21,8 @@ importers:
         specifier: ^0.6.1
         version: 0.6.1(react@19.2.4)
       '@bitbaum/chatkit':
-        specifier: ^0.31.2
-        version: 0.31.2(react@19.2.4)
+        specifier: ^0.31.3
+        version: 0.31.3(react@19.2.4)
       '@bitbaum/design-tokens':
         specifier: ^1.5.2
         version: 1.5.2
@@ -313,8 +313,8 @@ packages:
       shiki:
         optional: true
 
-  '@bitbaum/chatkit@0.31.2':
-    resolution: {integrity: sha512-2uJAg+6VM86aXADwqHkgdVAjr4/uv8FEt5L/xbYs18o4RRlRvrVMnQOOGLwdUsIAU62aMkqxQ7bcpNebw6wFsw==}
+  '@bitbaum/chatkit@0.31.3':
+    resolution: {integrity: sha512-WfYzac8+uqPUpgKsaoYUOJFoUvgXRJaCdwX5YVuwZuhh+1cF9IPg1tMtw2l/SDG8V9IeLo6QiEJGuqw0cpkszw==}
     engines: {node: '>=20'}
     hasBin: true
     peerDependencies:
@@ -345,8 +345,8 @@ packages:
       react:
         optional: true
 
-  '@bitbaum/threadkit@0.1.1':
-    resolution: {integrity: sha512-tNsM2bVHBzmXaNzrsMeDipjNUssTwgeRIUVLA+SzzPOUSa21wgzX5Majo9HfEtTR4gxyHCrIFYzUWsvbdAkrRw==}
+  '@bitbaum/threadkit@0.1.2':
+    resolution: {integrity: sha512-DzM0A/xlOfJStLpoiqleJUEbLSatxAUpUXihvgz5U+ZABLnQ7nCdMT32dz0C6nyKXEXfrnnEakbsChluTFXwSA==}
     engines: {node: '>=20'}
 
   '@cacheable/memory@2.2.0':
@@ -4055,9 +4055,9 @@ snapshots:
     dependencies:
       react: 19.2.4
 
-  '@bitbaum/chatkit@0.31.2(react@19.2.4)':
+  '@bitbaum/chatkit@0.31.3(react@19.2.4)':
     dependencies:
-      '@bitbaum/threadkit': 0.1.1
+      '@bitbaum/threadkit': 0.1.2
       pdfjs-dist: 6.4.299
       react: 19.2.4
 
@@ -4073,7 +4073,7 @@ snapshots:
     optionalDependencies:
       react: 19.2.4
 
-  '@bitbaum/threadkit@0.1.1': {}
+  '@bitbaum/threadkit@0.1.2': {}
 
   '@cacheable/memory@2.2.0':
     dependencies:
