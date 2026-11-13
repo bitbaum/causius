@@ -37,7 +37,7 @@ jobs:
           [ -n "$src" ] || { echo "::error::no Heidi runtime env found"; exit 1; }
           [ -n "$dst" ] || { echo "::error::no Causius runtime env found"; exit 1; }
           added=""
-          for name in GROQ_API_KEY GEMINI_API_KEY OPENROUTER_API_KEY; do
+          for name in GROQ_API_KEY OPENROUTER_API_KEY; do
             if grep -q "^${name}=" "$dst"; then echo "$name already set for Causius; left as it is"; continue; fi
             line=$(grep -m1 "^${name}=" "$src" || true)
             [ -n "$line" ] || { echo "$name not present in Heidi's env"; continue; }
