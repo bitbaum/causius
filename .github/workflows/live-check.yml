@@ -54,7 +54,7 @@ jobs:
           body=$(curl -s --max-time 20 https://causius.orangecat.ch/api/health)
           echo "::notice::health $body"
           echo "$body" | grep -q '"text":true' || { echo "::error::free analysis is OFF: no shared model key reaches the app"; exit 1; }
-          echo "$body" | grep -q '"photo":true' || echo "::warning::photos cannot be read by the free models (needs GEMINI_API_KEY or OPENROUTER_API_KEY)"
+          echo "$body" | grep -q '"photo":true' || echo "::warning::photos cannot be read by the free models (needs OPENROUTER_API_KEY)"
 
       - name: Matters and sign-in are switched on
         run: |
