@@ -128,7 +128,7 @@ and the intake page offers your own model or filing by hand.
 
 | Variable | Effect |
 | --- | --- |
-| `GROQ_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY` | The shared free chain. Any one switches free analysis on. A photo needs Gemini or OpenRouter: Groq's free models cannot read images. |
+| `GROQ_API_KEY`, `OPENROUTER_API_KEY` | The shared free chain (Groq, then OpenRouter's `:free` models). Either one switches free analysis on. A photo needs OpenRouter: Groq's free models cannot read images. `GEMINI_API_KEY` is not read: Google bills that key. |
 | `CAUSIUS_MODEL` | Optional. Start the chain at this model instead of the front. |
 | `CAUSIUS_GROQ_MODELS` and the like | Optional per-vendor overrides, read by ai-kit's `freeChain("CAUSIUS")`. |
 
